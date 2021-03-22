@@ -1,0 +1,8 @@
+book_filename: "StatsThinking21"
+language:
+  label:
+    fig: 'Figura '
+    tab: 'Tabla '
+  ui:
+    chapter_name: "Capitulo "
+delete_merged_file: true

@@ -1,0 +1,5 @@
+"0","kable(sleepTable, caption='Distribución de frecuencias del número de horas de sueño por noche en la base de datos NHANES')
+"
+"2","Error in gsub(""\"""", ""\\\"""", string, fixed = TRUE) : 
+  input string 2 is invalid UTF-8
+"

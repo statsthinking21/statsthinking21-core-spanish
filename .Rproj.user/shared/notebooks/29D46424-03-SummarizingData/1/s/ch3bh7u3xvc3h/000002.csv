@@ -1,0 +1,12 @@
+"0","PhysActive_table_filtered <- NHANES %>%
+  drop_na(PhysActive) %>%
+  dplyr::select(PhysActive) %>%
+  group_by(PhysActive) %>%
+  summarize(AbsoluteFrequency = n()) %>%
+  mutate(
+    RelativeFrequency = AbsoluteFrequency / sum(AbsoluteFrequency),
+    Percentage = RelativeFrequency * 100
+  )
+"
+"2","`summarise()` ungrouping output (override with `.groups` argument)
+"

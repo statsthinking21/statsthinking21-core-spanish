@@ -1,0 +1,385 @@
+---
+output:
+  bookdown::gitbook:
+    lib_dir: "book_assets"
+    includes:
+      in_header: google_analytics.html
+  pdf_document: default
+  html_document: default
+---
+<!-- # Doing reproducible research -->
+# Hacer investigación reproducible {#doing-reproducible-research}
+
+```{r echo=FALSE,warning=FALSE,message=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(cowplot)
+
+set.seed(123456) # set random seed to exactly replicate results
+
+# setup colorblind palette
+# from http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/#a-colorblind-friendly-palette
+# The palette with grey:
+cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+
+```
+
+
+<!-- Most people think that science is a reliable way to answer questions about the world.  When our physician prescribes a treatment we trust that it has been shown to be effective through research, and we have similar faith that the airplanes that we fly in aren't going to fall from the sky.  However, since 2005 there has been an increasing concern that science may not always work as well as we have long thought that it does.  In this chapter we will discuss these concerns about reproducibility of scientific research, and outline the steps that one can take to make sure that our statistical results are as reproducible as possible. -->
+La mayoría de la gente piensa que la ciencia es una manera confiable de contestar preguntas acerca del mundo. Cuando nuestro médico prescribe un tratamiento confiamos en que el tratamiento ha demostrado efecto a través de investigación, y tenemos una fe similar en que los aviones sobre los que volamos no se van a caer desde el cielo. Sin embargo, desde 2005 ha habido una creciente preocupación de que la ciencia podría no siempre trabajar tan bien como pensábamos que lo hacía. En este capítulo discutiremos estas preocupaciones acerca de la reproducibilidad de la investigación científica, y esbozaremos los pasos que uno podría tomar para asegurarse que nuestros resultados estadísticos sean tan reproducibles como sea posible.
+
+<!-- ## How we think science should work -->
+## Cómo pensamos que funciona la ciencia
+
+<!-- Let's say that we are interested in a research project on how children choose what to eat. This is a question that was asked in a study by the well-known eating researcher Brian Wansink and his colleagues in 2012.  The standard (and, as we will see, somewhat naive) view goes something like this: -->
+Digamos que estamos interesados en un proyecto de investigación sobre cómo los niños escogen lo que comen. Esta es una pregunta que fue realizada por un estudio de un investigador muy conocido en temas de hábitos alimenticios, Brian Wansink, y sus colegas en 2012. La visión estándar (y, como veremos, algo ingenua) propone algo como esto:
+
+<!-- * You start with a hypothesis -->
+* Comienzas con una hipótesis.
+<!--     * Branding with popular characters should cause children to choose “healthy” food more often} -->
+	* Etiquetar comidas con personajes populares deberían causar que los niños elijan comidas "saludables" más frecuentemente.
+<!-- * You collect some data -->
+* Recolectas algunos datos.
+<!--     * Offer children the choice between a cookie and an apple with either an Elmo-branded sticker or a control sticker, and record what they choose -->
+	* Ofreces a niños la decisión de comer entre una galleta o una manzana, etiquetados ya sea con un Elmo o con una etiqueta control, y registras lo que eligieron.
+<!-- * You do statistics to test the null hypothesis -->
+* Realizas análisis estadísticos para probar la hipótesis nula.
+<!--     * "The preplanned comparison shows Elmo-branded apples were associated with an increase in a child’s selection of an apple over a cookie, from 20.7% to 33.8% ($\chi^2$=5.158; P=.02)" [@wans:just:payn:2012] -->
+	* "La comparación preplaneada muestra que las manzanas etiquetadas con Elmo se asociacion con un incremento en la selección de los niños por sobre una galleta, de 20.7% a 33.8% ($\chi^2$=5.158; P=.02)" [@wans:just:payn:2012].
+<!-- * You make a conclusion based on the data -->
+* Llegas a una conclusión basado en los datos.
+    <!-- * "This study suggests that the use of branding or appealing branded characters may benefit healthier foods more than they benefit indulgent, more highly processed foods. Just as attractive names have been shown to increase the selection of healthier foods in school lunchrooms, brands and cartoon characters could do the same with young children." -->
+	* "Este estudio sugiere que el uso de etiquetados con personajes atractivos puede beneficiar comidas salubles más de lo que beneficiarían comidas más indulgentes y altamente procesadas. Así como nombres atractivos han mostrado incrementar la selección de comidas saludables en cafeterías escolares, marcas y personajes de caricaturas podrían hacer lo mismo con niños pequeños" [@wans:just:payn:2012].
+  
+<!-- ## How science (sometimes) actually works -->
+## Cómo realmente funciona la ciencia (a veces)
+
+Brian Wansink is well known for his books on "Mindless Eating", and his fee for corporate speaking engagements is in the tens of thousands of dollars.  In 2017, a set of researchers began to scrutinize some of his published research, starting with a set of papers about how much pizza people ate at a buffet.  The researchers asked Wansink to share the data from the studies but he refused, so they dug into his published papers and found a large number of inconsistencies and statistical problems in the papers.  The publicity around this analysis led a number of others to dig into Wansink's past, including obtaining emails between Wansink and his collaborators.  As [reported by Stephanie Lee at Buzzfeed](https://www.buzzfeednews.com/article/stephaniemlee/brian-wansink-cornell-p-hacking), these emails showed just how far Wansink's actual research practices were from the naive model:
+Brian Wansink es muy reconocido por sus libros sobre "Mindless Eating", y sus honorarios por dar charlas corporativas están en las decenas de miles de dólares. En 2017, un grupo de investigadores comenzó a examinar algunos de sus investigaciones publicadas, comenzando por un conjunto de artículos acerca de cuánta pizza come la gente en un buffet. Los investigadores pidieron a Wansink que compartiera sus datos de esos estudios pero él se rehusó, por lo que excavaron en sus artículos publicados y encontraron un gran número de inconsistencias y problemas estadísticos. La publicidad alrededor de este análisis llevó a un número de otros investigadores a examinar el pasado de Wansink, incluyendo el obtener emails entre Wansink y sus colaboradores. Como [reportó Stephani Lee en Buzzfeed](https://www.buzzfeednews.com/article/stephaniemlee/brian-wansink-cornell-p-hacking), estos emails mostraron justo qué tan lejos estaban las prácticas reales de investigación de Wansink del modelo ingenuo de hacer ciencia:
+
+<!-- >…back in September 2008, when Payne was looking over the data soon after it had been collected, he found no strong apples-and-Elmo link — at least not yet. ... -->
+>…en septiembre de 2008, cuando Payne estaba revisando los datos después de haber sido recolectados, él no encontró una fuerte relación entre manzanas-y-Elmo - al menos aún no. ...
+<!-- “I have attached some initial results of the kid study to this message for your report,” Payne wrote to his collaborators. “Do not despair. It looks like stickers on fruit may work (with a bit more wizardry).” ... -->
+"He adjuntado en este mensaje unos resultados iniciales del estudio de niños para tu reporte", escribió Payne a sus colaboradores. "No se desanimen. Parece que las etiquetas en las frutas podrían funcionar (con un poco más de magia)." ...
+<!-- Wansink also acknowledged the paper was weak as he was preparing to submit it to journals. The p-value was 0.06, just shy of the gold standard cutoff of 0.05. It was a “sticking point,” as he put it in a Jan. 7, 2012, email. ... -->
+Wansink también reconoció que el artículo era débil mientras lo preparaba para enviar a las revistas. El valor p era de 0.06, sólo un poco por arriba del estándar de oro del punto de corte de 0.05. Era un "escollo", como lo mencionó en un email el 7 de enero de 2012. ...
+<!-- “It seems to me it should be lower,” he wrote, attaching a draft. “Do you want to take a look at it and see what you think. If you can get the data, and it needs some tweeking, it would be good to get that one value below .05.” ... -->
+"Me parece que debería ser más bajo", escribió, adjuntando un borrador. "Quieren darle un vistazo y ver qué piensan. Si pueden tener los datos, y necesitan algunos ajustes, sería bueno lograr que ese valor sea menor que .05". ...
+<!-- Later in 2012, the study appeared in the prestigious JAMA Pediatrics, the 0.06 p-value intact. But in September 2017, it was retracted and replaced with a version that listed a p-value of 0.02. And a month later, it was retracted yet again for an entirely different reason: Wansink admitted that the experiment had not been done on 8- to 11-year-olds, as he’d originally claimed, but on preschoolers. -->
+Después, en 2012, el estudio apareció en la prestigiosa JAMA Pediatrics, con el valor p de 0.06 intacto. Pero en septiembre de 2017, fue retractado y reemplazado con una versión que reporta un valor p de 0.02. Y un mes después, fue retractado de nuevo por una razón completamente diferente: Wansink admitió que el experimento no había sido realizado con niños de 8 a 11 años, como originalmente habían reportado, sino con preescolares.
+
+<!-- This kind of behavior finally caught up with Wansink; [fifteen of his research studies have been retracted](https://www.vox.com/science-and-health/2018/9/19/17879102/brian-wansink-cornell-food-brand-lab-retractions-jama) and in 2018 he resigned from his faculty position at Cornell University. -->
+Este tipo de comportamientos finalmente atrapó a Wansink; [quince de sus estudios publicados han sido retractados](https://www.vox.com/science-and-health/2018/9/19/17879102/brian-wansink-cornell-food-brand-lab-retractions-jama) y en 2018 renunció a su cargo como profesor en Cornell University.
+
+<!-- ## The reproducibility crisis in science -->
+## La crisis de reproducibilidad en la ciencia
+
+<!-- While we think that the kind of frauduent behavior seen in Wansink's case is relatively rare, it has become increasingly clear that problems with reproducibility are much more widespread in science than previously thought.  This became particularly evident in 2015, when a large group of researchers published a study in the journal *Science* titled "Estimating the reproducibility of psychological science"[@open:2015]. In this paper, the researchers took 100 published studies in psychology and attempted to reproduce the results originally reported in the papers.  Their findings were shocking: Whereas 97% of the original papers had reported statistically significant findings, only 37% of these effects were statistically significant in the replication study.  Although these problems in psychology have received a great deal of attention, they seem to be present in nearly every area of science, from cancer biology [@erri:iorn:gunn:2014] and chemistry [@bake:2017] to economics [@NBERw22989] and the social sciences [@Camerer2018EvaluatingTR]. -->
+Mientras que pensamos que el tipo de comportamiento fraudulento visto en el caso de Wansink es relativamente raro, se ha vuelto crecientemente claro que los problemas con la reproducibilidad son mucho más generalizados en la ciencia de lo que se pensaba. Esto se volvió particularmente evidente en 2015, cuando un grupo grande de investigadores publicó un estudio en la revista *Science* titulado "Estimating the reproducibility of psychological science"[@open:2015]. En este artículo, los investigadores tomaron 100 estudios publicados en psicología e intentaron reproducir los resultados originalmente reportados en los artículos. Sus hallazgos fueron desconcertantes: Mientras que 97% de los artículos originales había reportado resultados estadísticamente significativos, sólo 37% de estos efectos fueron estadísticamente significativos en el estudio de replicación. Aunque estos problemas en psicología han recibido una gran atención, parecen estar presentes en casi todas las áreas de la ciencia, desde biología de cáncer [@erri:iorn:gunn:2014] y química [@bake:2017] hasta economía [@NBERw22989] y ciencias sociales [@Camerer2018EvaluatingTR].
+
+<!-- The reproducibility crisis that emerged after 2010 was actually predicted by John Ioannidis, a physician from Stanford who wrote a paper in 2005 titled "Why most published research findings are false"[@ioan:2005].  In this article, Ioannidis argued that the use of null hypothesis statistical testing in the context of modern science will necessarily lead to high levels of false results.  -->
+La crisis de reproducibilidad que emergió después de 2010 fue realmente predicha por John Ioannidis, un médico de Stanford quien escribió un artículo en 2005 titulado "Why most published research findings are false"[@ioan:2005]. En este artículo, Ioannidis argumentó que el uso de la prueba estadística de hipótesis nula en el contexto de la ciencia moderna necesariemente llevaría a altos niveles de resultados falsos.
+
+<!-- ### Positive predictive value and statistical significance -->
+### Valor predictivo positivo y significatividad estadística
+
+<!-- Ioannidis' analysis focused on a concept known as the *positive predictive value*, which is defined as the proportion of positive results (which generally translates to "statistically significant findings") that are true: -->
+El análisis de Ioannidis se enfocó en un concepto conocido como el *valor predictivo positivo* (*positive predictive value*, PPV), que es definido como la proporción de resultados positivos (que generalmente se traduce a "hallazgos estadísticamente significativos") que son verdaderos:
+
+$$
+PPV = \frac{p(true\ positive\ result)}{p(true\ positive\ result) + p(false\ positive\ result)}
+$$
+<!-- Assuming that we know the probability that our hypothesis is true ($p(hIsTrue)$), then the probability of a true positive result is simply $p(hIsTrue)$ multiplied by the statistical power of the study: -->
+Asumiendo que conocemos la probabilidad de que nuestra hipótesis sea verdadera ($p(hIsTrue)$), entonces la probabilidad de un resultado positivo verdadero es simplemente $p(hIsTrue)$ multiplicado por el poder estadístico del estudio:
+
+$$
+p(true\ positive\ result) = p(hIsTrue) * (1 - \beta)
+$$
+<!-- were $\beta$ is the false negative rate.  The probability of a false positive result is determined by $p(hIsTrue)$ and the false positive rate $\alpha$: -->
+donde $\beta$ es la tasa de falsos negativos. La probabilidad de un resultados falso positivo está determinada por $p(hIsTrue)$ y la tasa de falsos positivos $\alpha$:
+
+$$
+p(false\ positive\ result) = (1 - p(hIsTrue)) * \alpha
+$$
+
+<!-- PPV is then defined as: -->
+PPV entonces se define como:
+
+$$
+PPV = \frac{p(hIsTrue) * (1 - \beta)}{p(hIsTrue) * (1 - \beta) + (1 - p(hIsTrue)) * \alpha}
+$$
+
+<!-- Let's first take an example where the probability of our hypothesis being true is high, say 0.8 - though note that in general we cannot actually know this probability.  Let's say that we perform a study with the standard values of $\alpha=0.05$ and $\beta=0.2$.  We can compute the PPV as: -->
+Primero veamos un ejemplo donde la probabilidad de que nuestra hipótesis sea verdadera es alta, digamos 0.8 - aunque nota que en general no podemos saber realmente esta probabilidad. Digamos que realizamos un estudio con los valores estándar de $\alpha=0.05$ y $\beta=0.2$. Podemos calcular el PPV como:
+
+$$
+PPV = \frac{0.8 * (1 - 0.2)}{0.8 * (1 - 0.2) + (1 - 0.8) * 0.05} = 0.98
+$$
+<!-- This means that if we find a positive result in a study where the hypothesis is likely to be true and power is high, then its likelihood of being true is high.  Note, however, that a research field where the hypotheses have such a high likelihood of being true is probably not a very interesting field of research; research is most important when it tells us something unexpected!   -->
+Esto significa que si encontramos un resultado positivo en un estudio donde la hipótesis es probable que sea verdadera y el poder es alto, entonces la probabilidad de acertar es alto. Nota, sin embargo, que un campo de investigación donde las hipótesis tienen tan alta probabilidad de ser verdaderas no es probablemente un campo de estudio muy interesante; ¡la investigación es más importante cuando nos dice algo inesperado!
+
+<!-- Let's do the same analysis for a field where $p(hIsTrue)=0.1$ -- that is, most of the hypotheses being tested are false.  In this case, PPV is: -->
+Hagamos este mismo análisis para un campo donde $p(hIsTrue)=0.1$ -- esto es, la mayoría de las hipótesis siendo probadas son falsas. En este caso, PPV es:
+
+$$
+PPV = \frac{0.1 * (1 - 0.2)}{0.1 * (1 - 0.2) + (1 - 0.1) * 0.05} = 0.307
+$$
+
+<!-- This means that in a field where most of the hypotheses are likely to be wrong (that is, an interesting scientific field where researchers are testing risky hypotheses), even when we find a positive result it is more likely to be false than true!  In fact, this is just another example of the base rate effect that we discussed in the context of hypothesis testing -- when an outcome is unlikely, then it's almost certain that most positive outcomes will be false positives. -->
+Esto significa que en un campo donde la mayoría de las hipótesis son probablemente erróneas (esto es, un campo científico interesante donde los investigadores están probando hipótesis arriesgadas), ¡incluso cuando encontramos un resultado positivo es más probable estar equivocados que en lo correcto! De hecho, este es sólo otro ejemplo del efecto de tasa base que discutimos en el contexto de la prueba de hipótesis -- cuando un resultado es improbable, entonces es casi seguro que la mayoría de los resultados positivos serán falsos positivos.
+
+<!-- We can simulate this to show how PPV relates to statistical power, as a function of the prior probability of the hypothesis being true (see Figure \@ref(fig:PPVsim)) -->
+Podemos simular esto mostrando cómo el PPV se relaciona con el poder estadístico, como una función de la probabilidad previa (prior probability) de que la hipótesis sea cierta/verdadera (ve la Figura \@ref(fig:PPVsim)). 
+
+<!-- A simulation of posterior predictive value as a function of statistical power (plotted on the x axis) and prior probability of the hypothesis being true (plotted as separate lines). -->
+```{r PPVsim, echo=FALSE,fig.cap='Una simulación del valor predictivo posterior como una función del poder estadístico (graficado en el eje X) y la probabilidad previa de que la hipótesis sea cierta (graficada como líneas separadas).',fig.width=6,fig.height=4,out.height='50%'}
+
+alpha=0.05  # false positive rate
+beta = seq(1.,0.05,-0.05)  # false negative rate
+powerVals = 1-beta
+priorVals=c(.01,0.1,0.5,0.9)
+
+nstudies=100
+
+df=data.frame(power=rep(powerVals,length(priorVals))) %>%
+  mutate(priorVal=kronecker(priorVals,rep(1,length(powerVals))),
+         alpha=alpha)
+
+
+# Positive Predictive Value (PPV) - the likelihood that a positive finding is true
+PPV = function(df) {
+  df$PPV = (df$power*df$priorVal)/(df$power*df$priorVal + df$alpha*(1-df$priorVal))
+  return(df)
+}
+
+df=PPV(df)
+ggplot(df,aes(power,PPV,linetype=as.factor(priorVal))) + 
+  geom_line(size=1) + 
+  ylim(0,1) +
+  xlim(0,1) +
+  ylab('Posterior predictive value (PPV)')
+
+```
+
+<!-- Unfortunately, statistical power remains low in many areas of science [@smal:mcel:2016], suggesting that many published research findings are false.  -->
+Desafortunadamente, el poder estadístico se mantiene bajo en muchas áreas de la ciencia [@smal:mcel:2016], sugiriendo que muchos hallazgos científicos reportados son falsos.
+
+<!-- An amusing example of this was seen in a paper by Jonathan Schoenfeld and John Ioannidis, titled "Is everything we eat associated with cancer? A systematic cookbook review"[scho:ioan:2013].  They examined a large number of papers that had assessed the relation between different foods and cancer risk, and found that 80% of ingredients had been associated with either increased or decreased cancer risk.  In most of these cases, the statistical evidence was weak, and when the results were combined across studies, the result was null. -->
+Un ejemplo entretenido de esto se vio en un artículo de Jonathan Schoenfeld y John Ioannidis, titulado "Is everything we eat associated with cancer? A systematic cookbook review"[scho:ioan:2013]. Ellos examinaron un gran número de artículos que habían evaluado la relación entre diferentes comidas y el riesgo de desarrollar cáncer, y encontraron que 80% de los ingredientes habían sido asociados con un incremento o un decremento del riesgo de desarrollar cáncer. En la mayoría de los casos, la evidencia estadística era débil, y cuando los resultados eran combinados entre estudios, el resultado era nulo.
+
+<!-- ### The winner's curse -->
+### La maldición del ganador
+
+<!-- Another kind of error can also occur when statistical power is low: Our estimates of the effect size will be inflated.  This phenomenon often goes by the term "winner's curse", which comes from economics, where it refers to the fact that for certain types of auctions (where the value is the same for everyone, like a jar of quarters, and the bids are private), the winner is guaranteed to pay more than the good is worth.  In science, the winner's curse refers to the fact that the effect size estimated from a significant result (i.e. a winner) is almost always an overestimate of the true effect size. -->
+Otro tipo de error puede ocurrir cuando el poder estadístico es bajo: Nuestros estimados del tamaño del efecto estarán inflados. A este fenómeno frecuentemente se le conoce como la "maldición del ganador" ("winner's curse"), que viene de la economía, donde se refiere al hecho de que en ciertos tipos de subastas (donde el valor es el mismo para todos, como un jarrón con monedas, y donde las ofertas son privadas), está garantizado que el ganador pagará más de lo que vale lo subastado. En ciencia, la maldición del ganador se refiere al hecho de que el tamaño del efecto estimado de un resultado significativo (i.e. un ganador) es casi siempre una sobreestimación del verdadero tamaño del efecto.
+
+<!-- We can simulate this in order to see how the estimated effect size for significant results is related to the actual underlying effect size. Let's generate data for which there is a true effect size of d = 0.2, and estimate the effect size for those results where there is a significant effect detected. The left panel of Figure \@ref(fig:CurseSim) shows that when power is low, the estimated effect size for significant results can be highly inflated compared to the actual effect size. -->
+Podemos simular esto para poder ver cómo es que el tamaño del efecto estimado para resultados significativos está relacionado con el tamaño del efecto verdadero subyacente. Generemos datos para los cuales haya un tamaño de efecto verdadero de d = 0.2, y estimemos el tamaño del efecto para aquellos resultados donde haya un efecto significativo detectado. La figura izquierda de la Figura \@ref(fig:CurseSim) muestra que cuando el poder es bajo, el tamaño de efecto estimado para resultados significativos puede estar altamente inflado comparado con el verdadero tamaño de efecto.
+
+<!-- Left: A simulation of the winner's curse as a function of statistical power (x axis). The solid line shows the estimated effect size, and the dotted line shows the actual effect size. Right: A histogram showing sample sizes for a number of samples from a dataset, with significant results shown in blue and non-significant results in red. -->
+```{r CurseSim, echo=FALSE,message=FALSE,fig.cap="Izquierda: Una simulación de la maldición del ganador como función del poder estadístico (eje x). La línea sólida muestra el tamaño de efecto estimado, y la línea punteada muestra el tamaño de efecto real. Derecha: Un histograma mostrando los tamaños de efecto para un conjunto de muestras de una base de datos, con resultados significativos en azul y los no significativos en rojo. ",fig.width=8,fig.height=4,out.height='50%'}
+
+trueEffectSize=0.2
+dfCurse=data.frame(sampSize=seq(20,300,20)) %>%
+  mutate(effectSize=trueEffectSize,
+         alpha=0.05)
+
+simCurse = function(df,nruns=1000){
+  sigResults=0
+  sigEffects=c()
+  for (i in 1:nruns){
+    tmpData=rnorm(df$sampSize,mean=df$effectSize,sd=1)
+    ttestResult=t.test(tmpData)
+    if (ttestResult$p.value<df$alpha){
+      sigResults = sigResults + 1
+      sigEffects=c(sigEffects,ttestResult$estimate)
+    }
+  }
+  df$power=sigResults/nruns
+  df$effectSizeEstimate=mean(sigEffects)
+  return(df)
+}
+
+dfCurse = dfCurse %>% group_by(sampSize) %>% do(simCurse(.))
+
+p1 <- ggplot(dfCurse,aes(power,effectSizeEstimate)) +
+  geom_line(size=1) +
+  ylim(0,max(dfCurse$effectSizeEstimate)*1.2) +
+  geom_hline(yintercept = trueEffectSize,size=1,linetype='dotted',color='red')
+
+# single
+
+sampSize=60
+effectSize=0.2
+nruns=1000
+alpha=0.05
+df=data.frame(idx=seq(1,nruns)) %>%
+  mutate(pval=NA,
+         estimate=NA)
+
+for (i in 1:nruns){
+  tmpData=rnorm(sampSize,mean=effectSize,sd=1)
+  ttestResult=t.test(tmpData)
+  df$pval[i]=ttestResult$p.value
+  df$estimate[i]=ttestResult$estimate
+}
+df = df %>%
+  mutate(significant=pval<alpha) %>%
+  group_by(significant)
+
+power=mean(df$pval<alpha)
+
+meanSigEffect=mean(df$estimate[df$pval<alpha])
+
+meanTrueEffect=mean(df$estimate)
+
+p2 <- ggplot(df,aes(estimate,fill=significant)) + 
+  geom_histogram(bins=50)
+
+plot_grid(p1, p2)
+```
+
+<!-- We can look at a single simulation to see why this is the case.  In the right panel of Figure \@ref(fig:CurseSim), you can see a histogram of the estimated effect sizes for 1000 samples, separated by whether the test was statistically significant.  It should be clear from the figure that if we estimate the effect size only based on significant results, then our estimate will be inflated; only when most results are significant (i.e. power is high and the effect is relatively large) will our estimate come near the actual effect size.  -->
+Podemos revisar una sola simulación para poder ver por qué sucede esto. En el panel derecho de la Figura \@ref(fig:CurseSim), puedes ver un histograma de los tamaños de efecto estimados para 1000 muestras, separados según si la prueba estadística resultó estadísticamente significativa. Debería ser claro a partir de esta figura que si tenemos un tamaño de efecto sólo basado en resultados significativos, entonces nuestro estimado estará inflado; sólo cuando la mayoría de los resultados sean significativos (i.e. el poder es alto y el efecto es relativamente grande) será que nuestra estimación se acercará al tamaño de efecto real.
+
+<!-- ## Questionable research practices -->
+## Prácticas cuestionables de investigación
+
+<!-- A popular book entitled "The Compleat Academic: A Career Guide", published by the American Psychological Association [@darl:zann:roed:2004], aims to provide aspiring researchers with guidance on how to build a career.  In a chapter by well-known social psychologist Daryl Bem titled "Writing the Empirical Journal Article", Bem provides some suggestions about how to write a research paper. Unfortunately, the practices that he suggests are deeply problematic, and have come to be known as *questionable research practices* (QRPs). -->
+Un libro popular titulado "The Compleat Academic: A Career Guide", publicado por la American Psychological Association [@darl:zann:roed:2004], busca proveer a los aspirantes a investigadores con una guía sobre cómo construir una carrera. En un capítulo escrito por un reconocido psicólogo social, Daryl Bem, titulado "Writing the Empirical Journal Article", Bem provee de sugerencias sobre cómo escribir un artículo de investigación. Desafortunadamente, las prácticas que él sugiere son profundamente problemáticas, y se han convertido en lo que conocemos como *prácticas cuestionables de investigación* (*questionable research practices*, QRPs).
+
+<!-- > **Which article should you write?** There are two possible articles you can write: (1) the article you planned to write when you designed your study or (2) the article that makes the most sense now that you have seen the results. They are rarely the same, and the correct answer is (2). -->
+> **¿Cuál artículo deberías escribir?** Existen dos posibles artículos que puedes escribir: (1) el artículo que planeaste escribir cuando diseñaste tu estudio, o (2) el artículo que hace más sentido ahora que has visto tus resultados. Raramente son los mismos, y la respuesta correcta es el (2).
+
+<!-- What Bem suggests here is known as *HARKing* (Hypothesizing After the Results are Known)[@kerr:1998].  This might seem innocuous, but is problematic because it allows the researcher to re-frame a post-hoc conclusion (which we should take with a grain of salt) as an a priori prediction (in which we would have stronger faith).  In essence, it allows the researcher to rewrite their theory based on the facts, rather that using the theory to make predictions and then test them -- akin to moving the goalpost so that it ends up wherever the ball goes.  It thus becomes very difficult to disconfirm incorrect ideas, since the goalpost can always be moved to match the data. Bem continues: -->
+Lo que Bem sugiere aquí es conocido como *HARKing* (del inglés *Hypothesizing After the Results are Known*)[@kerr:1998]. Esto podría parecer inocuo, pero es problemático porque permite que el investigador re-encuadre una conclusión post-hoc (que deberíamos tomar con un grano de sal) como si hubiera sido una predicción a priori (en las cuales tendríamos mayor confianza). En esencia, permite al investigador reescribir su teoría basada en los hechos, en lugar de usar su teoría para hacer predicciones y luego probarlas -- parecido a mover la portería en dirección de donde fue la pelota. Por lo tanto se hace muy difícil corregir ideas incorrectas, pues la portería siempre podría moverse para que se acomode a los datos. Bem continúa:
+
+<!-- > **Analyzing data** Examine them from every angle. Analyze the sexes separately. Make up new composite indices. If a datum suggests a new hypothesis, try to find further evidence for it elsewhere in the data. If you see dim traces of interesting patterns, try to reorganize the data to bring them into bolder relief. If there are participants you don’t like, or trials, observers, or interviewers who gave you anomalous results,drop them (temporarily). Go on a fishing expedition for something — anything — interesting. No, this is not immoral. -->
+> **Analizar datos** Examínalos desde todos los ángulos. Analiza los sexos de manera separada. Elabora nuevos índices compuestos. Si un dato sugiere una nueva hipótesis, trata de encontrar evidencia adicional en algún otro lado entre los datos. Si ves trazos débiles de patrones interesantes, trata de reorganizar los datos para que tengan un relieve más marcado. Si hay participantes que no te gusten, o ensayos, observadores, o entrevistadores que te hayan dado resultados anómalos, descártalos (temporalmente). Lánzate a una expedición de pesca para algo - cualquier cosa - interesante. No, esto no es inmoral.
+
+<!-- What Bem suggests here is known as *p-hacking*, which refers to trying many different analyses until one finds a significant result.  Bem is correct that if one were to report every analysis done on the data then this approach would not be "immoral". However, it is rare to see a paper discuss all of the analyses that were performed on a dataset; rather, papers often only present the analyses that *worked* - which usually means that they found a statistically significant result.  There are many different ways that one might p-hack: -->
+Lo que Bem sugiere es conocido como *p-hacking*, que se refiere a intentar muchos diferentes análisis hasta que uno encuentre uno con un resultado significativo. Bem está en lo correcto de que si uno reporta todos los análisis realizados en los datos entonces esta estrategia no sería "inmoral". Sin embargo, es raro ver un artículo discutir todos los análisis que fueron realizados en los datos; en su lugar, los artículos frecuentemente sólo presentan los análisis que *funcionaron* - lo que usualmente significa que encontraron un resultado estadísticamente significativo. Hay muchas maneras en que uno podría hacer p-hacking:
+
+<!-- - Analyze data after every subject, and stop collecting data once p<.05 -->
+- Analizar los datos después de cada participante, y detener la recolección de datos una vez que alcanzaste p<.05.
+<!-- - Analyze many different variables, but only report those with p<.05 -->
+- Analizar muchas variables diferentes, pero sólo reportar aquellas con p<.05.
+<!-- - Collect many different experimental conditions, but only report those with p<.05 -->
+- Recolectar muchas condiciones experimentales diferentes, pero sólo reportar aquellas con p<.05.
+<!-- - Exclude participants to get p<.05 -->
+- Excluir participantes para obtener p<.05.
+<!-- - Transform the data to get p<.05 -->
+- Transformar los datos para obtener p<.05.
+
+<!-- A well-known paper by @simm:nels:simo:2011 showed that the use of these kinds of p-hacking strategies could greatly increase the actual false positive rate, resulting in a high number of false positive results. -->
+Un artículo muy conocido escrito por @simm:nels:simo:2011 mostró que el uso de este tipo de estrategias de p-hacking puede incrementar en gran medida la tasa real de falsos positivos, resultando en un mayor número de resultados positivos falsos.
+
+<!-- ### ESP or QRP? -->
+### ¿ESP o QRP?
+
+<!-- In 2011, that same Daryl Bem published an article [@bem:2011] that claimed to have found scientific evidence for extrasensory perception.  The article states: -->
+En 2011, el mismo Daryl Bem publicó un artículo [@bem:2011] que afirmó haber encontrado evidencia científica de percepción extrasensorial (extrasensory perception, ESP). El artículo afirma:
+
+<!-- >This article reports 9 experiments, involving more than 1,000 participants, that test for retroactive influence by “time-reversing” well-established psychological effects so that the individual’s responses are obtained before the putatively causal stimulus events occur. …The mean effect size (d) in psi performance across all 9 experiments was 0.22, and all but one of the experiments yielded statistically significant results. -->
+>Este artículo reporta 9 experimentos, involucrando más de 1,000 participantes, que prueban la influencia retroactiva al "invertir en el tiempo" efectos psicológicos bien estudiados de manera que las respuestas individuales fueron obtenidas antes de que ocurrieran los eventos putativamente causales. …El tamaño de efecto promedio (d) en el rendimiento psi en todos los 9 experimentos fue de 0.22, y todos excepto uno de los experimentos obtuvieron resultados estadísticamente significativos.
+
+<!-- As researchers began to examine Bem's article, it became clear that he had engaged in all of the QRPs that he had recommended in the chapter discussed above.  As Tal Yarkoni pointed out in [a blog post that examined the article](http://www.talyarkoni.org/blog/2011/01/10/the-psychology-of-parapsychology-or-why-good-researchers-publishing-good-articles-in-good-journals-can-still-get-it-totally-wrong/): -->
+Conforme los investigadores comenzaron a analizar el artículo de Bem, se fue volviendo claro que él había participado de todas las prácticas cuestionables de investigación (QRPs) que él mismo había recomendado en el capítulo mencionado arriba. Como mencionó Tal Yarkoni en [un blog que examinó el artículo de Bem](http://www.talyarkoni.org/blog/2011/01/10/the-psychology-of-parapsychology-or-why-good-researchers-publishing-good-articles-in-good-journals-can-still-get-it-totally-wrong/):
+
+<!-- - Sample sizes varied across studies -->
+- Los tamaños de muestra variaron entre los estudios.
+<!-- - Different studies appear to have been lumped together or split apart -->
+- Diferentes estudios parecen haberse agrupado o separado en partes.
+<!-- - The studies allow many different hypotheses, and it’s not clear which were planned in advance -->
+- Los estudios permiten muchas diferentes hipótesis, y no queda claro cuáles fueron planeadas por adelantado.
+<!-- - Bem used one-tailed tests even when it’s not clear that there was a directional prediction (so alpha is really 0.1) -->
+- Bem usó pruebas de una sola cola incluso cuando no queda claro que hubiera una predicción direccional (así que el alfa es realmente de 0.1).
+<!-- - Most of the p-values are very close to 0.05 -->
+- La mayoría de los valores p están muy cerca de 0.05.
+<!-- - It’s not clear how many other studies were run but not reported -->
+- No queda claro cuántos otros estudios se realizaron pero no fueron reportados.
+
+<!-- ## Doing reproducible research -->
+## Hacer investigación reproducible
+
+<!-- In the years since the reproducibility crisis arose, there has been a robust movement to develop tools to help protect the reproducibility of scientific research. -->
+En los años que han pasado desde que surgió la crisis de reproducibilidad, ha habido un movimiento robusto para desarrollar herramientas que ayuden a proteger la reproducibilidad de la investigación científica.
+
+<!-- ### Pre-registration -->
+### Pre-registro
+
+<!-- One of the ideas that has gained the greatest traction is *pre-registration*, in which one submits a detailed description of a study (including all data analyses) to a trusted repository (such as the [Open Science Framework](http://osf.io) or [AsPredicted.org](http://aspredicted.org)).  By specifying one's plans in detail prior to analyzing the data, pre-registration provides greater faith that the analyses do not suffer from p-hacking or other questionable research practices.  -->
+Una de las ideas que ha ganado mayor apoyo es el *pre-registro*, en el cual uno envía una descripción detallada de un estudio (incluyendo todos los análisis de datos) a un repositorio confiable (como el del [Open Science Framework](http://osf.io) o [AsPredicted.org](http://aspredicted.org)). Al especificar los propios planes en detalle antes de analizar los datos, el pre-registro provee mayor confianza de que los análisis no sufrieron de p-hacking o de otras prácticas cuestionables de investigación.
+
+<!-- The effects of pre-registration in clinical trials in medicine  have been striking.  In 2000, the National Heart, Lung, and Blood Institute (NHLBI) began requiring all clinical trials to be pre-registered using the system at  [ClinicalTrials.gov](http://clinicaltrials.gov).  This provides a natural experiment to observe the effects of study pre-registration.  When @kapl:irvi:2015 examined clinical trial outcomes over time, they found that the number of positive outcomes in clinical trials was greatly reduced after 2000 compared to before. While there are many possible causes, it seems likely that prior to study registration researchers were able to change their methods or hypotheses in order to find a positive result, which became more difficult after registration was required. -->
+Los efectos del pre-registro en los ensayos clínicos en medicina han sido impactantes. En el 2000, el National Heart, Lung, and Blood Institute (NHLBI) comenzó requiriendo que todos los ensayos clínicos fueran pre-registrados usando el sistema en [ClinicalTrials.gov](http://clinicaltrials.gov). Esto provee de un experimento natural para observar los efectos del pre-registro de estudios. Cuando @kapl:irvi:2015 examinaron resultados de ensayos clínicos a lo largo del tiempo, encontraron que el número de resultados positivos en los ensayos clínicos se redujo grandemente después del año 2000 comparado con estudios de años previos. Aunque hay muchas posibles causas, parece probable que, previo al requisito de pre-registrar, los investigadores podían cambiar sus métodos o hipótesis para poder obtener un resultado positivo, lo que se volvió más difícil de hacer después de que el pre-registrar fuera requerido.
+ 
+<!-- ### Reproducible practices -->
+### Prácticas reproducibles
+
+<!-- The paper by @simm:nels:simo:2011 laid out a set of suggested practices for making research more reproducible, all of which should become standard for researchers: -->
+El artículo de @simm:nels:simo:2011 presentó un conjunto de prácticas sugeridas para hacer la investigación más reproducible, todas ellas deberían convertirse en un estándar para los investigadores:
+
+<!-- > - Authors must decide the rule for terminating data collection before data collection begins and report this rule in the article.  -->
+> - Los autores deben decidir la regla con la cual se dará por terminada la recolección de datos antes de comenzar a recolectar datos y reportar esta regla en su artículo.
+<!-- - Authors must collect at least 20 observations per cell or else provide a compelling cost-of-data-collection justification. -->
+- Los autores deben recolectar por lo menos 20 observaciones por celda o en su lugar proveer de una justificación convincente del costo de la recolección de datos.
+<!-- - Authors must list all variables collected in a study. -->
+- Los autores deben enlistar todas las variables recolectadas en un estudio.
+<!-- - Authors must report all experimental conditions, including failed manipulations. --> 
+- Los autores deben reportar todas las condiciones experimentales, incluyendo las manipulaciones que hayan fallado.
+<!-- - If observations are eliminated, authors must also report what the statistical results are if those observations are included. -->
+- Si se eliminaron observaciones, los autores deben también reportar cómo son los resultados estadísticos si las observaciones se incluyeran.
+<!-- - If an analysis includes a covariate, authors must report the statistical results of the analysis without the covariate. -->
+- Si un análisis incluye una covariable, los autores deben reportar los resultados estadísticos del análisis sin la covariable.
+
+<!-- ### Replication -->
+### Replicación
+
+<!-- One of the hallmarks of science is the idea of *replication* -- that is, other researchers should be able to perform the same study and obtain the same result.  Unfortunately, as we saw in the outcome of the Replication Project discussed earlier, many findings are not replicable.  The best way to ensure replicability of one's research is to first replicate it on your own; for some studies this just won't be possible, but whenever it is possible one should make sure that one's finding holds up in a new sample.  That new sample should be sufficiently powered to find the effect size of interest; in many cases, this will actually require a larger sample than the original. -->
+Uno de los sellos distintivos de la ciencia es la idea de *replicación* (*replication*) -- esto es, otros investigadores deben ser capaces de realizar el mismo estudio y obtener el mismo resultado. Desafortunadamente, como vimos en el resultado del Replication Project discutido previamente, muchos hallazgos no han sido replicables. La mejora manera de asegurar la replicabilidad de nuestra investigación es primero replicarla por tu cuenta; para algunos estudios esto simplemente no será posible, pero siempre que sea posible uno debería asegurarse de que nuestros hallazgos se mantengan en una nueva muestra. Esa nueva muestra debería tener suficiente poder estadístico para encontrar el tamaño de efecto de interés; en muchos casos, esto requerirá una muestra más grande que la del estudio original.
+
+<!-- It's important to keep a couple of things in mind with regard to replication.  First, the fact that a replication attempt fails does not necessarily mean that the original finding was false; remember that with the standard level of 80% power, there is still a one in five chance that the result will be nonsignificant, even if there is a true effect. For this reason, we generally want to see multiple replications of any important finding before we decide whether or not to believe it.  Unfortunately, many fields including psychology have failed to follow this advice in the past, leading to "textbook" findings that turn out to be likely false.  With regard to Daryl Bem's studies of ESP, a large replication attempt involving 7 studies failed to replicate his findings [@gala:lebo:nels:2012]. -->
+Es importante tener en mente un par de cosas con respecto a la replicación. Primero, el hecho de que si un intento de replicación falla no necesariamente significa que el hallazgo original era falso; recuerda que un poder de nivel estándar de 80%, aún hay una probabilidad de uno de cinco de que el resultado sea no significativo, incluso si existe un efecto verdadero. Por esta razón, generalmente queremos ver múltiples replicaciones de cualquier hallazgo importante antes de decidir si creeremos o no en él. Desafortunadamente, muchas áreas de estudio, incluyendo psicología, han fallado en seguir este consejo en el pasado, llevando a que haya hallazgos de "libro de texto" que probablemente sean falsos. Con respecto a los estudios de ESP de Daryl Bem, un intento de replicación grande involucrando 7 estudios falló en replicar sus hallazgos [@gala:lebo:nels:2012].
+
+<!-- Second, remember that the p-value doesn't provide us with a measure of the likelihood of a finding to replicate.  As we discussed previously, the p-value is a statement about the likelihood of one's data under a specific null hypothesis; it doesn't tell us anything about the probability that the finding is actually true (as we learned in the chapter on Bayesian analysis).  In order to know the likelihood of replication we need to know the probability that the finding is true, which we generally don't know. -->
+Segundo, recuerda que el valor p no nos provee de una medida de la probabilidad de que un hallazgo se replique. Como discutimos previamente, el valor p es un enunciado acerca de la probabilidad de nuestros datos bajo una hipótesis nula específica; no nos dice nada acerca de la probabilidad de que un hallazgo sea realmente verdadero (como aprendimos en el capítulo sobre análisis Bayesiano). Para poder conocer la probabilidad de replicación necesitamos conocer la probabilidad de que el hallazgo sea verdadero, y esto generalmente no lo sabemos.
+
+<!-- ## Doing reproducible data analysis -->
+## Hacer análisis de datos reproducibles
+
+<!-- So far we have focused on the ability to replicate other researchers' findings in new experiments, but another important aspect of reproducibility is to be able to reproduce someone's analyses on their own data, which we refer to a *computational reproducibility.*  This requires that researchers share both their data and their analysis code, so that other researchers can both try to reproduce the result as well as potentially test different analysis methods on the same data.  There is an increasing move in psychology towards open sharing of code and data; for example, the journal *Psychological Science* now provides "badges" to papers that share research materials, data, and code, as well as for pre-registration. -->
+Hasta el momento nos hemos enfocado en la habilidad de replicar los hallazgos de otros investigadores en nuevos experimentos, pero otro aspecto importante de la reproducibilidad es el ser capaces de reproducir el análisis de alguien en sus propios datos, a lo que llamamos *reproducibilidad computacional* (*computational reproducibility*). Esto requiere que los investigadores compartan tanto sus datos como su código de análisis, para que otros investigadores puedan tratar de reproducir los resultados así como potencialmente probar diferentes métodos de análisis sobre los mismos datos. Hay un movimiento creciente en psicología hacia compartir código y datos abiertamente (open sharing); por ejemplo, la revista *Psychological Science* ahora provee de insignias a los artículos que comparten materiales, datos, y código de la investigación, así como también para los que realizan el pre-registro.
+
+<!-- The ability to reproduce analyses is one reason that we strongly advocate for the use of scripted analyses (such as those using R) rather than using a "point-and-click" software package.  It's also a reason that we advocate the use of free and open-source software (like R) as opposed to commercial software packages, which would require others to buy the software in order to reproduce any analyses. -->
+La habilidad para reproducir análisis es una razón por la que promovemos fuertemente el uso de análisis en código (como al usar R) en lugar de usar software gráfico, de "apuntar-y-dar-click". También es una razón por la que promovemos el uso de software libre y de fuente abierta (open-source, como R) en oposición a software comercial, que requeriría que lo demás compraran el software para poder reproducir cualquier análisis.
+
+<!-- There are many ways to share both code and data.  A common way to share code is via web sites that support *version control* for software, such as [Github](http://github.com).  Small datasets can also be shared via these same sites; larger datasets can be shared through data sharing portals such as [Zenodo](https://zenodo.org/), or through specialized portals for specific types of data (such as [OpenNeuro](http://openneuro.org) for neuroimaging data). -->
+Existen muchas maneras de compartir tanto el código como los datos. Una manera común de compartir código es a través de sitios web que apoyen *control de versiones* en software, como lo hace [Github](http://github.com). Pequeñas bases de datos también se pueden compartir a través de este mismo tipo de sitios; bases de datos más grandes pueden ser compartidas a través de portales para compartir datos como [Zenodo](https://zenodo.org/), o a través de portales especializados para tipos específicos de datos (como [OpenNeuro](http://openneuro.org) para datos de neuroimagen).
+
+<!-- ## Conclusion: Doing better science -->
+## Conclusión: Hacer mejor ciencia
+
+<!-- It is every scientist's responsibility to improve their research practices in order to increase the reproducibility of their research.  It is essential to remember that the goal of research is not to find a significant result; rather, it is to ask and answer questions about nature in the most truthful way possible.  Most of our hypotheses will be wrong, and we should be comfortable with that, so that when we find one that's right, we will be even more confident in its truth. -->
+Es responsabiidad de cada científico el mejorar sus prácticas de investigación para poder incrementar la reproducibilidad de su investigación. Es esencial recordar que la meta de la investigación no es encontrar un resultado significativo; sino hacerse y responderse preguntas acerca de la naturaleza en la manera más honesta posible. La mayoría de nuestras hipótesis estarán equivocadas, y debemos estar cómodos con eso, para que cuando encontremos una que esté en lo correcto, estemos aún más seguros de su verdad.
+
+<!-- ## Learning objectives -->
+## Objetivos de aprendizaje
+
+<!-- * Describe the concept of P-hacking and its effects on scientific practice -->
+<!-- * Describe the concept of positive predictive value and its relation to statistical power -->
+<!-- * Describe the concept of pre-registration and how it can help protect against questionable research practices -->
+* Describir el concepto de p-hacking y sus efectos en la práctica científica.
+* Describir el concepto de valor predictivo positivo y su relación con poder estadístico.
+* Describir el concepto de pre-registro y cómo puede ayudar a proteger en contra de las prácticas cuestionables de investigación.
+
+<!-- ## Suggested Readings -->
+## Lecturas sugeridas
+
+- [Rigor Mortis: How Sloppy Science Creates Worthless Cures, Crushes Hope, and Wastes Billions, by Richard Harris](https://www.amazon.com/dp/B01K3WN72C)
+- [Improving your statistical inferences](https://www.coursera.org/learn/statistical-inferences) - an online course on how to do better statistical analysis, including many of the points raised in this chapter.
+
+\newpage
+
+# Referencias {-}
+

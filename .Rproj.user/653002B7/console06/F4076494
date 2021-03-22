@@ -1,0 +1,97 @@
+[0m[0Kbash: cut: command not found[0K[?25l
+[0K[?25h[?25l
+[0;32mcthul@DESKTOP-S8SPCDF [0;35m [0;33m~/Dropbox/Clases/Materia - Estadística/StatsThinking/sta[0Kt
+sthinking21-core-master[0m[0K
+$[0K[3G[?25h]0;:/c/Users/cthul/Dropbox/Clases/Materia - Estadística/StatsThinking/statsthinking21-core-master[?25l[2A[0;32mcthul@DESKTOP-S8SPCDF [0;35m [0;33m~/Dropbox/Clases/Materia - Estadística/StatsThinking/statsthinking21-core-master[0K
+[0m$[0K
+[0K[1A[3G[?25h[?25l[0K
+[0K[1A[3G[?25h[?25l$ w[0K
+[0K[1A[4G[?25h[?25l$ wh[0K
+[0K[1A[5G[?25h[?25l$ whi[0K
+[0K[1A[6G[?25h[?25l$ whic[0K
+[0K[1A[7G[?25h[?25l$ which[0K
+[0K[1A[8G[?25h[9G[?25l$ which g[0K
+[0K[1A[10G[?25h[?25l$ which gi[0K
+[0K[1A[11G[?25h[?25l$ which git[0K
+[0K[1A[12G[?25h[?25l
+bash: which: command not found[0K
+[0K[?25h[?25l
+[0;32mcthul@DESKTOP-S8SPCDF [0;35m [0;33m~/Dropbox/Clases/Materia - Estadística/StatsThinking/statsthinking21-core-master[0m[0K
+$[0K[3G[?25h[?25l$ g[0K[?25hi[0Kt[0K[7G[?25l$ git /[0K[?25h/[0K[?25l$ git /[0K[?25h[?25l$ git[0K[7G[?25h[?25l$ git -[0K[?25h-[0Kv[0Ke[0Kr[0Ks[0Ki[0Ko[0Kn[0K[?25l
+[0K[?25hgit version 2.20.1.windows.1[0K[?25l
+[0K[?25h[?25l
+[0;32mcthul@DESKTOP-S8SPCDF [0;35m [0;33m~/Dropbox/Clases/Materia - Estadística/StatsThinking/statsthinking21-core-master[0m[0K
+]0;:/c/Users/cthul/Dropbox/Clases/Materia - Estadística/StatsThinking/statsthinking21-core-master[?25l
+[0;32mcthul@DESKTOP-S8SPCDF [0;35m [0;33m~/Dropbox/Clases/Materia - Estadística/StatsThinking/statsthinking21-core-master[0;36m (master)[0m[0K
+$[0K[3G[?25h[?25l$ p[0K[?25hw[0Ke[0Kd[0K[?25l$ pwe[0K[?25h[?25l$ pw[0K[?25hd[0K[?25l
+/c/Users/cthul/Dropbox/Clases/Materia - Estadística/StatsThinking/statsthinking21-core-master[0K
+[0K[?25h[?25l
+[0;32mcthul@DESKTOP-S8SPCDF [0;35m [0;33m~/Dropbox/Clases/Materia - Estadística/StatsThinking/statsthinking21-core-master[0;36m (master)[0m[0K
+$[0K[3G[?25h[?25l$ g[0K[?25hi[0Kt[0K[7G[?25l$ git s[0K[?25ht[0Ka[0Kt[0Ku[0Ks[0K[?25l
+[0K[?25hOn branch master[0K[?25l
+[0K
+No commits yet[0K
+[0K
+Untracked files:[0K
+  (use "git add <file>..." to include in what will be committed)[0K
+        [0;31m.RData[0m[0K
+        [0;31m.Rhistory[0m[0K
+        [0;31m.Rproj.user/[0m[0K
+        [0;31m.circleci/[0m[0K
+        [0;31m01-Intro.Rmd[0m[0K
+        [0;31m01-Intro.out[0m[0K
+        [0;31m01-Intro.pdf[0m[0K
+        [0;31m01-Intro.pptx[0m[0K
+        [0;31m02-Data.Rmd[0m[0K
+        [0;31m03-SummarizingData.Rmd[0m[0K
+        [0;31m04-VisualizingData.Rmd[0m[0K
+        [0;31m05-FittingModels.Rmd[0m[0K
+        [0;31m06-Probability.Rmd[0m[0K
+        [0;31m07-Sampling.Rmd[0m[0K
+        [0;31m08-Resampling.Rmd[0m[0K
+        [0;31m09-HypothesisTesting.Rmd[0m[0K
+        [0;31m10-ConfIntEffectSize.Rmd[0m[0K
+        [0;31m11-BayesianStatistics.Rmd[0m[0K
+        [0;31m12-CategoricalRelationships.Rmd[0m[0K
+        [0;31m13-ContinuousRelationships.Rmd[0m[0K
+        [0;31m14-GeneralLinearModel.Rmd[0m[0K
+        [0;31m15-ComparingMeans.Rmd[0m[0K
+        [0;31m16-PracticalExamples.Rmd[0m[0K
+        [0;31m17-DoingReproducibleResearch.Rmd[0m[0K[9G[?25h[?25l
+        [0;31mAge.dump[0m[0K
+        [0;31mCONTRIBUTING.md[0m[0K
+        [0;31mDockerfile[0m[0K
+        [0;31mLICENSE.md[0m[0K
+        [0;31mMakefile[0m[0K
+        [0;31mREADME.md[0m[0K
+        [0;31mStatsThinking21.log[0m[0K
+        [0;31m_book/[0m[0K
+        [0;31m_bookdown.yml[0m[0K
+        [0;31m_bookdown_files/[0m[0K
+        [0;31m_gitbook_99-References.Rmd[0m[0K
+        [0;31m_latex_99-References.Rmd[0m[0K
+        [0;31mcode/[0m[0K
+        [0;31mdata/[0m[0K
+        [0;31mdocs/[0m[0K
+        [0;31mdumpdata.R[0m[0K
+        [0;31merror_df.dump[0m[0K
+        [0;31mgoogle_analytics.html[0m[0K
+        [0;31mimages/[0m[0K
+        [0;31mindex.Rmd[0m[0K
+        [0;31mjzs_cor.R[0m[0K
+        [0;31mpsych10-book.bib[0m[0K
+        [0;31msetup/[0m[0K
+        [0;31mstatsthinking21-core-master.Rproj[0m[0K
+[0K
+nothing added to commit but untracked files present (use "git add" to track)[0K
+[0K[?25h[?25l
+[0;32mcthul@DESKTOP-S8SPCDF [0;35m [0;33m~/Dropbox/Clases/Materia - Estadística/StatsThinking/statsthinking21-core-master[0;36m (master)[0m[0K
+$[0K[3G[?25h[?25l$ g[0K[?25hi[0Kt[0K[7G[?25l$ git a[0K[?25hd[0Kd[0K[?25l
+[0K[?25hNothing specified, nothing added.[0K[?25l
+[0;33mhint: Maybe you wanted to say 'git add .'?[0m[0K
+[0;33mhint: Turn this message off by running[0m[0K
+[0;33mhint: "git config advice.addEmptyPathspec false"[0m[0K
+[0K[?25h[?25l
+[0;32mcthul@DESKTOP-S8SPCDF [0;35m [0;33m~/Dropbox/Clases/Materia - Estadística/StatsThinking/statsthinking21-core-master[0;36m (master)[0m[0K
+$[0K[3G[?25h[?25l$ g[0K[?25hi[0Kt[0K[7G[?25l$ git a[0K[?25hd[0Kd[0K[11G[?25l$ git add .[0K[?25h[?25l
+[0K[?25h

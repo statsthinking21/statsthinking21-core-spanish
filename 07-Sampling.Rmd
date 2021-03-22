@@ -1,0 +1,346 @@
+---
+output:
+  pdf_document: default
+  bookdown::gitbook:
+    lib_dir: "book_assets"
+    includes:
+      in_header: google_analytics.html
+  html_document: default
+---
+<!--# Sampling {#sampling}-->
+# Muestreo {#sampling}
+```{r echo=FALSE,warning=FALSE,message=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(knitr)
+library(cowplot)
+```
+
+<!--One of the foundational ideas in statistics is that we can make inferences about an entire population based on a relatively small sample of individuals from that population.  In this chapter we will introduce the concept of statistical sampling and discuss why it works.-->
+Una de las ideas fundamentales en estadística es que podemos hacer inferencias acerca de una población entera basada en una muestra relativamente pequeña de individuos de esa población. En este capítulo vamos a introducir el concepto estadístico de muestreo (sampling) y discutiremos cómo funciona. 
+
+<!--Anyone living in the United States will be familiar with the concept of sampling from the political polls that have become a central part of our electoral process. In some cases, these polls can be incredibly accurate at predicting the outcomes of elections. The best known example comes from the 2008 and 2012 US Presidential elections, when the pollster Nate Silver correctly predicted electoral outcomes for 49/50 states in 2008 and for all 50 states in 2012.  Silver did this by combining data from 21 different polls, which vary in the degree to which they tend to lean towards either the Republican or Democratic side.  Each of these polls included data from about 1000 likely voters -- meaning that Silver was able to almost perfectly predict the pattern of votes of more than 125 million voters using data from only about 21,000 people, along with other knowledge (such as how those states have voted in the past).-->
+Cualquiera viviendo en Estados Unidos está familiarizadx con el concepto de muestreo de las encuestas políticas que se han convertido en un tema central de nuestro proceso electoral. En algunos casos, estas encuestas pueden ser increíblemente acertadas al predecir los resultados de las elecciones. El mejor ejemplo proviene de las elecciones presidenciales de 2008 y 2012, cuando el encuestista Nate Silver predijo correctamente los resultados de 49 de 50 estados en 2008 y todos los 50 estados en 2012. Silver hizo esto mediante la combinación de 21 diferentes encuestas, las cuales varían en grado en las cuales se tienden a inclinar ya sea al lado republicano o demócrata. Cada una de estas encuestas incluye datos de 1000 votantes -- lo que significa que Silver fue capaz de casi predecir perfectamente el patrón de estos votos de más de 125 millones de votantes utilizando datos de aproximadamente 21,000 personas, junto con otros conocimientos (tales como la forma en la que estos estados han votado en el pasado). 
+
+<!--## How do we sample? {#how-do-we-sample}-->
+## ¿Cómo hacemos una muestra? {#how-do-we-sample}
+
+<!-- Our goal in sampling is to determine the value of a statistic for an entire population of interest, using just a small subset of the population.  We do this primarily to save time and effort -- why go to the trouble of measuring every individual in the population when just a small sample is sufficient to accurately estimate the statistic of interest?--> 
+Nuestro objetivo en el muestreo es determinar el valor de una estadística para una populación entera de interés, utilizando únicamente un subconjunto de dicha población. Hacemos esto primeramente para ahorrar tiempo y esfuerzo -- ¿por qué iríamos tras la batalla de medir cada individuo en la población si con una pequeña muestra es más que suficiente para estimar precisamente la estadística de interés? 
+
+<!--In the election example, the population is all registered voters in the region being polled, and the sample is the set of 1000 individuals selected by the polling organization.  The way in which we select the sample is critical to ensuring that the sample is *representative* of the entire population, which is a main goal of statistical sampling. It's easy to imagine a non-representative sample; if a pollster only called individuals whose names they had received from the local Democratic party, then it would be unlikely that the results of the poll would be representative of the population as a whole.  In general, we would define a representative poll as being one in which every member of the population has an equal chance of being selected.  When this fails, then we have to worry about whether the statistic that we compute on the sample is *biased* - that is, whether its value is systematically different from the population value (which we refer to as a *parameter*).  Keep in mind that we generally don't know this population parameter, because if we did then we wouldn't need to sample!  But we will use examples where we have access to the entire population, in order to explain some of the key ideas.-->
+En el ejemplo de las elecciones, la población es todos los votantes registrados en la región siendo encuestada, y la muestra es el conjunto de los 1000 individuos seleccionados por la organización encuestada. La manera en la que seleccionamos la muestra es crítica para asegurar que la muestra es *representativa* de la población entera, el cual es el objetivo principal del muestreo estadístico. Es fácil imaginar una muestra no representativa; si unx encuestadorx únicamente llama a individuos cuyos nombres haya recibido del partido demócrata, entonces sería poco probable que los resultados de la encuesta fueran representativos de una población completa. En general, definiríamos una encuesta representativa como una en la que cada miembro de la población tiene la misma oportunidad de ser seleccionado. Cuando esto falla, tenemos entonces que preocuparnos acerca de si la estadística que calculamos está *sesgada* - esto es, si el valor es sistemáticamente diferente del valor poblacional (al que nos referimos como *parámetro*). Mantén en mente que generalmente no conocemos este parámetro poblacional, ¡porque si lo supiéramos no necesitaríamos hacer una muestra! Pero usaremos ejemplos donde tenemos acceso a una población entera, para poder explicar algunas ideas clave.  
+
+<!--It's important to also distinguish between two different ways of sampling: with replacement versus without replacement.  In sampling *with replacement*, after a member of the population has been sampled, they are put back into the pool so that they can potentially be sampled again. In *sampling without replacement*, once a member has been sampled they are not eligible to be sampled again. It's most common to use sampling without replacement, but there will be some contexts in which we will use sampling with replacement, as when we discuss a technique called *bootstrapping* in Chapter \@ref(resampling-and-simulation).-->
+Es importante distinguir entre dos modos muy diferentes de muestreo: con reemplazo versus sin reemplazo. En el muestreo *con reemplazo*, después de que un miembro de la población ha sido muestreado, es puesto de regreso al grupo para que pueda ser muestrado otra vez, potencialmente. En el muestreo *sin reemplazo*, una vez que lxs miembros han sido muestreados no son elegibles para ser muestredos otra vez. Es más común utilizar el muestreo sin reemplazo, pero hay algunos contextos en los cuales vamos a utilizar el muestreo con reemplazo, como cuando discutimos la técnica llamada *bootstrapping* en el capítulo \@ref(resampling-and-simulation). 
+
+<!--## Sampling error {#samplingerror}-->
+## Error de muestreo {#samplingerror}
+<!--Regardless of how representative our sample is, it's likely that the statistic that we compute from the sample is going to differ at least slightly from the population parameter.  We refer to this as *sampling error*. If we take multiple samples, the value of our statistical estimate will also vary from sample to sample; we refer to this distribution of our statistic across samples as the *sampling distribution*.-->
+Independientemente de qué tan representativa sea nuestra muestra, es muy probable que la estadística que calculemos de esa muestra vaya a diferir al menos ligeramente del parámetro poblacional. Nos referimos a esto como *error de muestreo* (sampling error). Si tomamos múltiples muestras, el valor de nuestro estimado estadístico va a variar de muestra a muestra; nos referimos a esta distribución de nuestra estadística a través de muestras como *distribución de muestra*. 
+
+<!--Sampling error is directly related to the quality of our measurement of the population. Clearly we want the estimates obtained from our sample to be as close as possible to the true value of the population parameter.  However, even if our statistic is unbiased (that is, in the long run we expect it to have the same value as the population parameter), the value for any particular estimate will differ from the population value, and those differences will be greater when the sampling error is greater.  Thus, reducing sampling error is an important step towards better measurement.-->
+El error de muestreo es directamente relacionado a la calidad de medida de la población. Claramente queremos que los estimados obtenidos de nuestra muestra sean lo más cercanos posible al verdadero valor del parámetro poblacional. Como sea, incluso cuando nuestra estadística no está sesgada (esto es que a largo plazo esperamos tener el mismo valor que el parámetro poblacional), el valor para cualquier estimado particular va a diferir del valor poblacional, y aquellas diferencias van a ser mayores que cuando el error de muestreo sea mayor. De este modo, reducir el error de muestreo es un paso importante para mejorar la medición. 
+
+<!--We will use the NHANES dataset as an example; we are going to assume that the NHANES dataset is the entire population of interest,  and then we will draw random samples from this population. We will have more to say in the next chapter about exactly how the generation of "random" samples works in a computer.-->
+Vamos a usar el conjunto de datos NHANES como ejemplo; vamos a asumir que el conjunto de datos NHANES es toda nuestra población de interés, y luego extraeremos muestras de datos aleatorios de dicha población. 
+
+```{r echo=FALSE}
+# load the NHANES data library
+library(NHANES)
+
+# create a NHANES dataset without duplicated IDs 
+NHANES <-
+  NHANES %>%
+  distinct(ID, .keep_all = TRUE) 
+
+#create a dataset of only adults
+NHANES_adult <- 
+  NHANES %>%
+  filter( 
+    !is.na(Height), 
+    Age >= 18
+  )
+
+```
+
+<!--In this example, we know the adult population mean (`r I(mean(NHANES_adult$Height))`) and standard deviation (`r I(sd(NHANES_adult$Height))`) for height because we are assuming that the NHANES dataset *is* the population. Now let's take a few samples of 50 individuals from the NHANES population, and look at the resulting statistics.-->
+En este ejemplo, sabemos que la media de la población adulta es (`r I(mean(NHANES_adult$Height))`) y la desviación estándar (`r I(sd(NHANES_adult$Height))`) para altura porque estamos asumiendo que el conjunto de datos NHANES *es* la población. Ahora tomemos algunas muestras de 50 individuos de la población NHANES, y veamos a la estadística resultante. 
+```{r echo=FALSE}
+# sample 50 individuals from NHANES dataset
+sample_df <- data.frame(sampnum=seq(5), sampleMean=0, sampleSD=0)
+
+for (i in 1:5){
+  exampleSample <- 
+    NHANES_adult %>% 
+    sample_n(50) %>%
+    pull(Height)
+  sample_df$sampleMean[i] <- mean(exampleSample)
+  sample_df$sampleSD[i] <- sd(exampleSample)
+}
+sample_df <- sample_df %>%
+  dplyr::select(-sampnum)
+kable(sample_df, caption='Ejemplos de medias y desviaciones estándar para varios ejemplos de la variable de Altura de NARPS.')
+```
+
+
+```{r echo=FALSE}
+# compute sample means across 5000 samples from NHANES data
+sampSize <- 50 # size of sample
+nsamps <- 5000 # number of samples we will take
+
+# set up variable to store all of the results
+sampMeans <- array(NA, nsamps)
+
+# Loop through and repeatedly sample and compute the mean
+for (i in 1:nsamps) {
+  NHANES_sample <- sample_n(NHANES_adult, sampSize)
+  sampMeans[i] <- mean(NHANES_sample$Height)
+}
+
+sampMeans_df <- tibble(sampMeans = sampMeans)
+
+```
+
+<!-- The sample mean and standard deviation are similar but not exactly equal to the population values.  Now let's take a large number of samples of 50 individuals, compute the mean for each sample, and look at the resulting sampling distribution of means. We have to decide how many samples to take in order to do a good job of estimating the sampling distribution -- in this case, let's take 5000 samples so that we are really confident in the answer. Note that simulations like this one can sometimes take a few minutes to run, and might make your computer huff and puff. The histogram in Figure \@ref(fig:samplePlot) shows that the means estimated for each of the samples of 50 individuals vary somewhat, but that overall they are centered around the population mean.  The average of the 5000 sample means (`r I(formatC(mean(sampMeans), digits=2, format='f'))`) is very close to the true population mean (`r I(formatC(mean(NHANES_adult$Height), digits=2, format='f'))`).-->
+
+La media muestral y la desviación estándar son similares pero no exactamente iguales a los valores de la población. Ahora tomemos una gran cantidad de muestras de 50 individuos, calculemos la media de cada muestra y observemos la distribución muestral de medias resultante. Tenemos que decidir cuántas muestras tomar para hacer un buen trabajo en la estimación de la distribución muestral; en este caso, tomemos 5000 muestras para estar realmente seguros de la respuesta. Ten en cuenta que simulaciones como esta a veces pueden tardar unos minutos en ejecutarse y pueden hacer que tu computadora resople y reniege. El histograma de la Figura \@ref(fig:samplePlot) muestra que las medias estimadas para cada una de las muestras de 50 individuos varían un poco, pero que en general se centran en la media de la población. El promedio de las 5000 medias muestrales (`r I(formatC(mean(sampMeans), digits=2, format='f'))`) está muy cerca de la media poblacional real (`r I(formatC(mean(NHANES_adult$Height), digits=2, format='f'))`).
+
+
+
+```{r samplePlot,echo=FALSE,fig.cap="El histograma azul muestra la distribución muestral de la media de más de 5000 muestras aleatorias del conjunto de datos NHANES. El histograma del conjunto de datos completo se muestra en gris como referencia.",fig.width=8,fig.height=4,out.height='50%'}
+
+sampMeans_df %>% 
+  ggplot(aes(sampMeans)) +
+  geom_histogram(
+    data = NHANES_adult, 
+    aes(Height, ..density..),
+    bins = 100, col = "gray", fill = "gray"
+  ) +
+  geom_histogram(
+    aes(y = ..density.. * 0.2),
+    bins = 100,
+    col = "blue", fill = "blue"
+  ) +
+  geom_vline(xintercept = mean(NHANES_adult$Height)) +
+  annotate(
+    "text",
+    x = 165, 
+    y = .09,
+    label = "Population mean"
+  ) +
+  labs(
+      x = "Height (cm)"
+  )
+```
+
+<!--## Standard error of the mean {#standard-error-of-the-mean}-->
+## Error estándar de la media {#standard-error-of-the-mean}
+
+<!--Later in the course it will become essential to be able to characterize how variable our samples are, in order to make inferences about the sample statistics. For the mean, we do this using a quantity called the *standard error* of the mean (SEM), which one can think of as the standard deviation of the sampling distribution. To compute the standard error of the mean for our sample, we divide the estimated standard deviation by the square root of the sample size:-->
+Más adelante en el curso será esencial poder caracterizar qué tan variable son nuestras muestras, en orden para hacer inferencias sobre la estadística de la muestra. Para la media, hacemos esto utilizando una cantidad llamada *error estándar* de la media (SEM por sus siglas en inglés), en la que podemos pensar como la desviación estándar de la distribución muestral. Para calcular el error estándar de la media para nuestra muestra, dividimos la estimada desviación estándar por la raíz cuadrada del tamaño de la muestra:
+
+$$
+SEM = \frac{\hat{\sigma}}{\sqrt{n}}
+$$
+
+<!--Note that we have to be careful about computing SEM using the estimated standard deviation if our sample is small (less than about 30).-->
+Nota que tenemos que ser cuidadoses acerca de calcular el error estándar de la media utilizando la desviación estándar estimada si nuestra muestra es pequeña (<30). 
+
+<!--Because we have many samples from the NHANES population and we actually know the population SEM (which we compute by dividing the population standard deviation by the size of the population), we can confirm that the SEM computed using the population parameter (`r I(formatC(sd(NHANES_adult$Height)/sqrt(sampSize), digits=2, format='f'))`) is very close to the observed standard deviation of the means for the samples that we took from the NHANES dataset (`r I(formatC(sd(sampMeans), digits=2, format='f'))`).  
+The formula for the standard error of the mean implies that the quality of our measurement involves two quantities: the population variability, and the size of our sample.  Because the sample size is the denominator in the formula for SEM, a larger sample size will yield a smaller SEM when holding the population variability constant. We have no control over the population variability, but we *do* have control over the sample size.  Thus, if we wish to improve our sample statistics (by reducing their sampling variability) then we should use larger samples.  However, the formula also tells us something very fundamental about statistical sampling -- namely, that the utility of larger samples diminishes with the square root of the sample size. This means that doubling the sample size will *not* double the quality of the statistics; rather, it will improve it by a factor of $\sqrt{2}$. In Section \@ref(statistical-power) we will discuss statistical power, which is intimately tied to this idea.-->
+
+Debido a que tenemos muchas muestras de la población NHANES y realmente conocemos el SEM de la población (que calculamos dividiendo la desviación estándar de la población por el tamaño de la población), podemos confirmar que el SEM que se calculó usando el parámetro de población (`r I(formatC(sd(NHANES_adult$Height)/sqrt(sampSize), digits=2, format='f'))`) está muy cerca de la desviación estándar observada de las medias para las muestras que tomamos del conjunto de datos NHANES (`r I(formatC(sd(sampMeans), digits=2, format='f'))`).
+
+La fórmula para el error estándar de la media implica que la calidad de nuestra medición involucra dos cantidades: la variabilidad de la población y el tamaño de nuestra muestra. Dado que el tamaño de la muestra es el denominador en la fórmula de SEM, un tamaño de muestra más grande producirá un SEM más pequeño cuando se mantiene constante la variabilidad de la población. No tenemos control sobre la variabilidad de la población, pero *sí* tenemos control sobre el tamaño de la muestra. Por lo tanto, si deseamos mejorar nuestras estadísticas muestrales (reduciendo su variabilidad muestral), entonces deberíamos utilizar muestras más grandes. Sin embargo, la fórmula también nos dice algo muy fundamental sobre el muestreo estadístico, a saber, que la utilidad de muestras más grandes disminuye con la raíz cuadrada del tamaño de la muestra. Esto significa que duplicar el tamaño de la muestra *no* duplicará la calidad de las estadísticas; más bien, lo mejorará en un factor de $\sqrt{2}$. En la Sección \@ref(statistical-power) discutiremos la potencia estadística, que está íntimamente ligada a esta idea.
+
+<!-- ## The Central Limit Theorem {#the-central-limit-theorem}-->
+## El teorema del límite central {#the-central-limit-theorem}
+
+<!--The Central Limit Theorem tells us that as sample sizes get larger, the sampling distribution of the mean will become normally distributed, *even if the data within each sample are not normally distributed*.  
+First, let's say a little bit about the normal distribution. It's also known as the *Gaussian* distribution, after Carl Friedrich Gauss, a mathematician who didn't invent it but played a role in its development.  The normal distribution is described in terms of two parameters: the mean (which you can think of as the location of the peak), and the standard distribution (which specifies the width of the distribution).  The bell-like shape of the distribution never changes, only its location and width.  The normal distribution is commonly observed in data collected in the real world, as we have already seen in Chapter 3 --- and the central limit theorem gives us some insight into why that occurs.
+To see the central limit theorem in action, let's work with the variable AlcoholYear from the NHANES dataset, which is highly skewed, as shown in the left panel of Figure \@ref(fig:alcDist50). This distribution is, for lack of a better word, funky -- and definitely not normally distributed.  Now let's look at the sampling distribution of the mean for this variable. Figure \@ref(fig:alcDist50) shows the sampling distribution for this variable, which is obtained by repeatedly drawing samples of size 50 from the NHANES dataset and taking the mean. Despite the clear non-normality of the original data, the sampling distribution is remarkably close to the normal.-->
+El teorema del límite central nos dice que a medida que el tamaño de la muestra aumenta, la distribución muestral de la media se distribuirá normalmente, *incluso si los datos dentro de cada muestra no se distribuyen normalmente*.
+
+Primero, digamos un poco sobre la distribución normal. También se conoce como la distribución *gaussiana*, en honor a Carl Friedrich Gauss, un matemático que no la inventó pero que jugó un papel en su desarrollo. La distribución normal se describe en términos de dos parámetros: la media (que puede considerar la ubicación del pico) y la distribución estándar (que especifica el ancho de la distribución). La forma de campana de la distribución nunca cambia, solo su ubicación y ancho. La distribución normal se observa comúnmente en los datos recopilados en el mundo real, como ya hemos visto en el capítulo 3, y el teorema del límite central nos da una idea de por qué ocurre eso.
+
+Para ver el teorema del límite central en acción, trabajemos con la variable $AlcoholYear$ del conjunto de datos NHANES, que está muy sesgada, como se muestra en el panel izquierdo de la Figura \@ref(fig:alcDist50). Esta distribución es, a falta de una palabra mejor, original, y definitivamente no se distribuye normalmente. Ahora veamos la distribución muestral de la media de esta variable. La figura \@ref(fig:alcDist50) muestra la distribución muestral para esta variable, que se obtiene extrayendo repetidamente muestras de tamaño 50 del conjunto de datos NHANES y tomando la media. A pesar de la clara no normalidad de los datos originales, la distribución muestral es notablemente cercana a la normal.
+
+```{r, echo=FALSE}
+# create sampling distribution function
+
+get_sampling_dist <- function(sampSize, nsamps = 2500) {
+  sampMeansFull <- array(NA, nsamps)
+  NHANES_clean <- NHANES %>%
+    drop_na(AlcoholYear)
+
+  for (i in 1:nsamps) {
+    NHANES_sample <- sample_n(NHANES_clean, sampSize)
+    sampMeansFull[i] <- mean(NHANES_sample$AlcoholYear)
+  }
+  sampMeansFullDf <- data.frame(sampMeans = sampMeansFull)
+
+  p2 <- ggplot(sampMeansFullDf, aes(sampMeans)) +
+    geom_freqpoly(aes(y = ..density..), bins = 100, color = "blue", size = 0.75) +
+    stat_function(
+      fun = dnorm, n = 100,
+      args = list(
+        mean = mean(sampMeansFull),
+        sd = sd(sampMeansFull)
+      ), size = 1.5, color = "red"
+    ) +
+    xlab("mean AlcoholYear")
+  return(p2)
+}
+
+```
+
+```{r alcDist50,echo=FALSE,fig.cap="Izquierda: Distribución de la variable AlcoholYear en el conjunto de datos NHANES, la cual refleja el número de días que el individuo bebió en el año. Derecha: La distribución de muestreo de la media para AlcoholYear en el conjunto de datos NHANES, obtenido dibujando muestras repetidas de tamaño 50, en azul. La distribución normal con la misma media y la desviación estándar está mostrada en rojo.",  fig.width=8,fig.height=4,out.height='50%'}
+
+NHANES_cleanAlc <- NHANES %>%	
+  drop_na(AlcoholYear)	
+p1 <- ggplot(NHANES_cleanAlc, aes(AlcoholYear)) +	
+  geom_histogram(binwidth = 7)
+
+p2 <- get_sampling_dist(50)
+plot_grid(p1,p2)
+```
+
+<!--The Central Limit Theorem is important for statistics because it allows us to safely assume that the sampling distribution of the mean will be normal in most cases. This means that we can take advantage of statistical techniques that assume a normal distribution, as we will see in the next section.  It's also important because it tells us why normal distributions are so common in the real world; any time we combine many different factors into a single number, the result is likely to be a normal distribution. For example, the height of any adult depends on a complex mixture of their genetics and experience; even if those individual contributions may not be normally distributed, when we combine them the result is a normal distribution.-->
+El teorema de límite central es importante para la estadística porque nos permite asumir con seguridad que la distribución de muestreo de la media va a ser normal en la mayoría de los casos. Esto significa que podemos tomar ventaja de las técnicas estadísticas que asumen una distribución normal, como veremos en la próxima sección. Es también importante porque nos dice por qué las distribuciones normales son tan comunes en el mundo real; siempre que combinamos factores diferentes en un solo número, el resultado muy probablemente será una distribución normal. Por ejemplo, la altura de cualquier adulto depende en una compleja mexcla de su genética y experiencia; incluso si las contribuciones individuales pueden no ser normalmente distribuidas, cuando las combinemos el resultado es una distribución normal. 
+
+<!--## Confidence intervals {#confidence-intervals}-->
+## Intervalos de confianza {#confidence-intervals}
+
+<!--Most people are familiar with the idea of a "margin of error" for political polls. These polls usually try to provide an answer that is accurate within +/- 3 percent. For example, when a candidate is estimated to win an election by 9 percentage points with a margin of error of 3, the percentage by which they will win is estimated to fall within 6-12 percentage points. In statistics we refer to this range of values as the *confidence interval*, which provides a measure of our degree of uncertainty about how close our particular estimate based on a single sample is to the population parameter. The larger the confidence interval, the greater our uncertainty.-->
+La mayoría de las personas están familiarizadas con la idea de un "margen de error" en encuestas políticas. Estas encuestas usualmente intentan proveer una respuesta que es más o menos 3% precisa. Por ejemplo cuando un candidato es estimado a ganar la elección por 9% de los puntos con un margen de error de 3, el porcentaje por el cual va a ganar es estimado a caer dentro del 6-12 porciento de puntos. En estadística nos referimos a este rango de valores como el *intervalo de confianza*, el cual provee una medida por nuestro grado de incertidumbre sobre de qué tan cercano nuestro estimado particular basado en una única muestra está del parámetro poblacional. Entre más grande sea el intervalo de confianza, mayor es la incertidumbre.  
+
+<!--We saw in the previous section that with sufficient sample size, the sampling distribution of the mean is normally distributed, and that the standard error describes the standard deviation of this sampling distribution.  Using this knowledge, we can ask: What is the range of values within which  we would expect to capture 95% of all estimates of the mean?  To answer this, we can use the normal distribution, for which we know the values between which we expect 95% of all sample means to fall; in statistical software, we generally refer to these as *quantiles*. Specifically, we need to determine the 2.5% and 97.5% quantiles of the of the distribution.  We choose these points because we want to find the 95% of values in the center of the distribution, so we need to cut off 2.5% on each end in order to end up with 95% in the middle.  Figure \@ref(fig:normalCutoffs) shows that this occurs for $Z \pm 1.96$.-->
+
+Vimos en la sección previa que con una muestra suficiente en tamaño, la distribución de la media de muestreo está normalmente distribuida, y que el error estándar describe la desviación estándar  de esta distribución de muestreo. Usando este conocimiento, podemos preguntarnos: ¿Cuál es el rango de valores con el cual podemos esperar capturar el 95% de todos los estimados de la media? Para contestar esto, podemos usar la distribución normal, por la cual sabemos que los valores entre los cuales esperamos que caiga el 95% de todas las medias muestrales; en software estadístico, nos referimos generalmente a estos como *cuantiles*. Específicamente, necesitamos determinar el 2.5% y 9.7% cuantiles de la distribución. Elegimos estos puntos porque queremos encontrar el 95% de los valores en el centro de la distribución, así que necesitamos cortar 2.5% en cada extremo para así poder terminar con 95% en el medio. La Figura \@ref(fig:normalCutoffs) muestra que esto ocurre para $Z \pm 1.96$. 
+
+```{r normalCutoffs, echo=FALSE, fig.cap="Distribución normal, con la sección anaranjada en el centro denotando el rango en el cual se espera el 95% de todos los valores. La sección verde muestra las porciones de la distribución que están más al extremo, las cuales esperaríamos que ocurrieran menos de 5% del tiempo.",fig.width=4,fig.height=4,out.height='50%'}
+
+# create utility functions
+
+dnormfun <- function(x){
+  return(dnorm(x,248))
+}
+
+plot_CI_cutoffs <- function(pct,zmin=-4,zmax=4,zmean=0,zsd=1) {
+  zcut <- qnorm(1 - (1-pct)/2,mean=zmean,sd=zsd)
+  zmin <- zmin*zsd + zmean
+  zmax <- zmax*zsd + zmean
+  x <- seq(zmin,zmax,0.1*zsd)
+  zdist <- dnorm(x,mean=zmean,sd=zsd)
+  area <- pnorm(zcut) - pnorm(-zcut)
+
+  p2 <- ggplot(data.frame(zdist=zdist,x=x),aes(x,zdist)) +
+    xlab('Z score') + xlim(zmin,zmax) + ylab('density')+
+    geom_line(aes(x,zdist),color='red',size=2) +
+    stat_function(fun = dnorm, args=list(mean=zmean,sd=zsd),
+                  xlim = c(zmean -zcut*zsd,zmean + zsd*zcut),
+                  geom = "area",fill='orange')  +
+    stat_function(fun = dnorm, args=list(mean=zmean,sd=zsd),
+                  xlim = c(zmin,zmean -zcut*zsd),
+                  geom = "area",fill='green')  +
+    stat_function(fun = dnorm, args=list(mean=zmean,sd=zsd),
+                  xlim = c(zmean +zcut*zsd,zmax),
+                  geom = "area",fill='green')  +
+    annotate('text',x=zmean,
+             y=dnorm(zmean,mean=zmean,sd=zsd)/2,
+             label=sprintf('%0.1f%%',area*100))  +
+    annotate('text',x=zmean - zsd*zcut,
+             y=dnorm(zmean-zcut*zsd,mean=zmean,sd=zsd)+0.05/zsd,
+             label=sprintf('%0.2f',zmean - zsd*zcut))  +
+    annotate('text',x=zmean + zsd*zcut,
+             y=dnorm(zmean-zcut*zsd,mean=zmean,sd=zsd)+0.05/zsd,
+             label=sprintf('%0.2f',zmean + zsd*zcut)) 
+  
+    print(p2)
+    return(zcut)
+}
+
+zcut <- plot_CI_cutoffs(0.95)
+
+```
+
+<!--Using these cutoffs, we can create a confidence interval for the estimate of the mean:
+$$
+CI_{95\%} = \bar{X} \pm 1.96*SEM
+$$
+Let's compute the confidence interval for the NHANES height data.-->
+
+Usando estos puntos de corte, podemos crear un intervalo de confianza para el estimado de la media:
+$$
+CI_{95\%} = \bar{X} \pm 1.96*SEM
+$$
+Calculemos el intervalo de confianza para los datos de altura de NHANES. 
+
+```{r echo=FALSE}
+# compute confidence intervals
+
+NHANES_sample <- sample_n(NHANES_adult,250)
+
+sample_summary <- NHANES_sample %>%
+    summarize(mean=mean(Height),
+            sem=sd(Height)/sqrt(sampSize)) %>%
+    mutate(CI_lower=mean-1.96*sem,
+           CI_upper=mean+1.96*sem)
+names(sample_summary) = c('Sample mean', 'SEM', 'Lower bound of CI', 'Upper bound of CI')
+kable(sample_summary)
+
+```
+
+```{r echo=FALSE}
+# compute how often the confidence interval contains the true population mean
+nsamples <- 2500
+sampSize <- 100
+
+ci_contains_mean <- array(NA,nsamples)
+
+for (i in 1:nsamples) {
+  NHANES_sample <- sample_n(NHANES_adult, sampSize)
+  sample_summary <- 
+    NHANES_sample %>%
+    summarize(
+      mean = mean(Height),
+      sem = sd(Height) / sqrt(sampSize)
+    ) %>%
+    mutate(
+      CI_upper = mean + 1.96 * sem,
+      CI_lower = mean - 1.96 * sem
+    )
+  ci_contains_mean[i] <- 
+    (sample_summary$CI_upper > mean(NHANES_adult$Height)) & 
+    (sample_summary$CI_lower < mean(NHANES_adult$Height))
+}
+
+
+```
+
+<!--Confidence intervals are notoriously confusing, primarily because they don't mean what we would hope they mean. It seems natural to think that the 95% confidence interval tells us that there is a 95% chance that the population mean falls within the interval.  However, as we will see throughout the course, concepts in statistics often don't mean what we think they should mean.  In the case of confidence intervals, we can't interpret them in this way because the population parameter has a fixed value -- it either is or isn't in the interval, so it doesn't make sense to talk about the probability of that occurring.  The proper interpretation of the 95% confidence interval is that it is an interval that will contain the true population mean 95% of the time, and in fact we can confirm that using simulation. We will learn more about confidence intervals later in the course after we discuss hypothesis testing.-->
+Los intervalos de confianza son notoriamente confusos, primeramente porque no significan lo que esperaríamos que significacen. Parece natural asumir que el 95% intervalo de confianza nos dice que hay un 95% de oportunidad de que la población esté dentro de ese intervalo. Sin embargo, como veremos a través del curso, los conceptos en estadística regularmente no significan lo que creemos que deberían significar. En el caso de los intervalos de confianza, no podemos interpretarlos en esta manera porque el parámetro poblacional tiene un valor fijo -- está o no está en el intervalo, por lo que no tiene sentido hablar de la probabilidad de que eso ocurra. La interpretación correcta del intervalo de confianza del 95% es que es un intervalo que contendrá la media real de la población el 95% del tiempo y, de hecho, podemos confirmarlo usando simulación. Aprenderemos más sobre los intervalos de confianza más adelante en el curso después de discutir la prueba de hipótesis.
+
+<!--## Learning objectives-->
+## Objetivos de aprendizaje
+
+<!--Having read this chapter, you should be able to:
+* Distinguish between a population and a sample, and between population parameters and sample statistics
+* Describe the concepts of sampling error and sampling distribution
+* Compute the standard error of the mean
+* Describe how the Central Limit Theorem determines the nature of the sampling distribution of the mean
+* Compute a confidence interval for the mean based on the normal distribution, and describe its appropriate interpretation-->
+Al haber leído este capítulo, tu deberías de ser capaz de: 
+
+* Distinguir entre una población y una muestra, y entre parámetros de población y estadísticas de muestra
+* Describir los conceptos de error muestral y distribución muestral.
+* Calcular el error estándar de la media.
+* Describir cómo el teorema del límite central determina la naturaleza de la distribución muestral de la media.
+* Calcular un intervalo de confianza para la media basado en la distribución normal y describa su interpretación apropiada.
+
+<!--## Suggested readings-->
+## Lecturas sugeridas 
+
+- *The Signal and the Noise: Why So Many Predictions Fail - But Some Don't*, by Nate Silver
+

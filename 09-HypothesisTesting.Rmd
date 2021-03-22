@@ -1,0 +1,774 @@
+---
+output:
+  html_document: default
+  bookdown::gitbook:
+    lib_dir: "book_assets"
+    includes:
+      in_header: google_analytics.html
+  pdf_document: default
+---
+<!-- # Hypothesis testing -->
+# Prueba de hipótesis
+
+```{r echo=FALSE,warning=FALSE,message=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(cowplot)
+set.seed(123456) # set random seed to exactly replicate results
+library(knitr)
+
+# load the NHANES data library
+library(NHANES)
+
+# drop duplicated IDs within the NHANES dataset
+NHANES <- 
+  NHANES %>% 
+  dplyr::distinct(ID,.keep_all = TRUE)
+
+NHANES_adult <- 
+  NHANES %>%
+  drop_na(PhysActive,BMI) %>%
+  subset(Age >= 18)
+
+```
+
+<!-- In the first chapter we discussed the three major goals of statistics: -->
+En el primer capítulo discutimos los tres grandes objetivos de la estadística:
+
+<!-- - Describe -->
+<!-- - Decide -->
+<!-- - Predict -->
+- Describir
+- Decidir
+- Predecir
+
+<!-- In this chapter we will introduce the ideas behind the use of statistics to make decisions -- in particular, decisions about whether a particular hypothesis is supported by the data.  -->
+En este capítulo presentaremos las ideas detrás del uso de la estadística para tomar decisiones -- en particular, decisiones acerca de si una hipótesis en particular es apoyada por los datos.
+
+<!-- ## Null Hypothesis Statistical Testing (NHST) -->
+## Prueba Estadística de Hipótesis Nula (Null Hypothesis Statistical Testing, NHST)
+
+<!-- The specific type of hypothesis testing that we will discuss is known (for reasons that will become clear) as *null hypothesis statistical testing* (NHST).  If you pick up almost any scientific or biomedical research publication, you will see NHST being used to test hypotheses, and in their introductory psychology textbook, Gerrig & Zimbardo (2002) referred to NHST as the “backbone of psychological research”.  Thus, learning how to use and interpret the results from hypothesis testing is essential to understand the results from many fields of research. -->
+El tipo específico de prueba de hipótesis que discutiremos es conocido como (por razones que serán claras más adelante) *prueba estadística de hipótesis nula* (*null hypothesis statistical testing*, NHST). Si tomaras casi cualquier publicación científica o biomédica, verías la NHST siendo usada para probar hipótesis, y en su libro de texto de introducción a la psicología, Gerrig & Zimbardo (2002) se refirieron a la NHST como el "pilar de la investigación psicológica". Por lo tanto, aprender cómo usar e interpretar los resultados de la prueba de hipótesis es esencial para entender los resultados de muchos campos de investigación.
+
+<!-- It is also important for you to know, however, that NHST is deeply flawed, and that many statisticians and researchers (including myself) think that it has been the cause of serious problems in science, which we will discuss in Chapter \@ref(doing-reproducible-research).  For more than 50 years, there have been calls to abandon NHST in favor of other approaches (like those that we will discuss in the following chapters): -->
+También es importante que sepas, sin embargo, que la NHST tiene serias fallas, y muchos estadísticos e investigadores (incluyéndome) piensan que esto ha sido la causa de problemas serios en la ciencia, que discutiremos en el Capítulo \@ref(doing-reproducible-research). Por más de 50 años, ha habido llamados para abandonar la NHST en favor de otras aproximaciones (como aquellas que discutiremos en los siguientes capítulos):
+
+- “The test of statistical significance in psychological research may be taken as an instance of a kind of essential mindlessness in the conduct of research” (Bakan, 1966)
+- Hypothesis testing is “a wrongheaded view about what constitutes scientific progress” (Luce, 1988)
+ 
+<!-- NHST is also widely misunderstood, largely because it violates our intuitions about how statistical hypothesis testing should work.  Let's look at an example to see this. -->
+NHST también es ampliamente malentendida, en gran medida porque va contra nuestras intuiciones acerca de cómo debería funcionar una prueba estadística de hipótesis. Veamos un ejemplo para observar esto.
+
+<!-- ## Null hypothesis statistical testing: An example -->
+## Prueba estadística de hipótesis nula: Un ejemplo 
+
+<!-- There is great interest in the use of body-worn cameras by police officers, which are thought to reduce the use of force and improve officer behavior.  However, in order to establish this we need experimental evidence, and it has become increasingly common for governments to use randomized controlled trials to test such ideas.  A randomized controlled trial of the effectiveness of body-worn cameras was performed by the Washington, DC government and DC Metropolitan Police Department in 2015/2016 in order to test the hypothesis that body-worn cameras are effective.  Officers were randomly assigned to wear a body-worn camera or not, and their behavior was then tracked over time to determine whether the cameras resulted in less use of force and fewer civilian complaints about officer behavior.   -->
+Hay un gran interés en el uso de cámaras llevadas en el cuerpo por oficiales de policía, que se piensa que reducen el uso de la fuerza y mejoran el comportamiento del oficial. Sin embargo, para poder establecer esto necesitamos evidencia experimental, y se ha vuelto cada vez más común que los gobiernos usen ensayos controlados aleatorizados (randomized control trials) para probar este tipo de ideas. Un ensayo controlado aleatorizado de la efectividad del uso de cámaras en el cuerpo fue realizado por el gobierno de Washington, DC, y el DC Metropolitan Police Department en 2015/2016 para probar la hipótesis de si las cámaras llevadas en el cuerpo son efectivas. Los oficiales fueron asignados de manera aleatoria a usar cámaras en el cuerpo o no, y su comportamiento fue seguido por un tiempo para determinar si las cámaras resultaron en menor uso de la fuerza y menos quejas de civiles acerca del comportamiento del oficial.
+
+<!-- Before we get to the results, let's ask how you would think the statistical analysis might work. Let's say we want to specifically test the hypothesis of whether the use of force is decreased by the wearing of cameras. The randomized controlled trial provides us with the data to test the hypothesis -- namely, the rates of use of force by officers assigned to either the camera or control groups.  The next obvious step is to look at the data and determine whether they provide convincing evidence for or against this hypothesis.  That is: What is the likelihood that body-worn cameras reduce the use of force, given the data and everything else we know? -->
+Antes de que lleguemos a los resultados, preguntémonos cómo piensas que el análisis estadístico debería funcionar. Digamos que queremos específicamente probar la hipótesis de si el uso de la fuerza disminuye por el uso de las cámaras. El ensayo controlado aleatorizado nos provee con los datos para probar la hipótesis -- concretamente, la frecuencia de uso de la fuerza por oficiales asignados ya sea al grupo de cámara o al grupo control. El siguiente paso obvio es mirar los datos y determinar si proveen evidencia convincente a favor o en contra de esta hipótesis. Esto es: ¿Cuál es la probabilidad de que las cámaras usadas en el cuerpo reduzcan el uso de la fuerza, dados los datos y todo lo demás que sabemos?
+
+<!-- It turns out that this is *not* how null hypothesis testing works.  Instead, we first take our hypothesis of interest (i.e. that body-worn cameras reduce use of force), and flip it on its head, creating a *null hypothesis* -- in this case, the null hypothesis would be that cameras do not reduce use of force.  Importantly, we then assume that the null hypothesis is true. We then look at the data, and determine how likely the data would be if the null hypothesis were true. If the the data are sufficiently unlikely under the null hypothesis that we can reject the null in favor of the *alternative hypothesis* which is our hypothesis of interest.  If there is not sufficient evidence to reject the null, then we say that we "failed to reject" the null, and we stick with our initial assumption that the null is true. -->
+Resulta que esta *no* es la manera en que funciona la prueba de hipótesis nula. En su lugar, primero tomamos nuestra hipótesis de interés (i.e. que las cámaras usadas en el cuerpo reducen el uso de la fuerza), y la volteamos de cabeza, creando una *hipótesis nula* -- en este caso, la hipótesis nula sería que las cámaras no reducen el uso de la fuerza. De manera importante, luego de esto asumimos que la hipótesis nula es verdadera. Después miramos los datos, y determinamos qué tan probable serían estos datos si la hipótesis nula fuera cierta. Si los datos son los suficientemente improbables bajo la hipótesis nula, entonces podemos rechazar la nula en favor de la *hipótesis alternativa* que es nuestra hipótesis de interés. Si no hay suficiente evidencia para rechazar la nula, entonces decimos que "fallamos en rechazar" la nula, y nos quedamos con nuestra suposición inicial de que la nula es cierta.
+
+<!-- Understanding some of the concepts of NHST, particularly the notorious "p-value", is invariably challenging the first time one encounters them, because they are so counter-intuitive. As we will see later, there are other approaches that provide a much more intuitive way to address hypothesis testing (but have their own complexities). However, before we get to those, it's important for you to have a deep understanding of how hypothesis testing works, because it's clearly not going to go away any time soon. -->
+El entender algunos de los conceptos de NHST, particularmente el notable "valor p", es invariablemente desafiante la primera vez que uno se encuentra con ellos, porque son tan contra-intuitivos. Como veremos después, existen otras aproximaciones que proveen maneras más intuitivas para abordar la prueba de hipótesis (pero tienen sus propias complejidades). Sin embargo, antes de que lleguemos a esas, es importante que tengas una comprensión profunda de cómo funciona la prueba de hipótesis, porque claramente no se irá a ningún lado pronto.
+
+<!-- ## The process of null hypothesis testing -->
+## El proceso de la prueba de hipótesis nula
+
+<!-- We can break the process of null hypothesis testing down into a number of steps: -->
+Podemos descomponer el proceso de la prueba de hipótesis nula en un número de pasos:
+
+<!-- 1. Formulate a hypothesis that embodies our prediction (*before seeing the data*) -->
+1. Formula una hipótesis que represente nuestra predicción (*antes de ver los datos*).
+<!-- 2. Specify null and alternative hypotheses -->
+2. Especifica las hipótesis nula y alternativa.
+<!-- 3. Collect some data relevant to the hypothesis -->
+3. Recolecta datos relevantes para la hipótesis.
+<!-- 4. Fit a model to the data that represents the alternative hypothesis and compute a test statistic -->
+4. Ajusta el modelo a los datos que representen la hipótesis laternativa y calcula un estadístico de prueba.
+<!-- 5. Compute the probability of the observed value of that statistic assuming that the null hypothesis is true -->
+5. Calcula la probabilidad del valor observado de ese estadístico asumiendo que la hipótesis nula es verdadera.
+<!-- 5. Assess the “statistical significance” of the result -->
+5. Evalúa la "significatividad estadística" del resultado.
+
+<!-- For a hands-on example, let's use the NHANES data to ask the following question: Is physical activity related to body mass index?  In the NHANES dataset, participants were asked whether they engage regularly in moderate or vigorous-intensity sports, fitness or recreational activities (stored in the variable $PhysActive$). The researchers also measured height and weight and used them to compute the *Body Mass Index* (BMI): -->
+Para un ejemplo práctico, usemos la base de datos NHANES para hacernos la siguiente pregunta: ¿La actividad física está relacionada con el índice de masa corporal? En NHANES, los participantes respondieron si se involucran regularmente en deportes moderados o de intensidad vigorosa, fitness, o actividades recreativas (guardado en la variable $PhysActive$). Los investigadores también midieron la altura y el peso y los usaron para calcular el *Índice de Masa Corporal* (IMC, o BMI por el término en inglés *Body Mass Index*):
+
+$$
+BMI = \frac{weight(kg)}{height(m)^2}
+$$
+
+<!-- ### Step 1: Formulate a hypothesis of interest -->
+### Paso 1: Formular una hipótesis de interés
+
+<!-- We hypothesize that BMI is greater for people who do not engage in physical activity, compared to those who do.  -->
+Hipotetizamos que el IMC es mayor en las personas que no se involucran en actividades físicas, comparado con aquellas que sí lo hacen. 
+
+<!-- ### Step 2: Specify the null and alternative hypotheses -->
+### Paso 2: Especifica las hipótesis nula y alternativa
+
+<!-- For step 2, we need to specify our null hypothesis (which we call $H_0$) and our alternative hypothesis (which we call $H_A$).  $H_0$ is the baseline against which we test our hypothesis of interest: that is, what would we expect the data to look like if there was no effect?  The null hypothesis always involves some kind of equality (=, $\le$, or $\ge$).  $H_A$ describes what we expect if there actually is an effect.  The alternative hypothesis always involves some kind of inequality ($\ne$, >, or <).  Importantly, null hypothesis testing operates under the assumption that the null hypothesis is true unless the evidence shows otherwise. -->
+Para el paso 2, necesitamos especificar nuestra hipótesis nula (que llamaremos $H_0$) y nuestra hipótesis alternativa (que llamaremos $H_A$). $H_0$ es la línea base contra la que probamos nuestra hipótesis de interés: esto es, ¿cómo esperaríamos que se vieran los datos si no hubiera un efecto? La hipótesis nula siempre involucra algún tipo de igualdad (=, $\le$, o $\ge$). $H_A$ describe lo que esperaríamos si realmente hubiera un efecto. La hipótesis alternativa siempre involucra algún tipo de diferencia/desigualdad ($\ne$, >, o <). De manera importante, la prueba de hipótesis nula opera bajo la suposición de que la hipótesis nula es verdadera a menos que la evidencia demuestre lo contrario.
+
+<!-- We also have to decide whether we want to test a *directional* or *non-directional* hypotheses.  A non-directional hypothesis simply predicts that there will be a difference, without predicting which direction it will go.  For the BMI/activity example, a non-directional null hypothesis would be: -->
+También tenemos que decidir si queremos probar una hipótesis *direccional* o *no direccional*. Una hipótesis no direccional simplemente predice que habrá una diferencia, sin predecir en qué dirección irá. Para el ejemplo de IMC/actividad, una hipótesis nula no direccional sería:
+
+$H0: BMI_{active} = BMI_{inactive}$
+
+<!-- and the corresponding non-directional alternative hypothesis would be: -->
+y la correspondiente hipótesis alternativa no direccional sería:
+
+$HA: BMI_{active} \neq BMI_{inactive}$
+
+<!-- A directional hypothesis, on the other hand, predicts which direction the difference would go.  For example, we have strong prior knowledge to predict that people who engage in physical activity should weigh less than those who do not, so we would propose the following directional null hypothesis: -->
+Una hipótesis direccional, por otro lado, predice en qué dirección irá la diferencia. Por ejemplo, tenemos conocimiento previo fuerte para predecir que la gente que se involucre en actividad física debería pesar menos que aquellos que no lo hacen, por lo tanto podríamos proponer la siguiente hipótesis nula direccional:
+
+$H0: BMI_{active} \ge BMI_{inactive}$
+
+<!-- and directional alternative: -->
+y la alternativa direccional:
+
+$HA: BMI_{active} < BMI_{inactive}$
+
+<!-- As we will see later, testing a non-directional hypothesis is more conservative, so this is generally to be preferred unless there is a strong *a priori* reason to hypothesize an effect in a particular direction.  Hypotheses, including whether they are directional or not, should always be specified prior to looking at the data! -->
+Como veremos más tarde, probar una hipótesis no direccional es más conservador, por lo que esto es lo que generalmente se prefiere a menos que haya alguna razón fuerte *a priori* para hipotetizar un efecto en una dirección en particular. ¡Las hipótesis, incluyen si son direccionales o no, siempre deberán ser especificadas antes de ver los datos!
+
+<!-- ### Step 3: Collect some data -->
+### Paso 3: Recolectar datos
+
+<!-- In this case, we will sample 250 individuals from the NHANES dataset.  Figure \@ref(fig:bmiSample) shows an example of such a sample, with BMI shown separately for active and inactive individuals. -->
+En este caso, seleccionaremos una muestra de 250 individuos de la base de datos NHANES. La Figura \@ref(fig:bmiSample) muestra un ejemplo de esa muestra, con el IMC mostrado separando los individuos activos e inactivos.
+
+```{r echo=FALSE}
+# sample 250 adults from NHANES and compute mean BMI separately for active
+# and inactive individuals
+
+sampSize <- 250
+
+NHANES_sample <- 
+  NHANES_adult %>%
+  sample_n(sampSize)
+
+sampleSummary <-
+  NHANES_sample %>%
+  group_by(PhysActive) %>%
+  summarize(
+    N = length(BMI),
+    mean = mean(BMI),
+    sd = sd(BMI)
+  )
+
+# calculate the mean difference in BMI between active 
+# and inactive individuals; we'll use this later to calculate the t-statistic
+meanDiff <- 
+  sampleSummary %>% 
+  select(
+    PhysActive,
+    mean
+  ) %>% 
+  spread(PhysActive, mean) %>% 
+  mutate(
+    meanDiff = No - Yes
+  ) %>% 
+  pull(meanDiff)
+
+# calculate the summed variances in BMI for active 
+# and inactive individuals; we'll use this later to calculate the t-statistic
+sumVariance <- 
+  sampleSummary %>% 
+  select(
+    PhysActive,
+    N,
+    sd
+  ) %>% 
+  gather(column, stat, N:sd) %>% 
+  unite(temp, PhysActive, column) %>% 
+  spread(temp, stat) %>% 
+  mutate(
+    sumVariance = No_sd**2 / No_N + Yes_sd**2 / Yes_N
+  ) %>% 
+  pull(sumVariance)
+
+
+# print sampleSummary table
+# Summary of BMI data for active versus inactive individuals
+kable(sampleSummary, digits=4,caption='Resumen de datos de IMC para individuos activos vs inactivos')
+```
+
+<!-- Box plot of BMI data from a sample of adults from the NHANES dataset, split by whether they reported engaging in regular physical activity. -->
+```{r bmiSample, echo=FALSE,fig.cap="Gráfica de caja (boxplot) de los datos de IMC de una muestra de adultos de NHANES, divididos según reportaron involucrarse en actividad física regular.",fig.width=4,fig.height=4,out.height='50%'}
+
+ggplot(NHANES_sample,aes(PhysActive,BMI)) +
+  geom_boxplot() + 
+  xlab('Physically active?') + 
+  ylab('Body Mass Index (BMI)')
+
+```
+
+
+<!-- ### Step 4: Fit a model to the data and compute a test statistic -->
+### Paso 4: Ajusta un modelo a los datos y calcula el estadístico de prueba
+
+<!-- We next want to use the data to compute a statistic that will ultimately let us decide whether the null hypothesis is rejected or not.  To do this, the model needs to quantify the amount of evidence in favor of the alternative hypothesis, relative to the variability in the data. Thus we can think of the test statistic as providing a measure of the size of the effect compared to the variability in the data.  In general, this test statistic will have a probability distribution associated with it, because that allows us to determine how likely our observed value of the statistic is under the null hypothesis.   -->
+Después queremos usar los datos para calcular un estadístico que ultimadamente nos permitirá decidir si la hipótesis nula es rechazada o no. Para hacer esot, el modelo necesita cuantificar la cantidad de evidencia en favor de la hipótesis alternativa, relativa a la variabilidad en los datos. Por lo que podemos pensar en el estadístico de prueba como el que provee una medida del tamaño del efecto comparado con la variabilidad en los datos. En general, este estadístico de prueba tendrá una distribución de probabilidad asociada con él, porque eso nos permitirá determinar qué tan probable es nuestro valor estadístico observado bajo la hipótesis nula.
+
+<!-- For the BMI example, we need a test statistic that allows us to test for a difference between two means, since the hypotheses are stated in terms of mean BMI for each group.  One statistic that is often used to compare two means is the *t* statistic, first developed by the statistician William Sealy Gossett, who worked for the Guiness Brewery in Dublin and wrote under the pen name "Student" - hence, it is often called "Student's*t* statistic".  The *t* statistic is appropriate for comparing the means of two groups when the sample sizes are relatively small and the population standard deviation is unknown.  The *t* statistic for comparison of two independent groups is computed as: -->
+Para el ejemplo de IMC, necesitamos un estadístico de prueba que nos permita probar si hay una diferencia entre dos medias, puesto que las hipótesis están elaboradas en términos de la media de IMC en cada grupo. Un estadístico que es frecuentemente usado para comparar dos medias es el estadístico *t*, desarrollado primero por el estadístico William Sealy Gossett, quien trabajó para la Guiness Brewery en Dublín y escribió bajo el pseudónimo "Student" - por eso, es frecuentemente llamada "estadístico *t* de Student". El estadístico *t* es apropiado para comparar las medias de dos grupos cuando los tamaños de muestra son relativamente pequeños y la desviación estándar de la población es desconocida. El estadístico *t* para comparar dos grupos independientes es calculado de la siguiente manera:
+
+$$
+t = \frac{\bar{X_1} - \bar{X_2}}{\sqrt{\frac{S_1^2}{n_1} + \frac{S_2^2}{n_2}}}
+$$
+
+<!-- where $\bar{X}_1$ and $\bar{X}_2$ are the means of the two groups, $S^2_1$ and $S^2_2$ are the estimated variances of the groups, and $n_1$ and $n_2$ are the sizes of the two groups.  Note that the denominator is basically an average of the standard error of the mean for the two samples.  Thus, one can view the the *t* statistic as a way of quantifying how large the difference between groups is in relation to the sampling variability of the means that are being compared. -->
+donde $\bar{X}_1$ y $\bar{X}_2$ son las medias de los dos grupos, $S^2_1$ y $S^2_2$ son las varianzas estimadas de los grupos, y $n_1$ y $n_2$ son los tamaños de cada grupo. Nota que el denominador es básicamente un promedio del error estándar de la media de las dos muestras. Por lo tanto, uno puede ver al estadístico *t* como una manera de cuantificar qué tan grande es la diferencia entre grupos en relación con la variabilidad muestral de las medias que están siendo comparadas.
+
+<!-- The *t* statistic is distributed according to a probability distribution known as a *t* distribution.  The *t* distribution looks quite similar to a normal distribution, but it differs depending on the number of degrees of freedom, which for this example is the number of observations minus 2, since we have computed two means and thus given up two degrees of freedom.  When the degrees of freedom are large (say 1000), then the *t* distribution looks essentially like the normal distribution, but when they are small then the *t* distribution has longer tails than the normal (see Figure \@ref(fig:tVersusNormal)). -->
+El estadístico *t* se distribuye de acuerdo a una distribución de probabilidad conocida como distribución *t*. La distribución *t* se mira muy similar a una distribución normal, pero difiere dependiendo del número de grados de libertad (degrees of freedom), que para nuestro ejemplo es el número de observaciones menos 2, porque hemos calculado dos medias y por lo tanto hemos renunciado a dos grados de libertad. Cuando la cantidad de grados de libertad es grande (digamos 1,000), entonces la distribución *t* se mira esencialmente como una distribución normal, pero cuando es pequeña entonces la distribución *t* tiene colas más largas que la normal (ve la Figura \@ref(fig:tVersusNormal)).
+
+<!-- Each panel shows the t distribution (in blue dashed line) overlaid on the normal distribution (in solid red line).  The left panel shows a t distribution with 4 degrees of freedom, in which case the distribution is similar but has slightly wider tails.  The right panel shows a t distribution with 1000 degrees of freedom, in which case it is virtually identical to the normal. -->
+```{r tVersusNormal,echo=FALSE,fig.cap="Cada panel muestra la distribución t (la línea azul punteada) sobrepuesta a la distribución normal (la línea roja continua). El panel izquierdo muestra una distribución t con 4 grados de libertad, en cuyo caso la distribución es similar pero tiene colas ligeramente más anchas. El panel derecho muestra una distribución t con 1000 grados de libertad, en cuyo caso es virtualmente idéntica a la normal.",fig.width=8,fig.height=4,out.height='50%'}
+
+distDfNormal <- data.frame(x=seq(-4,4,0.01)) %>%
+  mutate(normal=dnorm(x), Distribution='Normal')
+distDft4 <- data.frame(x=seq(-4,4,0.01)) %>%
+  mutate(normal=dt(x, df=4), Distribution='t (df=4)')
+distDft1000 <- data.frame(x=seq(-4,4,0.01)) %>%
+  mutate(normal=dt(x, df=1000), Distribution='t (df=1000)')
+
+p1 <- ggplot(rbind(distDfNormal, distDft4),aes(x=x, y=normal, color=Distribution)) + 
+  geom_line(aes(linetype=Distribution), size=2) + 
+  ggtitle('df = 4') + 
+  ylab('density') + 
+  theme(text = element_text(size=16)) +
+  theme(legend.position=c(0.2, 0.8),
+        legend.title = element_text(size = 20),
+        legend.text = element_text(size = 20)
+) 
+
+p2 <-ggplot(rbind(distDfNormal, distDft1000),aes(x=x, y=normal, color=Distribution)) + 
+  geom_line(aes(linetype=Distribution), size=2) + 
+  ggtitle('df = 1000') + 
+  ylab('density') + 
+  theme(text = element_text(size=16)) +
+  theme(legend.position=c(0.2, 0.8),
+        legend.title = element_text(size = 20),
+        legend.text = element_text(size = 20)
+) 
+plot_grid(p1,p2)
+```
+
+<!-- ### Step 5: Determine the probability of the data under the null hypothesis -->
+### Paso 5: Determinar la probabilidad de los datos bajo la hipótesis nula
+
+<!-- This is the step where NHST starts to violate our intuition -- rather than determining the likelihood that the null hypothesis is true given the data, we instead determine the likelihood of the data under the null hypothesis - because we started out by assuming that the null hypothesis is true!  To do this, we need to know the probability distribution for the statistic under the null hypothesis, so that we can ask how likely the data are under that distribution. We can obtain this "null distribution" either using a theoretical distribution (like the *t* distribution), or using randomization. Before we move to our BMI example, let's start with some simpler examples.  -->
+Este es el paso donde la NHST comienza a ir contra nuestra intuición  -- en lugar de determinar la probabilidad de que la hipótesis nula sea cierta dados los datos obtenidos, en su lugar determinamos la probabilidad de los datos bajo la hipótesis nula - ¡porque comenzamos los pasos asumiendo que la hipótesis nula es verdadera! Para hacer esto, necesitamos conocer la distribución de probabilidad del estadístico bajo la hipótesis nula, de tal manera que podamos preguntar qué tan probables son los datos bajo esa distribución. Podemos obtener esta "distribución nula" ya sea usando una distribución teórica (como la distribución *t*), o usando aleatorización. Antes de movernos al ejemplo de IMC, comencemos con unos ejemplos más sencillos.
+
+<!-- #### Randomization: A very simple example {#randomization-very-simple} -->
+#### Aleatorización: Un ejemplo muy sencillo {#randomization-very-simple}
+
+<!-- Let's say that we wish to determine whether a coin is fair.  To collect data, we flip the coin 100 times, and let's say we count 70 heads.  In this example, $H_0: P(heads)=0.5$ and $H_A: P(heads) \neq 0.5$, and our test statistic is simply the number of heads that we counted.  The question that we then want to ask is: How likely is it that we would observe 70 heads in 100 coin flips if the true probability of heads is 0.5?  We can imagine that this might happen very occasionally just by chance, but doesn't seem very likely. To quantify this probability, we can use the *binomial distribution*: -->
+Digamos que queremos determinar si una moneda está balanceada (que no esté trucada). Para recolectar datos, lanzamos la moneda 100 veces, y digamos que contamos 70 caras. En este ejemplo, $H_0: P(cara)=0.5$ y $H_A: P(cara) \neq 0.5$, y nuestro estadístico de prueba es simplemente el número de caras que contamos. La pregunta que entonces queremos hacernos es: ¿Qué tan probable es que hubiéramos observado 70 caras en 100 lanzamientos de moneda si la probabilidad verdadera de obtener cara es 0.5? Podríamos imaginar que esto podría suceder muy ocasionalmente sólo por azar, pero no parece muy probable. Para cuantificar esta probabilidad, podemos usar la *distribución binomial*:
+
+$$
+P(X \le k) = \sum_{i=0}^k \binom{N}{k} p^i (1-p)^{(n-i)}
+$$
+<!-- This equation will tell us the probability of a certain number of heads or fewer, given a particular probability of heads and number of events  However, what we really want to know is the probability of a certain number or more, which we can obtain by subtracting from one, based on the rules of probability: -->
+Esta ecuación nos dirá la probabilidad de tener un cierto número de caras o menos, dada una probabilidad en particular de obtener cara y un número de eventos. Sin embargo, lo que realmente queremos saber es la probabilidad de un cierto número o más, que podemos obtener restando el resultado de uno, basados en las reglas de probabilidad:
+
+$$
+P(X \ge k) = 1 - P(X < k)
+$$
+
+<!-- Distribution of numbers of heads (out of 100 flips) across 100,000 simulated runs with the observed value of 70 flips represented by the vertical line. -->
+```{r coinFlips,echo=FALSE,fig.cap="Distribución de cantidad de caras (de un total de 100 lanzamientos) a lo largo de 100,000 simulaciones  con el valor de 70 representado por la línea vertical.",fig.width=4,fig.height=4,out.height='50%'}
+
+# simulate tossing of 100,000 flips of 100 coins to identify empirical 
+# probability of 70 or more heads out of 100 flips
+
+# create function to toss coins
+tossCoins <- function() {
+  flips <- runif(100) > 0.5 
+  return(sum(flips))
+}
+
+# compute the probability of 69 or fewer heads, when P(heads)=0.5
+p_lt_70 <- pbinom(69, 100, 0.5) 
+
+# the probability of 70 or more heads is simply the complement of p_lt_70
+p_ge_70 <- 1 - p_lt_70
+
+# use a large number of replications since this is fast
+coinFlips <- replicate(100000, tossCoins())
+
+p_ge_70_sim <- mean(coinFlips >= 70)
+
+ggplot(data.frame(coinFlips),aes(coinFlips))  +
+  geom_histogram(binwidth = 1) + 
+  geom_vline(xintercept = 70,color='red',size=1)
+
+```
+
+<!-- Using the binomial distribution, the probability of 69 or fewer heads given P(heads)=0.5 is `r I(sprintf("%0.6f", p_lt_70))`, so the probability of 70 or more heads is simply one minus that value (`r I(sprintf("%0.6f", p_ge_70))`). -->
+Usando la distribución binomial, la probabilidad de 69 o menos caras dado P(cara)=0.5 es `r I(sprintf("%0.6f", p_lt_70))`, por lo tanto la probabilidad de 70 o más caras es simplemente uno menos ese valor (`r I(sprintf("%0.6f", p_ge_70))`).
+<!-- This computation shows us that the likelihood of getting 70 heads if the coin is indeed fair is very small.   -->
+Este cálculo nos muestra que la probabilidad de obtener 70 caras si la moneda efectivamente estuviera balanceada (no trucada) es muy pequeña.
+
+<!-- Now, what if we didn't have a standard function to tell us the probability of that number of heads?  We could instead determine it by simulation -- we repeatedly flip a coin 100 times using a true probability of 0.5, and then compute the distribution of the number of heads across those simulation runs.  Figure \@ref(fig:coinFlips) shows the result from this simulation. Here we can see that the probability computed via simulation (`r I(sprintf('%0.6f',p_ge_70_sim))`) is very close to the theoretical probability (.00004).  -->
+Ahora, ¿qué pasaría si no tuviéramos una función estándar que nos dijera la probabilidad de ese número de caras? Entonces podríamos determinarla por medio de una simulación -- repetidamente lanzar la moneda 100 veces usando una probabilidad verdadera de 0.5, y luego calcular la distribución del número de caras a lo largo de estas simulaciones. La Figura \@ref(fig:coinFlips) muestra el resultado de esta simulación. Aquí podemos ver que la probabilidad calculada a través de simulación (`r I(sprintf('%0.6f',p_ge_70_sim))`) es muy cercana a la probabilidad teórica (.00004).
+
+```{r echo=FALSE}
+tStat <- 
+  meanDiff / sqrt(sumVariance)
+pvalue_tdist <- 
+  pt(tStat, df = 248, lower.tail = FALSE)
+pvalue_tdist_twotailed <- 
+  pt(tStat, df = 248, lower.tail = FALSE) +
+  pt(-1 * tStat, df = 248, lower.tail = TRUE)
+
+```
+
+<!-- Let's do the analogous computation for our BMI example. First we compute the *t* statistic using the values from our sample that we calculated above, where we find that `r I(sprintf('t = %0.2f',tStat))`. The question that we then want to ask is: What is the likelihood that we would find a *t* statistic of this size, if the true difference between groups is zero or less (i.e. the directional null hypothesis)?  -->
+Hagamos el cálculo análogo para nuestro ejemplo de IMC/actividad. Primero, calculamos el estadístico *t* usando los valores de nuestra muestra que calculamos arriba, donde encontramos que `r I(sprintf('t = %0.2f',tStat))`. La pregunta que entonces queremos hacernos es: ¿Cuál es la probabilidad de que encontráramos un estadístico *t* de este tamaño, si la diferencia verdadera entre grupos fuera cero o menor (i.e. la dirección de la hipótesis nula)?
+
+<!-- We can use the *t* distribution to determine this probability. Our sample size is 250, so the appropriate *t* distribution has 248 degrees of freedom because we lose one for each of the two means that we computed.  We can use a function from our statistical software to determine the probability of finding a value of the *t* statistic greater than or equal to our observed value. We find that `r I(sprintf("p(t > %0.2f, df = 248) = %0.6f", tStat, pvalue_tdist))`, which tells us that our observed *t* statistic value of `r I(tStat)` is relatively unlikely if the null hypothesis really is true. -->
+Podemos usar la distribución *t* para determinar esta probabilidad. Nuestro tamaño de muestra es 250, por lo que la distribución *t* apropiada tiene 248 grados de libertad porque perdemos un grado de libertad por cada una de las dos medias que calculamos. Podemos usar una función de nuestro software estadístico para determinar la probabilidad de encontrar un valor del estadístico *t* mayor o igual al observado en nuestra muestra. Encontramos que `r I(sprintf("p(t > %0.2f, df = 248) = %0.6f", tStat, pvalue_tdist))`, que nos dice que el valor estadístico *t* observado de `r I(tStat)` es relativamente improbable si la hipótesis nula realmente fuera cierta.
+
+<!-- In this case, we used a directional hypothesis, so we only had to look at one end of the null distribution. If we wanted to test a non-directional hypothesis, then we would need to be able to identify how unexpected the size of the effect is, regardless of its direction.  In the context of the t-test, this means that we need to know how likely it is that the statistic would be as extreme in either the positive or negative direction.  To do this, we multiply the observed *t* value by -1, since the *t* distribution is centered around zero, and then add together the two tail probabilities to get a *two-tailed* p-value: `r I(sprintf("p(t > %0.2f or t< %0.2f, df = 248) = %0.6f", tStat, -1 * tStat, pvalue_tdist_twotailed))`. Here we see that the p value for the two-tailed test is twice as large as that for the one-tailed test, which reflects the fact that an extreme value is less surprising since it could have occurred in either direction. -->
+En este caso, usamos una hipótesis direccional, por eso sólo tuvimos que observar un lado de la distribución nula. Si hubiéramos querido probar una hipótesis no direccional, entonces tendríamos que haber identificado qué tan inesperado es el tamaño del efecto, sin importar la dirección. En el contexto de la prueba t, eso significa que debemos saber qué tan probable es que el estadístico fuera tan extremo tanto en la dirección positiva como en la negativa. Para hacer esto, multiplicamos el valor *t* observado  por -1, porque la distribución *t* está centrada alrededor de cero, y luego sumamos juntas las probabilidades de ambas colas para obtener un valor p de *dos colas* (*two-tailed*): `r I(sprintf("p(t > %0.2f or t< %0.2f, df = 248) = %0.6f", tStat, -1 * tStat, pvalue_tdist_twotailed))`. Aquí vemos que el valor p para la prueba de dos colas es el doble que para la prueba de una cola, esto refleja el hecho de que un valor extremo es menos sorpresivo porque podría haber ocurrido en cualquier dirección.
+
+<!-- How do you choose whether to use a one-tailed versus a two-tailed test?  The two-tailed test is always going to be more conservative, so it's always a good bet to use that one, unless you had a very strong prior reason for using a one-tailed test. In that case, you should have written down the hypothesis before you ever looked at the data. In Chapter \@ref(doing-reproducible-research) we will discuss the idea of pre-registration of hypotheses, which formalizes the idea of writing down your hypotheses before you ever see the actual data.  You should *never* make a decision about how to perform a hypothesis test once you have looked at the data, as this can introduce serious bias into the results. -->
+¿Cómo eliges si usar una prueba de una cola o de dos colas? La prueba de dos colas siempre será más conservadora, por lo que es una buena apuesta usar esa, a menos que ya tuvieras de antemano una razón fuerte previa para usar una prueba de una cola. En ese caso, tendrías que haber escrito la hipótesis antes de haber visto los datos. En el Capítulo \@ref(doing-reproducible-research) discutiremos la idea del pre-registro de hipótesis, que formaliza la idea de escribir tus hipótesis antes de siquiera haber visto los datos reales. *Nunca* deberías tomar una decisión acerca de cómo elaborar la hipótesis después de haber visto los datos, porque esto puede introducir sesgos serios en tus resultados.
+
+<!-- #### Computing p-values using randomization -->
+#### Calcular valores p usando aleatorización
+
+<!-- So far we have seen how we can use the t-distribution to compute the probability of the data under the null hypothesis, but we can also do this using simulation. The basic idea is that we generate simulated data like those that we would expect under the null hypothesis, and then ask how extreme the observed data are in comparison to those simulated data.  The key question is: How can we generate data for which the null hypothesis is true?  The general answer is that we can randomly rearrange the data in a particular way that makes the data look like they would if the null was really true.  This is similar to the idea of bootstrapping, in the sense that it uses our own data to come up with an answer, but it does it in a different way. -->
+Hasta ahora, hemos visto cómo podemos usar la distribución t para calcular la probabilidad de los datos bajo la hipótesis nula, pero también podemos hacer esto usando simulaciones. La idea básica es que generemos datos simulados similares a los que esperaríamos bajo la hipótesis nula, y luego preguntarnos qué tan extremo es el dato observado en comparación con esos datos simulados. La pregunta clave es: ¿Cómo podemos generar datos para los cuales la hipótesis nula es verdadera? La respuesta general es que podemos reordenar nuestros datos de manera aleatoria en una manera particular que haga que los datos se vean como se deberían ver si la nula fuera realmente verdadera. Esto es similar a la idea de *bootstrapping*, en el sentido de que usa nuestros propios datos para obtener una respuesta, pero lo hace de una manera diferente.
+
+<!-- #### Randomization: a simple example -->
+#### Aleatorización: un ejemplo simple
+
+<!-- Let's start with a simple example. Let's say that we want to compare the mean squatting ability of football players with cross-country runners, with $H_0: \mu_{FB} \le \mu_{XC}$ and $H_A: \mu_{FB} > \mu_{XC}$.  We measure the maximum squatting ability of 5 football players and 5 cross-country runners (which we will generate randomly, assuming that $\mu_{FB} = 300$,  $\mu_{XC} = 140$, and $\sigma = 30$). -->
+Comencemos con un ejemplo simple. Digamos que queremos comparar la habilidad promedio de hacer sentadillas de jugadores de football contra corredores de campo (*cross-country runners*), con $H_0: \mu_{FB} \le \mu_{XC}$ y $H_A: \mu_{FB} > \mu_{XC}$. Medimos la habilidad máxima de hacer sentadillas de 5 jugadores de football y de 5 corredores de campo (que generaremos aleatoriamente, asumiendo que $\mu_{FB} = 300$,  $\mu_{XC} = 140$, and $\sigma = 30$).
+
+
+<!-- Left: Box plots of simulated squatting ability for football players and cross-country runners.Right: Box plots for subjects assigned to each group after scrambling group labels. -->
+```{r squatPlot,echo=FALSE,fig.cap="Izquierda: Boxplot de la simulación de habilidad de hacer sentadillas de jugadores de football y de corredores de campo. Derecha: Boxplots para sujetos asignados a cada grupo después de revolver las etiquetas de grupo.",fig.width=8,fig.height=4,out.height='50%'}
+
+# generate simulated data for squatting ability across football players 
+# and cross country runners
+
+# reset random seed for this example
+set.seed(1234)
+
+# create a function to round values to nearest product of 5,
+# to keep example simple
+roundToNearest5 <- function(x, base = 5) {
+  return(base * round(x / base))
+}
+
+# create and show data frame containing simulated data
+squatDf <- tibble(
+  group = as.factor(c(rep("FB", 5), rep("XC", 5))),
+  squat = roundToNearest5(c(rnorm(5) * 30 + 300, rnorm(5) * 30 + 140))
+)
+
+kable(squatDf, caption='Squatting data for the two groups')
+
+p1 <- ggplot(squatDf,aes(x=group,y=squat)) +
+  geom_boxplot() +
+  ylab('max squat (lbs)')
+
+# create a scrambled version of the group membership variable
+
+dfScram <-
+  squatDf %>%
+  mutate(
+    scrambledGroup = sample(group)
+  ) %>%
+  select(-group)
+
+kable(dfScram, caption='Squatting data after randomly scrambling group labels')
+
+p2 <- ggplot(dfScram,aes(x=scrambledGroup,y=squat)) +
+  geom_boxplot() +
+  ylab('max squat (lbs)')
+
+plot_grid(p1, p2)
+
+```
+
+<!-- From the plot in Figure \@ref(fig:squatPlot) it's clear that there is a large difference between the two groups.  We can do a standard t-test to test our hypothesis; for this example we will use the `t.test()` command in R, which gives the following result: -->
+De la gráfica en la Figura \@ref(fig:squatPlot) es claro que hay una gran diferencia entre los dos grupos. Podemos aplicar una prueba t estándar para probar nuestra hipótesis; para este ejemplo usaremos el comando `t.test()` en R, que nos da el siguiente resultado:
+
+```{r echo=FALSE}
+# compute and print t statistic comparing two groups
+
+tt <- 
+  t.test(
+    squat ~ group, 
+    data = squatDf, 
+    alternative = "greater", 
+    var.equal = TRUE
+  )
+print(tt)
+```
+
+<!-- If we look at the p-value reported here, we see that the likelihood of such a difference under the null hypothesis is very small, using the *t* distribution to define the null.    -->
+Si miramos el valor p reportado aquí, vemos que la probabilidad de tal diferencia bajo la hipótesis nula es muy pequeña, usando la distribución *t* para definir la nula.
+
+<!-- Now let's see how we could answer the same question using randomization.  The basic idea is that if the null hypothesis of no difference between groups is true, then it shouldn't matter which group one comes from (football players versus cross-country runners) -- thus, to create data that are like our actual data but also conform to the null hypothesis, we can randomly reorder the group labels for the individuals in the dataset, and then recompute the difference between the groups. The results of such a shuffle are shown in Table 9.2, and the boxplots of the resulting data are Figure \@ref(fig:squatPlot). -->
+Ahora veamos cómo podemos responder la misma pregunta usando aleatorización. La idea básica es que si la hipótesis nula de no diferencia entre grupos es verdadera, entonces no debería importar de qué grupo proviene cada participante (jugadores de football versus corredores de campo) -- por eso, para crear datos que son como nuestros datos observados pero que se conforman a la hipótesis nula, podemos reordenar aleatoriamente las etiquetas de grupo para cada individuo en los datos, y luego recalcular la diferencia entre los grupos. Los resultados de tal barajado se muestran en la Tabla 9.2, y los boxplots de los datos resultantes están en la Figura \@ref(fig:squatPlot).
+
+
+<!-- Histogram of t-values for the difference in means between the football and cross-country groups after randomly shuffling group membership.  The vertical line denotes the actual difference observed between the two groups, and the dotted line shows the theoretical t distribution for this analysis. -->
+```{r shuffleHist, echo=FALSE,fig.cap="Histograma de valores t para la diferencia de medias entre los grupos de jugadores de football y corredores de campo después de barajar la pertenencia al grupo. La línea vertical denota la diferencia real entre los dos grupos, y la línea punteada muestra la distribución t teórica para este análisis.",fig.width=4,fig.height=4,out.height='50%'}
+
+# shuffle data 10,000 times and compute distribution of t values
+
+nRuns <- 10000
+
+shuffleAndMeasure <- function(df) {
+  dfScram <- 
+    df %>%
+    mutate(
+      scrambledGroup = sample(group)
+    )
+  tt <- t.test(
+    squat ~ scrambledGroup,
+    data = dfScram,
+    alternative = "greater", 
+    var.equal = TRUE
+  )
+  return(tt$statistic)
+}
+
+shuffleDiff <- replicate(nRuns, shuffleAndMeasure(squatDf))
+
+# compute p value using randomization
+pvalRandomization <- mean(shuffleDiff >= tt$statistic)
+
+
+ggplot(data.frame(shuffleDiff),aes(shuffleDiff)) +
+  geom_histogram(aes(y=..density..),bins=50, color='gray', fill='gray') + 
+  geom_vline(xintercept = tt$statistic,color='red') +
+  xlab('t values after random shuffling') +
+  stat_function(fun = dt, args = list(df = 8),n = 50,size=1.5,linetype='dotted')
+
+```
+
+<!-- After scrambling the labels, we see that the two groups are now much more similar, and in fact the cross-country group now has a slightly higher mean. Now let's do that 10000 times and store the *t* statistic for each iteration; if you are doing this on your own computer, it will take a moment to complete. Figure \@ref(fig:shuffleHist) shows the histogram of the *t* values across all of the random shuffles. As expected under the null hypothesis, this distribution is centered at zero (the mean of the distribution is `r I(sprintf("%0.3f", mean(shuffleDiff)))`). From the figure we can also see that the distribution of *t* values after shuffling roughly follows the theoretical *t* distribution under the null hypothesis (with mean=0), showing that randomization worked to generate null data.  We can compute the p-value from the randomized data by measuring how many of the shuffled values are at least as extreme as the observed value: `r I(sprintf('p(t > %0.2f, df = 8) using randomization = %0.5f',tt$statistic, pvalRandomization))`. This p-value is very similar to the p-value that we obtained using the *t* distribution, and both are quite extreme, suggesting that the observed data are very unlikely to have arisen if the null hypothesis is true - and in this case we *know* that it's not true, because we generated the data. -->
+Después de revolver las etiquetas, vemos que los dos grupos son ahora mucho más similares, y de hecho el grupo de corredores de campo ahora tiene una media ligeramente mayor. Ahora hagamos eso 10,000 veces y guardemos el estadístico *t* para cada iteración; si estás haciendo esto en tu computadora, tomará un momento en completarse. La Figura \@ref(fig:shuffleHist) muestra el histograma de los valores *t* a lo largo de todas las barajadas aleatorias. Como se esperaba bajo la hipótesis nula, la distribución está centrada en cero (la media de la distribución es `r I(sprintf("%0.3f", mean(shuffleDiff)))`). De la figura podemos ver también que la distribución de los valores *t* después de barajar sigue aproximadamente la distribución *t* teórica bajo la hipótesis nula (con media = 0), mostrando que la aleatorización funcionó para generar datos nulos. Podemos calcular el valor p a partir de estos datos aleatorizados al medir cuántos de estos valores barajados son tan o más extremos que el valor observado: `r I(sprintf('p(t > %0.2f, df = 8) usando aleatorización = %0.5f',tt$statistic, pvalRandomization))`. Este valor p es muy similar al valor p que obtuvimos usando la distribución *t*, y ambos son bastante extremos, sugiriendo que los datos observados son muy improbables que hayan surgido si la hipótesis nula fuera cierta - y en este caso nosotros *sabemos* que no es cierta, porque nosotros generamos los datos.
+
+<!-- ##### Randomization: BMI/activity example -->
+##### Aleatorización: ejemplo IMC/actividad
+
+```{r echo=FALSE}
+# create function to shuffle BMI data
+
+shuffleBMIstat <- function() {
+  bmiDataShuffled <- 
+    NHANES_sample %>%
+    select(BMI, PhysActive) %>%
+    mutate(
+      PhysActive = sample(PhysActive)
+    )
+  # compute the difference
+  simResult <- t.test(
+    BMI ~ PhysActive,
+    data = bmiDataShuffled,
+    var.equal = TRUE
+  )
+  return(simResult$statistic)
+}
+
+# run function 5000 times and save output
+
+nRuns <- 5000
+meanDiffSimDf <- 
+  data.frame(
+    meanDiffSim = replicate(nRuns, shuffleBMIstat())
+  )
+
+# compute the empirical probability of t values larger than observed
+# value under the randomization null
+bmtTTest <- 
+  t.test(
+  BMI ~ PhysActive,
+  data = NHANES_sample,
+  var.equal = TRUE, 
+  alternative = "greater"
+)
+
+bmiPvalRand <- 
+  mean(meanDiffSimDf$meanDiffSim >= bmtTTest$statistic)
+
+```
+
+<!-- Now let's use randomization to compute the p-value for the BMI/activity example. In this case, we will randomly shuffle the `PhysActive` variable and compute the difference between groups after each shuffle, and then compare our observed *t* statistic to the distribution of *t* statistics from the shuffled datasets. Figure \@ref(fig:simDiff) shows the distribution of *t* values from the shuffled samples, and we can also compute the probability of finding a value as large or larger than the observed value.  The p-value obtained from randomization (`r sprintf("%.6f",bmiPvalRand)`) is very similar to the one obtained using the *t* distribution (`r sprintf("%.6f",bmtTTest$p.value)`).  The advantage of the randomization test is that it doesn't require that we assume that the data from each of the groups are normally distributed, though the t-test is generally quite robust to violations of that assumption.  In addition, the randomization test can allow us to compute p-values for statistics when we don't have a theoretical distribution like we do for the t-test. -->
+Ahora usemos la aleatorización para calcular el valor p del ejemplo de IMC/actividad. En este caso, vamos a barajar aleatoriamente la variable `PhysActive` y a calcular la diferencia entre grupos después de cada barajada, y luego comparar nuestro estadístico *t* observado con la distribución de estadísticos *t* obtenido de los datos barajados. La Figura \@ref(fig:simDiff) muestra la distribución de valores *t* de las muestras barajadas, y podemos calcular la probabilidad de encontrar un valor tan grande o más grande que el valor observado. El valor p obtenido de la aleatorización (`r sprintf("%.6f",bmiPvalRand)`) es muy similar al obtenido usando la distribución *t* (`r sprintf("%.6f",bmtTTest$p.value)`). La ventaja de la prueba de aleatorización es que no requiere que asumamos que los datos de cada grupo tienen una distribución normal, aunque la prueba t es generalmente bastante robusta a violaciones de esta suposición. Además de eso, la prueba de aleatorización nos puede permitir calcular valores p para estadísticos cuando no tenemos una distribución teórica como la que tenemos para la prueba t.
+
+<!-- Histogram of t statistics after shuffling of group labels, with the observed value of the t statistic shown in the vertical line, and values at least as extreme as the observed value shown in lighter gray -->
+```{r simDiff,echo=FALSE,fig.cap="Histograma de estadísticos t después de barajar las etiquetas de grupos, con el valor observado del estadístico t mostrado en la línea vertical, y los valores tan extremos o más extremos que el valor observado mostrados en gris más claro.",fig.width=4,fig.height=4,out.height='50%'}
+
+meanDiffSimDf %>% 
+  ggplot(aes(meanDiffSim)) +
+  geom_histogram(bins = 200) +
+  geom_vline(xintercept = bmtTTest$statistic, color = "blue") +
+  xlab("T stat: BMI difference between groups") +
+  geom_histogram(
+    data = meanDiffSimDf %>% 
+      filter(meanDiffSim >= bmtTTest$statistic), 
+    aes(meanDiffSim), 
+    bins = 200, 
+    fill = "gray"
+  )
+
+```
+
+
+<!-- We do have to make one main assumption when we use the randomization test, which we refer to as *exchangeability*.  This means that all of the observations are distributed in the same way, such that we can interchange them without changing the overall distribution.  The main place where this can break down is when there are related observations in the data; for example, if we had data from individuals in 4 different families, then we couldn't assume that individuals were exchangeable, because siblings would be closer to each other than they are to individuals from other families. In general, if the data were obtained by random sampling, then the assumption of exchangeability should hold. -->
+Sí tenemos que hacer una suposición principal cuando usamos la prueba de aleatorización, a la que nos referimos como *intercambiabilidad*. Esto significa que todas las observaciones están distribuidas de la misma manera, de tal manera que podemos intercambiarlas sin cambiar la distribución en general. El principal lugar donde esto no se cumple es cuando tenemos observaciones relacionadas en los datos; por ejemplo, si tuviéramos datos de personas en 4 diferentes familias, entonces no podríamos asumir que los individuos son intercambiables, porque los hermanos serían más parecidos unos a otros de lo que serían a individuos de otras familias. En general, si los datos se obtuvieron de un muestreo aleatorio, entonces la suposición de intercambiabilidad se debería sostener.
+
+<!-- ### Step 6: Assess the "statistical significance" of the result -->
+### Paso 6: Evalúa la "significatividad estadística" del resultado
+
+<!-- The next step is to determine whether the p-value that results from the previous step is small enough that we are willing to reject the null hypothesis and conclude instead that the alternative is true.  How much evidence do we require?  This is one of the most controversial questions in statistics, in part because it requires a subjective judgment -- there is no "correct" answer. -->
+El siguiente paso es determinar si el valor p que resultó del paso previo es suficientemente pequeño para que estemos dispuestos a rechazar la hipótesis nula y concluir en su lugar que la alternativa es correcta. ¿Qué tanta evidencia necesitamos? Este es una de las preguntas más controversiales en estadística, en parte porque requiere un juicio subjetivo -- no hay una respuesta "correcta".
+
+<!-- Historically, the most common answer to this question has been that we should reject the null hypothesis if the p-value is less than 0.05.  This comes from the writings of Ronald Fisher, who has been referred to as "the single most important figure in 20th century statistics"[@efron1998]: -->
+Históricamente, la respuesta más común a esta pregunta ha sido que deberíamos rechazar la hipótesis nula si el valor p es menor a 0.05. Esto viene de los escritos de Ronald Fisher, quien ha sido referenciado como "la figura individual más importante en la estadística del siglo 20" [@efron1998]:
+
+<!-- > “If P is between .1 and .9 there is certainly no reason to suspect the hypothesis tested. If it is below .02 it is strongly indicated that the hypothesis fails to account for the whole of the facts. We shall not often be astray if we draw a conventional line at .05 ... it is convenient to draw the line at about the level at which we can say: Either there is something in the treatment, or a coincidence has occurred such as does not occur more than once in twenty trials” [@fisher1925statistical] -->
+> "Si P está entre .1 y .9 ciertamente no hay razón para sospechar de la hipótesis probada. Si es menor a .02 indica fuertemente que la hipótesis falla en dar cuenta de todos los hechos. No fallaremos frecuentemente si dibujamos una línea convencional en .05 ... es conveniente dibujar la línea en el nivel en el que podamos decir: O hay algo en el tratamiento, o una coincidencia ha sucedido de tal manera que no sucede más de una vez cada veinte ensayos" [@fisher1925statistical]
+
+<!-- However, Fisher never intended $p < 0.05$ to be a fixed rule: -->
+Sin embargo, Fisher nunca tuvo la intención de que $p < 0.05$ fuera una regla fija:
+
+<!-- > "no scientific worker has a fixed level of significance at which from year to year, and in all circumstances, he rejects hypotheses; he rather gives his mind to each particular case in the light of his evidence and his ideas" [@fish:1956] -->
+> "ningún trabajor científico tiene un nivel fijo de significatividad con el cual, año con año, y en todas las circunstancias, él rechace hipótesis; en su lugar él considera cada caso en particular a la luz de la evidencia y de sus ideas" [@fish:1956]
+
+<!-- Instead, it is likely that p < .05 became a ritual due to the reliance upon tables of p-values that were used before computing made it easy to compute p values for arbitrary values of a statistic.  All of the tables had an entry for 0.05, making it easy to determine whether one's statistic exceeded the value needed to reach that level of significance. -->
+En cambio, es probable que p < .05 se convirtió en un ritual debido a la dependencia en tablas de valores p que fueron usadas antes de que las computadoras hicieran fácil el calcular valores p para valores arbitrarios de un estadístico. Todas las tablas tenían una entrada para 0.05, haciendo fácil determinar si el estadístico en nuestros datos excedía el valor requerido para alcanzar ese nivel de significatividad.
+
+<!-- The choice of statistical thresholds remains deeply controversial, and recently (Benjamin et al., 2018) it has been proposed that the standard threshold be changed from .05 to .005, making it substantially more stringent and thus more difficult to reject the null hypothesis. In large part this move is due to growing concerns that the evidence obtained from a significant result at $p < .05$ is relatively weak; we will return to this in our later discussion of reproducibility in Chapter \@ref(doing-reproducible-research). -->
+La elección de umbrales estadísticos se mantiene profundamente controversial, y recientemente (Benjamin et al., 2018) se ha propuesto que el umbral estándar sea cambiado de .05 a .005, haciendo sustancialmente más estricto y por lo tanto más difícil el rechazar la hipótesis nula. En gran medida este movimiento ha surgido por preocupaciones crecientes de que la evidencia obtenida de un resultado significativo al nivel $p < .05$ sea relativamente débil; regresaremos a esto en nuestra futura discusión sobre reproducibilidad en el Capítulo \@ref(doing-reproducible-research).
+
+<!-- #### Hypothesis testing as decision-making: The Neyman-Pearson approach -->
+#### Prueba de hipótesis como toma de decisiones: la aproximación Neyman-Pearson
+
+<!-- Whereas Fisher thought that the p-value could provide evidence regarding a specific hypothesis, the statisticians Jerzy Neyman and Egon Pearson disagreed vehemently. Instead, they proposed that we think of hypothesis testing in terms of its error rate in the long run: -->
+Mientras Fisher pensaba que el valor p podría proveer de evidencia sobre una hipótesis específica, los estadísticos Jerzy Neyman y Egon Pearson estaban en desacuerdo de manera vehemente. En su lugar, ellos propusieron que pensáramos en la prueba de hipótesis en términos de su tasa de error en el largo plazo:
+
+<!-- > "no test based upon a theory of probability can by itself provide any valuable evidence of the truth or falsehood of a hypothesis. But we may look at the purpose of tests from another viewpoint. Without hoping to know whether each separate hypothesis is true or false, we may search for rules to govern our behaviour with regard to them, in following which we insure that, in the long run of experience, we shall not often be wrong" [@Neyman289] -->
+> "ninguna prueba basada en la teoría de probabilidad puede en sí misma proveer ninguna evidencia de valor sobre la verdad o falsedad de una hipótesis. Pero podríamos darle un vistazo al propósito de las pruebas desde otro punto de vista. Sin esperar conocer si cada hipótesis separada es verdadera o falsa, podríamos buscar reglas que gobiernen nuestro comportamiento respecto a ellas, que siguiéndolas podamos asegurar que, en el largo plazo de la experiencia, no estemos equivocados frecuentemente" [@Neyman289]
+
+<!-- That is: We can’t know which specific decisions are right or wrong, but if we follow the rules, we can at least know how often our decisions will be wrong in the long run. -->
+Esto es: no podemos saber cuáles decisiones específicas son correctas o incorrectas, pero si seguimos las reglas, podemos por lo menos saber qué tan frecuentemente nuestras decisiones serán incorrectas en el largo plazo.
+
+<!-- To understand the decision making framework that Neyman and Pearson developed, we first need to discuss statistical decision making in terms of the kinds of outcomes that can occur.  There are two possible states of reality ($H_0$ is true, or $H_0$ is false), and two possible decisions (reject $H_0$, or fail to reject $H_0$).  There are two ways in which we can make a correct decision: -->
+Para entender el marco para toma de decisiones que Neyman y Pearson desarrollaron, primero necesitamos discutir la toma de decisiones estadísticas en términos de los tipos de resultados que pueden ocurrir. Existen dos posibles estados de la realidad ($H_0$ es verdadera, o $H_0$ es falsa), y dos posibles decisiones (rechazar $H_0$, o fallar en rechazar $H_0$). Existen dos maneras en que podemos tomar una decisión correcta:
+
+<!-- - We can decide to reject $H_0$ when it is false (in the language of signal detection theory, we call this a *hit*) -->
+- Podemos decidir rechazar $H_0$ cuando es falsa (en el lenguaje de la teoría de detección de señales, llamamos a esto un *acierto*)
+<!-- - We can fail to reject $H_0$ when it is true (somewhat confusingly in this context, this is called a *correct rejection*) -->
+- Podemos fallar en rechazar $H_0$ cuando es verdadera (de manera algo confusa en este contexto, llamamos a esto un *rechazo correcto*)
+
+<!-- There are also two kinds of errors we can make: -->
+Existen también dos tipos de errores que podemos cometer:
+
+<!-- - We can decide to reject $H_0$ when it is actually true (we call this a *false alarm*, or *Type I error*) -->
+- Podemos decidir rechazar $H_0$ cuando realmente es correcta (llamamos a esto una *falsa alarma*, o un *Error Tipo I*)
+<!-- - We can fail to reject $H_0$ when it is actually false (we call this a *miss*, or *Type II error*) -->
+- Podemos fallar en rechazar $H_0$ cuando realmente es falsa (llamamos a esto una *omisión*, o un *Error Tipo II*)
+
+<!-- Neyman and Pearson coined two terms to describe the probability of these two types of errors in the long run: -->
+Neyman y Pearson acuñaron estos dos términos para describir la probabilidad de estos dos tipos de errores en el largo plazo:
+
+- P(Type I error) = $\alpha$
+- P(Type II error) = $\beta$
+
+<!-- That is, if we set $\alpha$ to .05, then in the long run we should make a Type I error 5% of the time.  Whereas it's common to set $\alpha$ as .05, the standard value for an acceptable level of $\beta$ is .2 - that is, we are willing to accept that 20% of the time we will fail to detect a true effect if it exists.  We will return to this later when we discuss statistical power in Section \@ref(statistical-power), which is the complement of Type II error. -->
+Esto es, si definimos un $\alpha$ en .05, entonces en el largo plazo deberíamos cometer un Error Tipo I el 5% de las veces. Mientras que es común definir un $\alpha$ en .05, el valor estándar para un nivel aceptable de $\beta$ es .2 - esto es, estamos dispuestos a aceptar que un 20% del tiempo fallaremos en detectar un verdadero efecto si realmente existe. Regresaremos a esto después cuando discutamos poder estadístico en la Sección \@ref(statistical-power), que es el complemento del Error Tipo II.
+
+<!-- ### What does a significant result mean? -->
+### ¿Qué significa un resultado significativo?
+
+<!-- There is a great deal of confusion about what p-values actually mean (Gigerenzer, 2004).  Let's say that we do an experiment comparing the means between conditions, and we find a difference with a p-value of .01.  There are a number of possible interpretations that one might entertain. -->
+Existe mucha confusión sobre lo que realmente significan los valores p (Gigerenzer, 2004). Digamos que hacemos un experimento comparando las medias entre condiciones, y encontramos una diferencia con un valor p de .01. Hay un número de posibles interpretaciones que podrían plantearse.
+
+<!-- #### Does it mean that the probability of the null hypothesis being true is .01? -->
+#### ¿Significa que la probabilidad de que la hipótesis nula sea verdadera es .01?
+
+<!-- No.  Remember that in null hypothesis testing, the p-value is the probability of the data given the null hypothesis ($P(data|H_0)$). It does not warrant conclusions about the probability of the null hypothesis given the data ($P(H_0|data)$).  We will return to this question when we discuss Bayesian inference in a later chapter, as Bayes theorem lets us invert the conditional probability in a way that allows us to determine the probability of the hypothesis given the data. -->
+No.  Recuerda que en la prueba de hipótesis nula, el valor p es la probabilidad de los datos dada la hipótesis nula ($P(data|H_0)$). No garantiza conclusiones acerca de la probabilidad de la hipótesis nula dados los datos ($P(H_0|data)$). Regresaremos a esta pregunta cuando discutamos inferencia Bayesiana en un capítulo posterior, porque el teorema de Bayes nos permite invertir la probabilidad condicional de una manera que nos permite determinar la probabilidad de la hipótesis dados los datos.
+
+<!-- #### Does it mean that the probability that you are making the wrong decision is .01? -->
+#### ¿Significa que la probabilidad de que estés tomando la decisión incorrecta es .01?
+
+<!-- No. This would be $P(H_0|data)$, but remember as above that p-values are probabilities of data under $H_0$, not probabilities of hypotheses. -->
+No. Esto sería $P(H_0|data)$, pero recuerda, como mencionamos arriba, que los valores p son probabilidades de los datos bajo $H_0$, no probabilidades de las hipótesis.
+
+<!-- #### Does it mean that if you ran the study again, you would obtain the same result 99% of the time? -->
+#### ¿Significa que si vuelves a hacer el estudio, obtendrías el mismo resultado 99% de las veces?
+
+<!-- No. The p-value is a statement about the likelihood of a particular dataset under the null; it does not allow us to make inferences about the likelihood of future events such as replication.   -->
+No. El valor es un enunciado sobre la probabilidad de un conjunto de datos en particular bajo la hipótesis nula; no nos permite hacer inferencias sobre la probabilidad de eventos futuros como las replicaciones.
+
+<!-- #### Does it mean that you have found a practially important effect? -->
+#### ¿Significa que encontraste un efecto importante de manera práctica?
+
+<!-- No.  There is an essential distinction between *statistical significance* and *practical significance*.  As an example, let's say that we performed a randomized controlled trial to examine the effect of a particular diet on body weight, and we find a statistically significant effect at p<.05.  What this doesn't tell us is how much weight was actually lost, which we refer to as the *effect size* (to be discussed in more detail in Chapter \@ref(ci-effect-size-power)).  If we think about a study of weight loss, then we probably don't think that the loss of one ounces (i.e. the weight of a few potato chips) is practically significant.  Let's look at our ability to detect a significant difference of 1 ounce as the sample size increases. -->
+No.  Existe una distinción esencial entre *significatividad estadística* y *significatividad práctica*. Como ejemplo, digamos que realizamos un ensayo controlado aleatorizado para examinar el efecto de una dieta particular sobre el peso corporal, y encontramos un efecto estadísticamente significativo a nivel p<.05. Lo que esto no nos dice es cuánto peso realmente se bajó, que es a lo que nos referimos como *tamaño del efecto* (*effect size*, que será discutido en mayor detalle en el Capítulo \@ref(ci-effect-size-power)). Si pensamos en un estudio sobre pérdida de peso, probablemente no pensaremos que el perder una onza (28 gramos, i.e. el peso de una tortilla y media) sea significativo de manera práctica. Démosle un vistazo a nuestra habilidad para detectar una diferencia significativa de 28 gramos conforme el tamaño de la muestra incrementa.
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+# create simulated data for weight loss trial
+
+weightLossTrial <- function(nPerGroup, weightLossOz = 1) {
+  # mean and SD in Kg based on NHANES adult dataset
+  kgToOz <- 35.27396195 # conversion constant for Kg to Oz
+  meanOz <- 81.78 * kgToOz
+  sdOz <- 21.29 * kgToOz
+  # create data
+  controlGroup <- rnorm(nPerGroup) * sdOz + meanOz
+  expGroup <- rnorm(nPerGroup) * sdOz + meanOz - weightLossOz
+  ttResult <- t.test(expGroup, controlGroup)
+  return(c(
+    nPerGroup, weightLossOz, ttResult$p.value,
+    diff(ttResult$estimate)
+  ))
+}
+
+nRuns <- 1000
+sampSizes <- 2**seq(5,17) # powers of 2
+
+simResults <- c() ## create an empty list to add results onto
+for (i in 1:length(sampSizes)) {
+  tmpResults <- replicate(
+    nRuns,
+    weightLossTrial(sampSizes[i], weightLossOz = 10)
+  )
+  summaryResults <- c(
+    tmpResults[1, 1], tmpResults[2, 1],
+    sum(tmpResults[3, ] < 0.05),
+    mean(tmpResults[4, ])
+  )
+  simResults <- rbind(simResults, summaryResults)
+}
+
+
+simResultsDf <- 
+  as.tibble(simResults) %>% 
+  rename(
+    sampleSize = V1, 
+    effectSizeLbs = V2,
+    nSigResults = V3, 
+    meanEffect = V4
+  ) %>% 
+  mutate(pSigResult = nSigResults / nRuns)
+```
+
+<!-- Figure \@ref(fig:sigResults) shows how the proportion of significant results increases as the sample size increases, such that with a very large sample size (about 262,000 total subjects), we will find a significant result in more than 90% of studies when there is a 1 ounce difference in weight loss between the diets.  While these are statistically significant, most physicians would not consider a weight loss of one ounce to be practically or clinically significant. We will explore this relationship in more detail when we return to the concept of *statistical power* in Section \@ref(statistical-power), but it should already be clear from this example that statistical significance is not necessarily indicative of practical significance. -->
+La Figura \@ref(fig:sigResults) muestra cómo la proporción de resultados significativos incrementa conforme el tamaño de muestra incrementa, con lo cual con una muestra muy grande (cercana a 262,000 sujetos en total), encontraremos un resultado significativo en más del 90% de los estudios donde haya 1 onza de diferencia en peso perdido entre las dietas siendo comparadas. Mientras que estos datos son estadísticamente significativos, la mayoría de los médicos no considerarían la pérdida de peso de una onza como algo significativo de manera práctica o clínica. Exploraremos esta relación en mayor detalle cuando regremos al concepto de *poder estadístico* en la Sección \@ref(statistical-power), pero debería ser claro en este momento de este ejemplo que la significatividad estadística no es necesariamente indicadora de significatividad práctica.
+
+<!-- The proportion of signifcant results for a very small change (1 ounce, which is about .001 standard deviations) as a function of sample size. -->
+```{r sigResults, echo=FALSE,fig.cap="La proporción de resultados significativos para un cambio muy pequeño (1 onza = 28 gramos, que es alrededor de .001 desviaciones estándar) como función del tamaño de la muestra.",fig.width=8,fig.height=4,out.height='50%'}
+
+ggplot(simResultsDf,aes(sampleSize,pSigResult)) +
+  geom_line() +
+  scale_x_continuous(trans='log2',breaks=simResultsDf$sampleSize) + 
+  theme(axis.text.x = element_text( angle=45,vjust=0.5)) +
+  ylim(0,1) + ylab('Proportion of significant results') +
+  xlab('sample size per group') +
+  theme(panel.grid.major =   element_line(colour = "gray",size=0.25)) +
+  geom_hline(yintercept = 0.05,linetype='dashed')
+```
+
+
+<!-- ## NHST in a modern context: Multiple testing -->
+## NHST en un contexto moderno: Pruebas múltiples
+
+<!-- So far we have discussed examples where we are interested in testing a single statistical hypothesis, and this is consistent with traditional science which often measured only a few variables at a time.  However, in modern science we can often measure millions of variables per individual.  For example, in genetic studies that quantify the entire genome, there may be many millions of measures per individual, and in the brain imaging research that my group does, we often collect data from more than 100,000 locations in the brain at once.  When standard hypothesis testing is applied in these contexts, bad things can happen unless we take appropriate care. -->
+Hasta ahora hemos discutido ejemplos donde estamos interesades en probar una sola hipótesis estadística, y esto es consistente con la ciencia tradicional que frecuentemente sólo medía unas pocas variables a la vez. Sin embargo, en la ciencia moderna frecuentemente medimos millones de variables por persona. Por ejemplo, en estudios genéticos que cuantifican el genoma completo, podría haber varios millones de medidas por persona, y en la investigación en neuroimagen que mi grupo realiza, frecuentemente recolectamos datos de más de 100,000 localizaciones en cada cerebro al mismo tiempo. Cuando la manera estándar de la prueba de hipótesis se aplica en estos contextos, malas cosas pueden suceder a menos que tomemos las medidas apropiadas.
+
+<!-- Let's look at an example to see how this might work.  There is great interest in understanding the genetic factors that can predispose individuals to major mental illnesses such as schizophrenia, because we know that about 80% of the variation between individuals in the presence of schizophrenia is due to genetic differences. The Human Genome Project and the ensuing revolution in genome science has provided tools to examine the many ways in which humans differ from one another in their genomes.  One approach that has been used in recent years is known as a *genome-wide association study* (GWAS), in which the genome of each individual is characterized at one million or more places to determine which letters of the genetic code they have at each location.  After these have been determined, the researchers perform a statistical test at each location in the genome to determine whether people diagnosed with schizoprenia are more or less likely to have one specific version of the genetic sequence at that location. -->  
+Veamos un ejemplo de cómo podría funcionar esto. Hay un gran interés en entender los factores genéticos que pueden predisponer a las personas a enfermedades mentales como la esquizofrenia, porque sabemos que cerca del 80% de las variaciones entre personas en la presencia de esquizofrenia es debida a diferencias genéticas. El Proyecto de Genoma Humano y la revolución subsecuente en ciencia genómica ha provisto herramientas para examinar las múltiples maneras en que los humanos difieren unos de otros en sus genomas. Una aproximación que ha sido usada en años recientes es conocida como un *estudio de asociación del genoma completo* (*genome-wide association study*, GWAS), en el cual el genoma para cada persona es caracterizado en un millón o más de lugares para determinar cuáles letras del código genético tienen en cada lugar. Después de que éstas han sido determinadas, les investigadores realizan una prueba estadística en cada localización del genoma para determinar si las personas diagnosticadas  con esquizofrenia tienen mayor o menor probabilidad de tener una versión específica de la secuencia genética en ese lugar del genoma.
+
+<!-- Let's imagine what would happen if the researchers simply asked whether the test was significant at p<.05 at each location, when in fact there is no true effect at any of the locations.  To do this, we generate a large number of simulated *t* values from a null distribution, and ask how many of them are significant at p<.05.  Let's do this many times, and each time count up how many of the tests come out as significant (see Figure \@ref(fig:nullSim)). --> 
+Imaginemos qué pasaría si les investigadores simplemente preguntaran si la prueba fue significativa al nivel p<.05 en cada localización, cuando en realidad no hay un efecto verdadera en ninguna de las localizaciones. Para hacer esto, generamos un gran número de valores *t* simulados de una distribución nula, y preguntamos cuántos de ellos son significativos al nivel p<.05. Hagamos esto muchas veces, y cada vez contemos cuántas de estas pruebas salen significativas (ve la Figura \@ref(fig:nullSim)).  
+
+```{r echo=FALSE}
+# simulate 1500 studies with 10,000 tests each, thresholded at p < .05
+
+nRuns <- 1500 # number of simulated studies to run
+nTests <- 10000 # number of simulated genes to test in each run
+
+uncAlpha <- 0.05 # alpha level
+
+uncOutcome <- replicate(nRuns, sum(rnorm(nTests) < qnorm(uncAlpha)))
+
+#sprintf("mean proportion of significant tests per run: %0.2f", mean(uncOutcome) / nTests)
+
+# compute proportion of studies with at least one false positive result,
+# known as the familywise error rate
+#sprintf("familywise error rate: %0.3f", mean(uncOutcome > 0))
+
+# compute Bonferroni-corrected alpha
+corAlpha <- 0.05 / nTests
+
+corOutcome <- replicate(nRuns, sum(rnorm(nTests) < (qnorm(corAlpha))))
+
+# sprintf("corrected familywise error rate: %0.3f", mean(corOutcome > 0))
+
+```
+
+<!-- Left: A histogram of the number of significant results in each set of 1 million statistical tests, when there is in fact no true effect. Right: A histogram of the number of significant results across all simulation runs after applying the Bonferroni correction for multiple tests. -->
+```{r nullSim,echo=FALSE,fig.cap="Izquierda: Histograma con el número de resultados significativos en cada conjunto de 1 millón de pruebas estadísticas, cuando en realidad no hay ningún efecto verdadero. Derecha: Histograma con el número de resultados significativos a lo largo de todas las simulaciones después de aplicar la corrección de Bonferroni para pruebas múltiples.",fig.width=8,fig.height=4,out.height='50%'}
+
+p1 <- data.frame(nsig=uncOutcome) %>%
+  ggplot(aes(nsig)) +
+  geom_histogram(bins=50) +
+  xlab(sprintf('Number of significant results (out of %d)',nTests)) +
+  theme(plot.margin = unit(c(0,1.5,0,0), "cm"))
+
+p2 <- ggplot(data.frame(nsig=corOutcome),aes(nsig)) +
+  geom_histogram(bins=50) +
+  xlab(sprintf('Number of significant results (out of %d)',nTests)) +
+  theme(plot.margin = unit(c(0,1,0,0), "cm"))
+
+plot_grid(p1, p2)
+```
+
+<!-- This shows that about 5% of all of the tests were significant in each run, meaning that if we were to use p < .05 as our threshold for statistical significance, then even if there were no truly significant relationships present, we would still "find" about 500 genes that were seemingly significant in each study (the expected number of significant results is simply $n * \alpha$).  That is because while we controlled for the error per test, we didn't control the *familywise error*, or the error across all of the tests, which is what we really want to control if we are going to be looking at the results from a large number of tests. Using p<.05, our familywise error rate in the above example is one -- that is, we are pretty much guaranteed to make at least one error in any particular study.   -->
+Esto muestra que cerca del 5% de todas las pruebas fueron significativas en cada simulación, significando que si usáramos p < .05 como nuestro umbral para significatividad estadística, entonces a pesar de que no hay ninguna relación presente verdaderamente significativa, aún así "encontraríamos" cerca de 500 genes que parecerían significativos en cada estudio (el número esperado de resultados significativos es simplemente $n * \alpha$). Esto es porque mientras controlamos por el error por cada prueba, no controlamos el *error de familia* (*familiy-wise error*), o el error a lo largo de todas las pruebas, que es lo que realmente queremos controlar si vamos a observar los resultados de un número grande de pruebas. Usando p<.05, nuestra tasa de error de familia en el ejemplo de arriba es uno -- esto es, prácticamente tenemos garantizado el que cometeremos un error en cada estudio en particular.
+
+<!-- A simple way to control for the familywise error is to divide the alpha level by the number of tests; this is known as the *Bonferroni* correction, named after the Italian statistician Carlo Bonferroni.  Using the data from our example above, we see in Figure \@ref(fig:nullSim) that only about 5 percent of studies show any significant results using the corrected alpha level of 0.000005 instead of the nominal level of .05.  We have effectively controlled the familywise error, such that the probability of making *any* errors in our study is controlled at right around .05. -->
+Una manera simple de controlar este error de familia es dividir el nivel alfa entre el número de pruebas; esto es conocido como la corrección *Bonferroni*, llamda en honor al estadístico italiano Carlo Bonferroni. Usando los datos del ejemplo anterior, vemos en la Figura \@ref(fig:nullSim)que sólo cerca del 5 por ciento de los estudios muestra algún resultado significativo usando el nivel de alfa corregido de 0.000005 en lugar del valor nominal de .05. Hemos controlado efectivamente el error de familia, de tal manera que la probabilidad de cometer *cualquier* error en nuestro estudio está controlado justo alrededor de .05.
+
+<!-- ## Learning objectives -->
+## Objetivos de aprendizaje
+
+<!-- * Identify the components of a hypothesis test, including the parameter of interest, the null and alternative hypotheses, and the test statistic. -->
+<!-- * Describe the proper interpretations of a p-value as well as common misinterpretations -->
+<!-- * Distinguish between the two types of error in hypothesis testing, and the factors that determine them. -->
+<!-- * Describe how resampling can be used to compute a p-value. -->
+<!-- * Describe the problem of multiple testing, and how it can be addressed -->
+<!-- * Describe the main criticisms of null hypothesis statistical testing -->
+* Identificar los componentes de una prueba de hipótesis, incluyendo el parámetro de interés, las hipótesis nula y alternativa, y el estadístico de prueba.
+* Describir las interpretaciones apropiadas de un valor p así como de las interpretaciones equivocadas comunes.
+* Distinguir entre los dos tipos de errores en la prueba de hipótesis, y los factores que los determinan.
+* Describir cómo el remuestreo puede ser usado para calcular un valor p.
+* Describir el problema de múltiples pruebas, y cómo se puede resolver.
+* Describir las principales críticas a la prueba estadística de hipótesis nula.
+
+<!-- ## Suggested readings -->
+## Lecturas sugeridas
+
+- [Mindless Statistics, by Gerd Gigerenzer](https://library.mpib-berlin.mpg.de/ft/gg/GG_Mindless_2004.pdf)
+
+
+
+

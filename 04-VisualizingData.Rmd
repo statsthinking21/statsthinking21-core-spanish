@@ -1,0 +1,429 @@
+---
+output:
+  bookdown::gitbook:
+    lib_dir: "book_assets"
+    includes:
+      in_header: google_analytics.html
+  pdf_document: default
+  html_document: default
+---
+
+<!-- # Data Visualization {#data-visualization}--> 
+# Visualización de Datos {#data-visualization}
+
+```{r echo=FALSE,warning=FALSE,message=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(cowplot)
+library(knitr)
+library(NHANES)
+
+# drop duplicated IDs within the NHANES dataset
+NHANES=NHANES %>% dplyr::distinct(ID,.keep_all=TRUE)
+
+NHANES$isChild <- NHANES$Age<18
+
+NHANES_adult=NHANES %>%
+  drop_na(Height) %>%
+  subset(subset=Age>=18)
+
+# setup colorblind palette
+# from http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/#a-colorblind-friendly-palette
+# The palette with grey:
+cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+
+```
+<!-- On January 28, 1986, the Space Shuttle Challenger exploded 73 seconds after takeoff, killing all 7 of the astronauts on board.  As when any such disaster occurs, there was an official investigation into the cause of the accident, which found that an O-ring connecting two sections of the solid rocket booster leaked, resulting in failure of the joint and explosion of the large liquid fuel tank (see figure \@ref(fig:srbLeak)).-->
+
+El 28 de enero de 1986, el Space Shuttle Challenger explotó 73 segundos después del despegue, matando a lxs 7 astronautas a bordo. Así como cuando los desastres suceden, hubo una investigación oficial sobre lo que ocasionó el accidente. El cual encontró que un "O-ring" que conectaba dos secciones del sólido populsor de cohete se fugó, lo cual resultó en la falla de la unión y explosión del tanque propulsor (véase figura \@ref(fig:srbLeak)).
+
+
+```{r srbLeak, echo=FALSE,fig.cap="Imagen del sólido propulsor de cohete fugando combustible, segundos antes de la explosión. By NASA (Great Images in NASA Description) [Public domain], via Wikimedia Commons",fig.height=3,out.height='20%'}
+knitr::include_graphics("images/Booster_Rocket_Breach_-_GPN-2000-001425.jpg")
+```
+
+<!--The investigation found that many aspects of the NASA decision making process were flawed, and focused in particular on a meeting between NASA staff and engineers from Morton Thiokol, a contractor who built the solid rocket boosters. These engineers were particularly concerned because the temperatures were forecast to be very cold on the morning of the launch, and they had data from previous launches showing that performance of the O-rings was compromised at lower temperatures. In a meeting on the evening before the launch, the engineers presented their data to the NASA managers, but were unable to convince them to postpone the launch. Their evidence was a set of hand-written slides showing numbers from various past launches.-->
+La investigación encontró que muchos aspectos del proceso de decisión de la NASA tenía errores, y estaban focalizados en una junta entre el personal de la NASA e ingenierxs de Morton Thiokol, un empresario que construía sólidos propulsores de cohete. Estxs ingenierxs estaban paricularmente preocupades por las temperaturas que habían sido pronosticadas para la mañana del lanzamiento, las cuales eran muy bajas. Ellos tenían datos de lanzamientos pasados donde el funcionamiento de los "O-rings" se comprometía a temperaturas bajas. En la junta previa al lanzamiento, lxs ingenierxs presentaron sus datos a lxs directivxs de la NASA, pero fueron incapaces de convencerles postponer el lanzamiento. Su evidencia fue una serie de notas escritas a mano mostrando números de los lanzamientos pasados.    
+
+<!--The visualization expert Edward Tufte has argued that with a proper presentation of all of the data, the engineers could have been much more persuasive.  In particular, they could have shown a figure like the one in Figure \@ref(fig:challengerTemps), which highlights two important facts. First, it shows that the amount of O-ring damage (defined by the amount of erosion and soot found outside the rings after the solid rocket boosters were retrieved from the ocean in previous flights) was closely related to the temperature at takeoff.  Second, it shows that the range of forecasted temperatures for the morning of January 28 (shown in the shaded area) was well outside of the range of all previous launches.  While we can't know for sure, it seems at least plausible that this could have been more persuasive.-->
+El experto en visualización Edward Tufte ha argumentado que con la presentación adecuada de todos los datos, lxs ingenierxs pudieron haber sido mucho más persuasivos. En particular, pudieron haber mostrado una gráfica como la de la Figura \@ref(fig:challengerTemps), en la cual subraya dos hechos importantes. Primero, demuestra la cantidad del daño de "O-ring" (definido por la cantidad de erosión y hollín encontrado afuera de los anillos después que el sólido de propulsor de cohete fuera recuperado del océano en vuelos pasados) fue relacionado estrechamente a la temperatura del despegue. Segundo, demuestra que el rango de temperaturas pronosticadas para la mañana del 28 de enero (mostrado en el área sombreada) estaba fuera del rango de todos despegues previos. Mientras que no podemos saber con certeza, parece ser que es posible que hubieran sido más convincentes.  
+
+```{r challengerTemps, echo=FALSE,fig.cap="Replanteo de los datos del índice de daños de Tufte. La línea muestra la tendencia en los datos y el parche sombreado muestra las temperaturas proyectadas para la mañana del lanzamiento.",fig.width=8,fig.height=4,out.height='50%'}
+oringDf <- read.table("data/orings.csv", sep = ",", header = TRUE)
+
+oringDf %>%
+  ggplot(aes(x = Temperature, y = DamageIndex)) +
+  geom_point() +
+  geom_smooth(method = "loess", se = FALSE, span = 1) + ylim(0, 12) +
+  geom_vline(xintercept = 27.5, size =8, alpha = 0.3, color = "red") +
+  labs(
+    y = "Damage Index",
+    x = "Temperature at time of launch"
+  ) +
+  scale_x_continuous(breaks = seq.int(25, 85, 5)) +
+  annotate(
+    "text",
+    angle=90,
+    x = 27.5,
+    y = 6,
+    label = "Forecasted temperature on Jan 28",
+    size = 5
+  )
+```
+
+<!--## Anatomy of a plot-->
+## Anatomía de una gráfica
+
+<!--The goal of plotting data is to present a summary of a dataset in a two-dimensional (or occasionally three-dimensional) presentation.  We refer to the dimensions as *axes* -- the horizontal axis is called the *X-axis* and the vertical axis is called the *Y-axis*.  We can arrange the data along the axes in a way that highlights the data values. These values may be either continuous or categorical.-->
+El objetivo de graficar datos es presentar un resumen de una base de datos en una presentación bi-dimensional (o en ocasiones, tri-dimensional). Nos referimos a las dimensiones como *ejes* -- el eje horizontal es llamado el *eje X* y el eje vertical es llamado el *eje Y*. Podemos acomodar los datos a través de los ejes que enfaticen los valores de los datos. Estos valores pueden ser continuos o categóricos. 
+
+<!--There are many different types of plots that we can use, which have different advantages and disadvantages.  Let's say that we are interested in characterizing the difference in height between men and women in the NHANES dataset. Figure \@ref(fig:plotHeight) shows four different ways to plot these data.-->
+Hay muchos tipos de gráficas que se pueden utilizar, las cuales tienen diferentes ventajas y desventajas. Digamos que estamos interesades en caracterizar la diferencia de altura en hombres y mujeres en la base de datos NHANES. La figura \@ref(fig:plotHeight) muestra cuatro diferentes maneras de graficar esos datos. 
+
+<!--1. The bar graph in panel A shows the difference in means, but doesn't show us how much spread there is in the data around these means -- and as we will see later, knowing this is essential to determine whether we think the difference between the groups is large enough to be important. --> 
+1. La gráfica de barras en el panel A muestra la diferencia en medias (means), pero no nos muestra cuánta dispersión hay en los datos alrededor de estas medias -- y como veremos después, saber esto es esencial para determinar si consideramos la diferencia entre el grupo es suficientemente grande como para ser importante.   
+
+<!-- 2. The second plot shows the bars with all of the data points overlaid - this  makes it a bit clearer that the distributions of height for men and women are overlapping, but it's still hard to see due to the large number of data points.--> 
+2. La segunda gráfica muestra las barras con todos los puntos de datos (data points) sobrepuestos - esto hace un poco más claro que la distribución por altura entre hombres y mujeres están sobrepuestos, pero aún es difícil ver por la grande cantidad de puntos de datos.  
+<!-- In general we prefer using a plotting technique that provides a clearer view of the distribution of the data points.-->
+En general preferimos usar una técnica de graficado que provea una vista más clara de la distribución de puntos de datos. 
+
+<!-- 3. In panel C, we see one example of a *violin plot*, which plots the distribution of data in each condition (after smoothing it out a bit).-->
+3. En el panel C, podemos ver un ejemplo de *gráfica violín*, en la cual se grafica la distribución de cada condición de los datos (después de suavizarla un poco). 
+
+<!--4. Another option is the *box plot* shown in panel D, which shows the median (central line), a measure of variability (the width of the box, which is based on a measure called the interquartile range), and any outliers (noted by the points at the ends of the lines). These are both effective ways to show data that provide a good feel for the distribution of the data.-->
+4. Otra opción es el *diagrama de caja* (box plot) mostrado en el panel D, en el cual muestra la mediana (línea central), una medida de variabilidad (lo ancho de la caja, que esta basado en una medida llamada rango intercuartílico), y cualquier calor atípico (observado por los puntos al final de las líneas). Ambas son formas efectivas de mostrar datos que proporcionan una buena idea de la distribución de los datos. 
+
+```{r plotHeight,echo=FALSE,fig.cap="Four different ways of plotting the difference in height between men and women in the NHANES dataset.  Panel A plots the means of the two groups, which gives no way to assess the relative overlap of the two distributions.  Panel B shows the same bars, but also overlays the data points, jittering them so that we can see their overall distribution.  Panel C shows a violin plot, which shows the distribution of the datasets for each group.  Panel D shows a box plot, which highlights the spread of the distribution along with any outliers (which are shown as individual points)."}
+# plot height by Gender
+dfmean=NHANES_adult %>% 
+  group_by(Gender) %>% 
+  summarise(Height=mean(Height))
+
+p1 = ggplot(dfmean,aes(x=Gender,y=Height)) + 
+  geom_bar(stat="identity",color='gray') + 
+  coord_cartesian(ylim=c(0,210)) +
+  ggtitle('Bar graph') + 
+  theme(aspect.ratio=1)  
+
+p2 = ggplot(dfmean,aes(x=Gender,y=Height)) + 
+  geom_bar(stat="identity",color='gray') + 
+  coord_cartesian(ylim=c(0,210)) +
+  ggtitle('Bar graph with points') + 
+  theme(aspect.ratio=1)  +
+  geom_jitter(data=NHANES_adult,aes(x=Gender,y=Height),width=0.1,alpha=0.1)
+
+p3 = ggplot(NHANES_adult,aes(x=Gender,y=Height)) + 
+  geom_violin() + 
+  ggtitle('Violin plot') + theme(aspect.ratio=1)
+
+p4 = ggplot(NHANES_adult,aes(x=Gender,y=Height)) + 
+  geom_boxplot() +  
+  ggtitle('Box plot') + theme(aspect.ratio=1)
+
+
+plot_grid(p1,p2,p3,p4,nrow=2,labels='AUTO')
+
+
+```
+
+
+<!-- ## Principles of good visualization -->
+## Principios de una buena visibilización
+
+<!-- Many books have been written on effective visualization of data.  There are some principles that most of these authors agree on, while others are more contentious. Here we summarize some of the major principles; if you want to learn more, then some good resources are listed in the *Suggested Readings* section at the end of this chapter.-->
+Se han escrito muchos libros acerca de la visualización efectiva de los datos. Hay algunos principios en los que la mayoría de lxs autorxs están de acuerdo, mientras que otros son más polémicos.  Aquí resumimos algunos de los principios fundamentales; si quieres aprender más, entonces algunos buenos recursos están enlistados en la sección de *Lecturas sugeridas* al final del capítulo. 
+
+<!-- ### Show the data and make them stand out-->
+### Muestra los datos y haz que destaquen
+
+<!-- Let's say that I performed a study that examined the relationship between dental health and time spent flossing, and I would like to visualize my data. Figure \@ref(fig:dentalFigs) shows four possible presentations of these data.-->  
+Digamos que llevo a cabo un estudio en donde se examine la relación entre salud dental y el tiempo invertido en el uso de hilo dental, y quiero visualizar los datos. Figura \@ref(fig:dentalFigs) muestra cuatro posibles presentaciones de estos datos. 
+
+<!-- 1. In panel A, we don't actually show the data, just a line expressing the relationship between the data.  This is clearly not optimal, because we can't actually see what the underlying data look like.-->  
+1. En el panel A, en realidad no mostramos los datos, sólo una línea expresando la relación entre los datos. Esto claramente no es óptimo, porque en realidad no podemos ver cómo se ven los datos subyacentes.
+<!-- Panels B-D show three possible outcomes from plotting the actual data, where each plot shows a different way that the data might have looked.-->
+Los paneles B-D muestran tres posibles resultados de graficar los datos, en donde cada gráfica muestra una manera diferente en la que los datos se pudieron haber visto. 
+
+<!-- 2. If we saw the plot in Panel B, we would probably be suspicious -- rarely would real data follow such a precise pattern.  
+3. The data in Panel C, on the other hand, look like real data -- they show a general trend, but they are messy, as data in the world usually are.  
+4. The data in Panel D show us that the apparent relationship between the two variables is solely caused by one individual, who we would refer to as an *outlier* because they fall so far outside of the pattern of the rest of the group. It should be clear that we probably don't want to conclude very much from an effect that is driven by one data point.  This figure highlights why it is *always* important to look at the raw data before putting too much faith in any summary of the data.-->
+2. Si vemos la gráfica en el panel B, puede que desconfiemos -- pocas veces datos reales siguen un patrón preciso. 
+
+3. Los datos en el panel C, por el otro lado, se ven como datos reales -- muestran una tendencia general, pero son desordenados, como suelen ser los datos en el mundo real.
+
+4. Los datos en el panel D nos muestran, aparentemente que la relación entre las dos variables es solamente causada por un inviduo, al que nos referiremos como *atípico* (outlier) porque cae muy lejos del patrón del resto del grupo. Debería de ser claro que probablemente no queremos sacar muchas conclusiones de un efecto guiado por un solo punto de los datos. Esta figura resalta por qué es *siempre* importante mirar los datos sin procesar antes de confiar demasiado en cualquier resumen de los datos.
+
+```{r dentalFigs,echo=FALSE,fig.cap="Cuatro posibles presentaciones diferentes de datos para el ejemplo de salud dental. Cada punto del gráfico de dispersión representa un punto de datos en el conjunto de datos y la línea en cada gráfico representa la tendencia lineal en los datos."}
+
+set.seed(1234567)
+npts=12
+df=data.frame(x=seq(1,npts)) %>%
+  mutate(yClean=x + rnorm(npts,sd=0.1))
+pointSize=2
+t=theme(axis.text=element_text(size=10),axis.title=element_text(size=16))
+p1=ggplot(df,aes(x,yClean)) + 
+  geom_smooth(method='lm',se=FALSE) + ylim(-5,20) +
+  ylab('Dental health') + xlab('Time spent flossing') + t
+  
+
+p2=ggplot(df,aes(x,yClean)) + 
+  geom_point(size=pointSize) +
+  geom_smooth(method='lm',se=FALSE) + ylim(-5,20) +
+  ylab('Dental health') + xlab('Time spent flossing') + t
+
+df = df %>%
+  mutate(yDirty=x+ rnorm(npts,sd=10))
+
+p3=ggplot(df,aes(x,yDirty)) + 
+  geom_point(size=pointSize) +
+  geom_smooth(method='lm',se=FALSE)+ ylim(-5,20) +
+  ylab('Dental health') + xlab('Time spent flossing') + t
+
+df = df %>% 
+  mutate(yOutlier=rnorm(npts))
+df$yOutlier[npts]=200
+
+
+p4=ggplot(df,aes(x,yOutlier)) + 
+  geom_point(size=pointSize) +
+  geom_smooth(method='lm',se=FALSE) +
+  ylab('Dental health') + xlab('Time spent flossing') + t
+
+plot_grid(p1,p2,p3,p4,nrow=2,labels='AUTO')
+
+```
+
+<!--### Maximize the data/ink ratio-->
+### Maximizar la porporción datos/tinta (data/ink ratio) 
+<!-- Edward Tufte has proposed an idea called the data/ink ratio:-->
+Edward Tufte propuso la idea llamada *proporción datos/tinta* (*data/ink ratio*)
+$$
+data/ink\ ratio = \frac{amount\, of\, ink\, used\, on\, data}{total\, amount\, of\, ink}
+$$
+<!--The point of this is to minimize visual clutter and let the data show through.  For example, take the two presentations of the dental health data in Figure \@ref(fig:dataInkExample). Both panels show the same data, but panel A is much easier to apprehend, because of its relatively higher data/ink ratio.-->
+El punto de esto es minimizar la contaminazión visual y dejar mostrar los datos. Por ejemplo, toma las dos presentaciones sobre la salud dental en la Figura \@ref(fig:dataInkExample). Ambos paneles muestran los mismos datos, pero el panel A es mucho más sencillo de comprender, porque es relativamente alta la proporción de datos/tinta.
+
+```{r dataInkExample,echo=FALSE,fig.cap="Un ejemplo de los mismos datos graficados en dos porporciones datos/tinta diferentes.",fig.width=8,fig.height=4,out.height='50%'}
+p1 = ggplot(df,aes(x,yDirty)) + 
+  geom_point(size=2) +
+  geom_smooth(method='lm',se=FALSE)+ ylim(-5,20) +
+  ylab('Dental health') + xlab('Time spent flossing')
+
+p2 = ggplot(df,aes(x,yDirty)) + 
+  geom_point(size=0.5) +
+  geom_smooth(method='lm',se=FALSE)+ ylim(-5,20) +
+  ylab('Dental health') + xlab('Time spent flossing') +
+  theme(panel.grid.major = element_line(colour = "black",size=1)) +
+  theme(panel.grid.minor = element_line(colour = "black",size=1)) 
+
+plot_grid(p1,p2,labels='AUTO',ncol=2)
+
+```
+
+<!--### Avoid chartjunk-->
+### Evita gráficas basura
+
+<!-- It's especially common to see presentations of data in the popular media that are adorned with lots of visual elements that are thematically related to the content but unrelated to the actual data.  This is known as *chartjunk*, and should be avoided at all costs. One good way to avoid chartjunk is to avoid using popular spreadsheet programs to plot one's data.  For example, the chart in Figure \@ref(fig:chartJunk) (created using Microsoft Excel) plots the relative popularity of different religions in the United States.  There are at least three things wrong with this figure:
+- it has graphics overlaid on each of the bars that have nothing to do with the actual data
+- it has a distracting background texture
+- it uses three-dimensional bars, which distort the data-->
+Es especialmente común ver presentaciones de datos en medios populares que son adornados con muchos elementos visuales y que son temáticamente relacionados con el contenido pero no relacionados con los datos verdaderos. Esto es conocido como *gráficas basura* (chartjunk) y debe de ser evitado a toda costa. 
+Una buena manera de no usar gráficas basura es tratar de evitar programas populares de hojas de cálculo para graficar nuestros datos. Por ejemplo el diagrama en la Figura \@ref(fig:chartJunk) (creado en Microsoft Excel) grafica la popularidad relativa de las diferentes regiones de Estados Unidos.
+Hay al menos tres cosas mal con esta figura:
+
+- tiene gráficos superpuestos en cada una de las barras que no tienen nada que ver con los datos reales
+- tiene una textura de fondo que distrae
+- utiliza barras tridimensionales, que distorsionan los datos
+
+```{r chartJunk,echo=FALSE,fig.width=4,fig.height=3,out.height='50%',out.width='80%',fig.cap="An example of chart junk."}
+knitr::include_graphics('images/excel_chartjunk.png')
+```
+
+<!--### Avoid distorting the data-->
+### Evita distorsionar los datos
+
+<!--It's often possible to use visualization to distort the message of a dataset.  A very common one is use of different axis scaling to either exaggerate or hide a pattern of data.  For example, let's say that we are interested in seeing whether rates of violent crime have changed in the US.  In Figure \@ref(fig:crimePlotAxes), we can see these data plotted in ways that either make it look like crime has remained constant, or that it has plummeted.  The same data can tell two very different stories!-->
+
+En ocasiones es posible usar la visualización para distorsionar el mensaje de un conjunto de datos. Algo muy común es el uso de diferentes escalas de eje para exagerar u ocultar un patrón de datos. Por ejemplo, digamos que estamos interesades en ver si los índices de crímenes violentos han cambiado en Estados Unidos. En la Figura \@ref(fig:crimePlotAxes), podemos ver los datos graficados de manera que parece ser que el crimen ha permanecido constante, o que se ha desplomado.¡Los mismos datos pueden contar dos historias muy diferentes!
+
+```{r crimePlotAxes,echo=FALSE,fig.cap="Datos de crimen de 1990 a 2014 graficados con el tiempo. Los paneles A y B muestran los mismos datos pero con diferentes rangos de eje. Datos obtenidos de https://www.ucrdatatool.gov/Search/Crime/State/RunCrimeStatebyState.cfm",fig.width=8,fig.height=4,out.height='50%'}
+
+
+crimeData=read.table('data/CrimeStatebyState.csv',sep=',',header=TRUE) %>%
+  subset(Year > 1989) %>%
+  mutate(ViolentCrimePerCapita=Violent.crime.total/Population)
+
+p1 = ggplot(crimeData,aes(Year,ViolentCrimePerCapita)) +
+  geom_line() + ylim(-0.05,0.05)
+
+p2 = ggplot(crimeData,aes(Year,ViolentCrimePerCapita)) +
+  geom_line() 
+
+
+plot_grid(p1,p2,labels='AUTO')
+```
+
+<!--One of the major controversies in statistical data visualization is how to choose the Y axis, and in particular whether it should always include zero.  In his famous book "How to lie with statistics", Darrell Huff argued strongly that one should always include the zero point in the Y axis.  On the other hand, Edward Tufte has argued against this:-->
+<!-- > “In general, in a time-series, use a baseline that shows the data not the zero point; don’t spend a lot of empty vertical space trying to reach down to the zero point at the cost of hiding what is going on in the data line itself.” (from https://qz.com/418083/its-ok-not-to-start-your-y-axis-at-zero/)-->
+
+Una de las mayores controversias en la visualización de datos estadísticos es como elegir el eje Y, y en particular si se debe de incluir el cero. En su famoso libro "Cómo mentir con estadística", Darrell Huff argumentó fuertemente que uno siempre debería de incluir el cero en el eje Y. Por otro lado, Edward Tufte ha argumentado en contra de esto: 
+
+> “En general, en una serie de tiempo, usa una línea de base que muestre los datos y no el punto cero; no gastes mucho espacio vertical vacío tratando de llegar al punto cero a costa de ocultar lo que está sucediendo en la línea de datos en sí" (de: https://qz.com/418083/its-ok-not-to-start-your-y-axis-at-zero/).
+
+<!--There are certainly cases where using the zero point makes no sense at all. Let's say that we are interested in plotting body temperature for an individual over time.  In Figure \@ref(fig:bodyTempAxis) we plot the same (simulated) data with or without zero in the Y axis. It should be obvious that by plotting these data with zero in the Y axis (Panel A) we are wasting a lot of space in the figure, given that body temperature of a living person could never go to zero! By including zero, we are also making the apparent jump in temperature during days 21-30 much less evident. In general, my inclination for line plots and scatterplots is to use all of the space in the graph, unless the zero point is truly important to highlight.-->
+Ciertamente, hay ciertos casos en donde usar el punto cero no tiene sentido para nada. Digamos que estamos interesades en graficar la temperatura corporal de un individuo en el tiempo. En la Figura \@ref(fig:bodyTempAxis) graficamos los mismos datos (simulados) con o sin cero en el eje Y. Debería de ser obvio que al graficar estos datos con cero en el eje Y (Panel A) estamos gastando mucho espacio en la figura, ¡dado que la temperatura corporal de una persona viva nunca podría llegar a cero! Al incluir el cero, tambien estamos haciendo el salto de temperatura durante 21-30 días menos evidente. En general, mi inclinación por gráficas lineales y de dispersión es para usar todo el espacio en la gráfica, a menos que el punto cero sea sumamente importante de recalcar.
+
+```{r bodyTempAxis,echo=FALSE,fig.cap="Temperatura corporal a lo largo del tiempo, graficado con o sin el punto cero en el eje Y.",fig.width=8,fig.height=4,out.height='50%'}
+bodyTempDf=data.frame(days=c(1:40),temp=rnorm(40)*0.3 + 98.6)
+bodyTempDf$temp[21:30]=bodyTempDf$temp[21:30]+3
+
+p1 = ggplot(bodyTempDf,aes(days,temp)) +
+  geom_line() + 
+  ylim(0,105) +
+  labs(
+    y = "Body temperature",
+    x = "Measurement day"
+    )
+p2 = ggplot(bodyTempDf,aes(days,temp)) +
+  geom_line() + 
+  ylim(95,105) +
+  labs(
+    y = "Body temperature",
+    x = "Measurement day"
+    )
+
+plot_grid(p1,p2)
+```
+
+<!--Edward Tufte introduced the concept of the *lie factor* to describe the degree to which physical differences in a visualization correspond to the magnitude of the differences in the data. If a graphic has a lie factor near 1, then it is appropriately representing the data, whereas lie factors far from one reflect a distortion of the underlying data.-->
+Edward Tufte introdujo el concepto del *factor de engaño* (lie factor) para describir el grado en el cual las diferencias físicas en la visualización corresponden a la magnitud de las diferencias en los datos. Si una gráfica tiene un factor de engaño cercano a 1, entonces es una representación apropiada de los datos, pero si el factor de engaño es lejano a uno refleja una distorsión de los datos subyacentes. 
+
+<!--The lie factor supports the argument that one should always include the zero point in a bar chart in many cases.  In Figure \@ref(fig:barCharLieFactor) we plot the same data with and without zero in the Y axis.  In panel A, the proportional difference in area between the two bars is exactly the same as the proportional difference between the values (i.e. lie factor = 1), whereas in Panel B (where zero is not included) the proportional difference in area between the two bars is roughly 2.8 times bigger than the proportional difference in the values, and thus it visually exaggerates the size of the difference.--> 
+El factor de engaño apoya el argumento de que uno siempre debería de incluir el punto cero en gráfico de barras en muchos casos. En la Figura \@ref(fig:barCharLieFactor) graficamos los mismos datos con y sin el cero en el eje Y. En el panel A, la diferencia proporcional del área de las dos barras es exactamente igual a la diferencia proporcional entre los valores (ejemplo, factor de engaño= 1) mientras que en el Panel B (donde el cero no está incluído) la diferencia proporcional en área entre las dos barras es aproximadamente 2.8 veces mayor que la diferencia proporcional de los valores, por lo tanto exagera visualmente el tamaño de la diferencia.  
+
+```{r barCharLieFactor, echo=FALSE,fig.cap="Dos gráficos de barra con la asociación del factor de engaño ",fig.width=8,fig.height=4,out.height='50%'}
+p1 = ggplot(data.frame(y=c(100,95),x=c('condition 1','condition 2')),aes(x=x,y=y)) + 
+  geom_col() +
+  ggtitle('lie factor = 1')
+
+p2 = ggplot(data.frame(y=c(100,95),x=c('condition 1','condition 2')),aes(x=x,y=y)) + 
+  geom_col() + 
+  coord_cartesian(ylim=c(92.5,105)) +
+  ggtitle('lie factor ~ 2.8')
+
+plot_grid(p1,p2,labels='AUTO')
+
+```
+
+
+<!--## Accommodating human limitations-->
+## Acomodando las limitaciones humanas 
+
+<!--Humans have both perceptual and cognitive limitations that can make some visualizations very difficult to understand. It's always important to keep these in mind when building a visualization.-->
+Les humanes tienen limitaciones perceptuales y cognitivas que pueden hacer ciertas visializaciones difíciles de entender. Siempre es importante mantener esto en cuenta cuando se construye la visualización. 
+
+<!--### Perceptual limitations-->
+### Limitaciones perceptuales 
+
+<!--One important perceptual limitation that many people (including myself) suffer from is color blindness.  This can make it very difficult to perceive the information in a figure (like the one in Figure \@ref(fig:badColors)) where there is only color contrast between the elements but no brightness contrast. It is always helpful to use graph elements that differ substantially in brightness and/or texture, in addition to color.  There are also ["colorblind-friendly" palettes](http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/#a-colorblind-friendly-palette) available for use in R.-->
+Una limitación perceptual importante que muchas personas (incluidas yo) sufren es daltonismo. Esto puede hacer muy difícil la percepción de la información en una figura (como la de la Figura \@ref(fig:badColors)) donde hay únicamente contraste de color entre los elementos pero no contraste de brillo. Siempre es útil utilizar elementos gráficos que difieran substancialmente en brillo y/o textura en complemento al color.  Existen también [paletas de color amigables con daltónicxs](http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/#a-colorblind-friendly-palette) disponibles para el uso en R. 
+
+```{r badColors,echo=FALSE,fig.cap="Ejemplo de una mala figura que depende únicamente en el contraste de color.",fig.width=8,fig.height=4,out.height='50%'}
+exampleDf = data.frame(value=c(3,5,4,6,2,5,8,8),
+                       v1=as.factor(c(1,1,2,2,3,3,4,4)),
+                       v2=as.factor(c(1,2,1,2,1,2,1,2)))
+ggplot(exampleDf,aes(v1,value)) + 
+  theme_dark() +
+  geom_bar(aes(fill = v2), position = "dodge",stat='identity')
+```
+
+
+<!--Even for people with perfect color vision, there are perceptual limitations that can make some plots ineffective.  This is one reason why statisticians *never* use pie charts: It can be very difficult for humans to accurately perceive differences in the volume of shapes. The pie chart in Figure \@ref(fig:pieChart) (presenting the same data on religious affiliation that we showed above) shows how tricky this can be.-->
+Incluso para personas con visión perfecta, hay algunas limitantes perceptuales que pueden hacer algunas gráficas ineficaces. Esta es una razón por la cual les estadístiques *nunca* usan gráficas circulares o de pastel: Puede ser muy difícil para humanos percibir correctamente las diferencias en el volumen de las formas. La gráfica de pastel en la Figura  \@ref(fig:pieChart) (presentando los mismos datos en afiliaciones religiosas que mostramos anteriormente) nos muestra que tan complicado puede ser esto. 
+
+```{r pieChart,echo=FALSE,fig.cap="Un ejemplo de una gráfica de pie, enfatizando la dificultad en comprendiendo el volumen relaticvo de las diferentes rebanadas de pie.", fig.width=6,fig.height=6,out.height='50%'}
+knitr::include_graphics("images/religion_piechart.png")
+```
+
+<!--This plot is terrible for several reasons.  First, it requires distinguishing a large number of colors from very small patches at the bottom of the figure.  Second, the visual perspective distorts the relative numbers, such that the pie wedge for Catholic appears much larger than the pie wedge for None, when in fact the number for None is slightly larger (22.8 vs 20.8 percent), as was evident in Figure \@ref(fig:chartJunk).  Third, by separating the legend from the graphic, it requires the viewer to hold information in their working memory in order to map between the graphic and legend and to conduct many "table look-ups" in order to continuously match the legend labels to the visualization.  And finally, it uses text that is far too small, making it impossible to read without zooming in.-->
+Esta gráfica es terrible por varias razones. Primero, requiere distinguir un gran número de colores de parches muy pequeños en la parte inferior de la figura. Segundo, la perspectiva visual distorsiona los números relativos, tal como la rebanada de pastel para Católica la cual aparece mucho más grande que la rebanada para Ninguna, cuando en realidad el número para Ninguna es ligeramente mayor (22.8 vs 20.8), como es evidente en la Figura \@ref(fig:chartJunk). Tercero, al separar la leyenda del gráfico, requiere que les lectores retengan información en su memoria de trabajo para poder mapear entre el gráfico y la leyenda y realizar muchas "búsquedas de tablas" para hacer coincidir continuamente las etiquetas de la leyenda con la visualización. Y, por último, utiliza texto que es demasiado pequeño, lo que hace que sea imposible leerlo sin hacer zoom.
+
+<!-- Plotting the data using a more reasonable approach (Figure \@ref(fig:religionBars)), we can see the pattern much more clearly. This plot may not look as flashy as the pie chart generated using Excel, but it's a much more effective and accurate representation of the data. -->
+Graficando los datos usando un enfoque más razonable (Figura \@ref(fig:religionBars)), podemos ver el patrón mucho más claramente. Es posible que este gráfico no parezca tan llamativo como el gráfico circular generado con Excel, pero es una representación mucho más eficaz y precisa de los datos.
+
+```{r religionBars,echo=FALSE,fig.cap="Una presentación más clara de los datos de afiliación religiosa (obtenido de http://www.pewforum.org/religious-landscape-study/).",fig.width=8,fig.height=4,out.height='50%'}
+religionData=read.table('data/religion_data.txt',sep='\t')
+
+names(religionData)=c('Religion','Percentage')
+religionData = arrange(religionData,desc(Percentage))
+religionData$Religion=factor(religionData$Religion,levels=religionData$Religion)
+ggplot(religionData,aes(Religion,Percentage,label=Percentage)) +
+  geom_bar(stat='identity') + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+
+<!-- This plot allows the viewer to make comparisons based on the the length of the bars along a common scale (the y-axis). Humans tend to be more accurate when decoding differences based on these perceptual elements than based on area or color.--> 
+Esta gráfica permite al espectador hacer comparaciones basadas en la longitud de las barras a lo largo de una escala común (el eje y). Los seres humanos tienden a ser más precisos al decodificar las diferencias en función de estos elementos perceptivos que en función del área o el color.
+
+<!--## Correcting for other factors-->
+## Corrigiendo otros factores
+
+<!-- Often we are interested in plotting data where the variable of interest is affected by other factors than the one we are interested in.  For example, let's say that we want to understand how the price of gasoline has changed over time.  Figure \@ref(fig:gasPrices) shows historical gas price data, plotted either with or without adjustment for inflation. Whereas the unadjusted data show a huge increase, the adjusted data show that this is mostly just reflective of inflation.  Other examples where one needs to adjust data for other factors include population size and data collected across different seasons.-->
+Comúnmente estamos interesades en graficar datos donde la variable de interés es afectada por otros factores aparte del que nos interesa. Por ejemplo digamos que queremos entender cómo el precio de la gasolina ha cambiado con el paso del tiempo. La figura \@ref(fig:gasPrices) muestra datos históricos sobre el precio de la gasolina, graficado con o sin el ajuste de la inflación. Mientras que los datos inajustados muestran un gran incremento, los datos ajustados muestran que es simplemente un reflejo de la inflación. Otros ejemplos donde une necesita ajustar los datos por otros factores incluye el tamaño de la población y datos obtenidos a través de diferentes temporadas. 
+
+```{r gasPrices,echo=FALSE,message=FALSE, warning=FALSE,fig.cap="El precio de la gasolina en Estados Unidos de 1930 a 2013 (obtained from http://www.thepeoplehistory.com/70yearsofpricechange.html) con o sin la corrección para inflación (based on Consumer Price Index).",fig.width=4,fig.height=4,out.height='50%'}
+
+# Consumer Price Index data obtained from 
+# https://inflationdata.com/Inflation/Consumer_Price_Index/HistoricalCPI.aspx
+
+# load CPI data 
+cpiData <- read_tsv('data/cpi_data.txt',
+                    col_names=FALSE) %>%
+  dplyr::select(X1, X14) %>%
+  rename(year = X1,
+         meanCPI = X14)
+
+# get reference cpi for 1950 dollars
+cpiRef <- cpiData %>%
+  filter(year==1950) %>%
+  pull(meanCPI)
+
+gasPriceData <- tibble(year=c(1930,1940,1950,1960,1970,1980,1990,2009,2013),
+                        Unadjusted=c(.10,.11,.18,.25,.36,1.19,1.34,2.05,3.80))
+
+allData <- left_join(gasPriceData,cpiData,by='year') %>%
+  mutate(Adjusted = Unadjusted/(meanCPI/cpiRef)) %>%
+  gather(key="Type", value="Price", -meanCPI, -year) %>%
+  mutate(Type=as.factor(Type))
+
+ggplot(allData,aes(year,Price,linetype=Type)) +
+  geom_line() +
+  ylab('Gasoline prices') + xlab('Year') + 
+  theme(legend.position = c(0.2,0.6)) 
+```
+
+<!--## Learning objectives-->
+## Objetivos de aprendizaje 
+
+<!--Having read this chapter, you should be able to:
+* Describe the principles that distinguish between good and bad graphs, and use them to identify good versus bad graphs.
+* Understand the human limitations that must be accommodated in order to make effective graphs.
+* Promise to never create a pie chart. *Ever*.-->
+Al leer este capítulo deberás de ser capaz de:
+
+* Describir los principios que distinguen a las buenas y malas gráficas, y usarlos para identificar buenos y malos gráficos. 
+* Entender las limitaciones humanas que deben de ser acomodadas para hacer gráficas eficaces. 
+* Prometer nunca crear una gráfica de pastel. *Jamás*.
+
+
+
+<!--## Suggested readings and videos-->
+## Lecturas y videos sugeridos
+
+- [*Fundamentals of Data Visualization*](https://serialmentor.com/dataviz/), by Claus Wilke
+- *Visual Explanations*, by Edward Tufte
+- *Visualizing Data*, by William S. Cleveland
+- *Graph Design for the Eye and Mind*, by Stephen M. Kosslyn
+- [*How Humans See Data*](https://www.youtube.com/watch?v=fSgEeI2Xpdc&feature=youtu.be), by John Rauser 
