@@ -8,7 +8,7 @@ output:
   html_document: default
 ---
 <!--# Modeling continuous relationships-->
-# Modelar relaciones continuas 
+# Modelar relaciones continuas {#modeling-continuous-relationships}
 
 <!--Most people are familiar with the concept of *correlation*, and in this chapter we will provide a more formal understanding for this commonly used and misunderstood concept.-->
 La mayoría de las personas están familiarizadas con el concepto de *correlación*, no obstante en este capíttulo proveeremos un entendimiento más formal para este concepto comúnmente usado y malentendido.
@@ -18,6 +18,8 @@ library(tidyverse)
 library(ggplot2)
 library(fivethirtyeight)
 #library(BayesMed)
+# library(MCMCpack) # Used by jzs function in BayesMed
+# library(R2jags) # Used by jzs function in BayesMed
 library(cowplot)
 library(knitr)
 library(DiagrammeR)
@@ -45,15 +47,16 @@ NHANES_adult <-
 ## Un ejemplo: Crímenes de odio y la inequidad de ingreso
 
 <!--In 2017, the web site Fivethirtyeight.com published a story titled [*Higher Rates Of Hate Crimes Are Tied To Income Inequality*](https://fivethirtyeight.com/features/higher-rates-of-hate-crimes-are-tied-to-income-inequality/) which discussed the relationship between the prevalence of hate crimes and income inequality in the wake of the 2016 Presidential election. The story reported an analysis of hate crime data from the FBI and the Southern Poverty Law Center, on the basis of which they report:-->
-En 2017, el sitio web Fivethirtyeight.com publicó una historia titulada [*Higher Rates Of Hate Crimes Are Tied To Income Inequality*](https://fivethirtyeight.com/features/higher-rates-of-hate-crimes-are-tied-to-income-inequality/) en la cual se discute la relación entre la prevalencia de los crímenes de odio y la inequidad de ingreso en el despertar de la elección presidencial de 2016. La historia reportó un análisis de datos del FBI acerca de crímenes de odio y de y del Centro de leyes Southern Poverty, sobre la base de lo que informan:     
-> "we found that income inequality was the most significant determinant of population-adjusted hate crimes and hate incidents across the United States".  
->"Descubrimos que la desigualdad de ingresos era el determinante más significativo de los delitos de odio e incidentes de odio ajustados a la población en los Estados Unidos". 
+En 2017, el sitio web Fivethirtyeight.com publicó una historia titulada [*Higher Rates Of Hate Crimes Are Tied To Income Inequality*](https://fivethirtyeight.com/features/higher-rates-of-hate-crimes-are-tied-to-income-inequality/) en la cual se discute la relación entre la prevalencia de los crímenes de odio y la inequidad de ingreso en el despertar de la elección presidencial de 2016. La historia reportó un análisis de datos del FBI acerca de crímenes de odio y de y del Centro de leyes Southern Poverty, sobre la base de lo que informan:  
+
+<!-- > "we found that income inequality was the most significant determinant of population-adjusted hate crimes and hate incidents across the United States".   -->
+> "Descubrimos que la desigualdad de ingresos era el determinante más significativo de los delitos de odio e incidentes de odio ajustados a la población en los Estados Unidos". 
 
 <!--The data for this analysis are available as part the ``fivethirtyeight`` package for the R statistical software, which makes it easy for us to access them.  The analysis reported in the story focused on the relationship between income inequality (defined by a quantity called the *Gini index* --- see Appendix for more details) and the prevalence of hate crimes in each state.-->  
-Los datos de este análisis están disponibles como parte del ``fivethirtyeight``, un paquete para el software estádistico de R, el cual facilita nuestro acceso a él. El análisis reportado en la historia se focaliza en la relación entre la inequidad de ingreso (definida por una medida llamada *índice Gini* --- véase Apéndice para más detalles) y la prevalencia de crímenes de odio de cada estado. 
+Los datos de este análisis están disponibles como parte del ``fivethirtyeight``, un paquete para el software estadístico de R, el cual facilita nuestro acceso a él. El análisis reportado en la historia se focaliza en la relación entre la inequidad de ingreso (definida por una medida llamada *índice Gini* --- véase Apéndice para más detalles) y la prevalencia de crímenes de odio de cada estado. 
 
 <!--## Is income inequality related to hate crimes?-->
-## ¿La inequidad de ingreso está relacionada a crímenes de odio?
+## ¿La inequidad de ingreso está relacionada a los crímenes de odio?
 
 ```{r hateCrimeGini, fig.cap="Plot of rates of hate crimes vs. Gini index.",out.width='75%', echo=FALSE, fig.height=4, fig.width=4}
 
@@ -78,27 +81,27 @@ ggplot(hateCrimes,aes(gini_index,avg_hatecrimes_per_100k_fbi,label=state_abb)) +
 <!--The relationship between income inequality and rates of hate crimes is shown in Figure \@ref(fig:hateCrimeGini).
 Looking at the data, it seems that there may be a positive relationship between the two variables.  How can we quantify that relationship?-->
 La relación entre la inequidad de ingreso y los índices de crímenes de odio es mostrada en la Figura \@ref(fig:hateCrimeGini).
-Observando los datos, parece que haya una relación positiva entre ambas variableds. ¿Cómo podemos cuantificar esa relación?
+Observando los datos, parece que puede haber una relación positiva entre ambas variables. ¿Cómo podemos cuantificar esa relación?
 
 <!--## Covariance and correlation {#covariance-and-correlation}-->
 ## Covarianza y la correlación {#covariance-and-correlation}
 
 <!--One way to quantify the relationship between two variables is the *covariance*.  Remember that variance for a single variable is computed as the average squared difference between each data point and the mean:-->
-Una manera de cuantificar la relación entre dos variables es la *covarianza*. Recuerda que la varianza se calcula para una variable única como la diferencia cuadrática promedio entre cada punto de datos y la media:
+Una manera de cuantificar la relación entre dos variables es la *covarianza*. Recuerda que la varianza se calcula para una variable única como la diferencia cuadrática promedio entre cada punto de los datos y la media:
 
 $$
 s^2 = \frac{\sum_{i=1}^n (x_i - \bar{x})^2}{N - 1}
 $$
 
 <!--This tells us how far each observation is from the mean, on average, in squared units.  Covariance tells us whether there is a relation between the deviations of two different variables across observations.  It is defined as:-->
-Esto nos indica qué tan lejana es cada observación de la media, en promedio, en unidades cuadradas. La covarianza nos indica si hay una relación entre las desviaciones de dos variables diferentes a través de observaciones. Esto es definido como: 
+Esto nos indica qué tan lejana está cada observación de la media, en promedio, en unidades cuadradas. La covarianza nos indica si hay una relación entre las desviaciones de dos variables diferentes a lo largo de las observaciones. Esto es definido como: 
 
 $$
 covariance = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{N - 1}
 $$
 
 <!--This value will be far from zero when individual data points deviate by similar amounts from their respective means; if they are deviant in the same direction then the covariance is positive, whereas if they are deviant in opposite directions the covariance is negative.  Let's look at a toy example first.  The data are shown in the table, along with their individual deviations from the mean and their crossproducts.-->
-Este valor estará lejos de cero cuando los puntos de datos individuales se desvíen en cantidades similares de sus respectivos medios; si se desvían en la misma dirección, la covarianza es positiva, mientras que si se desvían en direcciones opuestas, la covarianza es negativa. Veamos primero un ejemplo de juguete. Los datos se muestran en la tabla, junto con sus desviaciones individuales de la media y sus productos cruzados.
+Este valor estará lejos de cero cuando los puntos individuales de los datos se desvíen en cantidades similares de sus respectivos medias; si se desvían en la misma dirección, la covarianza es positiva, mientras que si se desvían en direcciones opuestas, la covarianza es negativa. Veamos primero un ejemplo de juguete. Los datos se muestran en la tabla, junto con sus desviaciones individuales de la media y sus productos cruzados.
 
 ```{r echo=FALSE}
 # create data for toy example of covariance
@@ -118,7 +121,7 @@ kable(df, caption='Data for toy example of covariance')
 ```
 
 <!--The covariance is simply the mean of the crossproducts, which in this case is `r I(covXY)`. We don't usually use the covariance to describe relationships between variables, because it varies with the overall level of variance in the data.  Instead, we would usually use the *correlation coefficient* (often referred to as *Pearson's correlation* after the statistician Karl Pearson). The correlation is computed by scaling the covariance by the standard deviations of the two variables:-->
-La covarianza es simplemente la media de los productos cruzados, los cuales en este caso son `r I(covXY)`. Por lo general, no usamos la covarianza para describir relaciones entre variables, porque varía con el nivel general de varianza en los datos. En su lugar, usualmente usamos el *coeficiente de correlación* (a menudo referido como *correlación de Pearson* en honor al estadístico Karl Pearson). La correlación se calcula escalando la covarianza por las desviaciones estándar de las dos variables:
+La covarianza es simplemente la media de los productos cruzados, los cuales en este caso son `r I(covXY)`. Por lo general, no usamos la covarianza para describir relaciones entre variables, porque varía con el nivel general de varianza en los datos. En su lugar, usualmente usamos el *coeficiente de correlación* (a menudo referido como *correlación de Pearson* en honor al estadístico Karl Pearson). La correlación se calcula escalando la covarianza sobre las desviaciones estándar de las dos variables:
 
 $$
 r = \frac{covariance}{s_xs_y} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{(N - 1)s_x s_y}
@@ -139,13 +142,13 @@ corGiniHC <-
 ### Prueba de hipótesis para correlaciones 
 
 <!--The correlation value of `r I(corGiniHC)` between hate crimes and income inequality seems to indicate a reasonably strong relationship between the two, but we can also imagine that this could occur by chance even if there is no relationship.  We can test the null hypothesis that the correlation is zero, using a simple equation that lets us convert a correlation value into a *t* statistic:-->
-El valor de correlación de `r I(corGiniHC)` entre crímenes de odio y la desigualdad de ingreso parece indicar una relación razonablemente fuerte entre los dos, pero también podemos imaginar que esto puede suceder al azar incluso si no hay relación. Podemos probar la hipótesis nula de que la correlación es cero, utilizando una simple ecuación que nos permita convertir el valor de correlación en una estadística *t*:
+El valor de correlación de `r I(corGiniHC)` entre crímenes de odio y la desigualdad de ingreso parece indicar una relación razonablemente fuerte entre los dos, pero también podemos imaginar que esto puede suceder al azar incluso si no hay relación. Podemos probar la hipótesis nula de que la correlación es cero, utilizando una simple ecuación que nos permita convertir el valor de correlación en un estadístico *t*:
 $$
 \textit{t}_r =  \frac{r\sqrt{N-2}}{\sqrt{1-r^2}}
 $$
 
 <!--Under the null hypothesis $H_0:r=0$, this statistic is distributed as a t distribution with $N - 2$ degrees of freedom.  We can compute this using our statistical software:-->
-Bajo la hipótesis nula $H_0:r=0$, esta estadística es distribuida como una distribución t con $N - 2$ grados de libertad. Podemos calcular esto utilizando nuestro software estadístico:
+Bajo la hipótesis nula $H_0:r=0$, este estadístico se distribuye como una distribución t con $N - 2$ grados de libertad. Podemos calcular esto utilizando nuestro software estadístico:
 
 ```{r echo=FALSE}
 # perform correlation test on hate crime data
@@ -156,10 +159,10 @@ cor.test(
 ```
 
 <!--This test shows that the likelihood of an r value this extreme or more is quite low, so we would reject the null hypothesis of $r=0$.  Note that this test assumes that both variables are normally distributed.-->
-Este test nos muestra que la probabilidad de un valor r así o más extremo es realmente baja, así que rechazaríamos la hipótesis nula de $r=0$. Nota que este test asume que ambas variables son normalmente distribuidas. 
+Este test nos muestra que la probabilidad de un valor r así o más extremo es realmente baja, así que rechazaríamos la hipótesis nula de $r=0$. Nota que este test asume que ambas variables están normalmente distribuidas. 
 
 <!--We could also test this by randomization, in which we repeatedly shuffle the values of one of the variables and compute the correlation, and then compare our observed correlation value to this null distribution to determine how likely our observed value would be under the null hypothesis. The results are shown in Figure \@ref(fig:shuffleCorr).  The p-value computed using randomization is reasonably similar to the answer give by the t-test.-->
-También podríamos probar esto por aleatorización, en la que repetidamente mezclamos los valores de una de las variables y calculamos la correlación, luego comparamos nuestro valor de correlación observado con esta distribución nula para determinar qué tan probable sería nuestro valor observado bajo la hipótesis nula. Los resultados se muestran en la Figura \@ref(fig:shuffleCorr). El valor p calculado usando la aleatorización es razonablemente similar a la respuesta dada por la prueba t.
+También podríamos probar esto por aleatorización, en la que mezclamos (reordenamos) los valores de una de las variables y calculamos la correlación, repetidamente, luego comparamos el valor observado de nuestra correlación con esta distribución nula para determinar qué tan probable sería nuestro valor observado bajo la hipótesis nula. Los resultados se muestran en la Figura \@ref(fig:shuffleCorr). El valor p calculado usando la aleatorización es razonablemente similar a la respuesta dada por la prueba t.
 
 ```{r echo=FALSE}
 # compute null distribution by shuffling order of variable values
@@ -194,13 +197,14 @@ ggplot(data.frame(shuffleDist),aes(shuffleDist)) +
 
 <!--We could also use Bayesian inference to estimate the correlation; see the Appendix for more on this.-->
 También podríamos usar inferencia Bayesiana para estimar la correlación; véase Apéndice para más sobre esto. 
+
 <!--### Robust correlations {#robust-correlations}-->
 ### Correlaciones Robustas {#robust-correlations}
 
 <!--You may have noticed something a bit odd in Figure \@ref(fig:hateCrimeGini) -- one of the datapoints (the one for the District of Columbia) seemed to be quite separate from the others.  We refer to this as an *outlier*, and the standard correlation coefficient is very sensitive to outliers.  For example, in Figure \@ref(fig:outlierCorr) we can see how a single outlying data point can cause a very high positive correlation value, even when the actual relationship between the other data points is perfectly negative.-->
-Podrás haber notado un poco extraño en la Figura \@ref(fig:hateCrimeGini) -- uno de los puntos de datos (el del Distrito de Columbia) parece estar un tanto separado de los otros. Nos referimos a esto como un *valor atípico* o outlier, y el coeficiente de correlación estándar es muy sensible a valores atípicos. Por ejemplo, en la figura \@ref(fig:outlierCorr) podemos ver cómo podemos ver cómo un solo punto de datos periférico puede causar un valor de correlación positivo muy alto, incluso cuando la relación real entre los otros puntos de datos es perfectamente negativa.
+Podrás haber notado algo un poco extraño en la Figura \@ref(fig:hateCrimeGini) -- uno de los puntos de datos (el del Distrito de Columbia) parece estar un tanto separado de los otros. Nos referimos a esto como un *valor atípico* o outlier, y el coeficiente de correlación estándar es muy sensible a valores atípicos. Por ejemplo, en la figura \@ref(fig:outlierCorr) podemos ver cómo un solo punto de datos periférico puede causar un valor de correlación positivo muy alto, incluso cuando la relación real entre los otros puntos de datos es perfectamente negativa.
 
-```{r outlierCorr, echo=FALSE,fig.cap="An simulated example of the effects of outliers on correlation.  Without the outlier the remainder of the datapoints have a perfect negative correlation, but the single outlier changes the correlation value to highly positive.",fig.width=4,fig.height=4,out.height='50%'}
+```{r outlierCorr, echo=FALSE,fig.cap="A simulated example of the effects of outliers on correlation.  Without the outlier the remainder of the datapoints have a perfect negative correlation, but the single outlier changes the correlation value to highly positive.",fig.width=4,fig.height=4,out.height='50%'}
 n <- 10
 set.seed(1234)
 
@@ -228,10 +232,10 @@ print(p)
 ```
 
 <!--One way to address outliers is to compute the correlation on the ranks of the data after ordering them, rather than on the data themselves; this is known as the *Spearman correlation*.  Whereas the Pearson correlation for the example in Figure \@ref(fig:outlierCorr) was `r I(cc)`, the Spearman correlation is `r I(ccSpearman)`, showing that the rank correlation reduces the effect of the outlier and reflects the negative relationship between the majority of the data points.-->
-Una manera de abordar valores atípicos es calcular la correlación en los rangos de los datos después de ordenarlos, en lugar de en los datos mismos; esto es conocido como la *correlación de Spearman*. Mientras que la correlación de Pearson por el ejemplo en la Figura \@ref(fig:outlierCorr) era `r I(cc)`, la correlación de Spearman es `r I(ccSpearman)` mostrando que el rango de correlación reduce el efecto de el valor atípico y refleja la relación negativa entre la mayoría de los puntos de datos.
+Una manera de abordar valores atípicos es calcular la correlación sobre los rangos de los datos después de ordenarlos, en lugar de sobre los datos mismos; esto es conocido como la *correlación de Spearman*. Mientras que la correlación de Pearson en el ejemplo de la Figura \@ref(fig:outlierCorr) era `r I(cc)`, la correlación de Spearman es `r I(ccSpearman)` mostrando que la correlación de rangos reduce el efecto del valor atípico y refleja la relación negativa entre la mayoría de los puntos de datos.
 
 <!--We can compute the rank correlation on the hate crime data as well:-->
-Podemos calcular el rango de correlación en los datos de crímenes de odio también:
+Podemos calcular la correlación de rangos de los datos de crímenes de odio también:
 
 ```{r echo=FALSE}
 corTestSpearman <- cor.test( hateCrimes$avg_hatecrimes_per_100k_fbi,
@@ -241,19 +245,19 @@ corTestSpearman
 ```
 
 <!--Now we see that the correlation is no longer significant (and in fact is very near zero), suggesting that the claims of the FiveThirtyEight blog post may have been incorrect due to the effect of the outlier.-->
-Ahora podemos ver que la correlación ya no es significativa (y en efecto es muy cercana a cero), sugiriendo que las afirmaciones del blog FiveThirtyEight pudo haber estado incorrecto por el effecto del valor atípico. 
+Ahora podemos ver que la correlación ya no es significativa (y en efecto es muy cercana a cero), sugiriendo que las afirmaciones del blog FiveThirtyEight pueden haber sido incorrectas debido al efecto del valor atípico. 
 
 <!--## Correlation and causation-->
 ## Correlación y causalidad
 
 <!--When we say that one thing *causes* another, what do we mean?  There is a long history in philosophy of discussion about the meaning of causality, but in statistics one way that we commonly think of causation is in terms of experimental control.  That is, if we think that factor X causes factor Y, then manipulating the value of X should also change the value of Y.-->
-Cuando decimos que una cosa *causa* otra, ¿a qué nos referimos? Hay una larga historia en filosofía sobre la discusión acerca del significado de la causalidad, pero en estadística una manera más común de pensar en la causalidad es en términos de control experimental. Eso es, si pensamos que el factor X causa el factor Y, entonces si manipulamos el valor de X afectará el valor de Y. 
+Cuando decimos que una cosa *causa* otra, ¿a qué nos referimos? Hay una larga historia en filosofía de la discusión acerca del significado de la causalidad, pero en estadística una manera más común de pensar en la causalidad es en términos de control experimental. Eso es, si pensamos que el factor X causa el factor Y, entonces si manipulamos el valor de X afectará el valor de Y. 
 
 <!--In medicine, there is a set of ideas known as [*Koch's postulates*](https://en.wikipedia.org/wiki/Koch%27s_postulates) which have historically been used to determine whether a particular organism causes a disease.   The basic idea is that the organism should be present in people with the disease, and not present in those without it -- thus, a treatment that eliminates the organism should also eliminate the disease.  Further, infecting someone with the organism should cause them to contract the disease.  An example of this was seen in the work of Dr. Barry Marshall, who had a hypothesis that stomach ulcers were caused by a bacterium (*Helicobacter pylori*).  To demonstrate this, he infected himself with the bacterium, and soon thereafter developed severe inflammation in his stomach.  He then treated himself with an antibiotic, and his stomach soon recovered.  He later won the Nobel Prize in Medicine for this work.-->
-En medcina, hay un conjunto de ideas conocidas como [*Koch's postulates*](https://en.wikipedia.org/wiki/Koch%27s_postulates) que históricamente se han utilizado para determinar si un organismo en particular causa una enfermedad. La idea básica es que el organismo debe estar presente en las personas con la enfermedad y no en las que no la padecen; por lo tanto, un tratamiento que elimine el organismo también debe eliminar la enfermedad. Además, infectar a alguien con el organismo debería hacer que contraiga la enfermedad. Un ejemplo de esto se vio en el trabajo del Dr. Barry Marshall, quien tenía la hipótesis de que las úlceras de estómago eran causadas por una bacteria (*Helicobacter pylori*). Para demostrar esto, se infectó con la bacteria y poco después desarrolló una inflamación severa en su estómago. Luego se trató a sí mismo con un antibiótico y su estómago pronto se recuperó. Más tarde ganó el Premio Nobel de Medicina por este trabajo.
+En medicina, hay un conjunto de ideas conocidas como [*Koch's postulates*](https://en.wikipedia.org/wiki/Koch%27s_postulates) que históricamente se han utilizado para determinar si un organismo en particular causa una enfermedad. La idea básica es que el organismo debe estar presente en las personas con la enfermedad y no en las que no la padecen; por lo tanto, un tratamiento que elimine el organismo también debe eliminar la enfermedad. Además, infectar a alguien con el organismo debería hacer que contraiga la enfermedad. Un ejemplo de esto se vio en el trabajo del Dr. Barry Marshall, quien tenía la hipótesis de que las úlceras de estómago eran causadas por una bacteria (*Helicobacter pylori*). Para demostrar esto, se infectó con la bacteria y poco después desarrolló una inflamación severa en su estómago. Luego se trató a sí mismo con un antibiótico y su estómago pronto se recuperó. Más tarde ganó el Premio Nobel de Medicina por este trabajo.
 
 <!--Often we would like to test causal hypotheses but we can't actually do an experiment, either because it's impossible ("What is the relationship between human carbon emissions and the earth's climate?") or unethical ("What are the effects of severe abuse on child brain development?"). However, we can still collect data that might be relevant to those questions.  For example, we can potentially collect data from children who have been abused as well as those who have not, and we can then ask whether their brain development differs.-->
-A menudo nos gustaría probar hipótesis causales, pero en realidad no podemos hacer un experimento, ya sea porque es imposible ("¿Cuál es la relación entre las emisiones de carbono humano y el clima de la Tierra?") O porque no es ético ("¿Cuáles son los efectos del abuso severo sobre el desarrollo del cerebro infantil?"). Sin embargo, aún podemos recopilar datos que podrían ser relevantes para esas preguntas. Por ejemplo, potencialmente podemos recopilar datos de niños que han sido abusados y de aquellos que no, y luego podemos preguntarnos si su desarrollo cerebral es diferente.
+A menudo nos gustaría probar hipótesis causales, pero en realidad no podemos hacer un experimento, ya sea porque es imposible ("¿Cuál es la relación entre las emisiones de carbono humano y el clima de la Tierra?") o porque no es ético ("¿Cuáles son los efectos del abuso severo sobre el desarrollo del cerebro infantil?"). Sin embargo, aún podemos recopilar datos que podrían ser relevantes para esas preguntas. Por ejemplo, potencialmente podemos recopilar datos de niños que han sido abusados y de aquellos que no, y luego podemos preguntarnos si su desarrollo cerebral es diferente.
 
 <!--Let's say that we did such an analysis, and we found that abused children had poorer brain development than non-abused children. Would this demonstrate that abuse *causes* poorer brain development?  No.  Whenever we observe a statistical association between two variables, it is certainly possible that one of those two variables causes the other.  However, it is also possible that both of the variables are being influenced by a third variable; in this example, it could be that child abuse is associated with family stress, which could also cause poorer brain development through less intellectual engagement, food stress, or many other possible avenues.  The point is that a correlation between two variables generally tells us that something is *probably* causing somethign else, but it doesn't tell us what is causing what.-->
 Digamos que hicimos tal análisis y encontramos que los niños abusados tenían un desarrollo cerebral más pobre que los niños no abusados. ¿Demostraría esto que el abuso *causa* un peor desarrollo cerebral? No. Siempre que observemos una asociación estadística entre dos variables, es ciertamente posible que una de esas dos variables cause la otra. Sin embargo, también es posible que ambas variables estén influenciadas por una tercera variable; en este ejemplo, podría ser que el abuso infantil esté asociado con el estrés familiar, que también podría causar un desarrollo cerebral más deficiente debido a una menor participación intelectual, estrés alimentario o muchas otras posibles vías. El punto es que una correlación entre dos variables generalmente nos dice que algo *probablemente* está causando otra cosa, pero no nos dice qué está causando qué.
@@ -317,7 +321,7 @@ foo <- html_print(add_mathjax(grViz(latent_graph))) %>%
 ```
 
 <!--However, in reality the effects on finishing time and grades are not due directly to the amount of time spent studying, but rather to the amount of knowledge that the student gains by studying.  We would usually say that knowledge is a *latent* variable -- that is, we can't measure it directly but we can see it reflected in variables that we can measure (like grades and finishing times).  Figure \@ref(fig:latentCausalGraph) shows this.-->
-Sin embargo, en realidad, los efectos sobre el tiempo de finalización y las calificaciones no se deben directamente a la cantidad de tiempo dedicado al estudio, sino más bien a la cantidad de conocimientos que adquiere el alumno al estudiar. Por lo general, diríamos que el conocimiento es una variable *latente*, es decir, no podemos medirlo directamente, pero podemos verlo reflejado en variables que podemos medir (como calificaciones y tiempos de finalización). La figura \@ref(fig:latentCausalGraph) muestra esto.
+Sin embargo, en realidad, los efectos sobre el tiempo de finalización y las calificaciones no se deben directamente a la cantidad de tiempo dedicado al estudio, sino más bien a la cantidad de conocimientos que adquiere el alumno al estudiar. Por lo general, diríamos que el conocimiento es una variable *latente*, es decir, no podemos medirlo directamente, pero podemos verlo reflejado en variables que podemos medir (como calificaciones y tiempos de finalización). La Figura \@ref(fig:latentCausalGraph) muestra esto.
 
 ```{r simpleCausalGraph, echo=FALSE,fig.cap="A graph showing causal relationships between three variables: study time, exam grades, and exam finishing time.  A green arrow represents a positive relationship (i.e. more study time causes exam grades to increase), and a red arrow represents a negative relationship (i.e. more study time causes faster completion of the exam).",fig.width=6,out.height='50%'}
 
@@ -332,13 +336,13 @@ knitr::include_graphics("images/dag_latent_example.png")
 ```
 
 <!--Here we would say that knowledge *mediates* the relationship between study time and grades/finishing times.  That means that if we were able to hold knowledge constant (for example, by administering a drug that causes immediate forgetting), then the amount of study time should no longer have an effect on grades and finishing times.-->
-Aquí diríamos que el conocimiento *media* la relación entre el tiempo de estudio y las notas/tiempos de finalización. Eso significa que si pudiéramos mantener el conocimiento constante (por ejemplo, administrando un medicamento que causa el olvido inmediato), entonces la cantidad de tiempo de estudio ya no debería tener un efecto sobre las calificaciones y los tiempos de finalización.
+Aquí diríamos que el conocimiento *media* la relación entre el tiempo de estudio y las calificaciones/tiempos de finalización. Eso significa que si pudiéramos mantener el conocimiento constante (por ejemplo, administrando un medicamento que causa el olvido inmediato), entonces la cantidad de tiempo de estudio ya no debería tener un efecto sobre las calificaciones y los tiempos de finalización.
 
 <!--Note that if we simply measured exam grades and finishing times we would generally see negative relationship between them, because people who finish exams the fastest in general get the highest grades.  However, if we were to interpret this correlation as a causal relation, this would tell us that in order to get better grades, we should actually finish the exam more quickly! This example shows how tricky the inference of causality from non-experimental data can be.-->
 Nota que si simplemente midiéramos las calificaciones de los exámenes y los tiempos de finalización, generalmente veríamos una relación negativa entre ellos, porque las personas que terminan los exámenes más rápido obtienen las calificaciones más altas. Sin embargo, si interpretáramos esta correlación como una relación causal, esto nos diría que para obtener mejores calificaciones, ¡deberíamos terminar el examen más rápido! Este ejemplo muestra lo engañosa que puede ser la inferencia de causalidad a partir de datos no experimentales.
 
 <!--Within statistics and machine learning, there is a very active research community that is currently studying the question of when and how we can infer causal relationships from non-experimental data.  However, these methods often require strong assumptions, and must generally be used with great caution.-->
-Dentro de la estadística y el aprendizaje automático (machine learning), existe una comunidad de investigación muy activa que actualmente está estudiando la cuestión de cuándo y cómo podemos inferir relaciones causales a partir de datos no experimentales. Sin embargo, estos métodos a menudo requieren suposiciones sólidas y, en general, deben usarse con gran precaución.
+En las áreas de la estadística y del aprendizaje automático (*machine learning*), existe una comunidad de investigación muy activa que actualmente está estudiando la cuestión de cuándo y cómo podemos inferir relaciones causales a partir de datos no experimentales. Sin embargo, estos métodos a menudo requieren suposiciones sólidas y, en general, deben usarse con gran precaución.
 
 <!--## Learning objectives-->
 ## Objetivos de aprendizaje
@@ -348,10 +352,10 @@ Dentro de la estadística y el aprendizaje automático (machine learning), exist
 * Compute the correlation between two continuous variables
 * Describe the effect of outlier data points and how to address them.
 * Describe the potential causal influences that can give rise to an observed correlation.-->
-Después de leer este capítulo tu deberás ser capaz de:
+Después de leer este capítulo tú deberás ser capaz de:
 
-* Describir el concepto del coeficiente de correlación y su interpretación 
-* Calcular la correlación entre dos variables continuas
+* Describir el concepto del coeficiente de correlación y su interpretación.
+* Calcular la correlación entre dos variables continuas.
 * Describir las posibles influencias causales que pueden dar lugar a una correlación observada.
 
 <!--## Suggested readings-->
@@ -365,8 +369,9 @@ Después de leer este capítulo tu deberás ser capaz de:
 
 <!--### Quantifying inequality: The Gini index-->
 ### Cuantificando la inequidad: El índice Gini
+
 <!--Before we look at the analysis reported in the story, it's first useful to understand how the Gini index is used  to quantify inequality. The Gini index is usually defined in terms of a curve that describes the relation between income and the proportion of the population that has income at or less than that level, known as a *Lorenz curve*.  However, another way to think of it is more intuitive: It is the relative mean absolute difference between incomes, divided by two (from https://en.wikipedia.org/wiki/Gini_coefficient):-->
-Antes de mirar el análisis reportado en la historia, primero es útil entender cómo se usa el índice de Gini para cuantificar la desigualdad. El índice de Gini generalmente se define en términos de una curva que describe la relación entre los ingresos y la proporción de la población que tiene ingresos en ese nivel o menos, conocida como *curva de Lorenz*. Sin embargo, otra forma de pensar es más intuitiva: es la diferencia absoluta media relativa entre ingresos, dividida por dos (de https://en.wikipedia.org/wiki/Gini_coefficient):
+Antes de mirar el análisis reportado en la historia, primero es útil entender cómo se usa el índice de Gini para cuantificar la desigualdad. El índice de Gini generalmente se define en términos de una curva que describe la relación entre los ingresos y la proporción de la población que tiene ingresos en ese nivel o menos, conocida como *curva de Lorenz*. Sin embargo, otra forma de pensar es más intuitiva: es la diferencia absoluta media relativa (*relative mean absolute difference*) entre ingresos, dividida entre dos (de https://en.wikipedia.org/wiki/Gini_coefficient):
 
 $$
 G = \frac{\displaystyle{\sum_{i=1}^n \sum_{j=1}^n \left| x_i - x_j \right|}}{\displaystyle{2n\sum_{i=1}^n x_i}} 
@@ -435,23 +440,25 @@ p3 <- ggplot(data.frame(p=lc3$p,lc=lc3$lc),aes(p,lc)) +
 
 plot_grid(p1,p2,p3,ncol=2)
 ```
+
 <!--Figure \@ref(fig:gini0) shows the Lorenz curves for several different income distributions.  The top left panel (A) shows an example with 10 people where everyone has exactly the same income. The length of the intervals between points are equal, indicating each person earns an identical share of the total income in the population.  The top right panel (B) shows an example where income is normally distributed. The bottom left panel shows an example with high inequality; everyone has equal income (\$40,000) except for one person, who has income of \$40,000,000. According to the US Census, the United States had a Gini index of 0.469 in 2010, falling roughly half way between our normally distributed and maximally inequal examples.-->
-La figura \@ref(fig: gini0) muestra las curvas de Lorenz para varias distribuciones de ingresos diferentes. El panel superior izquierdo (A) muestra un ejemplo con 10 personas donde todos tienen exactamente los mismos ingresos. La longitud de los intervalos entre puntos es igual, lo que indica que cada persona gana una parte idéntica del ingreso total de la población. El panel superior derecho (B) muestra un ejemplo donde los ingresos se distribuyen normalmente. El panel inferior izquierdo muestra un ejemplo con alta desigualdad; todos tienen los mismos ingresos (\$40,000) excepto una persona, que tiene ingresos de \$40,000,000. Según el censo de EE.UU., Estados Unidos tenía un índice de Gini de 0,469 en 2010, aproximadamente a la mitad entre nuestros ejemplos de distribución normal y máxima desigualdad.
+La Figura \@ref(fig:gini0) muestra las curvas de Lorenz para varias distribuciones de ingresos diferentes. El panel superior izquierdo (A) muestra un ejemplo con 10 personas donde todos tienen exactamente los mismos ingresos. La longitud de los intervalos entre puntos es igual, lo que indica que cada persona gana una parte idéntica del ingreso total de la población. El panel superior derecho (B) muestra un ejemplo donde los ingresos se distribuyen normalmente. El panel inferior izquierdo muestra un ejemplo con alta desigualdad; todos tienen los mismos ingresos (\$40,000) excepto una persona, que tiene ingresos de \$40,000,000. Según el censo de EE.UU., Estados Unidos tenía un índice de Gini de 0,469 en 2010, aproximadamente a la mitad entre nuestros ejemplos de distribución normal y máxima desigualdad.
 
 <!--### Bayesian correlation analysis-->
 ### Análisis de correlación bayesiana
 
 <!--We can also analyze the FiveThirtyEight data using Bayesian analysis, which has two advantages.  First, it provides us with a posterior probability -- in this case, the probability that the correlation value exceeds zero.  Second, the Bayesian estimate combines the observed evidence with a *prior*, which has the effect of *regularizing* the correlation estimate, effectively pulling it towards zero.  Here we can compute it using the `jzs_cor` function from the BayesMed package.-->
-También podemos analizar los datos de FiveThirtyEight utilizando el análisis bayesiano, que tiene dos ventajas. Primero, nos proporciona una probabilidad posterior, en este caso, la probabilidad de que el valor de correlación sea superior a cero. En segundo lugar, la estimación bayesiana combina la evidencia observada con un *previo*, que tiene el efecto de *regularizar* la estimación de correlación, llevándola efectivamente hacia cero. Aquí podemos calcularlo usando la función `jzs_cor` del paquete BayesMed.
+También podemos analizar los datos de *FiveThirtyEight* utilizando el análisis bayesiano, que tiene dos ventajas. Primero, nos proporciona una probabilidad posterior, en este caso, la probabilidad de que el valor de correlación sea superior a cero. En segundo lugar, la estimación bayesiana combina la evidencia observada con una *probabilidad previa*, que tiene el efecto de *regularizar* la correlación estimada, efectivamente llevándola hacia cero. Aquí podemos calcularlo usando la función `jzs_cor` del paquete BayesMed.
 
 ```{r echo=FALSE}
-#bayesCor <- jzs_cor(
-#  hateCrimes$avg_hatecrimes_per_100k_fbi,
-#  hateCrimes$gini_index
-#)
-#bayesCor
+# bayesCor <- jzs_cor(
+#   hateCrimes$avg_hatecrimes_per_100k_fbi,
+#   hateCrimes$gini_index
+# )
+# bayesCor
 
 ```
 
 <!--Notice that the correlation estimated using the Bayesian method is slightly smaller than the one estimated using the standard correlation coefficient, which is due to the fact that the estimate is based on a combination of the evidence and the prior, which effectively shrinks the estimate toward zero. However, notice that the Bayesian analysis is not robust to the outlier, and it still says that there is fairly strong evidence that the correlation is greater than zero.-->
-Nótese que la correlación estimada usando el método bayesiano es ligeramente menor que la estimada usando el coeficiente de correlación estándar, lo cual se debe al hecho de que la estimación se basa en una combinación de la evidencia y la previa, lo que efectivamente reduce la estimación a cero. Sin embargo, observe que el análisis bayesiano no es robusto para el valor atípico, y todavía dice que hay evidencia bastante fuerte de que la correlación es mayor que cero.
+Nótese que la correlación estimada usando el método bayesiano es ligeramente menor que la estimada usando el coeficiente de correlación estándar, lo cual se debe al hecho de que la estimación se basa en una combinación de la evidencia y la probabilidad previa, lo que efectivamente reduce la estimación hacia cero. Sin embargo, observe que el análisis bayesiano no es robusto para el valor atípico, y todavía dice que hay evidencia bastante fuerte de que la correlación es mayor que cero.
+

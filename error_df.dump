@@ -1,6 +1,0 @@
-x <-
-structure(list(model = c("mode", "mean", "constant + age", "constant + age + gender"
-), error = c(39.419792658294703, 26.911673870864636, 8.3582947913759487, 
-8.1960869164615282), RMSE = c(39.419792658294703, 26.911673870864636, 
-8.3582947913759487, 8.1960869164615282)), row.names = c(NA, -4L
-), class = c("tbl_df", "tbl", "data.frame"))

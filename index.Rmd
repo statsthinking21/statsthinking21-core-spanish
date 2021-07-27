@@ -20,6 +20,7 @@ always_allow_html: yes
 fontsize: 12pt
 monofont: "Source Code Pro"
 monofontoptions: "Scale=0.7"
+urlcolor: blue
 output: 
   bookdown::pdf_book:
     keep_tex: yes

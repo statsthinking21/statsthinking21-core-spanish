@@ -1,6 +1,7 @@
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames*,x11names*}{xcolor}
 %
 \documentclass[
   12pt,
@@ -39,7 +40,11 @@
 \IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \hypersetup{
   pdftitle={Statistical Thinking for the 21st Century},
-  hidelinks,
+  colorlinks=true,
+  linkcolor=Maroon,
+  filecolor=Maroon,
+  citecolor=Blue,
+  urlcolor=blue,
   pdfcreator={LaTeX via pandoc}}
 \urlstyle{same} % disable monospaced font for URLs
 \usepackage{color}
@@ -156,7 +161,7 @@ Translation to Spanish(MX) by\\
 Manuel Mejia\\
 Tanya Nuño\\
 Lizeth Reyes}
-\date{Draft: 2021-03-16}
+\date{Draft: 2021-05-14}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}[chapter]
@@ -177,6 +182,7 @@ Lizeth Reyes}
 \maketitle
 
 {
+\hypersetup{linkcolor=}
 \setcounter{tocdepth}{1}
 \tableofcontents
 }
@@ -1159,8 +1165,8 @@ Estos fueron dos ejemplos en donde el \emph{modelo lineal} parece apropiado, y e
 
 Por otro lado, hay situaciones en donde el modelo lineal es incorrecto, y el error va a incrementar porque el modelo no está correctamente especificado. Digamos que estamos interesadxs en la relación entre la ingesta de cafeína y el rendimiento en un examen. La relación entre estimulantes como la cafeína y el rendimiento en un examen es a menudo \emph{no lineal} - esto quiere decir que no sigue una línea recta. Esto es porque el rendimiento sube con cantidades pequeñas de cafeína (conforme la persona se pone más alerta), pero después empieza a declinar con cantidades grandes (conforme la persona se pone más nerviosa). Podemos simular datos de esta forma, y luego ajustar un modelo lineal a los datos (observa el Panel C de la Figura \ref{fig:BACrt}). La línea azul muestra una línea recta que mejor se ajusta a estos datos; claramente, hay un alto margen de error. Aunque existe una relación entre el rendimiento de la prueba y la ingesta de cafeína, sigue a una curva en lugar de a una línea recta. El modelo lineal tiene mayor error porque es el modelo incorrecto para este tipo de datos.
 
-\hypertarget{un-modelo-puede-ser-demasiado-bueno}{%
-\section{¿Un modelo puede ser demasiado bueno?}\label{un-modelo-puede-ser-demasiado-bueno}}
+\hypertarget{overfitting}{%
+\section{¿Un modelo puede ser demasiado bueno?}\label{overfitting}}
 
 Un error suena como algo malo, y usualmente vamos a preferir un modelo que tenga menor error a uno que tenga mayor error. No obstante, ya mencionamos que existe tensión entre la habilidad de un modelo para ajustarse correctamente a un conjunto de datos en particular y su habilidad para generalizarse a nuevos conjuntos de datos\ldots{} ¡Y resulta ser que el modelo con el menor error es a menudo peor para generalizarse a nuevos conjuntos de datos!
 
@@ -1472,8 +1478,8 @@ error = \sum_{i=1}^{n}(x_i - \bar{X}) = 0
 \]
 \end{proof}
 
-\hypertarget{probabilidad}{%
-\chapter{Probabilidad}\label{probabilidad}}
+\hypertarget{probability}{%
+\chapter{Probabilidad}\label{probability}}
 
 La teoría de probabilidad es la rama de las matemáticas que trata con el azar y la incertidumbre. Forma parte importante de los fundamentos de la estadística, porque nos provee con las herramientas matemáticas para describir eventos inciertos. El estudio de la probabilidad inició en parte debido al interés de entender los juegos de azar, como las cartas o los dados. Estos juegos proveen de ejemplos útiles de muchos conceptos estadísticos, porque cuando repetimos estos juegos la probabilidad de diferentes resultados se mantiene (mayormente) igual. Sin embargo, existen preguntas profundas sobre el significado de la probabilidad que no abordaremos aquí; ve las Lecturas Sugeridas al final del capítulo si estás interesade en aprender más acerca de este tema fascinante y su historia.
 
@@ -2242,8 +2248,8 @@ Después de haber leído este capítulo, deberías ser capaz de:
   \emph{Computer Age Statistical Inference: Algorithms, Evidence and Data Science}, by Bradley Efron and Trevor Hastie.
 \end{itemize}
 
-\hypertarget{prueba-de-hipuxf3tesis}{%
-\chapter{Prueba de hipótesis}\label{prueba-de-hipuxf3tesis}}
+\hypertarget{hypothesis-testing}{%
+\chapter{Prueba de hipótesis}\label{hypothesis-testing}}
 
 En el primer capítulo discutimos los tres grandes objetivos de la estadística:
 
@@ -2687,9 +2693,11 @@ En este capítulo analizaremos métodos para abordar estas dos preguntas: interv
 
 Hasta ahora en el libro nos hemos enfocado en estimar el valor específico de una estadística. Por ejemplo, digamos que queremos estimar el peso medio de los adultos en el conjunto de datos de NHANES. Tomemos una muestra del conjunto de datos y estimemos la media. En este ejemplo, el peso medio tiene 79.92 kilogramos. Nos referimos a esto como un \emph{punto estimado} ya que nos provee con un simple número para describir nuestro parámetro de la población estimado. Como sea, sabemos de nuestra discusión anterior sobre el error de muestreo que hay cierta incertidumbre acerca de este estimado, que es descrito como error estándar. También recordarás que el error estándar es determinado por dos componentes: la desviación estándar de la población (que es el numerador), y la raíz cuadrada de el tamaño de la muestra (que es el denominador). La desviación estándar de la población es un parámetro fijado generalmente desconocido que no está bajo nuestro control, mientras que el tamaño de la muestra \emph{está} bajo nuestro control. De este modo, podemos disminuir nuestra incertidumbre acerca del estimado mediante aumentar nuestro tamaño de muestra -- hasta el límite del tamaño de dicha población, al punto que no hay incertidumbre del todo porque podemos calcular el parámetro poblacional directamente de los datos de la población entera.
 
-También recordarás que anteriormente introducimos el concepto de \emph{intervalo de confianza}, que es una manera de describir nuestra incertidumbre acerca de un estimado estadístico. Recuerda que un intervalo de confianza describe un intervalo que en contendrá, en promedio, un parámetro real de la población con una probabilidad dada; por ejemplo, el 95\% de intervalo de confianza es un intervalo que va a capturar el verdadero parámetro poblacional 95\% de las veces. Nótese que esto no es una afirmación acerca del parámetro poblacional. Como Jerzy Neyman, el inventor del intervalo de confianza, dijo:\\
-\textgreater{}``The parameter is an unknown constant and no probability statement concerning its value may be made.''(\protect\hyperlink{ref-Neyman37}{J. Neyman 1937})
-\textgreater El parámetro es una constante desconocida y no se puede hacer ninguna declaración de probabilidad sobre su valor". (\protect\hyperlink{ref-Neyman37}{J. Neyman 1937})
+También recordarás que anteriormente introdujimos el concepto de \emph{intervalo de confianza}, que es una manera de describir nuestra incertidumbre acerca de un estimado estadístico. Recuerda que un intervalo de confianza describe un intervalo que contendrá, en promedio, un parámetro real de la población con una probabilidad dada; por ejemplo, el 95\% de intervalo de confianza es un intervalo que va a capturar el verdadero parámetro poblacional 95\% de las veces. Nótese que esto no es una afirmación acerca del parámetro poblacional. Como Jerzy Neyman, el inventor del intervalo de confianza, dijo:
+
+\begin{quote}
+``El parámetro es una constante desconocida y no se puede hacer ninguna declaración de probabilidad sobre su valor.'' (\protect\hyperlink{ref-Neyman37}{J. Neyman 1937})
+\end{quote}
 
 El intervalo de confianza para la media se calcula como:
 
@@ -2697,14 +2705,14 @@ El intervalo de confianza para la media se calcula como:
 CI = \text{point estimate} \pm \text{critical value} * \text{standard error}
 \]
 
-donde el valor crítico es determinado por la distribución de la muestra estimada. La pregunta importante es entonces, cuál es la distribución muestral.
+donde el valor crítico es determinado por la distribución muestral de la medida estimada. La pregunta importante es entonces, cuál es la distribución muestral.
 
 \hypertarget{intervalos-de-confianza-usando-la-distribuciuxf3n-normal}{%
 \subsection{Intervalos de confianza usando la distribución normal}\label{intervalos-de-confianza-usando-la-distribuciuxf3n-normal}}
 
-Si sabemos la desviación estándar de la población, entonces podemos usar la distribución normal para calcular un intervalo de confianza. Usualmente, no la sabemos pero para nuestro ejemplo en el conjunto de datos NHANES sí sabemos (es 21.3 por peso).
+Si sabemos la desviación estándar de la población, entonces podemos usar la distribución normal para calcular un intervalo de confianza. Usualmente, no la sabemos pero para nuestro ejemplo en el conjunto de datos NHANES sí sabemos (es 21.3 para el peso).
 
-Digamos que queremos calcular un intervalo de confianza de 95\% para la media. El valor crítico entonces sería los valores de la distribución normal estándar que capture el 95\% de la distribución; estos son simplemente 2.5 de percentil y el 97.5 percentil de la distribución, el cual podemos calcular usando un software estadístico, y resultar a \(\pm 1.96\). Por lo tanto, el intervalo de confianza para la media (\(\bar{X}\)) es:
+Digamos que queremos calcular un intervalo de confianza de 95\% para la media. El valor crítico entonces sería los valores de la distribución normal estándar que capturen el 95\% de la distribución; estos son simplemente 2.5 de percentil y el 97.5 percentil de la distribución, el cual podemos calcular usando un software estadístico, y resulta un valor de \(\pm 1.96\). Por lo tanto, el intervalo de confianza para la media (\(\bar{X}\)) es:
 \[
 CI = \bar{X} \pm 1.96*SE
 \]
@@ -2714,25 +2722,18 @@ Usando la media estimada de nuestra muestra (79.92) y la conocida desviación es
 \hypertarget{intervalos-de-confianza-utilizando-la-distribuciuxf3n-t}{%
 \subsection{Intervalos de confianza utilizando la distribución t}\label{intervalos-de-confianza-utilizando-la-distribuciuxf3n-t}}
 
-Como se indicó anteriormente, si conociéramos la desviación estándar de la población, podríamos usar la distribución normal para calcular nuestros intervalos de confianza. Sin embargo, en general no lo hacemos, en cuyo caso la distribución \emph{t} es más apropiada como distribución de muestreo. Recuerde que la distribución t es ligeramente más amplia que la distribución normal, especialmente para muestras más pequeñas, lo que significa que los intervalos de confianza serán ligeramente más amplios de lo que serían si estuviéramos usando la distribución normal. Esto incorpora la incertidumbre adicional que surge cuando sacamos conclusiones basadas en muestras pequeñas.
+Como se indicó anteriormente, si conociéramos la desviación estándar de la población, podríamos usar la distribución normal para calcular nuestros intervalos de confianza. Sin embargo, en general no lo sabemos, en cuyo caso la distribución \emph{t} es más apropiada como distribución de muestreo. Recuerde que la distribución t es ligeramente más amplia que la distribución normal, especialmente para muestras más pequeñas, lo que significa que los intervalos de confianza serán ligeramente más amplios de lo que serían si estuviéramos usando la distribución normal. Esto incorpora la incertidumbre adicional que surge cuando sacamos conclusiones basadas en muestras pequeñas.
 
-We can compute the 95\% confidence interval in a way similar to the normal distribution example above, but the critical value is determined by the 2.5th percentile and the 97.5th percentile of the \emph{t} distribution with the appropriate degrees of freedom. Thus, the confidence interval for the mean (\(\bar{X}\)) is:
-
-\[
-CI = \bar{X} \pm t_{crit}*SE
-\]
-
-where \(t_{crit}\) is the critical t value.
-For the NHANES weight example (with sample size of 250), the confidence interval would be 79.92 +/- 1.97 * 1.41 {[}77.15 - 82.69{]}.
-Podemos calcular el 95\% intervalo de confianza en una manera similar al de la distribución normal en el ejemplo de arriba, pero el valor crítico es determinado por el percentil 2.5 y por el 97.5 percentil de la distribución \emph{t} con los grados apropiados de libertad. Por lo tanto el intervalo de confianza para la media (\(\bar{X}\)) es:
+Podemos calcular el intervalo de confianza al 95\% en una manera similar al de la distribución normal en el ejemplo de arriba, pero el valor crítico es determinado por el percentil 2.5 y por el 97.5 percentil de la distribución \emph{t} con los grados apropiados de libertad. Por lo tanto el intervalo de confianza para la media (\(\bar{X}\)) es:
 
 \[
 CI = \bar{X} \pm t_{crit}*SE
 \]
 
-donde \(t_{crit}\) es el valor crítico de t
-Para el ejemplo del peso NHANES (con una muestra de tamaño 250), el intervalo de confianza sería 79.92 +/- 1.97 * 1.41 {[}77.15 - 82.69{]}.
-Recuerde que esto no nos dice nada acerca de la probabilidad de que el valor real de la población caiga dentro de este intervalo, ya que es un parámetro fijo (que sabemos que es 81.77 porque tenemos el población en este caso) y cae o no dentro de este intervalo específico (en este caso, sí). En cambio, nos dice que a largo plazo, si calculamos el intervalo de confianza utilizando este procedimiento, el 95\% de las veces ese intervalo de confianza capturará el parámetro de población real.
+donde \(t_{crit}\) es el valor crítico de t.
+Para el ejemplo del peso en NHANES (con una muestra de tamaño 250), el intervalo de confianza sería de 79.92 +/- 1.97 * 1.41 {[}77.15 - 82.69{]}.
+
+Recuerde que esto no nos dice nada acerca de la probabilidad de que el valor real de la población caiga dentro de este intervalo, ya que es un parámetro fijo (que sabemos que es 81.77 porque tenemos a toda la población en este caso) y cae o no dentro de este intervalo específico (en este caso, sí). En cambio, nos dice que a largo plazo, si calculamos el intervalo de confianza utilizando este procedimiento, el 95\% de las veces ese intervalo de confianza capturará el parámetro de población real.
 
 \hypertarget{intervalos-de-confianza-y-tamauxf1o-de-muestra}{%
 \subsection{Intervalos de confianza y tamaño de muestra}\label{intervalos-de-confianza-y-tamauxf1o-de-muestra}}
@@ -2740,13 +2741,13 @@ Recuerde que esto no nos dice nada acerca de la probabilidad de que el valor rea
 Debido a que el error estándar disminuye con el tamaño de la muestra, el intervalo de confianza debería hacerse más estrecho a medida que aumenta el tamaño de la muestra, proporcionando límites progresivamente más estrictos en nuestra estimación. La figura \ref{fig:CISampSize} muestra un ejemplo de cómo cambiaría el intervalo de confianza en función del tamaño de la muestra para el ejemplo de ponderación. A partir de la figura, es evidente que el intervalo de confianza se vuelve cada vez más estricto a medida que aumenta el tamaño de la muestra, pero el aumento de las muestras proporciona rendimientos decrecientes, en consonancia con el hecho de que el denominador del término del intervalo de confianza es proporcional a la raíz cuadrada del tamaño de la muestra.
 
 \begin{figure}
-\includegraphics[height=0.5\textheight]{StatsThinking21_files/figure-latex/CISampSize-1} \caption{Ejemplo del effecto de tamaño de muestra en la amplitud del intevalo de confianza para la media.}\label{fig:CISampSize}
+\includegraphics[height=0.5\textheight]{StatsThinking21_files/figure-latex/CISampSize-1} \caption{Ejemplo del efecto de tamaño de muestra en la amplitud del intevalo de confianza para la media.}\label{fig:CISampSize}
 \end{figure}
 
 \hypertarget{calcular-el-intervalo-de-confianza-utilizando-bootstrap}{%
 \subsection{Calcular el intervalo de confianza utilizando ``bootstrap''}\label{calcular-el-intervalo-de-confianza-utilizando-bootstrap}}
 
-En algunos casos, no podemos asumir la normalidad o no conocemos la distribución muestral de la estadística. En estos casos, podemos usar el bootstrap (que presentamos en el Capítulo \ref{resampling-and-simulation}). Como recordatorio, el bootstrap implica volver a muestrear repetidamente los datos \emph{con reemplazo}, y luego usar la distribución de la estadística calculada en esas muestras como un sustituto de la distribución muestral de la estadística. Estos son los resultados cuando usamos el método integrado función de arranque en R para calcular el intervalo de confianza para el peso en nuestra muestra NHANES:
+En algunos casos, no podemos asumir la normalidad o no conocemos la distribución muestral de la estadística. En estos casos, podemos usar el bootstrap (que presentamos en el Capítulo \ref{resampling-and-simulation}). Como recordatorio, el bootstrap implica volver a muestrear repetidamente los datos \emph{con reemplazo}, y luego usar la distribución de la estadística calculada en esas muestras como un sustituto de la distribución muestral de la estadística. Estos son los resultados cuando usamos el la función integrada en R para calcular el intervalo de confianza para el peso en nuestra muestra NHANES:
 
 \begin{verbatim}
 ## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
@@ -2761,42 +2762,42 @@ En algunos casos, no podemos asumir la normalidad o no conocemos la distribució
 ## Calculations and Intervals on Original Scale
 \end{verbatim}
 
-Estos valores son bastante cercanos a los valores obtenidos usando la distribución t antedicha, pero no exactamente la misma.
+Estos valores son bastante cercanos a los valores obtenidos usando la distribución t antedicha, pero no exactamente iguales.
 
 \hypertarget{relaciuxf3n-de-los-intervalos-de-confianza-con-la-prueba-de-hipuxf3tesis}{%
 \subsection{Relación de los intervalos de confianza con la prueba de hipótesis}\label{relaciuxf3n-de-los-intervalos-de-confianza-con-la-prueba-de-hipuxf3tesis}}
 
-Existe una estrecha relación entre los intervalos de confianza y las pruebas de hipótesis. En particular, si el intervalo de confianza no incluye la hipótesis nula, entonces la prueba estadística asociada sería estadísticamente significativa. Por ejemplo, si está probando si la media de una muestra es mayor que cero con \(\alpha = 0.05\), simplemente puede verificar si cero está contenido dentro del intervalo de confianza del 95\% para la media.
+Existe una estrecha relación entre los intervalos de confianza y las pruebas de hipótesis. En particular, si el intervalo de confianza no incluye la hipótesis nula, entonces la prueba estadística asociada sería estadísticamente significativa. Por ejemplo, si se está probando si la media de una muestra es mayor que cero con \(\alpha = 0.05\), simplemente puede verificar si el cero está contenido dentro del intervalo de confianza del 95\% para la media.
 
-Las cosas se complican si queremos comparar las medias de dos condiciones (\protect\hyperlink{ref-sche}{\textbf{sche?}} gent: 2001). Hay un par de situaciones que están claras. Primero, si cada media está contenida dentro del intervalo de confianza para la otra media, entonces definitivamente no hay diferencia significativa en el nivel de confianza elegido. En segundo lugar, si no hay superposición entre los intervalos de confianza, ciertamente hay una diferencia significativa en el nivel elegido; de hecho, esta prueba es sustancialmente * conservadora *, de modo que la tasa de error real será menor que el nivel elegido. Pero, ¿qué pasa con el caso en el que los intervalos de confianza se superponen entre sí pero no contienen las medias para el otro grupo? En este caso, la respuesta depende de la variabilidad relativa de las dos variables y no hay una respuesta general. Sin embargo, en general, se debe evitar el uso de la ``prueba del globo ocular'' para los intervalos de confianza superpuestos.
+--\textgreater{}
+Las cosas se complican si queremos comparar las medias de dos condiciones (\protect\hyperlink{ref-sche:gent:2001}{Schenker and Gentleman 2001}). Hay un par de situaciones que están claras. Primero, si cada media está contenida dentro del intervalo de confianza de la otra media, entonces definitivamente no hay diferencia significativa en el nivel de confianza elegido. En segundo lugar, si no hay superposición entre los intervalos de confianza, ciertamente hay una diferencia significativa en el nivel elegido; de hecho, esta prueba es sustancialmente \emph{conservadora}, de modo que la tasa de error real será menor que el nivel elegido. Pero, ¿qué pasa con el caso en el que los intervalos de confianza se superponen entre sí pero no contienen la media para el otro grupo? En este caso, la respuesta depende de la variabilidad relativa de las dos variables y no hay una respuesta general. Sin embargo, en general, se debe evitar el uso de ``medir a simple vista'' para los intervalos de confianza superpuestos.
 
 \hypertarget{tamauxf1o-de-efecto-effect-sizes}{%
 \section{Tamaño de efecto (effect sizes)}\label{tamauxf1o-de-efecto-effect-sizes}}
 
 \begin{quote}
-``Statistical significance is the least interesting thing about the results. You should describe the results in terms of measures of magnitude -- not just, does a treatment affect people, but how much does it affect them.'' Gene Glass (REF)
-``La importancia estadística es lo menos interesante de los resultados. Debe describir los resultados en términos de medidas de magnitud, no solo si un tratamiento afecta a las personas, sino cuánto las afecta.'' Gene Glass (REF)
+``La significatividad estadística es lo menos interesante de los resultados. Debe describir los resultados en términos de medidas de magnitud, no solo si un tratamiento afecta a las personas, sino cuánto las afecta.'' Gene Glass (REF)
 \end{quote}
 
-En el capítulo anterior, discutimos la idea de que la significación estadística no necesariamente refleja la significación práctica. Para discutir la importancia práctica, necesitamos una forma estándar de describir el tamaño de un efecto en términos de los datos reales, a los que nos referimos como * tamaño del efecto *. En esta sección presentaremos el concepto y discutiremos varias formas en que se pueden calcular los tamaños del efecto.
+En el capítulo anterior, discutimos la idea de que la significación estadística no necesariamente refleja la significación práctica. Para discutir la importancia práctica, necesitamos una forma estándar de describir el tamaño de un efecto en términos de los datos reales, a los que nos referimos como \emph{tamaño del efecto}. En esta sección presentaremos el concepto y discutiremos varias formas en que se pueden calcular los tamaños del efecto.
 El tamaño del efecto es una medida estandarizada que compara el tamaño de algún efecto estadístico con una cantidad de referencia, como la variabilidad de la estadística. En algunos campos de la ciencia y la ingeniería, esta idea se conoce como ``relación señal/ruido.'' Hay muchas formas diferentes de cuantificar el tamaño del efecto, que dependen de la naturaleza de los datos.
 
 \hypertarget{d-de-cohen}{%
 \subsection{D de Cohen}\label{d-de-cohen}}
 
-Una de las medidas más comunes de tamaño de efectos es conocida como la \emph{D de Cohen}, nombrada en honor al estadístico Jacob Cohen (quien es más famoso por su trabajo de 1994 ``El mundo es redondo'' (p \textless{} .05)"). Es usada para cuantificar la diferencia entre dos medias, en términos de su desviación estándar:
+Una de las medidas más comunes de tamaño de efectos es conocida como la \emph{d de Cohen}, nombrada en honor al estadístico Jacob Cohen (quien es más famoso por su trabajo de 1994 ``El mundo es redondo (p \textless{} .05)''). Es usada para cuantificar la diferencia entre dos medias, en términos de su desviación estándar:
 
 \[
 d = \frac{\bar{X}_1 - \bar{X}_2}{s}
 \]
 
-donde \(\bar{X}_1\) y \(\bar{X}_2\) son las medias de los dos grupos, y \(s\) es la agrupación de la desviación estándar (las cuales son una combinación de desviaciones para dos muestras, ponderados por sus tamaños de muestra):
+donde \(\bar{X}_1\) y \(\bar{X}_2\) son las medias de los dos grupos, y \(s\) es la desviación estándar agrupada (la cual es una combinación de desviaciones para dos muestras, ponderada por sus tamaños de muestra):
 
 \[
 s = \sqrt{\frac{(n_1 - 1)s^2_1 + (n_2 - 1)s^2_2 }{n_1 +n_2 -2}}
 \]
-donde \(n_1\) y \(n_2\) son tamaños de muestra y \(s^2_1\) y \(s^2_2\) son las desviaciones estándar por dos grupos, respectivamente. Nótese que esto es muy similar en espíritu a la estadística t --- la diferencia principal es que el denominador en la estadística está basada en el error estándar de la media, mientras que el denominador en la D de Cohen está basada en la desviación estándar de los datos. Esto significa que mientras que la estadística t va a crecer conforme al tamaño de la muestra aumente, el valor de la D de Cohen se mantendrá igual.
-Hay una escala comúnmente usada par interpretar el tamaño de un efecto en términos de la D de Cohen:
+donde \(n_1\) y \(n_2\) son tamaños de muestra y \(s^2_1\) y \(s^2_2\) son las desviaciones estándar de los dos grupos, respectivamente. Nótese que esto es muy similar en espíritu al estadístico t --- la diferencia principal es que el denominador en la estadística está basada en el error estándar de la media, mientras que el denominador en la D de Cohen está basada en la desviación estándar de los datos. Esto significa que mientras que la estadística t va a crecer conforme al tamaño de la muestra aumente, el valor de la D de Cohen se mantendrá igual.
+Hay una escala comúnmente usada para interpretar el tamaño de un efecto en términos de la D de Cohen:
 
 \begin{table}
 
@@ -2817,19 +2818,20 @@ D & Interpretation\\
 \end{tabular}
 \end{table}
 
-Puede ser útil observar algunos efectos comúnmente entendidos para ayudar a comprender estas interpretaciones. Por ejemplo, el tamaño del efecto para las diferencias de género en altura (d = 1.6) es muy grande en referencia a nuestra tabla anterior. También podemos ver esto al observar las distribuciones de las alturas de hombres y mujeres en una muestra del conjunto de datos de NHANES. La figura \ref{fig:genderHist} muestra que las dos distribuciones están bastante bien separadas, aunque todavía se superponen, lo que destaca el hecho de que incluso cuando hay un tamaño de efecto muy grande para la diferencia entre dos grupos, habrá individuos de cada grupo. que son más como el otro grupo.
+Puede ser útil observar algunos efectos comúnmente entendidos para ayudar a comprender estas interpretaciones. Por ejemplo, el tamaño del efecto para las diferencias de altura por género (d = 1.6) es muy grande en referencia a nuestra tabla anterior. También podemos ver esto al observar las distribuciones de las alturas de hombres y mujeres en una muestra del conjunto de datos de NHANES. La figura \ref{fig:genderHist} muestra que las dos distribuciones están bastante bien separadas, aunque todavía se superponen, lo que destaca el hecho de que incluso cuando hay un tamaño de efecto muy grande para la diferencia entre dos grupos, habrá individuos de cada grupo. que son más como el otro grupo.
 
 \begin{figure}
 \includegraphics[height=0.5\textheight]{StatsThinking21_files/figure-latex/genderHist-1} \caption{Gráficos de histograma suavizados para alturas masculinas y femeninas en el conjunto de datos de NHANES, que muestran distribuciones claramente distintas pero también claramente superpuestas.}\label{fig:genderHist}
 \end{figure}
 
-También vale la pena señalar que rara vez encontramos efectos de esta magnitud en la ciencia, en parte porque son efectos tan obvios que no necesitamos investigación científica para encontrarlos. Como veremos en el Capítulo @ref(hacer-investigación-reproducible) sobre la reproducibilidad, los efectos muy grandes reportados en la investigación científica a menudo reflejan el uso de prácticas de investigación cuestionables en lugar de efectos verdaderamente enormes en la naturaleza. También vale la pena señalar que incluso para un efecto tan grande, las dos distribuciones aún se superponen: habrá algunas mujeres que serán más altas que el hombre promedio, y viceversa. Para los efectos científicos más interesantes, el grado de superposición será mucho mayor, por lo que no deberíamos sacar conclusiones sólidas de inmediato sobre individuos de diferentes poblaciones basadas incluso en un tamaño de efecto grande.
+También vale la pena señalar que rara vez encontramos efectos de esta magnitud en la ciencia, en parte porque son efectos tan obvios que no necesitamos investigación científica para encontrarlos. Como veremos en el Capítulo \ref{doing-reproducible-research} sobre la reproducibilidad, los efectos muy grandes reportados en la investigación científica a menudo reflejan el uso de prácticas de investigación cuestionables en lugar de efectos verdaderamente enormes en la naturaleza. También vale la pena señalar que incluso para un efecto tan grande, las dos distribuciones aún se superponen: habrá algunas mujeres que serán más altas que el hombre promedio, y viceversa. Para los efectos científicos más interesantes, el grado de superposición será mucho mayor, por lo que no deberíamos sacar conclusiones sólidas de inmediato sobre individuos de diferentes poblaciones basadas incluso en un tamaño de efecto grande.
 
 \hypertarget{r-de-pearson}{%
-\subsection{R de Pearson}\label{r-de-pearson}}
+\subsection{r de Pearson}\label{r-de-pearson}}
 
-La \emph{r} de Pearson, también conocida como el coeficiente de correlación, es una medida sobre la fuerza de la relación linear entre dos variables continuas. Hablaremos sobre correlación con mayor detalle en el capítulo \ref{modeling-continuous-relationships}, para que podamos guardar los detalles para ese capítulol aquí simplemente introduciremos \emph{r} como una manera de cuantificar la relación entre dos variables.\\
-\emph{r} es una medida que varía de -1 a 1, donde el valor de 1 representa una perfecta relación positica entre variables, 0 representa no relación y -1 representa una relación perfectamente negativa. La figura \ref{fig:corrFig} muestra ejemplos de varios niveles de correlación utilizando datos generados aleatoriamente.
+La \emph{r} de Pearson, también conocida como el coeficiente de correlación, es una medida sobre la fuerza de la relación linear entre dos variables continuas. Hablaremos sobre correlación con mayor detalle en el capítulo \ref{modeling-continuous-relationships}, para que podamos guardar los detalles para ese capítulo aquí simplemente presentaremos \emph{r} como una manera de cuantificar la relación entre dos variables.
+
+\emph{r} es una medida que varía de -1 a 1, donde el valor de 1 representa una perfecta relación positiva entre variables, 0 representa no relación y -1 representa una relación perfectamente negativa. La figura \ref{fig:corrFig} muestra ejemplos de varios niveles de correlación utilizando datos generados aleatoriamente.
 
 \begin{figure}
 \includegraphics[height=0.5\textheight]{StatsThinking21_files/figure-latex/corrFig-1} \caption{Ejemplos de varios niveles de la r de Pearson.}\label{fig:corrFig}
@@ -2838,12 +2840,14 @@ La \emph{r} de Pearson, también conocida como el coeficiente de correlación, e
 \hypertarget{razuxf3n-de-probabilidades-odds-ratio}{%
 \subsection{Razón de probabilidades (odds ratio)}\label{razuxf3n-de-probabilidades-odds-ratio}}
 
-En nuestra discusión anterior sobre probabilidad discurtimos el concepto de razón -- que es, la probabilidad de que un evento suceda versus a que no suceda.
+En nuestra discusión anterior sobre probabilidad discutimos el concepto de las posibilidades -- que es, la probabilidad de que un evento suceda versus a que no suceda.
+
 \[
 odds\ of\ A = \frac{P(A)}{P(\neg A)}
 \]
-También discutimos la \emph{razón de probabilidades} que es simplemente la razón entre dos probabilidades. La razón de posibilidades es una manera útil para describir tamaños de efectos para variables binarias.
-Por ejemplo, tomemos el caso de fumar y el cáncer de pulmón. Un estudio publicado en el International Journal of Cancer en 2012 (\protect\hyperlink{ref-pesc:kend:gust:2012}{Pesch et al. 2012}) combinó datos sobre la aparición de cáncer de pulmón en fumadores y personas que nunca han fumado en una serie de estudios diferentes. Ten en cuenta que estos datos provienen de estudios de casos y controles, lo que significa que los participantes en los estudios fueron reclutados porque tenían o no tenían cáncer; luego se examinó su condición de fumador. Por tanto, estas cifras no representan la prevalencia del cáncer entre los fumadores de la población general, pero pueden informarnos sobre la relación entre el cáncer y el tabaquismo.
+
+También discutimos la \emph{razón de posibilidades} que es simplemente la razón entre dos posibilidades La razón de posibilidades es una manera útil para describir tamaños de efectos para variables binarias.
+Por ejemplo, tomemos el caso de fumar y el cáncer de pulmón. Un estudio publicado en el \emph{International Journal of Cancer} en 2012 (\protect\hyperlink{ref-pesc:kend:gust:2012}{Pesch et al. 2012}) combinó datos sobre la aparición de cáncer de pulmón en fumadores y personas que nunca han fumado en una serie de estudios diferentes. Ten en cuenta que estos datos provienen de estudios de casos y controles, lo que significa que los participantes en los estudios fueron reclutados porque tenían o no tenían cáncer; luego se examinó su condición de fumador. Por tanto, estas cifras no representan la prevalencia del cáncer entre los fumadores de la población general, pero pueden informarnos sobre la relación entre el cáncer y el tabaquismo.
 
 \begin{table}
 
@@ -2860,43 +2864,45 @@ Cancer & 220 & 6784\\
 \end{tabular}
 \end{table}
 
-Podemos convertir estos números en razones de probabilidades para cada uno de los grupos. Las probabilidades de que un no fumador tenga cáncer de pulmón son 0.08 mientras que las probabilidades de que un fumador actual tenga cáncer de pulmón son 1.77. La razón de estas probabilidades nos dice acerca de la probabilidad relativa de cáncer entre los dos grupos: La razón de probabilidades de 23.22 nos dice que las probabilidades de cáncer de pulmón en los fumadores son aproximadamente 23 veces más altas que en los que nunca han fumado.
+Podemos convertir estos números en razones de posibilidades (\emph{odds ratios}) para cada uno de los grupos. Las posibilidades de que un no fumador tenga cáncer de pulmón son 0.08 mientras que las posibilidades de que un fumador actual tenga cáncer de pulmón son 1.77. La razón de estas posibilidades nos dice acerca de la probabilidad relativa de cáncer entre los dos grupos: La razón de posibilidades de 23.22 nos dice que las posibilidades de cáncer de pulmón en los fumadores son aproximadamente 23 veces más altas que en los que nunca han fumado.
 
 \hypertarget{statistical-power}{%
 \section{Poder estadístico}\label{statistical-power}}
 
-Recuerda del capítulo anterior que bajo el enfoque de prueba de hipótesis de Neyman-Pearson, tenemos que especificar nuestro nivel de tolerancia para dos tipos de errores: falsos positivos (que llamaron \emph{error tipo I}) y falsos negativos (que llamaron \emph{tipo II error}). La gente a menudo se enfoca mucho en el error de Tipo I, porque hacer una afirmación de falso positivo generalmente se ve como algo muy malo; por ejemplo, las afirmaciones ahora desacreditadas de (\protect\hyperlink{ref-wake}{\textbf{wake?}}): 1999 de que el autismo estaba asociado con la vacunación llevaron a un sentimiento antivacunas que ha resultado en un aumento sustancial de enfermedades infantiles como el sarampión. De manera similar, no queremos afirmar que un medicamento cura una enfermedad si realmente no lo hace. Es por eso que la tolerancia para los errores de Tipo I generalmente se establece bastante baja, generalmente en \(\alpha = 0.05\). Pero, ¿qué pasa con los errores de tipo II?
+Recuerda del capítulo anterior que bajo el enfoque de prueba de hipótesis de Neyman-Pearson, tenemos que especificar nuestro nivel de tolerancia para dos tipos de errores: falsos positivos (que llamaron \emph{error tipo I}) y falsos negativos (que llamaron \emph{error tipo II}). La gente a menudo se enfoca mucho en el error de Tipo I, porque hacer una afirmación de falso positivo generalmente se ve como algo muy malo; por ejemplo, las afirmaciones ahora desacreditadas de \protect\hyperlink{ref-wake:1999}{Wakefield} (\protect\hyperlink{ref-wake:1999}{1999}) de que el autismo estaba asociado con la vacunación llevaron a un sentimiento antivacunas que ha resultado en un aumento sustancial de enfermedades infantiles como el sarampión. De manera similar, no queremos afirmar que un medicamento cura una enfermedad si realmente no lo hace. Es por eso que la tolerancia para los errores de Tipo I generalmente se establece bastante baja, generalmente en \(\alpha = 0.05\). Pero, ¿qué pasa con los errores de tipo II?
 
-El concepto de \emph{poder estadístico} es el complemento al tipo de error II --, que es la posibilidad de encontrar un resultado positivo, si es que este existe:
+El concepto de \emph{poder estadístico} es el complemento al tipo de error II -- que es la posibilidad de encontrar un resultado positivo, si es que este existe:
+
 \[ 
 power = 1 - \beta
 \]
 
-Otro aspecto importante del modelo de Neyman-Pearson que no discutimos anteriormente es el hecho de que además de especificar los niveles aceptables de errores de Tipo I y Tipo II, también tenemos que describir una hipótesis alternativa específica, es decir, qué Cuál es el tamaño del efecto que deseamos detectar? De lo contrario, no podemos interpretar \$ ~beta \$; la probabilidad de encontrar un efecto grande siempre será mayor que encontrar un efecto pequeño, por lo que \$ ~beta \$ será diferente dependiendo del tamaño del efecto que estemos tratando de detectar.
-
-There are three factors that can affect statistical power:
-- Sample size: Larger samples provide greater statistical power
-- Effect size: A given design will always have greater power to find a large effect than a small effect (because finding large effects is easier)
-- Type I error rate: There is a relationship between Type I error and power such that (all else being equal) decreasing Type I error will also decrease power.
-
-We can see this through simulation. First let's simulate a single experiment, in which we compare the means of two groups using a standard t-test. We will vary the size of the effect (specified in terms of Cohen's d), the Type I error rate, and the sample size, and for each of these we will examine how the proportion of significant results (i.e.~power) is affected. Figure \ref{fig:plotPowerSim} shows an example of how power changes as a function of these factors.
+Otro aspecto importante del modelo de Neyman-Pearson que no discutimos anteriormente es el hecho de que además de especificar los niveles aceptables de errores de Tipo I y Tipo II, también tenemos que describir una hipótesis alternativa específica, es decir, ¿cuál es el tamaño del efecto que deseamos detectar? De lo contrario, no podemos interpretar \(\beta\); la probabilidad de encontrar un efecto grande siempre será mayor que encontrar un efecto pequeño, por lo que \(\beta\) será diferente dependiendo del tamaño del efecto que estemos tratando de detectar.
 
 Existen tres factores que pueden afectar el poder estadístico:
-- Tamaño de la muestra: las muestras más grandes proporcionan una mayor potencia estadística
-- Tamaño del efecto: un diseño dado siempre tendrá mayor poder para encontrar un efecto grande que un efecto pequeño (porque encontrar efectos grandes es más fácil)
-- Tasa de error de tipo I: existe una relación entre el error de tipo I y la potencia de modo que (en igualdad de condiciones) la disminución del error de tipo I también disminuirá la potencia.
+
+\begin{itemize}
+\tightlist
+\item
+  Tamaño de la muestra: las muestras más grandes proporcionan una mayor potencia estadística
+\item
+  Tamaño del efecto: cualquier diseño dado siempre tendrá mayor poder para encontrar un efecto grande que un efecto pequeño (porque encontrar efectos grandes es más fácil)
+\item
+  Tasa de error tipo I: existe una relación entre el error de tipo I y la potencia de modo que (en igualdad de condiciones) la disminución del error de tipo I también disminuirá la potencia.
+\end{itemize}
 
 Podemos ver esto a través de la simulación. Primero simulemos un solo experimento, en el que comparamos las medias de dos grupos usando una prueba t estándar. Variaremos el tamaño del efecto (especificado en términos de la d de Cohen), la tasa de error de Tipo I y el tamaño de la muestra, y para cada uno de ellos examinaremos cómo se ve afectada la proporción de resultados significativos (es decir, el poder). La figura \ref{fig:plotPowerSim} muestra un ejemplo de cómo cambia la potencia en función de estos factores.
 
 \begin{figure}
-\includegraphics[height=0.5\textheight]{StatsThinking21_files/figure-latex/plotPowerSim-1} \caption{Resultados de la simulación de potencia, que muestran la potencia en función del tamaño de la muestra, con tamaños de efecto mostrados como diferentes colores y alfa como tipo de línea. El criterio estándar del 80 por ciento de potencia se muestra mediante la línea negra punteada..}\label{fig:plotPowerSim}
+\includegraphics[height=0.5\textheight]{StatsThinking21_files/figure-latex/plotPowerSim-1} \caption{Resultados de la simulación de potencia, que muestran la potencia en función del tamaño de la muestra, con tamaños de efecto mostrados como diferentes colores y alfa como tipo de línea. El criterio estándar del 80 por ciento de potencia se muestra mediante la línea negra punteada.}\label{fig:plotPowerSim}
 \end{figure}
 
-Esta simulación nos muestra que incluso con una muestra de 96, relativamente tendremos poco poder paras encontrar un efecto pequeño (\(d = 0.2\)) con \(\alpha = 0.005\). Esto significa que un estudio diseñado para hacer esto sería \emph{futil}, o sea que está casi garantizado el que no encontrará nada, incluso si un efecto real de ese tamaño existe.
+Esta simulación nos muestra que incluso con una muestra de 96, relativamente tendremos poco poder para encontrar un efecto pequeño (\(d = 0.2\)) con \(\alpha = 0.005\). Esto significa que un estudio diseñado para hacer esto sería \emph{futil}, o sea que está casi garantizado que no encontrará nada, incluso si un efecto real de ese tamaño existe.
+
 Hay al menos dos razones importantes para preocuparse por el poder estadístico. Primero, si usted es un investigador, probablemente no quiera perder su tiempo haciendo experimentos inútiles. Realizar un estudio con poca potencia es esencialmente inútil, porque significa que hay una probabilidad muy baja de que uno encuentre un efecto, incluso si existe. En segundo lugar, resulta que cualquier hallazgo positivo que provenga de un estudio con poca potencia es más probable que sea falso en comparación con un estudio con buena potencia, un punto que discutimos con más detalle en el Capítulo \ref{doing-reproducible-research}.
 
-\hypertarget{poder-de-anuxe1lisis}{%
-\subsection{Poder de análisis}\label{poder-de-anuxe1lisis}}
+\hypertarget{anuxe1lisis-de-poder}{%
+\subsection{Análisis de poder}\label{anuxe1lisis-de-poder}}
 
 Afortunadamente, existen herramientas disponibles que nos permiten determinar el poder estadístico de un experimento. El uso más común de estas herramientas es en la planificación de un experimento, cuando nos gustaría determinar qué tan grande debe ser nuestra muestra para tener suficiente poder para encontrar nuestro efecto de interés.
 Digamos que estamos interesados en realizar un estudio de cómo un rasgo de personalidad en particular difiere entre los usuarios de dispositivos iOS y Android. Nuestro plan es recolectar dos grupos de individuos y medirlos en función del rasgo de personalidad, y luego comparar los dos grupos usando una prueba t. Para determinar el tamaño de muestra necesario, podemos utilizar la función de potencia de nuestro software estadístico:
@@ -2961,28 +2967,28 @@ Después de leer este capítulo, deberías poder:
 \hypertarget{estaduxedstica-bayesiana}{%
 \chapter{Estadística Bayesiana}\label{estaduxedstica-bayesiana}}
 
-En este capítulo estaremos trabajando desde el enfoque del modelado estadístico y la inferencia que constrasta con el marco de prueba de hipótesis nula que vimos en el capítulo de Pruebas de Hipótesis.
-Esto se conoce como ``Estadística Bayesiana.'' Esta nombrada por el reverendo Thomas Bayes, cuyo teorema ya has visto en el capítulo de Probabilidad. En este capítulo aprenderas cómo el teoremas de Bayes proporciona una forma de entender los datos que resuelve muchos de los problemas conceptuales que discutimos con respecto a la prueba de hipótesis nulas.
+En este capítulo estaremos trabajando desde el enfoque del modelado estadístico e inferencial que contrasta con el marco de prueba de hipótesis nula que vimos en el capítulo \ref{hypothesis-testing}.
+Esto se conoce como ``Estadística Bayesiana,'' en honor al reverendo Thomas Bayes, cuyo teorema ya has visto en el capítulo \ref{probability}. En este capítulo aprenderás cómo el teorema de Bayes proporciona una forma de entender los datos que resuelve muchos de los problemas conceptuales que discutimos con respecto a la prueba de hipótesis nula.
 
 \hypertarget{modelos-generativos}{%
 \section{Modelos Generativos}\label{modelos-generativos}}
 
-Digamos que estás caminando por la calle y unx amigx tuyo camina a tu lado pero no te saluda. Pribablemente vas a tratar de decidir por qué esto te pasó, ¿no te vieron? ¿están enojadxs contigo? ¿De repente traes una capa de invisibilidad y no te has dado cuenta? Una de las ideas básicas de la estadística Bayesiana es que queremos inferir los detalles de cómo los datos son generados, basándonos en los datos mismos. En este caso, tú quieres usar los datos (por ejemplo, el hecho de que tu amigx no te saludó), para inferir el proceso que generó esos datos (si de verdad no te vieron, cómo se sienten con respecto tuyo).
+Digamos que estás caminando por la calle y unx amigx tuyx camina a tu lado pero no te saluda. Probablemente vas a tratar de decidir por qué esto te pasó, ¿no te vieron? ¿están enojadxs contigo? ¿De repente traes una capa de invisibilidad y no te has dado cuenta? Una de las ideas básicas de la estadística Bayesiana es que queremos inferir los detalles de cómo los datos son generados, basándonos en los datos mismos. En este caso, tú quieres usar los datos (por ejemplo, el hecho de que tu amigx no te saludó), para inferir el proceso que generó esos datos (si de verdad no te vieron, cómo se sienten con respecto tuyo, etc.).
 
-La idea detrás de los modelos generativos es que un proceso \emph{latente} (que no se ha visto) genera los datos que observamos, usualmente con una cantidad de aleatoridad en el proceso. Cuando tomamos una muestra de datos de una población y estimamos el parámetro de la muestra, lo que estamos haciendo en esencia es tratar de aprender el valor de la variable latente (la media de la población), la cual da lugar a través del muestreo a los datos observados (la media d ela muestra). Figura \ref{fig:GenerativeModel}, muestra un esquema de esta idea.
+La idea detrás de los modelos generativos es que un proceso \emph{latente} (que no se ha visto) genera los datos que observamos, usualmente con una cantidad de aleatoridad en el proceso. Cuando tomamos una muestra de datos de una población y estimamos el parámetro a partir de la muestra, lo que estamos haciendo en esencia es tratar de conocer el valor de la variable latente (la media de la población), la cual da lugar a través del muestreo a los datos observados (la media de la muestra). La Figura \ref{fig:GenerativeModel} muestra un esquema de esta idea.
 
 \begin{figure}
 \includegraphics[width=0.8\linewidth]{images/BayesianInference} \caption{A schematic of the idea of a generative model.}\label{fig:GenerativeModel}
 \end{figure}
 
-Si queremos conocer el valor de la variable latente, entonces debería de ser fácil reconstruir cómo deberían verse los datos observados. Por ejemplo,digamos que que estamos lanzamos una modeda que sabemos que es justa, por lo que podemos esperar que caiga cara el 50\% de las veces que se lanza. Podemos describir la moneda con un binomino de distribución con un valor de \(P_{heads}=0.5\), y luego podemos generar una muestra aleatoria de tal distribución con el fin de visualizar cómo se deberían de ver los datos. No obstante, en general estamos en la posición contraria: No sabemos el valor de la variable de interés latente, pero debemos tener algunos datos que nos gustaría usar para estimarlo.
+Si conociéramos el valor de la variable latente, entonces debería de ser fácil reconstruir cómo deberían verse los datos observados. Por ejemplo, digamos que lanzamos una moneda que sabemos que está balanceada, por lo que podemos esperar que caiga cara el 50\% de las veces que se lanza. Podemos describir la moneda con una distribución binomial con un valor de \(P_{heads}=0.5\), y luego podemos generar una muestra aleatoria de tal distribución con el fin de visualizar cómo se deberían de ver los datos. No obstante, en general estamos en la posición contraria: No sabemos el valor de la variable de interés latente, pero tenemos algunos datos que nos gustaría usar para estimarlo.
 
 \hypertarget{el-teorema-de-bayes-y-la-inferencia-inversa}{%
 \section{El Teorema de Bayes y la Inferencia Inversa}\label{el-teorema-de-bayes-y-la-inferencia-inversa}}
 
-La razón por la cual la estadística Bayesiana tiene tal nombre es porque aprovecha el teorema de Bayes para hacer inferencias a partir de los datos sobre el proceso subyacente que generó los datos. Digamos que queremos saber si cuando lanzamos una moneda es una jugada justa. Para probar esto, lanzamos la mneda 10 veces y en 7 ocasiones cae en cara. Antes de esta prueba, estábamos muy seguros de que \(P_{heads}=0.5\), pero al caer cara 7 veces de 10 lanzamientos sin duda nos daría una pausa si creyéramos que \(P_{heads}=0.5\). Ya sabemos cómo calcular la probabilidad condicional de que caería 7 o más veces en cara (de 10 veces que se lanza la moneda). Si la moneda es justa (\(P(n\ge7|p_{heads}=0.5)\)). Usando el binomio de distribución.
+La razón por la cual la estadística Bayesiana tiene tal nombre es porque aprovecha el teorema de Bayes para hacer inferencias a partir de los datos sobre el proceso subyacente que generó los datos. Digamos que queremos saber si una moneda está balanceada. Para probar esto, lanzamos la moneda 10 veces y en 7 ocasiones cae en cara. Antes de esta prueba, estábamos muy seguros de que \(P_{heads}=0.5\), pero al caer cara 7 veces de 10 lanzamientos sin duda nos daría una pausa si creyéramos que \(P_{heads}=0.5\). Ya sabemos cómo calcular la probabilidad condicional de que caiga 7 o más veces en cara (de 10 veces que se lanza la moneda) si la moneda realmente es balanceada (\(P(n\ge7|p_{heads}=0.5)\)), usando la distribución binomial.
 
-La probabilidad resultante es 0.055. Ese es un número bastnte pequeño, pero este númer no responde realmente a la pregunta que estamos haciendo-- nos está diciendo la probabilidad de que en 7 ocasiones o más, la moneda caerá en cara, dada la probabilidad particular de cara. Esto debería sonar familiar, ya que es una situación exactamente igual a la que estábamos con la prueba de hipótesis nula, la cual nos mostró la probabilidad de los datos, en lugar de la probabilidad de las hipótesis.
+La probabilidad resultante es 0.055. Ese es un número bastante pequeño, pero este número no responde realmente a la pregunta que estamos haciendo-- nos está diciendo la probabilidad de que en 7 ocasiones o más la moneda caiga en cara, dada una probabilidad particular de cara, mientras que lo que queremos saber en realidad es la probabilidad de que caiga cara en esa moneda en particular. Esto debería sonar familiar, ya que es una situación exactamente igual a la que estábamos con la prueba de hipótesis nula, la cual nos mostró la probabilidad de los datos, en lugar de la probabilidad de las hipótesis.
 
 Recuerda que el teorema de Bayes nos provee con una herramienta que necesitamos para invertir una probabilidad condicional.
 
@@ -2995,13 +3001,13 @@ Podemos pensar este teorema como si tuviéramos cuatro partes:
 \begin{itemize}
 \tightlist
 \item
-  \emph{Previo} (\(P(Hipótesis)\)): Nuestro grado de creencia sobre la hipótesis H antes de ver los datos D.
+  \emph{Probabilidad previa} (\(P(Hipótesis)\)): Nuestro grado de creencia sobre la hipótesis H antes de ver los datos D.
 \item
-  \emph{Probabilidad} (\(P(Datos|Hipótesis)\)): ¿Qué tan probables son los datos observados D bajo la hipótesis H?
+  \emph{Probabilidad}/\emph{Likelihood} (\(P(Datos|Hipótesis)\)): ¿Qué tan probables son los datos observados D bajo la hipótesis H?
 \item
   \emph{Probabilidad marginal} (\(P(Datos)\)): ¿Qué tan probables son los datos observados, combinando todas las hipótesis posibles?
 \item
-  \emph{Posterior} (\(P(Hipótesis|Datos)\)): Nuestra creencia actualizada sobre la hipótesis H, dados los datos D.
+  \emph{Probabilidad Posterior} (\(P(Hipótesis|Datos)\)): Nuestra creencia actualizada sobre la hipótesis H, dados los datos D.
 \end{itemize}
 
 En el caso de nuestro ejemplo de lanzar la moneda:
@@ -3009,13 +3015,13 @@ En el caso de nuestro ejemplo de lanzar la moneda:
 \begin{itemize}
 \tightlist
 \item
-  \emph{previo} (\(P_ {heads}\)): Nuestro grado de creencia sobre la probabilidad de que caiga en cara, que fue \(P_ {heads} = 0.5\).
+  \emph{Probilidad previa} (\(P_ {heads}\)): Nuestro grado de creencia sobre la probabilidad de que caiga en cara, que fue \(P_ {heads} = 0.5\).
 \item
-  \emph{probabilidad} (\(P(\text{7 or more heads out of 10 flips}|P_{heads}=0.5)\)): ¿Qué probabilidad hay de 7 o más caras de 10 lanzamientos si \(P_{heads}=0.5)\)?
+  \emph{Probabilidad} (\(P(\text{7 or more heads out of 10 flips}|P_{heads}=0.5)\)): ¿Qué probabilidad hay de 7 o más caras de 10 lanzamientos si \(P_{heads}=0.5)\)?
 \item
-  \emph{probabilidad marginal} (\(P(\text{7 or more heads out of 10 flips})\)): ¿Qué probabilidades hay de que observemos 7 caras de cada 10 lanzamientos de moneda, en general?
+  \emph{Probabilidad marginal} (\(P(\text{7 or more heads out of 10 flips})\)): ¿Qué probabilidades hay de que observemos 7 caras de cada 10 lanzamientos de moneda, en general?
 \item
-  \emph{posterior} (\(P_{heads}|\text{7 or more heads out of 10 coin flips})\)): Nuestra creencia actualizada sobre \(P_{heads}\) dados los lanzamientos de moneda observados.
+  \emph{Probabilidad posterior} (\(P_{heads}|\text{7 or more heads out of 10 coin flips})\)): Nuestra creencia actualizada sobre \(P_{heads}\) dados los lanzamientos de moneda observados.
 \end{itemize}
 
 Aquí vemos una de las principales diferencias entre la estadística frecuentista y bayesiana. Lxs frecuentistas no creen en la idea de una probabilidad de una hipótesis (es decir, nuestro grado de creencia sobre una hipótesis); para ellxs, una hipótesis es verdadera o no lo es. Otra forma de decir esto es que para la/el frecuentista, la hipótesis es fija y los datos son aleatorios, por lo que la inferencia frecuentista se centra en describir la probabilidad de los datos dada una hipótesis (es decir, el valor p). Lxs bayesianos, por otro lado, se sienten cómodos haciendo declaraciones de probabilidad sobre datos e hipótesis.
@@ -3023,78 +3029,78 @@ Aquí vemos una de las principales diferencias entre la estadística frecuentist
 \hypertarget{doing-bayesian-estimation}{%
 \section{Haciendo estimaciones Bayesianas}\label{doing-bayesian-estimation}}
 
-En última instancia, queremos utilizar la estadística bayesiana para tomar decisiones sobre hipótesis, pero antes de hacerlo, debemos estimar los parámetros que son necesarios para tomar la decisión. Aquí recorreremos el proceso de estimación bayesiana. Usemos otro ejemplo de inspección: inspección de seguridad del aeropuerto. Si vuela mucho, es solo cuestión de tiempo hasta que una de las proyecciones de explosivos aleatorios resulte positiva; Tuve la experiencia particularmente desafortunada de que esto sucediera poco después del 11 de septiembre de 2001, cuando el personal de seguridad del aeropuerto estaba especialmente nervioso.
+En última instancia, queremos utilizar la estadística bayesiana para tomar decisiones sobre las hipótesis, pero antes de hacerlo, debemos estimar los parámetros que son necesarios para tomar la decisión. Aquí recorreremos el proceso de estimación bayesiana. Usemos otro ejemplo de inspección (\emph{screening}): inspección de seguridad del aeropuerto. Si vuelas mucho, es solo cuestión de tiempo para que una de las inspecciones aleatorias de explosivos resulte positiva; tuve la experiencia particularmente desafortunada de que esto sucediera poco después del 11 de septiembre de 2001, cuando el personal de seguridad del aeropuerto estaba especialmente nervioso.
 
 Lo que el personal de seguridad quiere saber es cuál es la probabilidad de que una persona lleve un explosivo, dado que la máquina ha dado positivo en la prueba. Veamos cómo calcular este valor mediante el análisis bayesiano.
 
-\hypertarget{especificando-lo-previo}{%
-\subsection{Especificando lo previo}\label{especificando-lo-previo}}
+\hypertarget{especificar-la-probabilidad-previa}{%
+\subsection{Especificar la probabilidad previa}\label{especificar-la-probabilidad-previa}}
 
-Para usar el teorema de Bayes, primero debemos especificar la probabilidad previa para la hipótesis. En este caso, no sabemos el número real pero podemos asumar que es pequeño. De acuerdo a la FAA (\url{https://www.faa.gov/air_traffic/by_the_numbers/media/Air_Traffic_by_the_Numbers_2018.pdf}), había 971,595,898 pasajeros al aire en los Estados Unidos de América en 2017. Digamos que uno de esos viajeros llevaba un explosivo en su bolsa-- esto nos daría una probabilidad previa de 1 de 971 millones, lo cual es muy pequeño. El personal de seguridad seguramente tuvo una hipótesis previa mucho más significativa en los meses que pasaron después del ataque del 9/11, así que diremos que su pensamiento subjetivo era que uno de muchos millones de viajeros traía consigo un explosivo.
+Para usar el teorema de Bayes, primero debemos especificar la probabilidad previa para la hipótesis. En este caso, no sabemos el número real pero podemos asumar que es pequeño. De acuerdo a la \href{https://www.faa.gov/air_traffic/by_the_numbers/media/Air_Traffic_by_the_Numbers_2018.pdf}{FAA}, había 971,595,898 pasajeros al aire en los Estados Unidos de América en 2017. Digamos que uno de esos viajeros llevaba un explosivo en su bolsa-- esto nos daría una probabilidad previa de 1 de 971 millones, lo cual es muy pequeño. El personal de seguridad seguramente tuvo en mente una probabilidad previa mucho mayor en los meses después del ataque del 9/11, así que diremos que su pensamiento subjetivo era que uno en un millón de viajeros traía consigo un explosivo.
 
 \hypertarget{recolectar-los-datos}{%
 \subsection{Recolectar los datos}\label{recolectar-los-datos}}
 
 Los datos se componen de los resultados de las pruebas sobre si alguien traía explosivos. Digamos que el staff de seguridad pasa una bolsa a través de su aparato para comprobar que sea seguro, lo pasa durante 3 veces, y da positivo en 3 de las 3 pruebas.
 
-\hypertarget{calculando-la-probabilidad}{%
-\subsection{Calculando la probabilidad}\label{calculando-la-probabilidad}}
+\hypertarget{calcular-la-probabilidad}{%
+\subsection{Calcular la probabilidad}\label{calcular-la-probabilidad}}
 
-Queremos calcular la probabilidad de que los datos pensados con la hipótesis de que hay un explosivo en la bolsa. Digamos que sabemos (por los manufactores de la máquina) que la sensibilidad de la prueba es 0.99 -- o sea, cuando un objeto está presente lo dtectará un 99\% de las veces. Para determianr la probabildiad de que nuestros datos con la hipótesis de que un objeto está presente, podemos tratar cada preba como una prueba de Bernoulli (o sea, una prueba con un resultado de verdadero o falso) con una probabilidad de éxito de 0.99, lo cual podemos modelar con un distribución binomial.
+Queremos calcular la probabilidad de los datos observados bajo la hipótesis de que hay un explosivo en la bolsa. Digamos que sabemos (por los fabricantes de la máquina) que la sensibilidad de la prueba es 0.99 -- o sea, cuando un objeto explosivo está presente lo detectará un 99\% de las veces. Para determinar la probabilidad de nuestros datos bajo la hipótesis de que un objeto explosivo está presente, podemos tratar cada prueba como un ensayo de Bernoulli (o sea, un ensayo con un resultado de verdadero o falso) con una probabilidad de éxito de 0.99, lo cual podemos modelar con una distribución binomial.
 
-\hypertarget{calculando-la-probabilidad-marginal}{%
-\subsection{Calculando la probabilidad marginal}\label{calculando-la-probabilidad-marginal}}
+\hypertarget{calcular-la-probabilidad-marginal}{%
+\subsection{Calcular la probabilidad marginal}\label{calcular-la-probabilidad-marginal}}
 
-También necesitamos saber la probabilidad total de los datos, lo cual significa encontrar 3 positivos de 3 pruebas. Calcular la probabilidad marginal es comunmente uno de los aspectos del análisis Bayesiano más difíciles, pero para nuestro ejemplo, es simple, ya que, podemos tomar ventaja de la forma específica del teorema de Bayes para un resultado binario que introducimos en la sección \ref{bayestheorem}:
+También necesitamos saber la probabilidad total de los datos, lo cual significa encontrar 3 positivos de 3 pruebas. Calcular la probabilidad marginal es comunmente uno de los aspectos del análisis Bayesiano más difíciles, pero para nuestro ejemplo, es simple, ya que, podemos tomar ventaja de la forma específica del teorema de Bayes para un resultado binario que presentamos en la sección \ref{bayestheorem}:
 \[
 P(E|T) = \frac{P(T|E)*P(E)}{P(T|E)*P(E) + P(T|\neg E)*P(\neg E)}
 \]
 
 en donde \(E\) se refiere a la presencia de explosivos y \(T\) se refiere a un resultado positivo de la prueba.
 
-La probabilidad marginal en este caso es una probabilidad medida en la probabilidad de que los datos contemplados con la presencia o la ausencia del explosivo, multiplicado por la probabilidad de que el explosivo esté presente (lo previo). En este caso, digamos que sabemos (gracias al manufacturador), que la especificidad de la prueba es 0.99, por lo que la probabilidad de un resultado positivo cuando no hay explosivo (\(P(T|\neg E)\)) es 0.01.
+En este caso, la probabilidad marginal es una probabilidad ponderada (\emph{weighted probability}) de la probabilidad de los datos en la presencia y en la ausencia de explosivos, multiplicada por la probabilidad de que haya un explosivo presente (es decir, la probabilidad previa). En este caso, digamos que sabemos (gracias al fabricante), que la especificidad de la prueba es 0.99, por lo que la probabilidad de un resultado positivo cuando no hay explosivo (\(P(T|\neg E)\)) es 0.01.
 
-\hypertarget{calcular-lo-posterior}{%
-\subsection{Calcular lo posterior}\label{calcular-lo-posterior}}
+\hypertarget{calcular-la-probabilidad-posterior}{%
+\subsection{Calcular la probabilidad posterior}\label{calcular-la-probabilidad-posterior}}
 
-Ahora que tenemos todas las partes que necesitamos para calcular la probabilidad posterior de un explosivo presente en la bolsa, dado que los resultados positivos observados 3 de 3 pruebas.
-Este resultado nos muestra que la probabilidad posterior de un explosivo en la bolsa dado estas pruebas positivas (0.492) está solamente bajo el 50\%, de nuevo resaltando el hecho de que las pruebas para detectar eventos raros casi siempre pueden producir un gran número de falsos positivos, incluso cuando la especificidad y la sensibilidad son muy altas.
+Ahora que tenemos todas las partes que necesitamos para calcular la probabilidad posterior de que un explosivo esté presente en la bolsa, dados los resultados observados de 3 positivos de 3 pruebas.
+Este resultado nos muestra que la probabilidad posterior de que haya un explosivo en la bolsa dado estas pruebas positivas (0.492) está justo por debajo del 50\%, de nuevo resaltando el hecho de que las pruebas para detectar eventos raros casi siempre pueden producir un gran número de falsos positivos, incluso cuando la especificidad y la sensibilidad son muy altas.
 
-Un aspecto importante para el análisis Bayesiano es que puede ser secuencial. Una vez que tenemos la probabilidad posterior de un análisis, se puede convertir en lo posterior para un análisis siguiente.
+Un aspecto importante del análisis Bayesiano es que puede ser secuencial. Una vez que tenemos la probabilidad posterior de un análisis, se puede convertir en la probabilidad previa del siguiente análisis.
 
-\hypertarget{estimando-distribuciones-posteriores}{%
-\section{Estimando distribuciones posteriores}\label{estimando-distribuciones-posteriores}}
+\hypertarget{estimating-posterior-distributions}{%
+\section{Estimar distribuciones posteriores}\label{estimating-posterior-distributions}}
 
-En el ejemplo anterior solamente había dos posibilidades -- el explosivo estaba ahí o no -- y queríamos saber cuál resultado era más probable dados los datos que teníamos. Sin embargo, en otros casos queremos usar estimaciones Bayesianas para estimar el valor numérico de un parámetro. Digamos que queremos conocer la efectividad de una nueva droga para el dolor; para probar esto, podemos administrar la droga a un grupo de pacientes y luego preguntarles si su dolor disminuyó o no después de tomar la droga. Podemos usar un análisis Bayesiano para estimar la proporción de personas para las cuales la droga será efectiva utilizando estos datos.
+En el ejemplo anterior solamente había dos posibilidades -- el explosivo estaba ahí o no -- y queríamos saber cuál resultado era más probable dados los datos que teníamos. Sin embargo, en otros casos queremos usar estimaciones Bayesianas para estimar el valor numérico de un parámetro. Digamos que queremos conocer la efectividad de un nuevo medicamento para el dolor; para probar esto, podemos administrar el medicamento a un grupo de pacientes y luego preguntarles si su dolor disminuyó o no después de tomar el medicamento. Podemos usar un análisis Bayesiano para estimar la proporción de personas para las cuales el medicamento será efectiva utilizando estos datos.
 
-\hypertarget{especificando-la-probabilidad-previa}{%
-\subsection{Especificando la probabilidad previa}\label{especificando-la-probabilidad-previa}}
+\hypertarget{especificar-la-probabilidad-previa-1}{%
+\subsection{Especificar la probabilidad previa}\label{especificar-la-probabilidad-previa-1}}
 
-En ete caso, no tenemos información previa sobre la efectividad de la droga, así que usaremos una \emph{distribución uniforme} como nuestra probabilidad previa, ya que, los valores son igualmente probables en una distribución uniforme. Para simplificar este ejemplo, solo veremos un subconjunto de 99 posibles valores de efectividad (de .01 a .99, en pasos de .01). Por lo que, cada valor posible tiene una probabilidad de 1/99.
+En ete caso, no tenemos información previa sobre la efectividad del medicamento, así que usaremos una \emph{distribución uniforme} como nuestra probabilidad previa, ya que los valores son igualmente probables en una distribución uniforme. Para simplificar este ejemplo, solo veremos un subconjunto de 99 posibles valores de efectividad (de .01 a .99, en pasos de .01). Por lo que cada valor posible tiene una probabilidad previa de 1/99.
 
 \hypertarget{recolectar-algunos-datos}{%
 \subsection{Recolectar algunos datos}\label{recolectar-algunos-datos}}
 
-Necesitamos algunos datos para poder estimar la efectividad de la droga. Digamos que administramos la droga a 100 individuos, y encontramos que 64 responde positivamente a la droga.
+Necesitamos algunos datos para poder estimar la efectividad del medicamento. Digamos que administramos el medicamento a 100 individuos, y encontramos que 64 responden positivamente al medicamento.
 
-\hypertarget{calculando-la-probabilidad-1}{%
-\subsection{Calculando la probabilidad}\label{calculando-la-probabilidad-1}}
+\hypertarget{calcular-la-probabilidad-1}{%
+\subsection{Calcular la probabilidad}\label{calcular-la-probabilidad-1}}
 
-Podemos calcular la probabilidad de los datos bajo cualquier valor particular del parámetro de efectividad usando la función \texttt{dbinom()} en R. En la Figura \ref{fig:like2} puede ver las curvas de probabilidad sobre el número de respondedores para varios valores de \(P_ {respond}\). Observando esto, parece que nuestros datos observados son relativamente más probables bajo la hipótesis de \(P_ {responda} = 0.7\), algo menos probable bajo la hipótesis de \(P_ {responda} = 0.5\), y bastante improbable bajo la hipótesis de \(P_ {responda} = 0.3\). Una de las ideas fundamentales de la inferencia bayesiana es que debemos aumentar nuestra creencia en los valores de nuestro parámetro de interés en proporción a la probabilidad de que los datos estén por debajo de esos valores, equilibrados con lo que creemos sobre los valores de los parámetros antes de haber visto los datos (nuestro conocimiento previo).
+Podemos calcular la probabilidad de los datos bajo cualquier valor particular del parámetro de efectividad usando la función \texttt{dbinom()} en R. En la Figura \ref{fig:like2} puedes ver las curvas de probabilidad sobre el número de respondientes (quienes respondieron positivamente al medicamento) para varios valores de \(P_ {respond}\). Observando esto, parece que nuestros datos observados son relativamente más probables bajo la hipótesis de \(P_ {respond} = 0.7\), algo menos probable bajo la hipótesis de \(P_ {respond} = 0.5\), y bastante improbable bajo la hipótesis de \(P_ {respond} = 0.3\). Una de las ideas fundamentales de la inferencia bayesiana es que debemos cambiar nuestra creencia en los valores de nuestro parámetro de interés en proporción a qué tan probables serían los datos bajo esos valores, contrastados contra lo que creíamos sobre los valores del parámetro antes de haber visto los datos (nuestro conocimiento previo).
 
 \begin{figure}
 \includegraphics[height=0.5\textheight]{StatsThinking21_files/figure-latex/like2-1} \caption{Likelihood of each possible number of responders under several different hypotheses (p(respond)=0.5 (solid), 0.7 (dotted), 0.3 (dashed).  Observed value shown in the vertical line}\label{fig:like2}
 \end{figure}
 
-\hypertarget{calculando-nuestra-probabilidad-marginal}{%
-\subsection{Calculando nuestra probabilidad marginal}\label{calculando-nuestra-probabilidad-marginal}}
+\hypertarget{calcular-la-probabilidad-marginal-1}{%
+\subsection{Calcular la probabilidad marginal}\label{calcular-la-probabilidad-marginal-1}}
 
-Además de la probabilidad de los datos bajo diferentes hipótesis, necesitamos conocer la probabilidad general de los datos, combinando todas las hipótesis (es decir, la probabilidad marginal). Esta probabilidad marginal es principalmente importante porque ayuda a asegurar que los valores posteriores sean probabilidades verdaderas. En este caso, nuestro uso de un conjunto de posibles valores de parámetros discretos facilita el cálculo de la probabilidad marginal, porque podemos simplemente calcular la probabilidad de cada valor de parámetro bajo cada hipótesis y sumarlos.
+Además de la probabilidad de los datos bajo diferentes hipótesis, necesitamos conocer la probabilidad general de los datos, combinando todas las hipótesis (es decir, la probabilidad marginal). Esta probabilidad marginal es particularmente importante porque ayuda a asegurar que los valores posteriores sean probabilidades verdaderas. En este caso, nuestro uso de un conjunto de posibles valores discretos de parámetros facilita el cálculo de la probabilidad marginal, porque podemos simplemente calcular la probabilidad de cada valor de parámetro bajo cada hipótesis y sumarlos.
 
 \hypertarget{calculando-la-probabilidad-posterior}{%
 \subsection{Calculando la probabilidad posterior}\label{calculando-la-probabilidad-posterior}}
 
-Ahora tenemos todas las partes que necesitamos para calcular la probabilidad posterior de la distribución a través todos los valores posibles de \(p_{respond}\), como se muestra en la Figura \ref{fig:posteriorDist}.
+Ahora tenemos todas las partes que necesitamos para calcular la distribución de probabilidad posterior a lo largo de todos los valores posibles de \(p_{respond}\), como se muestra en la Figura \ref{fig:posteriorDist}.
 
 \begin{figure}
 \includegraphics[height=0.5\textheight]{StatsThinking21_files/figure-latex/posteriorDist-1} \caption{Posterior probability distribution for the observed data plotted in solid line against uniform prior distribution (dotted line). The maximum a posteriori (MAP) value is signified by the diamond symbol.}\label{fig:posteriorDist}
@@ -3103,51 +3109,51 @@ Ahora tenemos todas las partes que necesitamos para calcular la probabilidad pos
 \hypertarget{estimaciuxf3n-muxe1xima-a-posteriori-map-por-sus-siglas-en-ingluxe9s}{%
 \subsection{Estimación máxima a posteriori (MAP, por sus siglas en inglés)}\label{estimaciuxf3n-muxe1xima-a-posteriori-map-por-sus-siglas-en-ingluxe9s}}
 
-Dados nuestros datos, nos gustaría obtener una estimación de \(p_{respond}\) para nuestra muestra. Una forma de hacer esto es encontrar el valor de \(p_{respond}\) para el cual la probabilidad posterior es la más alta, al que nos referimos como la estimación \emph{máxima a posteriori} (MAP). Podemos encontrar esto a partir de los datos en \ref{fig:posteriorDist} --- es el valor que se muestra con un marcador en la parte superior de la distribución. Tenga en cuenta que el resultado (0.64) es simplemente la proporción de personas que respondieron de nuestra muestra; esto ocurre porque el a priori era uniforme y por lo tanto no influyó en nuestra estimación.
+Dados nuestros datos, nos gustaría obtener una estimación de \(p_{respond}\) para nuestra muestra. Una forma de hacer esto es encontrar el valor de \(p_{respond}\) para el cual la probabilidad posterior es la más alta, al que nos referimos como la estimación \emph{máxima a posteriori} (MAP). Podemos encontrar esto a partir de los datos en la Figura \ref{fig:posteriorDist} --- es el valor que se muestra con un marcador en la parte superior de la distribución. Ten en cuenta que el resultado (0.64) es simplemente la proporción de personas respondientes (quienes respondieron positivamente al medicamento) de nuestra muestra; esto ocurre porque la probabilidad a priori (previa) era uniforme y por lo tanto no influyó en nuestra estimación.
 
 \hypertarget{intervalos-de-credibilidad}{%
 \subsection{Intervalos de credibilidad}\label{intervalos-de-credibilidad}}
 
-Frecuentemente nos gustaría saber no solo una estimación única para lo posterior, sino un intervalo en el que confiamos en que lo posterior cae. Anteriormente discutimos el concepto de intervalos de confianza en el contexto de la inferencia frecuentista, y puede recordar que la interpretación de los intervalos de confianza fue particularmente complicada: era un intervalo que contendrá el valor del parámetro el 95\% del tiempo. Lo que realmente queremos es un intervalo en el que estemos seguros de que el verdadero parámetro cae, y las estadísticas bayesianas pueden darnos ese intervalo, al que llamamos \emph{intervalo de credibilidad}.
+Frecuentemente nos gustaría saber no solo una estimación única para la probabilidad posterior, sino un intervalo en el que confiamos la probabilidad posterior caerá. Anteriormente discutimos el concepto de intervalos de confianza en el contexto de la inferencia frecuentista, y podrás recordar que la interpretación de los intervalos de confianza fue particularmente complicada: era un intervalo que contendrá el valor del parámetro el 95\% del tiempo. Lo que realmente queremos es un intervalo en el que estemos segurxs de que el verdadero parámetro estará incluido, y las estadísticas bayesianas pueden darnos ese intervalo, al que llamamos \emph{intervalo de credibilidad}.
 
-La interpretación de este intervalo de credibilidad está mucho más cerca de lo que esperábamos que pudiéramos obtener de un intervalo de confianza (pero no pudimos): nos dice que hay un 95\% de probabilidad de que el valor de \(p_{respond}\) se encuentre entre estos dos valores. Es importante destacar que muestra que tenemos una alta confianza en que \(p_{respond} > 0.0\), lo que significa que el medicamento parece tener un efecto positivo.
+La interpretación de este intervalo de credibilidad está mucho más cerca de lo que esperábamos que pudiéramos obtener de un intervalo de confianza (pero no obtuvimos): nos dice que hay un 95\% de probabilidad de que el valor de \(p_{respond}\) se encuentre entre estos dos valores. Es importante destacar que muestra que tenemos una alta confianza en que \(p_{respond} > 0.0\), lo que significa que el medicamento parece tener un efecto positivo.
 
-En algunos casos el intervalo de credibilidad puede ser calculado \emph{numéricamente} basado en una distribución conocida, pero es mucho más común generar un intervalo de credibilidad al muestrar con una distribución posterior y luego calcular cuantiles con las muestras. Esto es particularmente útil cuando no tenemos una forma fácil de expresar la distribución numérica posterior, lo cual es lo más común en un análisis de datos Bayesiano real. Uno de estos métodos (muestreo de rechazo) se explica con más detalle en el Apéndice al final de este capítulo.
+En algunos casos el intervalo de credibilidad puede ser calculado \emph{numéricamente} basado en una distribución conocida, pero es mucho más común generar un intervalo de credibilidad al muestrar de la distribución posterior y luego calcular cuantiles de las muestras. Esto es particularmente útil cuando no tenemos una forma sencilla de expresar la distribución posterior numéricamente, que es común en un análisis de datos Bayesiano real. Uno de estos métodos (muestreo de rechazo) se explica con más detalle en el Apéndice al final de este capítulo.
 
-\hypertarget{efectos-de-diferentes-previos}{%
-\subsection{Efectos de diferentes previos}\label{efectos-de-diferentes-previos}}
+\hypertarget{efectos-de-diferentes-probabilidades-previas}{%
+\subsection{Efectos de diferentes probabilidades previas}\label{efectos-de-diferentes-probabilidades-previas}}
 
-En el ejemplo anterior usamos un \emph{previo plano}, lo cual quiere decir que no teníamos ninguna razón para ceer que algún valor particular de \(p_{respond}\) era más menos probable. Sin embargo, digamos que en su lugar comenzamos con algunos datos previos: En un estudio previo, investigadores han puesto a prueba a 20 personas yencontrado que 10 de ellas han respondido positivamente. Esto nos habría guíado a partir de la creencia previa de que el tratamiento tiene efecto en el 50\% de las personas. Podemos hacer el mismo cálculo que el anterior, pero usando la información de nuestro estudio anterior para informar a nuestro previo (see panel A in Figure \ref{fig:posteriorDistPrior}).
+En el ejemplo anterior usamos una \emph{probabilidad previa plana}, lo cual quiere decir que no teníamos ninguna razón para creer que algún valor en particular de \(p_{respond}\) era más o menos probable. Sin embargo, digamos que en su lugar hubiéramos comenzado con algunos datos previos: En un estudio previo, investigadores habían puesto a prueba a 20 personas y habían encontrado que 10 de ellas respondieron positivamente. Esto nos habría llevado a comenzar con la creencia previa de que el tratamiento tiene efecto en el 50\% de las personas. Podemos hacer el mismo cálculo que en el anterior, pero usando la información de nuestro estudio anterior para informar nuestra probabilidad previa (ve el panel A en la Figura \ref{fig:posteriorDistPrior}).
 
-Nota que la probabilidad y la probabilidad marginal no cambiaron - solamente cambió lo previo. El efecto del cambio en lo previo era jalar lo posterior más cerca a la masa del nuevo previo, el cual está centrado en 0.5.
+Nota que la probabilidad y la probabilidad marginal no cambiaron - solamente cambió la probabilidad previa. El efecto del cambio en la probabilidad previa fue jalar la probabilidad posterior más cerca a la masa de la nueva probabilidad previa, la cual está centrada en 0.5.
 
-Ahora veamos qué pasa si llegamos al análisis con un conocimiento previo más fuerte aún. Digamos que en lugar de haber observado con anterioridad a 10 pesonas que respondieron de 20, el estudio previo tuvo que haber puesto a prueba a 500 personas y encontrado 250 que respondieran. Esto en principio nos da una previa más fuerte, y como vemos en el panel B de la Figura \ref{fig:posteriorDistPrior}, eso es lo que pasa: Lo previo está mucho más concentrado alrededor de 0.5, y lo posterior está mucho más cerca de lo previo. La idea general es que la inferencia Bayesiana combina la información de lo previo y la probabilidad, pesando el peso relativo de cada uno.
+Ahora veamos qué pasa si llegamos al análisis con un conocimiento previo más fuerte aún. Digamos que en lugar de haber observado con anterioridad a 10 pesonas que respondieron positivamente de 20, el estudio previo había puesto a prueba a 500 personas y encontró 250 que respondieron positivamente. Esto en principio nos debería de dar una probabilidad previa más fuerte, y como vemos en el panel B de la Figura \ref{fig:posteriorDistPrior}, eso es lo que pasa: La probabilidad previa está mucho más concentrada alrededor de 0.5, y la probabilidad posterior está mucho más cerca de la probabilidad previa. La idea general es que la inferencia Bayesiana combina la información de la probabilidad previa y la probabilidad (\emph{likelihood}), ponderando el peso relativo de cada uno.
 
-Este ejemplo también destaca la secuencia natural de los análisis Bayesianos y lo posterior de un análisis puede tornarse en lo previo para el siguiente análisis.
+Este ejemplo también destaca la naturaleza secuencial de los análisis Bayesianos -- la probabilidad posterior de un análisis puede tornarse en la probabilidad previa del siguiente análisis.
 
-Finalmente, es importante que destaquemos que si lo previo son lo suficientemente fuertes, pueden abrumar de más los datos. Digamos que tienes un previo absoluto en donde \(p_{respond}\) es 0.8 o más, por lo que señalas la probabilidad previa de todos los otros valores a cero. ¿Qué pasa cuando entonces calculamos lo posterior?
+Finalmente, es importante destacar que si las probabilidades previas son lo suficientemente fuertes, pueden abrumar completamente a los datos. Digamos que tienes una probabilidad previa absoluta en donde \(p_{respond}\) es 0.8 o más, por lo que defines la probabilidad previa de todos los demás valores a cero. ¿Qué pasa entonces cuando calculamos la probabilidad posterior?
 
 \begin{figure}
-\includegraphics[width=0.8\linewidth]{StatsThinking21_files/figure-latex/posteriorDistPrior-1} \caption{A: Effects of priors on the posterior distribution.  The original posterior distribution based on a flat prior is plotted in blue. The prior based on the observation of 10 responders out of 20 people is plotted in the dotted black line, and the posterior using this prior is plotted in red.  B: Effects of the strength of the prior on the posterior distribution. The blue line shows the posterior obtained using the prior based on 50 heads out of 100 people.  The dotted black line shows the prior based on 250 heads out of 500 flips, and the red line shows the posterior based on that prior. C: Effects of the strength of the prior on the posterior distribution. The blue line shows the posterior obtained using an absolute prior which states that p(respond) is 0.8 or greater.  The prior is shown in the dotted black line.}\label{fig:posteriorDistPrior}
+\includegraphics[width=0.8\linewidth]{StatsThinking21_files/figure-latex/posteriorDistPrior-1} \caption{A: Effects of priors on the posterior distribution.  The original posterior distribution based on a flat prior is plotted in blue. The prior based on the observation of 10 responders out of 20 people is plotted in the dotted black line, and the posterior using this prior is plotted in red.  B: Effects of the strength of the prior on the posterior distribution. The blue line shows the posterior obtained using the prior based on 50 responders out of 100 people.  The dotted black line shows the prior based on 250 responders out of 500 people, and the red line shows the posterior based on that prior. C: Effects of the strength of the prior on the posterior distribution. The blue line shows the posterior obtained using an absolute prior which states that p(respond) is 0.8 or greater.  The prior is shown in the dotted black line.}\label{fig:posteriorDistPrior}
 \end{figure}
 
-En el panel de C de la Figura \ref{fig:posteriorDistPrior} observamos que hay una densidad cero en lo posterior para cualquiera de los valores en donde lo previo se ha puesto en cero - los datos se ven abrumados por el valor previo absoluto.
+En el panel de C de la Figura \ref{fig:posteriorDistPrior} observamos que hay una densidad cero en la probabilidad posterior para cualquiera de los valores en donde la probabilidad previa se ha puesto en cero - los datos se ven abrumados por el valor previo absoluto.
 
-\hypertarget{eligiendo-un-previo}{%
-\section{Eligiendo un previo}\label{eligiendo-un-previo}}
+\hypertarget{elegir-una-probabilidad-previa}{%
+\section{Elegir una probabilidad previa}\label{elegir-una-probabilidad-previa}}
 
-El impacto de lo previo en el resultado de las inferencias son un aspecto muy controversial de las estadísticas Bayesianas. ¿Cuál es el previo correcto a usar? Si la opción de lo previo determina los resultados (por ejemplo, lo posterior), ¿cómo puedes estar seguro que los resultados son confiables? Estas son preguntas difíciles, pero no deberíamos de ignorarlas solamente porque son difíciles. Como lo discutimos previamente, los análisis Bayesianos nos dan resultados interpretables (intervalos de credibilidad, etc.). Esto nos debería de inspirar a pensar seriamente sobre estas preguntas, así podemos llegar a resultados que son razonables e interpretables.
+El impacto de las probabilidades previas en el resultado de las inferencias es uno de los aspectos más controversial de la estadística Bayesiana. ¿Cuál es la probabilidad correcta a usar? Si la elección de probabilidad previa determina los resultados (es decir, la probabilidad posterior), ¿cómo puedes estar segurx que los resultados son confiables? Estas son preguntas difíciles, pero no deberíamos de retroceder solamente porque nos enfrentemos con preguntas difíciles. Como lo discutimos previamente, los análisis Bayesianos nos dan resultados interpretables (intervalos de credibilidad, etc.). Esto nos debería de inspirar a pensar seriamente sobre estas preguntas, y así poder llegar a resultados que sean razonables e interpretables.
 
-Hay varias formas de elegir los previos de uno, que (como vimos anteriormente) pueden afectar las inferencias resultantes. A veces tenemos un previo muy específico, como en el caso en el que esperábamos que nuestra moneda saliera cara el 50\% de las veces, pero en muchos casos no tenemos un punto de partida tan sólido. Los \emph{A priori no informativos} intentan influir lo menos posible en el posterior resultante, como vimos en el ejemplo del uniforme anterior anterior. También es común usar \emph{previos débilmente informativos} (o \emph{a priori por defecto}), que influyen en el resultado sólo muy levemente. Por ejemplo, si hubiéramos usado una distribución binomial basada en una cara de dos lanzamientos de moneda, el anterior se habría centrado alrededor de 0.5 pero bastante plano, influye en el posterior sólo ligeramente.
-También es posible utilizar a priori basados en la literatura científica o datos preexistentes, que llamaríamos \emph{a priori empíricos}. En general, sin embargo, nos ceñiremos al uso de antecedentes poco informativos /poco informativos, ya que generan la menor preocupación por influir en nuestros resultados.
+Hay varias formas de elegir probabilidades previas, que (como vimos anteriormente) pueden afectar las inferencias resultantes. A veces tenemos una probabilidad previa muy específica, como en el caso en el que esperábamos que nuestra moneda saliera cara el 50\% de las veces, pero en muchos casos no tenemos un punto de partida tan sólido. Las \emph{probabilidades previas no informativas} intentan influir lo menos posible en la probabilidad posterior resultante, como vimos en el ejemplo anterior con probabilidad uniforme. También es común usar \emph{probabilidades previas débilmente informativas} (o \emph{probabilidades previas por defecto (por default)}), que influyen en el resultado sólo muy levemente. Por ejemplo, si hubiéramos usado una distribución binomial basada en el resultado de una cara de dos lanzamientos de moneda, la probabilidad previa se habría centrado alrededor de 0.5, pero bastante plana, influyendo en la probabilidad posterior sólo ligeramente.
+También es posible utilizar probabilidades previas basadas en la literatura científica o datos preexistentes, que llamaríamos \emph{probabilidades previas empíricas}. En general, sin embargo, nos ceñiremos al uso de probabilidades previas no-informativas / poco-informativas, ya que generan la menor preocupación de influir en nuestros resultados.
 
-\hypertarget{poner-a-prueba-hipuxf3tesis-bayesianas}{%
-\section{Poner a prueba hipótesis Bayesianas}\label{poner-a-prueba-hipuxf3tesis-bayesianas}}
+\hypertarget{prueba-de-hipuxf3tesis-bayesiana}{%
+\section{Prueba de hipótesis Bayesiana}\label{prueba-de-hipuxf3tesis-bayesiana}}
 
-Habiendo aprendido cómo realizar la estimación bayesiana, ahora pasamos al uso de métodos bayesianos para la prueba de hipótesis. Digamos que hay dos políticos que difieren en sus creencias sobre si el público está a favor de un impuesto extra para apoyar los parques nacionales. El senador Smith piensa que solo el 40\% de la gente está a favor del impuesto, mientras que el senador Jones cree que el 60\% de la gente está a favor. Organizan una encuesta para probar esto, que pregunta a 1000 personas seleccionadas al azar si apoyan tal impuesto. Los resultados son que 490 de las personas de la muestra encuestada estaban a favor del impuesto. Con base en estos datos, nos gustaría saber: ¿Los datos respaldan las afirmaciones de un senador sobre el otro y en qué medida? Podemos probar esto usando un concepto conocido como el {[}factor de Bayes{]} (\url{https://bayesfactor.blogspot.com/2014/02/the-bayesfactor-package-this-blog-is.html}), que cuantifica qué hipótesis es mejor comparando qué tan bien cada uno predice los datos observados.
+Habiendo aprendido cómo realizar la estimación bayesiana, ahora pasamos al uso de métodos bayesianos para la prueba de hipótesis. Digamos que hay dos políticos que difieren en sus creencias sobre si el público está a favor de un impuesto extra para apoyar los parques nacionales. El senador Smith piensa que solo el 40\% de la gente está a favor del impuesto, mientras que el senador Jones cree que el 60\% de la gente está a favor. Organizan una encuesta para probar esto, que pregunta a 1000 personas seleccionadas al azar si apoyan tal impuesto. Los resultados son que 490 de las personas de la muestra encuestada estaban a favor del impuesto. Con base en estos datos, nos gustaría saber: ¿Los datos respaldan las afirmaciones de un senador sobre el otro y en qué medida? Podemos probar esto usando un concepto conocido como el \href{https://bayesfactor.blogspot.com/2014/02/the-bayesfactor-package-this-blog-is.html}{factor de Bayes}, que cuantifica qué hipótesis es mejor comparando qué tan bien predicen los datos cada una de las hipótesis.
 
-\hypertarget{factores-de-bayes}{%
-\section{Factores de Bayes}\label{factores-de-bayes}}
+\hypertarget{Bayes-factors}{%
+\subsection{Factores de Bayes}\label{Bayes-factors}}
 
 El factor de Bayes caracteriza la probabilidad relativa de los datos bajo dos hipótesis diferentes. Es definido como:
 
@@ -3155,16 +3161,16 @@ El factor de Bayes caracteriza la probabilidad relativa de los datos bajo dos hi
 BF = \frac{p(data|H_1)}{p(data|H_2)}
 \]
 
-para dos hipótesis \(H_1\) y \(H_2\). En el caso de nuestros dos senadores, sabemos cómo calcular la probabilidad de los datos bajo cada hipótesis utilizando la distribución binomial; supongamos por el momento que nuestra probabilidad previa de que cada senador sea correcto es la misma (\(P_{H_1} = P_{H_2} = 0.5\)). Pondremos al senador Smith en el numerador y al senador Jones en el denominador, de modo que un valor mayor que uno reflejará una mayor evidencia para el senador Smith, y un valor menor que uno reflejará una mayor evidencia para el senador Jones. El factor de Bayes resultante (3325.26) proporciona una medida de la evidencia que los datos proporcionan con respecto a las dos hipótesis; en este caso, nos dice que los datos apoyan al senador Smith más de 3000 veces más de lo que apoyan al senador Jones.
+para dos hipótesis \(H_1\) y \(H_2\). En el caso de nuestros dos senadores, sabemos cómo calcular la probabilidad de los datos bajo cada hipótesis utilizando la distribución binomial; supongamos por el momento que nuestra probabilidad previa de que cada senador esté en lo correcto es la misma (\(P_{H_1} = P_{H_2} = 0.5\)). Pondremos al senador Smith en el numerador y al senador Jones en el denominador, de modo que un valor mayor que uno reflejará una mayor evidencia para el senador Smith, y un valor menor que uno reflejará una mayor evidencia para el senador Jones. El factor de Bayes resultante (3325.26) proporciona una medida de la evidencia que los datos proporcionan con respecto a las dos hipótesis; en este caso, nos dice que los datos apoyan al senador Smith más de 3000 veces más de lo que apoyan al senador Jones.
 
-\hypertarget{factores-de-bayes-para-hipuxf3tesis-de-estaduxedstica}{%
-\subsection{Factores de Bayes para hipótesis de estadística}\label{factores-de-bayes-para-hipuxf3tesis-de-estaduxedstica}}
+\hypertarget{factores-de-bayes-para-hipuxf3tesis-estaduxedsticas}{%
+\subsection{Factores de Bayes para hipótesis estadísticas}\label{factores-de-bayes-para-hipuxf3tesis-estaduxedsticas}}
 
 En el ejemplo anterior teníamos predicciones específicas de cada senador, cuya probabilidad pudimos cuantificar utilizando la distribución binomial. Además, nuestra probabilidad previa para las dos hipótesis era igual. Sin embargo, en el análisis de datos reales generalmente debemos lidiar con la incertidumbre acerca de nuestros parámetros, lo que complica el factor de Bayes, porque necesitamos calcular la probabilidad marginal (es decir, un promedio integrado de las probabilidades sobre todos los parámetros posibles del modelo, ponderado por su probabilidades). Sin embargo, a cambio, obtenemos la capacidad de cuantificar la cantidad relativa de evidencia a favor de la hipótesis nula frente a la alternativa.
 
 Digamos que somos un investigador médico que realiza un ensayo clínico para el tratamiento de la diabetes y deseamos saber si un medicamento en particular reduce la glucosa en sangre en comparación con el placebo. Reclutamos un conjunto de voluntarios y los asignamos aleatoriamente al grupo de fármaco o placebo, y medimos el cambio en la hemoglobina A1C (un marcador de los niveles de glucosa en sangre) en cada grupo durante el período en el que se administró el fármaco o el placebo. Lo que queremos saber es: ¿Existe alguna diferencia entre el fármaco y el placebo?
 
-Primero, generemos algunos datos y analicémoslos usando pruebas de hipótesis nulas (see Figure \ref{fig:bayesTesting}). Luego, realicemos una prueba t de muestras independientes, que muestra que hay una diferencia significativa entre los grupos:
+Primero, generemos algunos datos y analicémoslos usando pruebas de hipótesis nulas (ve la Figura \ref{fig:bayesTesting}). Luego, realicemos una prueba t de muestras independientes, que muestra que hay una diferencia significativa entre los grupos:
 
 \begin{figure}
 \includegraphics[height=0.5\textheight]{StatsThinking21_files/figure-latex/bayesTesting-1} \caption{Box plots showing data for drug and placebo groups.}\label{fig:bayesTesting}
@@ -3198,12 +3204,12 @@ Esta prueba nos dice que hay una diferencia significativa entre los grupos, pero
 ## Bayes factor type: BFindepSample, JZS
 \end{verbatim}
 
-Estamos particularmente interesados en el factor de Bayes para un efecto mayor que cero, que se enumera en la línea marcada ``{[}1{]}'' en el informe. El factor de Bayes aquí nos dice que la hipótesis alternativa (es decir, que la diferencia es mayor que cero) es aproximadamente 3 veces más probable que la hipótesis de punto nulo (es decir, una diferencia media de exactamente cero) dados los datos. Por lo tanto, si bien el efecto es significativo, la cantidad de evidencia que nos proporciona a favor de la hipótesis alternativa es bastante débil.
+Estamos particularmente interesados en el factor de Bayes para un efecto mayor que cero, que se enumera en la línea marcada ``{[}1{]}'' en el informe. El factor de Bayes aquí nos dice que la hipótesis alternativa (es decir, que la diferencia es mayor que cero) es aproximadamente 3 veces más probable que la hipótesis nula puntual (es decir, una diferencia media de exactamente cero) dados los datos. Por lo tanto, si bien el efecto es significativo, la cantidad de evidencia que nos proporciona a favor de la hipótesis alternativa es bastante débil.
 
 \hypertarget{pruebas-unilaterales}{%
-\subsection{Pruebas unilaterales}\label{pruebas-unilaterales}}
+\subsubsection{Pruebas unilaterales}\label{pruebas-unilaterales}}
 
-Por lo general, estamos menos interesados en contrastar la hipótesis nula de un valor de puntos específico (por ejemplo, diferencia media = 0) que en contrastar una hipótesis nula direccional (por ejemplo, que la diferencia es menor o igual a cero). También podemos realizar una prueba direccional (o \emph{unilateral}) utilizando los resultados del análisis \texttt{ttestBF}, ya que proporciona dos factores de Bayes: uno para la hipótesis alternativa de que la diferencia media es mayor que cero y otro para la alternativa hipótesis de que la diferencia media es menor que cero. Si queremos evaluar la evidencia relativa de un efecto positivo, podemos calcular un factor de Bayes comparando la evidencia relativa de un efecto positivo versus negativo simplemente dividiendo los dos factores de Bayes devueltos por la función:
+Por lo general, estamos menos interesados en contrastar la hipótesis nula de un valor puntual específico (por ejemplo, diferencia media = 0) que en contrastar una hipótesis nula direccional (por ejemplo, que la diferencia es menor o igual a cero). También podemos realizar una prueba direccional (o \emph{unilateral}) utilizando los resultados del análisis \texttt{ttestBF}, ya que proporciona dos factores de Bayes: uno para la hipótesis alternativa de que la diferencia media es mayor que cero y otro para la hipótesis alternativa de que la diferencia media es menor que cero. Si queremos evaluar la evidencia relativa de un efecto positivo, podemos calcular un factor de Bayes comparando la evidencia relativa de un efecto positivo versus negativo simplemente dividiendo los dos factores de Bayes devueltos por la función:
 
 \begin{verbatim}
 ## Bayes factor analysis
@@ -3218,10 +3224,10 @@ Por lo general, estamos menos interesados en contrastar la hipótesis nula de un
 
 Ahora vemos que el factor Bayes para un efecto positivo frente a un efecto negativo es sustancialmente mayor (casi 30).
 
-\hypertarget{interpretando-factores-de-bayes}{%
-\subsection{Interpretando Factores de Bayes}\label{interpretando-factores-de-bayes}}
+\hypertarget{interpretar-factores-de-bayes}{%
+\subsubsection{Interpretar Factores de Bayes}\label{interpretar-factores-de-bayes}}
 
-¿Cómo sabemos si un factor de Bayes de 2 o 20 es bueno o malo? Existe una guía general para la interpretación de los factores de Bayes sugerida por {[}Kass \& Rafferty (1995){]} (\url{https://www.andrew.cmu.edu/user/kk3n/simplicity/KassRaftery1995.pdf}):
+¿Cómo sabemos si un factor de Bayes de 2 o 20 es bueno o malo? Existe una guía general para la interpretación de los factores de Bayes sugerida por \href{https://www.andrew.cmu.edu/user/kk3n/simplicity/KassRaftery1995.pdf}{Kass \& Rafferty (1995)}:
 
 \begin{longtable}[]{@{}ll@{}}
 \toprule
@@ -3235,12 +3241,12 @@ BF & Strength of evidence\textbar{} \\ \addlinespace
 \bottomrule
 \end{longtable}
 
-En base a esto, aunque el resultado estadístico es significativo, la cantidad de evidencia a favor de la hipótesis alternativa frente a la hipótesis nula de punto es lo suficientemente débil como para ni siquiera mencionarla, mientras que la evidencia para la hipótesis direccional es relativamente sólida.
+Con base en esto, aunque el resultado estadístico es significativo, la cantidad de evidencia a favor de la hipótesis alternativa frente a la hipótesis nula puntual es lo suficientemente débil como para ni siquiera mencionarla, mientras que la evidencia para la hipótesis direccional es relativamente sólida.
 
-\hypertarget{evaluando-evidencia-para-la-hipuxf3tesis-nula}{%
-\subsection{Evaluando evidencia para la hipótesis nula}\label{evaluando-evidencia-para-la-hipuxf3tesis-nula}}
+\hypertarget{evaluar-evidencia-a-favor-de-la-hipuxf3tesis-nula}{%
+\subsection{Evaluar evidencia a favor de la hipótesis nula}\label{evaluar-evidencia-a-favor-de-la-hipuxf3tesis-nula}}
 
-Debido a que el factor de Bayes está comparando evidencia para dos hipótesis, también nos permite evaluar si hay evidencia a favor de la hipótesis nula, lo cual no podríamos hacer con la prueba estándar de hipótesis nula (porque comienza con la suposición de que la nula cierto). Esto puede ser muy útil para determinar si un resultado no significativo realmente proporciona pruebas sólidas de que no hay ningún efecto o, en cambio, solo refleja una evidencia débil en general.
+Debido a que el factor de Bayes está comparando evidencia para dos hipótesis, también nos permite evaluar si hay evidencia a favor de la hipótesis nula, lo cual no podríamos hacer con la prueba estándar de hipótesis nula (porque comienza con la suposición de que la nula es cierta). Esto puede ser muy útil para determinar si un resultado no significativo realmente proporciona pruebas sólidas de que no hay ningún efecto o, en cambio, solo refleja una evidencia débil en general.
 
 \hypertarget{objetivos-de-aprendizaje}{%
 \section{Objetivos de aprendizaje}\label{objetivos-de-aprendizaje}}
@@ -3250,11 +3256,11 @@ Después de leer este capítulo, debes ser capaz de:
 \begin{itemize}
 \tightlist
 \item
-  Describir las principales diferencias entre el análisis bayesiano y las pruebas de hipótesis nulas.
+  Describir las principales diferencias entre el análisis bayesiano y la prueba de hipótesis nula.
 \item
   Describir y realizar los pasos en un análisis bayesiano.
 \item
-  Describir los efectos de diferentes antecedentes y las consideraciones que intervienen en la elección de un anterior.
+  Describir los efectos de diferentes probabilidades previas y las consideraciones que intervienen en la elección de una probabilidad previa.
 \item
   Describir la diferencia de interpretación entre un intervalo de confianza y un intervalo de credibilidad bayesiano.
 \end{itemize}
@@ -3270,13 +3276,13 @@ Después de leer este capítulo, debes ser capaz de:
   \emph{Doing Bayesian Data Analysis: A Tutorial Introduction with R}, by John K. Kruschke
 \end{itemize}
 
-\hypertarget{appendix}{%
-\section{Appendix:}\label{appendix}}
+\hypertarget{apuxe9ndice}{%
+\section{Apéndice:}\label{apuxe9ndice}}
 
-\hypertarget{rejection-sampling}{%
-\subsection{Rejection sampling}\label{rejection-sampling}}
+\hypertarget{muestreo-de-rechazo}{%
+\subsection{Muestreo de rechazo}\label{muestreo-de-rechazo}}
 
-We will generate samples from our posterior distribution using a simple algorithm known as \href{https://am207.github.io/2017/wiki/rejectionsampling.html}{\emph{rejection sampling}}. The idea is that we choose a random value of x (in this case \(p_{respond}\)) and a random value of y (in this case, the posterior probability of \(p_{respond}\)) each from a uniform distribution. We then only accept the sample if \(y < f(x)\) - in this case, if the randomly selected value of y is less than the actual posterior probability of y. Figure \ref{fig:rejectionSampling} shows an example of a histogram of samples using rejection sampling, along with the 95\% credible intervals obtained using this method.
+Generaremos muestras a partir de nuestra distribución de probabilidad posterior usando un algoritmo simple conocido como \href{https://am207.github.io/2017/wiki/rejectionsampling.html}{\emph{muestreo de rechazo}(\emph{rejection sampling})}. La idea es que elegimos un valor aleatorio de x (en este caso \(p_{respond}\)) y un valor aleatorio de y (en este caso, la probabilidad posterior de \(p_{respond}\)) cada uno de una distribución uniforme. Luego aceptamos la muestra sólo si \(y < f(x)\) - en este caso, si el valor seleccionado aleatoriamente de y es menor que la probabilidad posterior real de y. La Figura \ref{fig:rejectionSampling} muestra un ejemplo de un histograma de muestras usando el muestreo de rechazo, junto con el intervalo de credibilidad del 95\% obtenido usando este método.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3359,7 +3365,7 @@ El estadístico Ji-cuadrada para este análisis resulta en 0.74, que por sí mis
 \includegraphics[height=0.5\textheight]{StatsThinking21_files/figure-latex/chisqDist-1} \caption{Izquierda: Ejemplos de una distribución Ji-cuadrada para varios grados de libertad. Derecha: Simulación de la suma de cuadrados de variables aleatorias normales. El histograma está basado en la suma de cuadrados de 50,000 conjuntos de 8 variables normales aleatorias; la línea punteada muestra los valores de la distribución ji-cuadrada teórica con 8 grados de libertad.}\label{fig:chisqDist}
 \end{figure}
 
-Verifiquemos que la distribución ji-cuadrada describe con exactitud la suma de cuadrados de un cojunto de variables aleatorias normales estándares, usando una simulación. Para hacer esto, repetidamente tomamos un conjunto de 8 números aleatorios, y sumamos cada conjunto después de haberlos elevado al cuadrado. El panel derecho de la Figura \ref{fig:chisqDist} muestra que la distribución teórica coincide cercanamente con los resultados de la simulación que repetidamente suma juntos los cuadrados de un conjunto de variables normales aleatorias.
+Verifiquemos que la distribución ji-cuadrada describe con exactitud la suma de cuadrados de un conjunto de variables aleatorias normales estándares, usando una simulación. Para hacer esto, repetidamente tomamos un conjunto de 8 números aleatorios, y sumamos cada conjunto después de haberlos elevado al cuadrado. El panel derecho de la Figura \ref{fig:chisqDist} muestra que la distribución teórica coincide cercanamente con los resultados de la simulación que repetidamente suma juntos los cuadrados de un conjunto de variables normales aleatorias.
 
 Para el ejemplo de los dulces, podemos calcular la probabilidad de nuestro valor ji-cuadrada observado de 0.74 bajo la hipótesis nula de que la frecuencia de los diferentes tipos de dulces sería igual. Usamos una distribución ji-cuadrada con grados de libertad igual a k - 1 (donde k = número de categorías) porque perdimos un grado de libertad cuando calculamos la media para generar los valores esperados. El valor p resultante (P(Chi-squared) \textgreater{} 0.74 = 0.691) muestra que los conteos observados de dulces no son particularmente sorprendentes basados en las proporciones que menciona la etiqueta de la bolsa de dulces, y no rechazaríamos la hipótesis nula de proporciones iguales.
 
@@ -3487,11 +3493,11 @@ La razón de posibilidades muestra que las posibilidades de ser revisado son 2.5
 \hypertarget{factores-de-bayes}{%
 \section{Factores de Bayes}\label{factores-de-bayes}}
 
-Discutimos los factores de Bayes en el capítulo anterior sobre estadística Bayesiana -- podrás recordar que representan la razón de las probabilidades de los datos bajo cada una de las dos hipótesis:
+Discutimos los factores de Bayes en el capítulo anterior sobre estadística Bayesiana -- podrás recordar que representan la razón de las probabilidades (\emph{likelihood}) de los datos bajo cada una de las dos hipótesis:
 \[ 
 K = \frac{P(data|H_A)}{P(data|H_0)} = \frac{P(H_A|data)*P(H_A)}{P(H_0|data)*P(H_0)}
 \]
-Podemos calcular el factor de Bayes para los datos de las revisiones policíacas usando un paquete espeical para el software estadístico R:
+Podemos calcular el factor de Bayes para los datos de las revisiones policiacas usando un paquete especial para el software estadístico R:
 
 \begin{verbatim}
 ## Bayes factor analysis
@@ -3530,7 +3536,7 @@ Most & 138 & 145\\
 \end{tabular}
 \end{table}
 
-Simplemente observados estos datos, podemos decir que es probable que haya una relación entre estas dos variables; notablemente, mientras que el total de personas con problemas de sueño es mucho menor que aquellas sin estos problemas, para aquellas personas que reportaron sentirse deprimidas la mayoría de los días el número de personas con problemas de sueño es mayor que las que no tienen problemas de sueño. Podemos cuantificar esto directamente usando la prueba ji-cuadrada:
+Simplemente observando estos datos podemos decir que es probable que haya una relación entre estas dos variables; notablemente, mientras que el total de personas con problemas de sueño es mucho menor que aquellas sin estos problemas, para aquellas personas que reportaron sentirse deprimidas la mayoría de los días el número de personas con problemas de sueño es mayor que las que no tienen problemas de sueño. Podemos cuantificar esto directamente usando la prueba ji-cuadrada:
 
 \begin{verbatim}
 ## 
@@ -3594,46 +3600,48 @@ Si miras cuidadosamente, verás que algo raro está sucediendo: En cada año ind
   Kievit et al.~(2013). \href{https://www.frontiersin.org/articles/10.3389/fpsyg.2013.00513/full}{Simpson's paradox in psychological science: a practical guide}
 \end{itemize}
 
-\hypertarget{modelar-relaciones-continuas}{%
-\chapter{Modelar relaciones continuas}\label{modelar-relaciones-continuas}}
+\hypertarget{modeling-continuous-relationships}{%
+\chapter{Modelar relaciones continuas}\label{modeling-continuous-relationships}}
 
 La mayoría de las personas están familiarizadas con el concepto de \emph{correlación}, no obstante en este capíttulo proveeremos un entendimiento más formal para este concepto comúnmente usado y malentendido.
 
 \hypertarget{un-ejemplo-cruxedmenes-de-odio-y-la-inequidad-de-ingreso}{%
 \section{Un ejemplo: Crímenes de odio y la inequidad de ingreso}\label{un-ejemplo-cruxedmenes-de-odio-y-la-inequidad-de-ingreso}}
 
-En 2017, el sitio web Fivethirtyeight.com publicó una historia titulada \href{https://fivethirtyeight.com/features/higher-rates-of-hate-crimes-are-tied-to-income-inequality/}{\emph{Higher Rates Of Hate Crimes Are Tied To Income Inequality}} en la cual se discute la relación entre la prevalencia de los crímenes de odio y la inequidad de ingreso en el despertar de la elección presidencial de 2016. La historia reportó un análisis de datos del FBI acerca de crímenes de odio y de y del Centro de leyes Southern Poverty, sobre la base de lo que informan:\\
-\textgreater{} ``we found that income inequality was the most significant determinant of population-adjusted hate crimes and hate incidents across the United States.''\\
-\textgreater{}``Descubrimos que la desigualdad de ingresos era el determinante más significativo de los delitos de odio e incidentes de odio ajustados a la población en los Estados Unidos.''
+En 2017, el sitio web Fivethirtyeight.com publicó una historia titulada \href{https://fivethirtyeight.com/features/higher-rates-of-hate-crimes-are-tied-to-income-inequality/}{\emph{Higher Rates Of Hate Crimes Are Tied To Income Inequality}} en la cual se discute la relación entre la prevalencia de los crímenes de odio y la inequidad de ingreso en el despertar de la elección presidencial de 2016. La historia reportó un análisis de datos del FBI acerca de crímenes de odio y de y del Centro de leyes Southern Poverty, sobre la base de lo que informan:
 
-Los datos de este análisis están disponibles como parte del \texttt{fivethirtyeight}, un paquete para el software estádistico de R, el cual facilita nuestro acceso a él. El análisis reportado en la historia se focaliza en la relación entre la inequidad de ingreso (definida por una medida llamada \emph{índice Gini} --- véase Apéndice para más detalles) y la prevalencia de crímenes de odio de cada estado.
+\begin{quote}
+``Descubrimos que la desigualdad de ingresos era el determinante más significativo de los delitos de odio e incidentes de odio ajustados a la población en los Estados Unidos.''
+\end{quote}
 
-\hypertarget{la-inequidad-de-ingreso-estuxe1-relacionada-a-cruxedmenes-de-odio}{%
-\section{¿La inequidad de ingreso está relacionada a crímenes de odio?}\label{la-inequidad-de-ingreso-estuxe1-relacionada-a-cruxedmenes-de-odio}}
+Los datos de este análisis están disponibles como parte del \texttt{fivethirtyeight}, un paquete para el software estadístico de R, el cual facilita nuestro acceso a él. El análisis reportado en la historia se focaliza en la relación entre la inequidad de ingreso (definida por una medida llamada \emph{índice Gini} --- véase Apéndice para más detalles) y la prevalencia de crímenes de odio de cada estado.
+
+\hypertarget{la-inequidad-de-ingreso-estuxe1-relacionada-a-los-cruxedmenes-de-odio}{%
+\section{¿La inequidad de ingreso está relacionada a los crímenes de odio?}\label{la-inequidad-de-ingreso-estuxe1-relacionada-a-los-cruxedmenes-de-odio}}
 
 \begin{figure}
 \includegraphics[width=0.75\linewidth]{StatsThinking21_files/figure-latex/hateCrimeGini-1} \caption{Plot of rates of hate crimes vs. Gini index.}\label{fig:hateCrimeGini}
 \end{figure}
 
 La relación entre la inequidad de ingreso y los índices de crímenes de odio es mostrada en la Figura \ref{fig:hateCrimeGini}.
-Observando los datos, parece que haya una relación positiva entre ambas variableds. ¿Cómo podemos cuantificar esa relación?
+Observando los datos, parece que puede haber una relación positiva entre ambas variables. ¿Cómo podemos cuantificar esa relación?
 
 \hypertarget{covariance-and-correlation}{%
 \section{Covarianza y la correlación}\label{covariance-and-correlation}}
 
-Una manera de cuantificar la relación entre dos variables es la \emph{covarianza}. Recuerda que la varianza se calcula para una variable única como la diferencia cuadrática promedio entre cada punto de datos y la media:
+Una manera de cuantificar la relación entre dos variables es la \emph{covarianza}. Recuerda que la varianza se calcula para una variable única como la diferencia cuadrática promedio entre cada punto de los datos y la media:
 
 \[
 s^2 = \frac{\sum_{i=1}^n (x_i - \bar{x})^2}{N - 1}
 \]
 
-Esto nos indica qué tan lejana es cada observación de la media, en promedio, en unidades cuadradas. La covarianza nos indica si hay una relación entre las desviaciones de dos variables diferentes a través de observaciones. Esto es definido como:
+Esto nos indica qué tan lejana está cada observación de la media, en promedio, en unidades cuadradas. La covarianza nos indica si hay una relación entre las desviaciones de dos variables diferentes a lo largo de las observaciones. Esto es definido como:
 
 \[
 covariance = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{N - 1}
 \]
 
-Este valor estará lejos de cero cuando los puntos de datos individuales se desvíen en cantidades similares de sus respectivos medios; si se desvían en la misma dirección, la covarianza es positiva, mientras que si se desvían en direcciones opuestas, la covarianza es negativa. Veamos primero un ejemplo de juguete. Los datos se muestran en la tabla, junto con sus desviaciones individuales de la media y sus productos cruzados.
+Este valor estará lejos de cero cuando los puntos individuales de los datos se desvíen en cantidades similares de sus respectivos medias; si se desvían en la misma dirección, la covarianza es positiva, mientras que si se desvían en direcciones opuestas, la covarianza es negativa. Veamos primero un ejemplo de juguete. Los datos se muestran en la tabla, junto con sus desviaciones individuales de la media y sus productos cruzados.
 
 \begin{table}
 
@@ -3656,7 +3664,7 @@ x & y & y\_dev & x\_dev & crossproduct\\
 \end{tabular}
 \end{table}
 
-La covarianza es simplemente la media de los productos cruzados, los cuales en este caso son 17.05. Por lo general, no usamos la covarianza para describir relaciones entre variables, porque varía con el nivel general de varianza en los datos. En su lugar, usualmente usamos el \emph{coeficiente de correlación} (a menudo referido como \emph{correlación de Pearson} en honor al estadístico Karl Pearson). La correlación se calcula escalando la covarianza por las desviaciones estándar de las dos variables:
+La covarianza es simplemente la media de los productos cruzados, los cuales en este caso son 17.05. Por lo general, no usamos la covarianza para describir relaciones entre variables, porque varía con el nivel general de varianza en los datos. En su lugar, usualmente usamos el \emph{coeficiente de correlación} (a menudo referido como \emph{correlación de Pearson} en honor al estadístico Karl Pearson). La correlación se calcula escalando la covarianza sobre las desviaciones estándar de las dos variables:
 
 \[
 r = \frac{covariance}{s_xs_y} = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{(N - 1)s_x s_y}
@@ -3666,12 +3674,12 @@ En este caso , el valor es 0.89. El coeficiente de correlación es útil porque 
 \hypertarget{prueba-de-hipuxf3tesis-para-correlaciones}{%
 \subsection{Prueba de hipótesis para correlaciones}\label{prueba-de-hipuxf3tesis-para-correlaciones}}
 
-El valor de correlación de 0.42 entre crímenes de odio y la desigualdad de ingreso parece indicar una relación razonablemente fuerte entre los dos, pero también podemos imaginar que esto puede suceder al azar incluso si no hay relación. Podemos probar la hipótesis nula de que la correlación es cero, utilizando una simple ecuación que nos permita convertir el valor de correlación en una estadística \emph{t}:
+El valor de correlación de 0.42 entre crímenes de odio y la desigualdad de ingreso parece indicar una relación razonablemente fuerte entre los dos, pero también podemos imaginar que esto puede suceder al azar incluso si no hay relación. Podemos probar la hipótesis nula de que la correlación es cero, utilizando una simple ecuación que nos permita convertir el valor de correlación en un estadístico \emph{t}:
 \[
 \textit{t}_r =  \frac{r\sqrt{N-2}}{\sqrt{1-r^2}}
 \]
 
-Bajo la hipótesis nula \(H_0:r=0\), esta estadística es distribuida como una distribución t con \(N - 2\) grados de libertad. Podemos calcular esto utilizando nuestro software estadístico:
+Bajo la hipótesis nula \(H_0:r=0\), este estadístico se distribuye como una distribución t con \(N - 2\) grados de libertad. Podemos calcular esto utilizando nuestro software estadístico:
 
 \begin{verbatim}
 ## 
@@ -3687,26 +3695,28 @@ Bajo la hipótesis nula \(H_0:r=0\), esta estadística es distribuida como una d
 ## 0.42
 \end{verbatim}
 
-Este test nos muestra que la probabilidad de un valor r así o más extremo es realmente baja, así que rechazaríamos la hipótesis nula de \(r=0\). Nota que este test asume que ambas variables son normalmente distribuidas.
+Este test nos muestra que la probabilidad de un valor r así o más extremo es realmente baja, así que rechazaríamos la hipótesis nula de \(r=0\). Nota que este test asume que ambas variables están normalmente distribuidas.
 
-También podríamos probar esto por aleatorización, en la que repetidamente mezclamos los valores de una de las variables y calculamos la correlación, luego comparamos nuestro valor de correlación observado con esta distribución nula para determinar qué tan probable sería nuestro valor observado bajo la hipótesis nula. Los resultados se muestran en la Figura \ref{fig:shuffleCorr}. El valor p calculado usando la aleatorización es razonablemente similar a la respuesta dada por la prueba t.
+También podríamos probar esto por aleatorización, en la que mezclamos (reordenamos) los valores de una de las variables y calculamos la correlación, repetidamente, luego comparamos el valor observado de nuestra correlación con esta distribución nula para determinar qué tan probable sería nuestro valor observado bajo la hipótesis nula. Los resultados se muestran en la Figura \ref{fig:shuffleCorr}. El valor p calculado usando la aleatorización es razonablemente similar a la respuesta dada por la prueba t.
 
 \begin{figure}
 \includegraphics[height=0.5\textheight]{StatsThinking21_files/figure-latex/shuffleCorr-1} \caption{Histogram of correlation values under the null hypothesis, obtained by shuffling values. Observed value is denoted by blue line.}\label{fig:shuffleCorr}
 \end{figure}
 
 También podríamos usar inferencia Bayesiana para estimar la correlación; véase Apéndice para más sobre esto.
-\#\#\# Correlaciones Robustas \{\#robust-correlations\}
 
-Podrás haber notado un poco extraño en la Figura \ref{fig:hateCrimeGini} -- uno de los puntos de datos (el del Distrito de Columbia) parece estar un tanto separado de los otros. Nos referimos a esto como un \emph{valor atípico} o outlier, y el coeficiente de correlación estándar es muy sensible a valores atípicos. Por ejemplo, en la figura \ref{fig:outlierCorr} podemos ver cómo podemos ver cómo un solo punto de datos periférico puede causar un valor de correlación positivo muy alto, incluso cuando la relación real entre los otros puntos de datos es perfectamente negativa.
+\hypertarget{robust-correlations}{%
+\subsection{Correlaciones Robustas}\label{robust-correlations}}
+
+Podrás haber notado algo un poco extraño en la Figura \ref{fig:hateCrimeGini} -- uno de los puntos de datos (el del Distrito de Columbia) parece estar un tanto separado de los otros. Nos referimos a esto como un \emph{valor atípico} o outlier, y el coeficiente de correlación estándar es muy sensible a valores atípicos. Por ejemplo, en la figura \ref{fig:outlierCorr} podemos ver cómo un solo punto de datos periférico puede causar un valor de correlación positivo muy alto, incluso cuando la relación real entre los otros puntos de datos es perfectamente negativa.
 
 \begin{figure}
-\includegraphics[height=0.5\textheight]{StatsThinking21_files/figure-latex/outlierCorr-1} \caption{An simulated example of the effects of outliers on correlation.  Without the outlier the remainder of the datapoints have a perfect negative correlation, but the single outlier changes the correlation value to highly positive.}\label{fig:outlierCorr}
+\includegraphics[height=0.5\textheight]{StatsThinking21_files/figure-latex/outlierCorr-1} \caption{A simulated example of the effects of outliers on correlation.  Without the outlier the remainder of the datapoints have a perfect negative correlation, but the single outlier changes the correlation value to highly positive.}\label{fig:outlierCorr}
 \end{figure}
 
-Una manera de abordar valores atípicos es calcular la correlación en los rangos de los datos después de ordenarlos, en lugar de en los datos mismos; esto es conocido como la \emph{correlación de Spearman}. Mientras que la correlación de Pearson por el ejemplo en la Figura \ref{fig:outlierCorr} era 0.83, la correlación de Spearman es -0.45 mostrando que el rango de correlación reduce el efecto de el valor atípico y refleja la relación negativa entre la mayoría de los puntos de datos.
+Una manera de abordar valores atípicos es calcular la correlación sobre los rangos de los datos después de ordenarlos, en lugar de sobre los datos mismos; esto es conocido como la \emph{correlación de Spearman}. Mientras que la correlación de Pearson en el ejemplo de la Figura \ref{fig:outlierCorr} era 0.83, la correlación de Spearman es -0.45 mostrando que la correlación de rangos reduce el efecto del valor atípico y refleja la relación negativa entre la mayoría de los puntos de datos.
 
-Podemos calcular el rango de correlación en los datos de crímenes de odio también:
+Podemos calcular la correlación de rangos de los datos de crímenes de odio también:
 
 \begin{verbatim}
 ## 
@@ -3720,16 +3730,16 @@ Podemos calcular el rango de correlación en los datos de crímenes de odio tamb
 ## 0.033
 \end{verbatim}
 
-Ahora podemos ver que la correlación ya no es significativa (y en efecto es muy cercana a cero), sugiriendo que las afirmaciones del blog FiveThirtyEight pudo haber estado incorrecto por el effecto del valor atípico.
+Ahora podemos ver que la correlación ya no es significativa (y en efecto es muy cercana a cero), sugiriendo que las afirmaciones del blog FiveThirtyEight pueden haber sido incorrectas debido al efecto del valor atípico.
 
 \hypertarget{correlaciuxf3n-y-causalidad}{%
 \section{Correlación y causalidad}\label{correlaciuxf3n-y-causalidad}}
 
-Cuando decimos que una cosa \emph{causa} otra, ¿a qué nos referimos? Hay una larga historia en filosofía sobre la discusión acerca del significado de la causalidad, pero en estadística una manera más común de pensar en la causalidad es en términos de control experimental. Eso es, si pensamos que el factor X causa el factor Y, entonces si manipulamos el valor de X afectará el valor de Y.
+Cuando decimos que una cosa \emph{causa} otra, ¿a qué nos referimos? Hay una larga historia en filosofía de la discusión acerca del significado de la causalidad, pero en estadística una manera más común de pensar en la causalidad es en términos de control experimental. Eso es, si pensamos que el factor X causa el factor Y, entonces si manipulamos el valor de X afectará el valor de Y.
 
-En medcina, hay un conjunto de ideas conocidas como \href{https://en.wikipedia.org/wiki/Koch\%27s_postulates}{\emph{Koch's postulates}} que históricamente se han utilizado para determinar si un organismo en particular causa una enfermedad. La idea básica es que el organismo debe estar presente en las personas con la enfermedad y no en las que no la padecen; por lo tanto, un tratamiento que elimine el organismo también debe eliminar la enfermedad. Además, infectar a alguien con el organismo debería hacer que contraiga la enfermedad. Un ejemplo de esto se vio en el trabajo del Dr.~Barry Marshall, quien tenía la hipótesis de que las úlceras de estómago eran causadas por una bacteria (\emph{Helicobacter pylori}). Para demostrar esto, se infectó con la bacteria y poco después desarrolló una inflamación severa en su estómago. Luego se trató a sí mismo con un antibiótico y su estómago pronto se recuperó. Más tarde ganó el Premio Nobel de Medicina por este trabajo.
+En medicina, hay un conjunto de ideas conocidas como \href{https://en.wikipedia.org/wiki/Koch\%27s_postulates}{\emph{Koch's postulates}} que históricamente se han utilizado para determinar si un organismo en particular causa una enfermedad. La idea básica es que el organismo debe estar presente en las personas con la enfermedad y no en las que no la padecen; por lo tanto, un tratamiento que elimine el organismo también debe eliminar la enfermedad. Además, infectar a alguien con el organismo debería hacer que contraiga la enfermedad. Un ejemplo de esto se vio en el trabajo del Dr.~Barry Marshall, quien tenía la hipótesis de que las úlceras de estómago eran causadas por una bacteria (\emph{Helicobacter pylori}). Para demostrar esto, se infectó con la bacteria y poco después desarrolló una inflamación severa en su estómago. Luego se trató a sí mismo con un antibiótico y su estómago pronto se recuperó. Más tarde ganó el Premio Nobel de Medicina por este trabajo.
 
-A menudo nos gustaría probar hipótesis causales, pero en realidad no podemos hacer un experimento, ya sea porque es imposible (``¿Cuál es la relación entre las emisiones de carbono humano y el clima de la Tierra?'') O porque no es ético (``¿Cuáles son los efectos del abuso severo sobre el desarrollo del cerebro infantil?''). Sin embargo, aún podemos recopilar datos que podrían ser relevantes para esas preguntas. Por ejemplo, potencialmente podemos recopilar datos de niños que han sido abusados y de aquellos que no, y luego podemos preguntarnos si su desarrollo cerebral es diferente.
+A menudo nos gustaría probar hipótesis causales, pero en realidad no podemos hacer un experimento, ya sea porque es imposible (``¿Cuál es la relación entre las emisiones de carbono humano y el clima de la Tierra?'') o porque no es ético (``¿Cuáles son los efectos del abuso severo sobre el desarrollo del cerebro infantil?''). Sin embargo, aún podemos recopilar datos que podrían ser relevantes para esas preguntas. Por ejemplo, potencialmente podemos recopilar datos de niños que han sido abusados y de aquellos que no, y luego podemos preguntarnos si su desarrollo cerebral es diferente.
 
 Digamos que hicimos tal análisis y encontramos que los niños abusados tenían un desarrollo cerebral más pobre que los niños no abusados. ¿Demostraría esto que el abuso \emph{causa} un peor desarrollo cerebral? No.~Siempre que observemos una asociación estadística entre dos variables, es ciertamente posible que una de esas dos variables cause la otra. Sin embargo, también es posible que ambas variables estén influenciadas por una tercera variable; en este ejemplo, podría ser que el abuso infantil esté asociado con el estrés familiar, que también podría causar un desarrollo cerebral más deficiente debido a una menor participación intelectual, estrés alimentario o muchas otras posibles vías. El punto es que una correlación entre dos variables generalmente nos dice que algo \emph{probablemente} está causando otra cosa, pero no nos dice qué está causando qué.
 
@@ -3738,7 +3748,7 @@ Digamos que hicimos tal análisis y encontramos que los niños abusados tenían 
 
 Una forma útil de describir las relaciones causales entre variables es mediante un \emph{gráfico causal}, que muestra las variables como círculos y las relaciones causales entre ellas como flechas. Por ejemplo, la Figura \ref{fig:simpleCausalGraph} muestra las relaciones causales entre el tiempo de estudio y dos variables que creemos que deberían verse afectadas por él: las calificaciones del examen y los tiempos de finalización del examen.
 
-Sin embargo, en realidad, los efectos sobre el tiempo de finalización y las calificaciones no se deben directamente a la cantidad de tiempo dedicado al estudio, sino más bien a la cantidad de conocimientos que adquiere el alumno al estudiar. Por lo general, diríamos que el conocimiento es una variable \emph{latente}, es decir, no podemos medirlo directamente, pero podemos verlo reflejado en variables que podemos medir (como calificaciones y tiempos de finalización). La figura \ref{fig:latentCausalGraph} muestra esto.
+Sin embargo, en realidad, los efectos sobre el tiempo de finalización y las calificaciones no se deben directamente a la cantidad de tiempo dedicado al estudio, sino más bien a la cantidad de conocimientos que adquiere el alumno al estudiar. Por lo general, diríamos que el conocimiento es una variable \emph{latente}, es decir, no podemos medirlo directamente, pero podemos verlo reflejado en variables que podemos medir (como calificaciones y tiempos de finalización). La Figura \ref{fig:latentCausalGraph} muestra esto.
 
 \begin{figure}
 \includegraphics[width=13.33in,height=0.5\textheight]{images/dag_example} \caption{A graph showing causal relationships between three variables: study time, exam grades, and exam finishing time.  A green arrow represents a positive relationship (i.e. more study time causes exam grades to increase), and a red arrow represents a negative relationship (i.e. more study time causes faster completion of the exam).}\label{fig:simpleCausalGraph}
@@ -3748,23 +3758,23 @@ Sin embargo, en realidad, los efectos sobre el tiempo de finalización y las cal
 \includegraphics[width=13.33in,height=0.5\textheight]{images/dag_latent_example} \caption{A graph showing the same causal relationships as above, but now also showing the latent variable (knowledge) using a square box.}\label{fig:latentCausalGraph}
 \end{figure}
 
-Aquí diríamos que el conocimiento \emph{media} la relación entre el tiempo de estudio y las notas/tiempos de finalización. Eso significa que si pudiéramos mantener el conocimiento constante (por ejemplo, administrando un medicamento que causa el olvido inmediato), entonces la cantidad de tiempo de estudio ya no debería tener un efecto sobre las calificaciones y los tiempos de finalización.
+Aquí diríamos que el conocimiento \emph{media} la relación entre el tiempo de estudio y las calificaciones/tiempos de finalización. Eso significa que si pudiéramos mantener el conocimiento constante (por ejemplo, administrando un medicamento que causa el olvido inmediato), entonces la cantidad de tiempo de estudio ya no debería tener un efecto sobre las calificaciones y los tiempos de finalización.
 
 Nota que si simplemente midiéramos las calificaciones de los exámenes y los tiempos de finalización, generalmente veríamos una relación negativa entre ellos, porque las personas que terminan los exámenes más rápido obtienen las calificaciones más altas. Sin embargo, si interpretáramos esta correlación como una relación causal, esto nos diría que para obtener mejores calificaciones, ¡deberíamos terminar el examen más rápido! Este ejemplo muestra lo engañosa que puede ser la inferencia de causalidad a partir de datos no experimentales.
 
-Dentro de la estadística y el aprendizaje automático (machine learning), existe una comunidad de investigación muy activa que actualmente está estudiando la cuestión de cuándo y cómo podemos inferir relaciones causales a partir de datos no experimentales. Sin embargo, estos métodos a menudo requieren suposiciones sólidas y, en general, deben usarse con gran precaución.
+En las áreas de la estadística y del aprendizaje automático (\emph{machine learning}), existe una comunidad de investigación muy activa que actualmente está estudiando la cuestión de cuándo y cómo podemos inferir relaciones causales a partir de datos no experimentales. Sin embargo, estos métodos a menudo requieren suposiciones sólidas y, en general, deben usarse con gran precaución.
 
 \hypertarget{objetivos-de-aprendizaje}{%
 \section{Objetivos de aprendizaje}\label{objetivos-de-aprendizaje}}
 
-Después de leer este capítulo tu deberás ser capaz de:
+Después de leer este capítulo tú deberás ser capaz de:
 
 \begin{itemize}
 \tightlist
 \item
-  Describir el concepto del coeficiente de correlación y su interpretación
+  Describir el concepto del coeficiente de correlación y su interpretación.
 \item
-  Calcular la correlación entre dos variables continuas
+  Calcular la correlación entre dos variables continuas.
 \item
   Describir las posibles influencias causales que pueden dar lugar a una correlación observada.
 \end{itemize}
@@ -3784,7 +3794,7 @@ Después de leer este capítulo tu deberás ser capaz de:
 \hypertarget{cuantificando-la-inequidad-el-uxedndice-gini}{%
 \subsection{Cuantificando la inequidad: El índice Gini}\label{cuantificando-la-inequidad-el-uxedndice-gini}}
 
-Antes de mirar el análisis reportado en la historia, primero es útil entender cómo se usa el índice de Gini para cuantificar la desigualdad. El índice de Gini generalmente se define en términos de una curva que describe la relación entre los ingresos y la proporción de la población que tiene ingresos en ese nivel o menos, conocida como \emph{curva de Lorenz}. Sin embargo, otra forma de pensar es más intuitiva: es la diferencia absoluta media relativa entre ingresos, dividida por dos (de \url{https://en.wikipedia.org/wiki/Gini_coefficient}):
+Antes de mirar el análisis reportado en la historia, primero es útil entender cómo se usa el índice de Gini para cuantificar la desigualdad. El índice de Gini generalmente se define en términos de una curva que describe la relación entre los ingresos y la proporción de la población que tiene ingresos en ese nivel o menos, conocida como \emph{curva de Lorenz}. Sin embargo, otra forma de pensar es más intuitiva: es la diferencia absoluta media relativa (\emph{relative mean absolute difference}) entre ingresos, dividida entre dos (de \url{https://en.wikipedia.org/wiki/Gini_coefficient}):
 
 \[
 G = \frac{\displaystyle{\sum_{i=1}^n \sum_{j=1}^n \left| x_i - x_j \right|}}{\displaystyle{2n\sum_{i=1}^n x_i}} 
@@ -3794,14 +3804,14 @@ G = \frac{\displaystyle{\sum_{i=1}^n \sum_{j=1}^n \left| x_i - x_j \right|}}{\di
 \includegraphics[width=0.8\linewidth]{StatsThinking21_files/figure-latex/gini0-1} \caption{Lorenz curves for A) perfect equality, B) normally distributed income, and C) high inequality (equal income except for one very wealthy individual).}\label{fig:gini0}
 \end{figure}
 
-La figura @ref(fig: gini0) muestra las curvas de Lorenz para varias distribuciones de ingresos diferentes. El panel superior izquierdo (A) muestra un ejemplo con 10 personas donde todos tienen exactamente los mismos ingresos. La longitud de los intervalos entre puntos es igual, lo que indica que cada persona gana una parte idéntica del ingreso total de la población. El panel superior derecho (B) muestra un ejemplo donde los ingresos se distribuyen normalmente. El panel inferior izquierdo muestra un ejemplo con alta desigualdad; todos tienen los mismos ingresos (\$40,000) excepto una persona, que tiene ingresos de \$40,000,000. Según el censo de EE.UU., Estados Unidos tenía un índice de Gini de 0,469 en 2010, aproximadamente a la mitad entre nuestros ejemplos de distribución normal y máxima desigualdad.
+La Figura \ref{fig:gini0} muestra las curvas de Lorenz para varias distribuciones de ingresos diferentes. El panel superior izquierdo (A) muestra un ejemplo con 10 personas donde todos tienen exactamente los mismos ingresos. La longitud de los intervalos entre puntos es igual, lo que indica que cada persona gana una parte idéntica del ingreso total de la población. El panel superior derecho (B) muestra un ejemplo donde los ingresos se distribuyen normalmente. El panel inferior izquierdo muestra un ejemplo con alta desigualdad; todos tienen los mismos ingresos (\$40,000) excepto una persona, que tiene ingresos de \$40,000,000. Según el censo de EE.UU., Estados Unidos tenía un índice de Gini de 0,469 en 2010, aproximadamente a la mitad entre nuestros ejemplos de distribución normal y máxima desigualdad.
 
 \hypertarget{anuxe1lisis-de-correlaciuxf3n-bayesiana}{%
 \subsection{Análisis de correlación bayesiana}\label{anuxe1lisis-de-correlaciuxf3n-bayesiana}}
 
-También podemos analizar los datos de FiveThirtyEight utilizando el análisis bayesiano, que tiene dos ventajas. Primero, nos proporciona una probabilidad posterior, en este caso, la probabilidad de que el valor de correlación sea superior a cero. En segundo lugar, la estimación bayesiana combina la evidencia observada con un \emph{previo}, que tiene el efecto de \emph{regularizar} la estimación de correlación, llevándola efectivamente hacia cero. Aquí podemos calcularlo usando la función \texttt{jzs\_cor} del paquete BayesMed.
+También podemos analizar los datos de \emph{FiveThirtyEight} utilizando el análisis bayesiano, que tiene dos ventajas. Primero, nos proporciona una probabilidad posterior, en este caso, la probabilidad de que el valor de correlación sea superior a cero. En segundo lugar, la estimación bayesiana combina la evidencia observada con una \emph{probabilidad previa}, que tiene el efecto de \emph{regularizar} la correlación estimada, efectivamente llevándola hacia cero. Aquí podemos calcularlo usando la función \texttt{jzs\_cor} del paquete BayesMed.
 
-Nótese que la correlación estimada usando el método bayesiano es ligeramente menor que la estimada usando el coeficiente de correlación estándar, lo cual se debe al hecho de que la estimación se basa en una combinación de la evidencia y la previa, lo que efectivamente reduce la estimación a cero. Sin embargo, observe que el análisis bayesiano no es robusto para el valor atípico, y todavía dice que hay evidencia bastante fuerte de que la correlación es mayor que cero.
+Nótese que la correlación estimada usando el método bayesiano es ligeramente menor que la estimada usando el coeficiente de correlación estándar, lo cual se debe al hecho de que la estimación se basa en una combinación de la evidencia y la probabilidad previa, lo que efectivamente reduce la estimación hacia cero. Sin embargo, observe que el análisis bayesiano no es robusto para el valor atípico, y todavía dice que hay evidencia bastante fuerte de que la correlación es mayor que cero.
 
 \hypertarget{el-modelo-lineal-general}{%
 \chapter{El Modelo Lineal General}\label{el-modelo-lineal-general}}
@@ -3866,14 +3876,14 @@ Esta correlación es bastante alta, pero apenas alcanza significatividad estadí
 
 Podemos usar el modelo lineal general para describir la relación entre dos variables y para decidir si la relación es estadísticamente significativa; además, el modelo nos permite predecir el valor de la variable dependiente dado algún o algunos valores nuevos de la(s) variable(s) independiente(s). Aún más importante, el modelo lineal general nos permite construir modelos que incorporen múltiples variables independientes, mientras que la correlación sólo nos permite decir algo acerca de la relación entre dos variables individuales.
 
-La versión específica del GLM que usamos para esto es conocida como \emph{regresión lineal} (\emph{linear regression}). El término \emph{regresión} fue acuñado por Francis Galton, quien notó que cuando él comparó padres y madres con sus hijes en algunas características (como altura), les hijes de padres y madres con valores extremos (i.e.~les padres y madres muy altes, o muy bajes de estatura) generalmente caían más cerca de la media que de los valores de sus padres y madres. Este es un punto extremadamente importante al que regresaremos más abajo.
+La versión específica del GLM que usamos para esto es conocida como \emph{regresión lineal} (\emph{linear regression}). El término \emph{regresión} fue acuñado por Francis Galton, quien notó que cuando él comparó padres y madres con sus hijxs en algunas características (como altura), lxs hijxs de padres y madres con valores extremos (i.e.~lxs padres y madres muy altxs, o muy bajxs de estatura) generalmente caían más cerca de la media que de los valores de sus padres y madres. Este es un punto extremadamente importante al que regresaremos más abajo.
 
 La versión más simple del modelo de regresión lineal (con una sola variable independiente) puede ser expresada de la siguiente manera:
 
 \[
 y = x * \beta_x + \beta_0 + \epsilon
 \]
-El valor \(\beta_x\) nos dice cuánto esperaríamos que y cambiara dado un cambio de una sola unidad en x. El intercepto \(\beta_0\) es un offset general (una compensación general), que nos dice cuál valor esperaríamos de y cuando \(x=0\); recordarás de nuestra discusión previa sobre modelos que esto es importante para poder modelar la magnitud general de los datos, aún cuando \(x\) nunca tenga realmente un valor de cero. El término del error \(\epsilon\) se refiere al error que queda después de que el modelo ha sido ajustado a los datos; frecuentemente nos referimos a este error como los \emph{residuales} del modelo. Si queremos saber cómo predecir y (que llamamos \(\hat{y}\)), entonces podemos ignorar el término del error:
+El valor \(\beta_x\) nos dice cuánto esperaríamos que \(y\) cambiara dado un cambio de una sola unidad en \(x\). El intercepto \(\beta_0\) es un offset general (una compensación general), que nos dice cuál valor esperaríamos de \(y\) cuando \(x=0\); recordarás de nuestra discusión previa sobre modelos que esto es importante para poder modelar la magnitud general de los datos, aún cuando \(x\) nunca tenga realmente un valor de cero. El término del error \(\epsilon\) se refiere al error que queda después de que el modelo ha sido ajustado a los datos; frecuentemente nos referimos a este error como los \emph{residuales} del modelo. Si queremos saber cómo predecir \(y\) (que llamamos \(\hat{y}\)), entonces podemos ignorar el término del error por el momento:
 
 \[
 \hat{y} = x * \beta_x + \beta_0 
@@ -3884,12 +3894,12 @@ Nota que esto es simplemente la ecuación de una línea, donde \(\beta_x\) es la
 \includegraphics[height=0.5\textheight]{StatsThinking21_files/figure-latex/LinearRegression-1} \caption{The linear regression solution for the study time data is shown in the solid line The value of the intercept is equivalent to the predicted value of the y variable when the x variable is equal to zero; this is shown with a dotted line.  The value of beta is equal to the slope of the line -- that is, how much y changes for a unit change in x.  This is shown schematically in the dashed lines, which show the degree of increase in grade for a single unit increase in study time.}\label{fig:LinearRegression}
 \end{figure}
 
-No entraremos en detalles sobre cómo se calcula la pendiente y el intercepto que mejor ajustan a los datos; si estás interesade, los detalles están disponibles en el Apéndice.
+No entraremos en detalles sobre cómo se calcula la pendiente y el intercepto que mejor ajustan a los datos; si estás interesadx, los detalles están disponibles en el Apéndice.
 
 \hypertarget{regression-to-the-mean}{%
 \subsection{Regresión a la media}\label{regression-to-the-mean}}
 
-El concepto de \emph{regresión a la media} fue una de las contribuciones esenciales de Galton a la ciencia, y aún se mantiene como un punto crítico a entendener cuando interpretamos los resultados de análisis de datos experimentales. Digamos que queremos estudiar los efectos de una intervención de lectura para el rendimiento de lectores de baja habilidad de lectura (``lectores pobres''). Para probar nuestra hipótesis, podríamos ir a una escuela y reclutar a aquellas personas en el 25\% más bajo de la distribución en una prueba de lectura, administrar la intervención, y luego examinar su rendimiento en la prueba después de la intervención. Digamos que la intervención realmente no tiene efecto, de manera que los puntajes de lectura de cada persona son simplemente muestras independientes de una distribución normal. Podemos hacer una simulación de esto:
+El concepto de \emph{regresión a la media} fue una de las contribuciones esenciales de Galton a la ciencia, y aún se mantiene como un punto crítico a entender cuando interpretamos los resultados de análisis de datos experimentales. Digamos que queremos estudiar los efectos de una intervención de lectura para el rendimiento de lectores de baja habilidad de lectura (``lectores pobres''). Para probar nuestra hipótesis, podríamos ir a una escuela y reclutar a aquellas personas en el 25\% más bajo de la distribución en una prueba de lectura, administrar la intervención, y luego examinar su rendimiento en la prueba después de la intervención. Digamos que la intervención realmente no tiene efecto, de manera que los puntajes de lectura de cada persona son simplemente muestras independientes de una distribución normal. Podemos hacer una simulación de esto:
 
 \begin{table}
 
@@ -4203,7 +4213,7 @@ Herramientas para el diagnóstico de modelos serán exploradas en mayor detalle 
 \hypertarget{quuxe9-significa-realmente-predecir}{%
 \section{¿Qué significa realmente ``predecir?''}\label{quuxe9-significa-realmente-predecir}}
 
-Cuando hablamos de ``predicción'' en la vida diaria, generalmente nos referimos a la habilidad para estimar el valor de alguna variable antes de ver los datos. Sin embargo, el término frecuentemente es usado en el contexto de regresión lineal para referirse al ajuste de un modelo a los datos; los valores estimados (\(\hat{y}\)) en ocasiones son conocidos como ``predicciones'' y las variables independientes son conocidas como ``preditores.'' Esto tiene una connotación desafortunada, porque parece implicar que nuestro modelo debería ser capaz de predecir los valores de nuevos datos en el futuro. En realidad, el ajuste de un modelo al conjunto de datos usado para obtener sus parámetros casi siempre será mejor que el ajuste del mismo modelo a un nuevo conjutno de datos (\protect\hyperlink{ref-copa:1983}{Copas 1983}).
+Cuando hablamos de ``predicción'' en la vida diaria, generalmente nos referimos a la habilidad para estimar el valor de alguna variable antes de ver los datos. Sin embargo, el término frecuentemente es usado en el contexto de regresión lineal para referirse al ajuste de un modelo a los datos; los valores estimados (\(\hat{y}\)) en ocasiones son conocidos como ``predicciones'' y las variables independientes son conocidas como ``preditores.'' Esto tiene una connotación desafortunada, porque parece implicar que nuestro modelo debería ser capaz de predecir los valores de nuevos datos en el futuro. En realidad, el ajuste de un modelo al conjunto de datos usado para obtener sus parámetros casi siempre será mejor que el ajuste del mismo modelo a un nuevo conjunto de datos (\protect\hyperlink{ref-copa:1983}{Copas 1983}).
 
 Como ejemplo, tomemos una muestra de 48 niñxs de la base de datos NHANES y ajustemos un modelo de regresión para los datos de peso que incluya varios regresores (edad, altura, horas que pasan viendo TV y usando la computadora, e ingreso económico del hogar) junto con sus interacciones.
 
@@ -4222,7 +4232,7 @@ Shuffled data & 7.8 & 59\\
 \end{tabular}
 \end{table}
 
-Aquí podemos ver que mientras que el modelo mostró un ajuste muy bueno en los datos originales (sólo con error de algunos kg por individux), el mismo modelo hace un peor trabajo prediciendo los datos del peso de nuevos niñxs muestreados de la misma población (con error de más de 25 kg por persona). Esto sucede porque nuestro modelo especificado es bastante complejo, ya que incluye no sólo las variables individuales, sino también todas las posibles combinaciones entre ellas (i.e.~sus \emph{interacciones}), resultando en un modelo con 32 parámetros. Como esto significa tener casi tantos coeficientes como datos en la muestra (i.e., las alturas de 48 niñxs), el modelo se \emph{sobreajusta} (\emph{overfits}) a los datos, justo como sucedió con nuestra curva polinomial compleja en nuestro ejemplo inicial sobre el sobreajuste en la Sección \ref{overfitting}.
+Aquí podemos ver que mientras que el modelo mostró un ajuste muy bueno en los datos originales (sólo con error de algunos kg por persona), el mismo modelo hace un peor trabajo prediciendo los datos del peso de nuevos niñxs muestreados de la misma población (con error de más de 25 kg por persona). Esto sucede porque nuestro modelo especificado es bastante complejo, ya que incluye no sólo las variables individuales, sino también todas las posibles combinaciones entre ellas (i.e.~sus \emph{interacciones}), resultando en un modelo con 32 parámetros. Como esto significa tener casi tantos coeficientes como datos en la muestra (i.e., las alturas de 48 niñxs), el modelo se \emph{sobreajusta} (\emph{overfits}) a los datos, justo como sucedió con nuestra curva polinomial compleja en nuestro ejemplo inicial sobre el sobreajuste en la Sección \ref{overfitting}.
 
 Otra manera de ver los efectos del sobreajuste es el observar qué sucede si reordenamos aleatoriamente los valores de nuestra variable de peso (mostrada en la segunda fila de la tabla). El reordenar aleatoriamente los valores debería hacer imposible el predecir el peso a partir de otras variables, porque no tendrían ningún relación sistemática. Los resultados en la tabla muestran que incluso cuando no hay una verdadera relación a ser modelada (porque el reordenar aleatoriamente debería haber destruido cualquier relación), el modelo complejo aún muestra un error muy bajo en sus predicciones de los datos ajustados, porque termina ajustándose al error en nuestros datos específicos. Sin embargo, cuando el modelo es aplicado a nuevos datos, vemos que el error es mucho mayor, como debería suceder.
 
@@ -4346,7 +4356,7 @@ Las reglas de multiplicación de matrices nos dicen que las dimensiones de las m
 
 \(\hat{y}_8 = studyTime_8*\beta_1 + 1*\beta_2\)
 
-Recuerda que nuestra meta es el determinar los valores \(\beta\) con mejor ajuste dado que conocemos los valores \(X\) y \(Y\). Una manera ingenuaa de hacer esto sería el resolver para \(\beta\) usando álgebra simple -- aquí quitamos el término para el error \(E\) porque está fuera de nuestro control:
+Recuerda que nuestra meta es el determinar los valores \(\beta\) con mejor ajuste dado que conocemos los valores \(X\) y \(Y\). Una manera ingenua de hacer esto sería el resolver para \(\beta\) usando álgebra simple -- aquí quitamos el término para el error \(E\) porque está fuera de nuestro control:
 
 \[
 \hat{\beta} = \frac{Y}{X}
@@ -4386,7 +4396,7 @@ Cualquier persona que esté interesada en un uso serio de métodos estadísticos
 \hypertarget{comparar-medias}{%
 \chapter{Comparar medias}\label{comparar-medias}}
 
-Hemos encontrado ya un número de casos donde queremos hacer preguntas acerca de la media de una muetra. En este capítulo, profundizaremos en las varias maneras en que podemos comparar medias entre grupos.
+Hemos encontrado ya un número de casos donde queremos hacer preguntas acerca de la media de una muestra. En este capítulo, profundizaremos en las varias maneras en que podemos comparar medias entre grupos.
 
 \hypertarget{single-mean}{%
 \section{Probar el valor de una media simple}\label{single-mean}}
@@ -4473,7 +4483,6 @@ Una pregunta común que frecuentemente surge en estadística es si existe una di
 \includegraphics[height=0.5\textheight]{StatsThinking21_files/figure-latex/PotTVViolin-1} \caption{Izquierda: Gráfica de violín mostrando distribuciones de horas de ver TV por día separados por el uso regular de marihuana. Derecha: Gráficas de violín mostrando los datos para cada grupo, con una línea punteada conectando los valores predichos para cada grupo, calculado en base a los resultados del modelo lineal.}\label{fig:PotTVViolin}
 \end{figure}
 
-We can also use Student's t test to test for differences between two groups of independent observations (as we saw in an earlier chapter); we will turn later in the chapter to cases where the observations are not independent. As a reminder, the t-statistic for comparison of two independent groups is computed as:
 También podemos usar la prueba t de Student para probar diferencias entre dos grupos de observaciones independientes (como revisamos en un capítulo anterior); regresaremos después en este capítulo a casos donde las observaciones no son independientes. Como recordatorio, el estadístico t para comparaciones entre dos grupos independientes se calcula así:
 
 \[
@@ -4536,7 +4545,6 @@ Para calcular los errores estándar para este análisis, podemos usar exactament
 \hypertarget{tamauxf1os-de-efecto-para-comparar-dos-medias}{%
 \subsection{Tamaños de efecto para comparar dos medias}\label{tamauxf1os-de-efecto-para-comparar-dos-medias}}
 
-The most commonly used effect size for a comparison between two means is Cohen's d, which (as you may remember from Chapter \ref{ci-effect-size-power}) is an expression of the effect size in terms of standard deviation units. For the t-test estimated using the general linear model outlined above (i.e.~with a single dummy-coded variable), this is expressed as:
 El tamaño de efecto más comúnmente usado para comparar dos medias es la d de Cohen, la cual (como recordarás del Capítulo \ref{ci-effect-size-power}) es una expresión del tamaño del efecto en términos de unidades de desviación estándar. Para la prueba t estimada usando el modelo lineal general desarrollado arriba (i.e.~con una sola variable dummy codificada), esto es expresado como:
 
 \[
@@ -4669,7 +4677,7 @@ Frecuentemente queremos comparar más de dos medias para determinar si alguna de
 
 Primero querríamos probar la hipótesis nula de que las medias de todos los grupos son iguales -- esto es, ninguno de los tratamientos tuvo ningún efecto comparado con el placebo. Podemos hacer esto usando un método llamado \emph{análisis de varianza} (\emph{analysis of variance}, ANOVA). Este es uno de los métodos más comúnmente usados en estadística en psicología, aquí sólo lo revisaremos superficialmente. La idea básica detrás de ANOVA es una que ya discutimos en el capítulo sobre el modelo lineal general, y de hecho el ANOVA es sólo un nombre para una versión específica de ese modelo.
 
-Recordarás del capítulo anterior que podemos dividir la varianza total de los datos (\(SS_{total}\)) entre la varianza que es explicada por el modelo (\(SS_{model}\)) y la varianza que no es explicada por el modelo (\(SS_{error}\)). Entonces podemos calcular la \emph{media cuadrática} (\emph{mean square}) para cada una de éstas al dividirlas entre sus grados de libertad; para el error, los grados de libertad son \(N - p\) (donde \(p\) es el número de medias que calculamos), y para el modelo son \(p - 1\):
+Recordarás del capítulo anterior que podemos dividir la varianza total de los datos (\(SS_{total}\)) en la varianza que es explicada por el modelo (\(SS_{model}\)) y la varianza que no es explicada por el modelo (\(SS_{error}\)). Entonces podemos calcular la \emph{media cuadrática} (\emph{mean square}) para cada una de éstas al dividirlas entre sus grados de libertad; para el error, los grados de libertad son \(N - p\) (donde \(p\) es el número de medias que calculamos), y para el modelo son \(p - 1\):
 
 \[
 MS_{model} =\frac{SS_{model}}{df_{model}}= \frac{SS_{model}}{p-1}
@@ -4821,7 +4829,7 @@ Comparar 4 dietas para perder peso que representan un espectro de ingesta de cal
 \hypertarget{identificar-o-recolectar-los-datos-apropiados.}{%
 \subsection{2: Identificar o recolectar los datos apropiados.}\label{identificar-o-recolectar-los-datos-apropiados.}}
 
-Para responder la pregunta, los investigadores asignaron aleatoriamente a 311 mujeres con sobrepeso u obesidad a una de cuatro diferentes dietas (Atkins, Zone, Ornish, or LEARN), y midieron su peso junto con otras variables de salud a lo largo del tiempo. Los autores registraron un gran número de variables, pero para la pregunta principal de interés nos enfocaremos en una variable sencilla: Índice de Masa Corporal (MCI; Body Mass Index, BMI). Además, como nuestra meta es medir cambios perdurables en IMC, revisaremos únicamente la medición tomada 12 meses después del inicio de la dieta.
+Para responder la pregunta, los investigadores asignaron aleatoriamente a 311 mujeres con sobrepeso u obesidad a una de cuatro diferentes dietas (Atkins, Zone, Ornish, or LEARN), y midieron su peso junto con otras variables de salud a lo largo del tiempo. Los autores registraron un gran número de variables, pero para la pregunta principal de interés nos enfocaremos en una variable sencilla: Índice de Masa Corporal (IMC; Body Mass Index, BMI). Además, como nuestra meta es medir cambios perdurables en IMC, revisaremos únicamente la medición tomada 12 meses después del inicio de la dieta.
 
 \hypertarget{preparar-los-datos-para-el-anuxe1lisis.}{%
 \subsection{3: Preparar los datos para el análisis.}\label{preparar-los-datos-para-el-anuxe1lisis.}}
@@ -4922,12 +4930,12 @@ La primera cosa que queremos hacer es criticar el modelo para asegurarnos que es
 \caption{\label{fig:residualPlot}Distribución de residuales para cada condición.}
 \end{figure}
 
-Otra suposición importante de las pruebas estadísticas que aplicamos a modelos lineales es que los residuales del modelo están normalmente distribuidos. El panel derecho de la Figura \ref{fig:diagnosticQQPlot} muestra una gráfica Q-Q (quantile-quantile, cuantil-cuantil) que grafica los residuales contra su valor esperado basado en sus cuantiles en la distribución normal. Si los residuales están normalmente distribuidos entonces los datos caerían a lo largo de la línea punteada --- en este caso se ven bastante bien, excepto por un par de outliers (valores atípicos) que son aparentes aquí. Debido a que este modelo es también relativamente robusto a desviaciones de la normalidad, y a que éstas son relativamente pequeñas, seguiremos adelante y usaremos estos resultados.
+Otra suposición importante de las pruebas estadísticas que aplicamos a modelos lineales es que los residuales del modelo están normalmente distribuidos. El panel derecho de la Figura \ref{fig:diagnosticQQPlot} muestra una gráfica Q-Q (\emph{quantile-quantile}, cuantil-cuantil) que grafica los residuales contra su valor esperado basado en sus cuantiles en la distribución normal. Si los residuales están normalmente distribuidos entonces los datos caerían a lo largo de la línea punteada --- en este caso se ven bastante bien, excepto por un par de outliers (valores atípicos) que son aparentes aquí. Debido a que este modelo es también relativamente robusto a desviaciones de la normalidad, y a que éstas son relativamente pequeñas, seguiremos adelante y usaremos estos resultados.
 
 \begin{figure}
 \centering
 \includegraphics{StatsThinking21_files/figure-latex/diagnosticQQPlot-1.pdf}
-\caption{\label{fig:diagnosticQQPlot}Gráfica Q-Q de los valore residuales reales contra sus valores residuales teóricos.}
+\caption{\label{fig:diagnosticQQPlot}Gráfica Q-Q de los valores residuales reales contra sus valores residuales teóricos.}
 \end{figure}
 
 \hypertarget{probar-hipuxf3tesis-y-cuantificar-el-tamauxf1o-del-efecto.}{%
@@ -4963,11 +4971,11 @@ Esto nos muestra que hay evidencia muy fuerte (factor de Bayes cercano a 100) de
 \hypertarget{quuxe9-pasa-con-los-posibles-factores-de-confusiuxf3n-confounds}{%
 \subsection{¿Qué pasa con los posibles factores de confusión (confounds)?}\label{quuxe9-pasa-con-los-posibles-factores-de-confusiuxf3n-confounds}}
 
-Si vemos más de cerca el artículo de Gardner, veremos que también reportaron estadísticas sobre cuántas personas en cada grupo habían sido diagnosticadas con \emph{síndrome metabólico}, que es un síndrome caracterizado por presión sanguínea alta, alta glucosa en sangre, exceso de grasa corporal alrededor de la cintura, y niveles de colesterol anormales; este síndrome está asociado con mayor riesgo de problemas cardiovasculares. Aquí están los datos del artículo de Gardner:
+Si vemos más de cerca el artículo de Gardner, veremos que también reportaron estadísticas sobre cuántas personas en cada grupo habían sido diagnosticadas con \emph{síndrome metabólico}, que es un síndrome caracterizado por presión sanguínea alta, alta glucosa en sangre, exceso de grasa corporal alrededor de la cintura, y niveles de colesterol anormales; este síndrome está asociado con mayor riesgo de problemas cardiovasculares. En la tabla \ref{tab:metabolicSyndrome} están los datos del artículo de Gardner.
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-131}Presencia de síndrome metabólico en cada grupo del estudio AtoZ.}
+\caption{\label{tab:metabolicSyndrome}Presencia de síndrome metabólico en cada grupo del estudio AtoZ.}
 \centering
 \begin{tabular}[t]{l|r|r}
 \hline
@@ -5092,7 +5100,6 @@ Digamos que estamos interesados en un proyecto de investigación sobre cómo los
 \hypertarget{cuxf3mo-realmente-funciona-la-ciencia-a-veces}{%
 \section{Cómo realmente funciona la ciencia (a veces)}\label{cuxf3mo-realmente-funciona-la-ciencia-a-veces}}
 
-Brian Wansink is well known for his books on ``Mindless Eating,'' and his fee for corporate speaking engagements is in the tens of thousands of dollars. In 2017, a set of researchers began to scrutinize some of his published research, starting with a set of papers about how much pizza people ate at a buffet. The researchers asked Wansink to share the data from the studies but he refused, so they dug into his published papers and found a large number of inconsistencies and statistical problems in the papers. The publicity around this analysis led a number of others to dig into Wansink's past, including obtaining emails between Wansink and his collaborators. As \href{https://www.buzzfeednews.com/article/stephaniemlee/brian-wansink-cornell-p-hacking}{reported by Stephanie Lee at Buzzfeed}, these emails showed just how far Wansink's actual research practices were from the naive model:
 Brian Wansink es muy reconocido por sus libros sobre ``Mindless Eating,'' y sus honorarios por dar charlas corporativas están en las decenas de miles de dólares. En 2017, un grupo de investigadores comenzó a examinar algunos de sus investigaciones publicadas, comenzando por un conjunto de artículos acerca de cuánta pizza come la gente en un buffet. Los investigadores pidieron a Wansink que compartiera sus datos de esos estudios pero él se rehusó, por lo que excavaron en sus artículos publicados y encontraron un gran número de inconsistencias y problemas estadísticos. La publicidad alrededor de este análisis llevó a un número de otros investigadores a examinar el pasado de Wansink, incluyendo el obtener emails entre Wansink y sus colaboradores. Como \href{https://www.buzzfeednews.com/article/stephaniemlee/brian-wansink-cornell-p-hacking}{reportó Stephani Lee en Buzzfeed}, estos emails mostraron justo qué tan lejos estaban las prácticas reales de investigación de Wansink del modelo ingenuo de hacer ciencia:
 
 \begin{quote}
@@ -5291,7 +5298,7 @@ Existen muchas maneras de compartir tanto el código como los datos. Una manera 
 \hypertarget{conclusiuxf3n-hacer-mejor-ciencia}{%
 \section{Conclusión: Hacer mejor ciencia}\label{conclusiuxf3n-hacer-mejor-ciencia}}
 
-Es responsabiidad de cada científico el mejorar sus prácticas de investigación para poder incrementar la reproducibilidad de su investigación. Es esencial recordar que la meta de la investigación no es encontrar un resultado significativo; sino hacerse y responderse preguntas acerca de la naturaleza en la manera más honesta posible. La mayoría de nuestras hipótesis estarán equivocadas, y debemos estar cómodos con eso, para que cuando encontremos una que esté en lo correcto, estemos aún más seguros de su verdad.
+Es responsabilidad de cada científico el mejorar sus prácticas de investigación para poder incrementar la reproducibilidad de su investigación. Es esencial recordar que la meta de la investigación no es encontrar un resultado significativo; sino hacerse y responderse preguntas acerca de la naturaleza en la manera más honesta posible. La mayoría de nuestras hipótesis estarán equivocadas, y debemos estar cómodos con eso, para que cuando encontremos una que esté en lo correcto, estemos aún más seguros de su verdad.
 
 \hypertarget{objetivos-de-aprendizaje}{%
 \section{Objetivos de aprendizaje}\label{objetivos-de-aprendizaje}}
@@ -5385,6 +5392,9 @@ Open Science Collaboration. 2015. {``PSYCHOLOGY. Estimating the Reproducibility 
 \leavevmode\hypertarget{ref-pesc:kend:gust:2012}{}%
 Pesch, Beate, Benjamin Kendzia, Per Gustavsson, Karl-Heinz Jöckel, Georg Johnen, Hermann Pohlabeln, Ann Olsson, et al. 2012. {``Cigarette Smoking and Lung Cancer--Relative Risk Estimates for the Major Histological Types from a Pooled Analysis of Case-Control Studies.''} \emph{Int J Cancer} 131 (5): 1210--19. \url{https://doi.org/10.1002/ijc.27339}.
 
+\leavevmode\hypertarget{ref-sche:gent:2001}{}%
+Schenker, Nathaniel, and Jane F. Gentleman. 2001. {``On Judging the Significance of Differences by Examining the Overlap Between Confidence Intervals.''} \emph{The American Statistician} 55 (3): 182--86. \url{http://www.jstor.org/stable/2685796}.
+
 \leavevmode\hypertarget{ref-simm:nels:simo:2011}{}%
 Simmons, Joseph P, Leif D Nelson, and Uri Simonsohn. 2011. {``False-Positive Psychology: Undisclosed Flexibility in Data Collection and Analysis Allows Presenting Anything as Significant.''} \emph{Psychol Sci} 22 (11): 1359--66. \url{https://doi.org/10.1177/0956797611417632}.
 
@@ -5396,6 +5406,9 @@ Stigler, Stephen M. 2016. \emph{The Seven Pillars of Statistical Wisdom}. Harvar
 
 \leavevmode\hypertarget{ref-teic:2014}{}%
 Teicholz, Nina. 2014. \emph{The Big Fat Surprise}. Simon \& Schuster.
+
+\leavevmode\hypertarget{ref-wake:1999}{}%
+Wakefield, A J. 1999. {``MMR Vaccination and Autism.''} \emph{Lancet} 354 (9182): 949--50. \url{https://doi.org/10.1016/S0140-6736(05)75696-8}.
 
 \leavevmode\hypertarget{ref-wans:just:payn:2012}{}%
 Wansink, Brian, David R Just, and Collin R Payne. 2012. {``Can Branding Improve School Lunches?''} \emph{Arch Pediatr Adolesc Med} 166 (10): 1--2. \url{https://doi.org/10.1001/archpediatrics.2012.999}.

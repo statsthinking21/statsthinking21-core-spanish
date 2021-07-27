@@ -67,6 +67,7 @@ Hasta ahora en el libro nos hemos enfocado en estimar el valor específico de un
 
 <!--You may also remember that earlier we introduced the concept of a *confidence interval*, which is a way of describing our uncertainty about a statistical estimate.  Remember that a confidence interval describes an interval that will on average contain the true population parameter with a given probability; for example, the 95% confidence interval is an interval that will capture the true population parameter 95% of the time.  Note again that this is not a statement about the population parameter; any particular confidence interval either does or does not contain the true parameter.  As Jerzy Neyman, the inventor of the confidence interval, said:-->
 También recordarás que anteriormente introdujimos el concepto de *intervalo de confianza*, que es una manera de describir nuestra incertidumbre acerca de un estimado estadístico. Recuerda que un intervalo de confianza describe un intervalo que contendrá, en promedio, un parámetro real de la población con una probabilidad dada; por ejemplo, el 95% de intervalo de confianza es un intervalo que va a capturar el verdadero parámetro poblacional 95% de las veces. Nótese que esto no es una afirmación acerca del parámetro poblacional. Como Jerzy Neyman, el inventor del intervalo de confianza, dijo:  
+
 <!-- > "The parameter is an unknown constant and no probability statement concerning its value may be made."[@Neyman37] -->
 > "El parámetro es una constante desconocida y no se puede hacer ninguna declaración de probabilidad sobre su valor". [@Neyman37]
 
@@ -129,7 +130,7 @@ donde $t_{crit}$ es el valor crítico de t.
 Para el ejemplo del peso en NHANES (con una muestra de tamaño `r I(sampSize)`), el intervalo de confianza sería de `r I(sprintf('%0.2f +/- %0.2f * %0.2f [%0.2f - %0.2f]', sample_summary$meanWeight,sample_summary$cutoff_upper,sample_summary$SEM,  sample_summary$CI_lower, sample_summary$CI_upper))`.
 
 <!-- Remember that this doesn't tell us anything about the probability of the true population value falling within this interval, since it is a fixed parameter (which we know is `r I(mean(NHANES_adult$Weight))` because we have the entire population in this case) and it either does or does not fall within this specific interval (in this case, it does).  Instead, it tells us that in the long run, if we compute the confidence interval using this procedure, 95% of the time that confidence interval will capture the true population parameter.-->
-Recuerde que esto no nos dice nada acerca de la probabilidad de que el valor real de la población caiga dentro de este intervalo, ya que es un parámetro fijo (que sabemos que es `r I (mean (NHANES_adult $ Weight))` porque tenemos a toda la población en este caso) y cae o no dentro de este intervalo específico (en este caso, sí). En cambio, nos dice que a largo plazo, si calculamos el intervalo de confianza utilizando este procedimiento, el 95% de las veces ese intervalo de confianza capturará el parámetro de población real.
+Recuerde que esto no nos dice nada acerca de la probabilidad de que el valor real de la población caiga dentro de este intervalo, ya que es un parámetro fijo (que sabemos que es `r I (mean (NHANES_adult$Weight))` porque tenemos a toda la población en este caso) y cae o no dentro de este intervalo específico (en este caso, sí). En cambio, nos dice que a largo plazo, si calculamos el intervalo de confianza utilizando este procedimiento, el 95% de las veces ese intervalo de confianza capturará el parámetro de población real.
 
 <!--### Confidence intervals and sample size-->
 ### Intervalos de confianza y tamaño de muestra 
@@ -137,7 +138,7 @@ Recuerde que esto no nos dice nada acerca de la probabilidad de que el valor rea
 <!--Because the standard error decreases with sample size, the confidence interval should get narrower as the sample size increases, providing progressively tighter bounds on our estimate.  Figure \@ref(fig:CISampSize) shows an example of how the confidence interval would change as a function of sample size for the weight example. From the figure it's evident that the confidence interval becomes increasingly tighter as the sample size increases, but increasing samples provide diminishing returns, consistent with the fact that the denominator of the confidence interval term is proportional to the square root of the sample size.-->
 Debido a que el error estándar disminuye con el tamaño de la muestra, el intervalo de confianza debería hacerse más estrecho a medida que aumenta el tamaño de la muestra, proporcionando límites progresivamente más estrictos en nuestra estimación. La figura \@ref(fig:CISampSize) muestra un ejemplo de cómo cambiaría el intervalo de confianza en función del tamaño de la muestra para el ejemplo de ponderación. A partir de la figura, es evidente que el intervalo de confianza se vuelve cada vez más estricto a medida que aumenta el tamaño de la muestra, pero el aumento de las muestras proporciona rendimientos decrecientes, en consonancia con el hecho de que el denominador del término del intervalo de confianza es proporcional a la raíz cuadrada del tamaño de la muestra.
 
-```{r CISampSize,echo=FALSE,fig.cap="Ejemplo del effecto de tamaño de muestra en la amplitud del intevalo de confianza para la media.",fig.width=4,fig.height=4,out.height='50%'}
+```{r CISampSize,echo=FALSE,fig.cap="Ejemplo del efecto de tamaño de muestra en la amplitud del intevalo de confianza para la media.",fig.width=4,fig.height=4,out.height='50%'}
 ssDf <- 
   tibble(sampSize=c(10,20,30,40,50,75,100,200,300,400,500)) %>%
   mutate(
@@ -158,8 +159,8 @@ ggplot(ssDf, aes(sampSize, meanHeight)) +
 <!--### Computing confidence intervals using the bootstrap-->
 ### Calcular el intervalo de confianza utilizando "bootstrap"
 
-<!--In some cases we can't assume normality, or we don't know the sampling distribution of the statistic.  In these cases, we can use the bootstrap (which we introduced in Chapter \@ref(resampling-and-simulation)).  As a reminder, the bootstrap involves repeatedly resampling the data *with replacement*, and then using the distribution of the statistic computed on those samples as a surrogate for the sampling distribution of the statistic.These are the results when we use the built-in bootstrapping function in R to compute the confidence interval for weight in our NHANES sample:-->
-En algunos casos, no podemos asumir la normalidad o no conocemos la distribución muestral de la estadística. En estos casos, podemos usar el bootstrap (que presentamos en el Capítulo \@ref(resampling-and-simulation)). Como recordatorio, el bootstrap implica volver a muestrear repetidamente los datos *con reemplazo*, y luego usar la distribución de la estadística calculada en esas muestras como un sustituto de la distribución muestral de la estadística. Estos son los resultados cuando usamos el método integrado función de arranque en R para calcular el intervalo de confianza para el peso en nuestra muestra NHANES:
+<!--In some cases we can't assume normality, or we don't know the sampling distribution of the statistic.  In these cases, we can use the bootstrap (which we introduced in Chapter \@ref(resampling-and-simulation)).  As a reminder, the bootstrap involves repeatedly resampling the data *with replacement*, and then using the distribution of the statistic computed on those samples as a surrogate for the sampling distribution of the statistic. These are the results when we use the built-in bootstrapping function in R to compute the confidence interval for weight in our NHANES sample:-->
+En algunos casos, no podemos asumir la normalidad o no conocemos la distribución muestral de la estadística. En estos casos, podemos usar el bootstrap (que presentamos en el Capítulo \@ref(resampling-and-simulation)). Como recordatorio, el bootstrap implica volver a muestrear repetidamente los datos *con reemplazo*, y luego usar la distribución de la estadística calculada en esas muestras como un sustituto de la distribución muestral de la estadística. Estos son los resultados cuando usamos el la función integrada en R para calcular el intervalo de confianza para el peso en nuestra muestra NHANES:
 
 ```{r echo=FALSE}
 # compute bootstrap confidence intervals on NHANES weight data
@@ -176,16 +177,16 @@ print(bootci)
 ```
 
 <!--These values are fairly close to the values obtained using the t distribution above, though not exactly the same.-->
-Estos valores son bastante cercanos a los valores obtenidos usando la distribución t antedicha, pero no exactamente la misma. 
+Estos valores son bastante cercanos a los valores obtenidos usando la distribución t antedicha, pero no exactamente iguales. 
 
 <!--### Relation of confidence intervals to hypothesis tests-->
 ### Relación de los intervalos de confianza con la prueba de hipótesis
-<!--There is a close relationship between confidence intervals and hypothesis tests.  In particular, if the confidence interval does not include the null hypothesis, then the associated statistical test would be statistically significant.  For example, if you are testing whether the mean of a sample is greater than zero with $\alpha = 0.05$, you could simply check to see whether zero is contained within the 95% confidence interval for the mean.
-Things get trickier if we want to compare the means of two conditions [@sche:gent:2001]. There are a couple of situations that are clear.  First, if each mean is contained within the confidence interval for the other mean, then there is definitely no significant difference at the chosen confidence level.  Second, if there is no overlap between the confidence intervals, then there is certainly a significant difference at the chosen level; in fact, this test is substantially *conservative*, such that the actual error rate will be lower than the chosen level.  But what about the case where the confidence intervals overlap one another but don't contain the means for the other group?  In this case the answer depends on the relative variability of the two variables, and there is no general answer.  However, one should in general avoid using the "eyeball test" for overlapping confidence intervals.-->
 
-Existe una estrecha relación entre los intervalos de confianza y las pruebas de hipótesis. En particular, si el intervalo de confianza no incluye la hipótesis nula, entonces la prueba estadística asociada sería estadísticamente significativa. Por ejemplo, si está probando si la media de una muestra es mayor que cero con $\alpha = 0.05$, simplemente puede verificar si cero está contenido dentro del intervalo de confianza del 95% para la media.
+<!-- There is a close relationship between confidence intervals and hypothesis tests.  In particular, if the confidence interval does not include the null hypothesis, then the associated statistical test would be statistically significant.  For example, if you are testing whether the mean of a sample is greater than zero with $\alpha = 0.05$, you could simply check to see whether zero is contained within the 95% confidence interval for the mean. -->
+Existe una estrecha relación entre los intervalos de confianza y las pruebas de hipótesis. En particular, si el intervalo de confianza no incluye la hipótesis nula, entonces la prueba estadística asociada sería estadísticamente significativa. Por ejemplo, si se está probando si la media de una muestra es mayor que cero con $\alpha = 0.05$, simplemente puede verificar si el cero está contenido dentro del intervalo de confianza del 95% para la media.
 
-Las cosas se complican si queremos comparar las medias de dos condiciones [@sche: gent: 2001]. Hay un par de situaciones que están claras. Primero, si cada media está contenida dentro del intervalo de confianza para la otra media, entonces definitivamente no hay diferencia significativa en el nivel de confianza elegido. En segundo lugar, si no hay superposición entre los intervalos de confianza, ciertamente hay una diferencia significativa en el nivel elegido; de hecho, esta prueba es sustancialmente * conservadora *, de modo que la tasa de error real será menor que el nivel elegido. Pero, ¿qué pasa con el caso en el que los intervalos de confianza se superponen entre sí pero no contienen las medias para el otro grupo? En este caso, la respuesta depende de la variabilidad relativa de las dos variables y no hay una respuesta general. Sin embargo, en general, se debe evitar el uso de la "prueba del globo ocular" para los intervalos de confianza superpuestos.
+<!-- Things get trickier if we want to compare the means of two conditions [@sche:gent:2001]. There are a couple of situations that are clear.  First, if each mean is contained within the confidence interval for the other mean, then there is definitely no significant difference at the chosen confidence level.  Second, if there is no overlap between the confidence intervals, then there is certainly a significant difference at the chosen level; in fact, this test is substantially *conservative*, such that the actual error rate will be lower than the chosen level.  But what about the case where the confidence intervals overlap one another but don't contain the means for the other group?  In this case the answer depends on the relative variability of the two variables, and there is no general answer.  However, one should in general avoid using the "eyeball test" for overlapping confidence intervals.--> -->
+Las cosas se complican si queremos comparar las medias de dos condiciones [@sche:gent:2001]. Hay un par de situaciones que están claras. Primero, si cada media está contenida dentro del intervalo de confianza de la otra media, entonces definitivamente no hay diferencia significativa en el nivel de confianza elegido. En segundo lugar, si no hay superposición entre los intervalos de confianza, ciertamente hay una diferencia significativa en el nivel elegido; de hecho, esta prueba es sustancialmente *conservadora*, de modo que la tasa de error real será menor que el nivel elegido. Pero, ¿qué pasa con el caso en el que los intervalos de confianza se superponen entre sí pero no contienen la media para el otro grupo? En este caso, la respuesta depende de la variabilidad relativa de las dos variables y no hay una respuesta general. Sin embargo, en general, se debe evitar el uso de "medir a simple vista" para los intervalos de confianza superpuestos.
 
 ```{r, echo=FALSE}
 # example of CI overlap here?
@@ -194,22 +195,22 @@ Las cosas se complican si queremos comparar las medias de dos condiciones [@sche
 <!--## Effect sizes-->
 ## Tamaño de efecto (effect sizes) 
 
-> "Statistical significance is the least interesting thing about the results. You should describe the results in terms of measures of magnitude – not just, does a treatment affect people, but how much does it affect them." Gene Glass (REF)
-> "La importancia estadística es lo menos interesante de los resultados. Debe describir los resultados en términos de medidas de magnitud, no solo si un tratamiento afecta a las personas, sino cuánto las afecta". Gene Glass (REF)
+<!-- > "Statistical significance is the least interesting thing about the results. You should describe the results in terms of measures of magnitude – not just, does a treatment affect people, but how much does it affect them." Gene Glass (REF) -->
+> "La significatividad estadística es lo menos interesante de los resultados. Debe describir los resultados en términos de medidas de magnitud, no solo si un tratamiento afecta a las personas, sino cuánto las afecta". Gene Glass (REF)
 
 <!--In the previous chapter, we discussed the idea that statistical significance may not necessarily reflect practical significance.  In order to discuss practical significance, we need a standard way to describe the size of an effect in terms of the actual data, which we refer to as an *effect size*.  In this section we will introduce the concept and discuss various ways that effect sizes can be calculated.
 An effect size is a standardized measurement that compares the size of some statistical effect to a reference quantity, such as the variability of the statistic. In some fields of science and engineering, this idea is referred to as a "signal to noise ratio".  There are many different ways that the effect size can be quantified, which depend on the nature of the data.-->
-
-En el capítulo anterior, discutimos la idea de que la significación estadística no necesariamente refleja la significación práctica. Para discutir la importancia práctica, necesitamos una forma estándar de describir el tamaño de un efecto en términos de los datos reales, a los que nos referimos como * tamaño del efecto *. En esta sección presentaremos el concepto y discutiremos varias formas en que se pueden calcular los tamaños del efecto.
+En el capítulo anterior, discutimos la idea de que la significación estadística no necesariamente refleja la significación práctica. Para discutir la importancia práctica, necesitamos una forma estándar de describir el tamaño de un efecto en términos de los datos reales, a los que nos referimos como *tamaño del efecto*. En esta sección presentaremos el concepto y discutiremos varias formas en que se pueden calcular los tamaños del efecto.
 El tamaño del efecto es una medida estandarizada que compara el tamaño de algún efecto estadístico con una cantidad de referencia, como la variabilidad de la estadística. En algunos campos de la ciencia y la ingeniería, esta idea se conoce como "relación señal/ruido". Hay muchas formas diferentes de cuantificar el tamaño del efecto, que dependen de la naturaleza de los datos.
 
 <!--### Cohen's D-->
 ### D de Cohen 
 
 <!--One of the most common measures of effect size is known as *Cohen's d*, named after the statistician Jacob Cohen (who is most famous for his 1994 paper titled "The Earth Is Round (p < .05)").  It is used to quantify the difference between two means, in terms of their standard deviation:-->
-Una de las medidas más comunes de tamaño de efectos es conocida como la *D de Cohen*, nombrada en honor al  estadístico Jacob Cohen (quien es más famoso por su trabajo de 1994 "El mundo es redondo" (p < .05)"). Es usada para cuantificar la diferencia entre dos medias, en términos de su desviación estándar: 
+Una de las medidas más comunes de tamaño de efectos es conocida como la *d de Cohen*, nombrada en honor al  estadístico Jacob Cohen (quien es más famoso por su trabajo de 1994 "El mundo es redondo (p < .05)"). Es usada para cuantificar la diferencia entre dos medias, en términos de su desviación estándar: 
 
-<!--$$
+<!--
+$$
 d = \frac{\bar{X}_1 - \bar{X}_2}{s}
 $$
 where $\bar{X}_1$ and $\bar{X}_2$ are the means of the two groups, and $s$ is the pooled standard deviation (which is a combination of the standard deviations for the two samples, weighted by their sample sizes):
@@ -222,13 +223,13 @@ $$
 d = \frac{\bar{X}_1 - \bar{X}_2}{s}
 $$
 
-donde $\bar{X}_1$ y $\bar{X}_2$ son las medias de los dos grupos, y $s$ es la agrupación de la desviación estándar (las cuales son una combinación de desviaciones para dos muestras, ponderados por sus tamaños de muestra):
+donde $\bar{X}_1$ y $\bar{X}_2$ son las medias de los dos grupos, y $s$ es la desviación estándar agrupada (la cual es una combinación de desviaciones para dos muestras, ponderada por sus tamaños de muestra):
 
 $$
 s = \sqrt{\frac{(n_1 - 1)s^2_1 + (n_2 - 1)s^2_2 }{n_1 +n_2 -2}}
 $$
-donde $n_1$ y $n_2$ son tamaños de muestra y $s^2_1$ y $s^2_2$ son las desviaciones estándar por dos grupos, respectivamente. Nótese que esto es muy similar en espíritu a la estadística t --- la diferencia principal es que el denominador en la estadística está basada en el error estándar de la media, mientras que el denominador en la D de Cohen está basada en la desviación estándar de los datos. Esto significa que mientras que la estadística t va a crecer conforme al tamaño de la muestra aumente, el valor de la D de Cohen se mantendrá igual.
-Hay una escala comúnmente usada par interpretar el tamaño de un efecto en términos de la D de Cohen: 
+donde $n_1$ y $n_2$ son tamaños de muestra y $s^2_1$ y $s^2_2$ son las desviaciones estándar de los dos grupos, respectivamente. Nótese que esto es muy similar en espíritu al estadístico t --- la diferencia principal es que el denominador en la estadística está basada en el error estándar de la media, mientras que el denominador en la D de Cohen está basada en la desviación estándar de los datos. Esto significa que mientras que la estadística t va a crecer conforme al tamaño de la muestra aumente, el valor de la D de Cohen se mantendrá igual.
+Hay una escala comúnmente usada para interpretar el tamaño de un efecto en términos de la D de Cohen: 
 
 
 ```{r echo=FALSE}
@@ -272,7 +273,7 @@ d_height_gender <- (hsum$meanHeight[2] - hsum$meanHeight[1]) / s_height_gender
 ```
 
 <!--It can be useful to look at some commonly understood effects to help understand these interpretations.  For example, the effect size for gender differences in height (d = `r I(d_height_gender)`) is very large by reference to our table above.  We can also see this by looking at the distributions of male and female heights in a sample from the NHANES dataset.  Figure \@ref(fig:genderHist) shows that the two distributions are quite well separated, though still overlapping, highlighting the fact that even when there is a very large effect size for the difference between two groups, there will be individuals from each group that are more like the other group.-->
-Puede ser útil observar algunos efectos comúnmente entendidos para ayudar a comprender estas interpretaciones. Por ejemplo, el tamaño del efecto para las diferencias de género en altura (d = `r I(d_height_gender)`) es muy grande en referencia a nuestra tabla anterior. También podemos ver esto al observar las distribuciones de las alturas de hombres y mujeres en una muestra del conjunto de datos de NHANES. La figura \@ref(fig:genderHist) muestra que las dos distribuciones están bastante bien separadas, aunque todavía se superponen, lo que destaca el hecho de que incluso cuando hay un tamaño de efecto muy grande para la diferencia entre dos grupos, habrá individuos de cada grupo. que son más como el otro grupo.
+Puede ser útil observar algunos efectos comúnmente entendidos para ayudar a comprender estas interpretaciones. Por ejemplo, el tamaño del efecto para las diferencias de altura por género (d = `r I(d_height_gender)`) es muy grande en referencia a nuestra tabla anterior. También podemos ver esto al observar las distribuciones de las alturas de hombres y mujeres en una muestra del conjunto de datos de NHANES. La figura \@ref(fig:genderHist) muestra que las dos distribuciones están bastante bien separadas, aunque todavía se superponen, lo que destaca el hecho de que incluso cuando hay un tamaño de efecto muy grande para la diferencia entre dos grupos, habrá individuos de cada grupo. que son más como el otro grupo.
 
 ```{r genderHist,echo=FALSE,fig.cap="Gráficos de histograma suavizados para alturas masculinas y femeninas en el conjunto de datos de NHANES, que muestran distribuciones claramente distintas pero también claramente superpuestas.",fig.width=4,fig.height=4,out.height='50%'}
 ggplot(NHANES_sample,aes(x=Height,color=Gender)) + 
@@ -282,15 +283,17 @@ ggplot(NHANES_sample,aes(x=Height,color=Gender)) +
 ```
 
 <!--It is also worth noting that we rarely encounter effects of this magnitude in science, in part because they are such obvious effects that we don't need scientific research to find them.  As we will see in Chapter \@ref(doing-reproducible-research) on reproducibility, very large reported effects in scientific research often reflect the use of questionable research practices rather than truly huge effects in nature. It is also worth noting that even for such a huge effect, the two distributions still overlap - there will be some females who are taller than the average male, and vice versa. For most interesting scientific effects, the degree of overlap will be much greater, so we shouldn't immediately jump to strong conclusions about individual from different populations based on even a large effect size.-->
-También vale la pena señalar que rara vez encontramos efectos de esta magnitud en la ciencia, en parte porque son efectos tan obvios que no necesitamos investigación científica para encontrarlos. Como veremos en el Capítulo \@ref(hacer-investigación-reproducible) sobre la reproducibilidad, los efectos muy grandes reportados en la investigación científica a menudo reflejan el uso de prácticas de investigación cuestionables en lugar de efectos verdaderamente enormes en la naturaleza. También vale la pena señalar que incluso para un efecto tan grande, las dos distribuciones aún se superponen: habrá algunas mujeres que serán más altas que el hombre promedio, y viceversa. Para los efectos científicos más interesantes, el grado de superposición será mucho mayor, por lo que no deberíamos sacar conclusiones sólidas de inmediato sobre individuos de diferentes poblaciones basadas incluso en un tamaño de efecto grande.
+También vale la pena señalar que rara vez encontramos efectos de esta magnitud en la ciencia, en parte porque son efectos tan obvios que no necesitamos investigación científica para encontrarlos. Como veremos en el Capítulo \@ref(doing-reproducible-research) sobre la reproducibilidad, los efectos muy grandes reportados en la investigación científica a menudo reflejan el uso de prácticas de investigación cuestionables en lugar de efectos verdaderamente enormes en la naturaleza. También vale la pena señalar que incluso para un efecto tan grande, las dos distribuciones aún se superponen: habrá algunas mujeres que serán más altas que el hombre promedio, y viceversa. Para los efectos científicos más interesantes, el grado de superposición será mucho mayor, por lo que no deberíamos sacar conclusiones sólidas de inmediato sobre individuos de diferentes poblaciones basadas incluso en un tamaño de efecto grande.
 
 <!--### Pearson's r-->
-### R de Pearson 
+### r de Pearson 
 
 <!--Pearson's *r*, also known as the *correlation coefficient*, is a measure of the strength of the linear relationship between two continuous variables.  We will discuss correlation in much more detail in Chapter \@ref(modeling-continuous-relationships), so we will save the details for that chapter; here, we simply introduce *r* as a way to quantify the relation between two variables.-->
-La *r* de Pearson, también conocida como el coeficiente de correlación, es una medida sobre la fuerza de la relación linear entre dos variables continuas. Hablaremos sobre correlación con mayor detalle en el capítulo \@ref(modeling-continuous-relationships), para que podamos guardar los detalles para ese capítulol aquí simplemente introduciremos *r* como una manera de cuantificar la relación entre dos variables.  
+La *r* de Pearson, también conocida como el coeficiente de correlación, es una medida sobre la fuerza de la relación linear entre dos variables continuas. Hablaremos sobre correlación con mayor detalle en el capítulo \@ref(modeling-continuous-relationships), para que podamos guardar los detalles para ese capítulo aquí simplemente presentaremos *r* como una manera de cuantificar la relación entre dos variables.  
+
 <!--*r* is a measure that varies from -1 to 1, where a value of 1 represents a perfect positive relationship between the variables, 0 represents no relationship, and -1 represents a perfect negative relationship.  Figure \@ref(fig:corrFig) shows examples of various levels of correlation using randomly generated data.-->
-*r* es una medida que varía de -1 a 1, donde el valor de 1 representa una perfecta relación positica entre variables, 0 representa no relación y -1 representa una relación perfectamente negativa. La figura \@ref(fig:corrFig) muestra ejemplos de varios niveles de correlación utilizando datos generados aleatoriamente. 
+*r* es una medida que varía de -1 a 1, donde el valor de 1 representa una perfecta relación positiva entre variables, 0 representa no relación y -1 representa una relación perfectamente negativa. La figura \@ref(fig:corrFig) muestra ejemplos de varios niveles de correlación utilizando datos generados aleatoriamente.
+
 ```{r corrFig,echo=FALSE,fig.cap="Ejemplos de varios niveles de la r de Pearson.",fig.width=9,fig.height=6,out.height='50%'}
 set.seed(123456789)
 p <- list()
@@ -311,25 +314,24 @@ plot_grid(p[[1]],p[[2]],p[[3]],p[[4]],p[[5]])
 <!--### Odds ratio-->
 ### Razón de probabilidades (odds ratio)
 
-<!--In our earlier discussion of probability we discussed the concept of odds -- that is, the relative likelihood of some event happening versus not happening:
+<!-- In our earlier discussion of probability we discussed the concept of odds -- that is, the relative likelihood of some event happening versus not happening: -->
+En nuestra discusión anterior sobre probabilidad discutimos el concepto de las posibilidades -- que es, la probabilidad de que un evento suceda versus a que no suceda.
+
 $$
 odds\ of\ A = \frac{P(A)}{P(\neg A)}
 $$
-We also discussed the *odds ratio*, which is simply the ratio of two odds. The odds ratio is a useful way to describe effect sizes for binary variables.
+
+<!--  We also discussed the *odds ratio*, which is simply the ratio of two odds. The odds ratio is a useful way to describe effect sizes for binary variables.
 For example, let's take the case of smoking and lung cancer.  A study published in the International Journal of Cancer in 2012 [@pesc:kend:gust:2012] combined data regarding the occurrence of lung cancer in smokers and individuals who have never smoked across a number of different studies.  Note that these data come from case-control studies, which means that participants in the studies were recruited because they either did or did not have cancer; their smoking status was then examined. These numbers thus do not represent the prevalence of cancer amongst smokers in the general population -- but they can tell us about the relationship between cancer and smoking.-->
-En nuestra discusión anterior sobre probabilidad discurtimos el concepto de razón -- que es, la probabilidad de que un evento suceda versus a que no suceda.
-$$
-odds\ of\ A = \frac{P(A)}{P(\neg A)}
-$$
-También discutimos la *razón de probabilidades* que es simplemente la razón entre dos probabilidades. La razón de posibilidades es una manera útil para describir tamaños de efectos para variables binarias. 
-Por ejemplo, tomemos el caso de fumar y el cáncer de pulmón. Un estudio publicado en el International Journal of Cancer en 2012 [@pesc:kend:gust:2012] combinó datos sobre la aparición de cáncer de pulmón en fumadores y personas que nunca han fumado en una serie de estudios diferentes. Ten en cuenta que estos datos provienen de estudios de casos y controles, lo que significa que los participantes en los estudios fueron reclutados porque tenían o no tenían cáncer; luego se examinó su condición de fumador. Por tanto, estas cifras no representan la prevalencia del cáncer entre los fumadores de la población general, pero pueden informarnos sobre la relación entre el cáncer y el tabaquismo.
+También discutimos la *razón de posibilidades* que es simplemente la razón entre dos posibilidades La razón de posibilidades es una manera útil para describir tamaños de efectos para variables binarias. 
+Por ejemplo, tomemos el caso de fumar y el cáncer de pulmón. Un estudio publicado en el *International Journal of Cancer* en 2012 [@pesc:kend:gust:2012] combinó datos sobre la aparición de cáncer de pulmón en fumadores y personas que nunca han fumado en una serie de estudios diferentes. Ten en cuenta que estos datos provienen de estudios de casos y controles, lo que significa que los participantes en los estudios fueron reclutados porque tenían o no tenían cáncer; luego se examinó su condición de fumador. Por tanto, estas cifras no representan la prevalencia del cáncer entre los fumadores de la población general, pero pueden informarnos sobre la relación entre el cáncer y el tabaquismo.
 
 ```{r echo=FALSE}
 # create table for cancer occurrence depending on smoking status
 smokingDf <- tibble(
   Status = c("No Cancer", "Cancer"),
   NeverSmoked = c(2883, 220),
-  CurrentSmoker = c(3829, 6784),
+  CurrentSmoker = c(3829, 6784)
 )
 kable(smokingDf, caption="Aparición del cáncer de pulmón por separado para los fumadores actuales y los que nunca han fumado.")
 ```
@@ -353,37 +355,37 @@ oddsRatio <- oddsCancerCurrentSmoker/oddsCancerNeverSmoked
 ```
 
 <!--We can convert these numbers to odds ratios for each of the groups.  The odds of a non-smoker having lung cancer are `r I(oddsCancerNeverSmoked)` whereas the odds of a current smoker having lung cancer are `r I(oddsCancerCurrentSmoker)`.  The ratio of these odds tells us about the relative likelihood of cancer between the two groups: The odds ratio of `r I(oddsRatio)` tells us that the odds of lung cancer in smokers are roughly 23 times higher than never-smokers.-->
-Podemos convertir estos números en razones de probabilidades para cada uno de los grupos. Las probabilidades de que un no fumador tenga cáncer de pulmón son `r I(oddsCancerNeverSmoked)` mientras que las probabilidades de que un fumador actual tenga cáncer de pulmón son `r I(oddsCancerCurrentSmoker)`. La razón de estas probabilidades nos dice acerca de la probabilidad relativa de cáncer entre los dos grupos: La razón de probabilidades de `r I(oddsRatio)` nos dice que las probabilidades de cáncer de pulmón en los fumadores son aproximadamente 23 veces más altas que en los que nunca han fumado.
+Podemos convertir estos números en razones de posibilidades (*odds ratios*) para cada uno de los grupos. Las posibilidades de que un no fumador tenga cáncer de pulmón son `r I(oddsCancerNeverSmoked)` mientras que las posibilidades de que un fumador actual tenga cáncer de pulmón son `r I(oddsCancerCurrentSmoker)`. La razón de estas posibilidades nos dice acerca de la probabilidad relativa de cáncer entre los dos grupos: La razón de posibilidades de `r I(oddsRatio)` nos dice que las posibilidades de cáncer de pulmón en los fumadores son aproximadamente 23 veces más altas que en los que nunca han fumado.
 
 <!--## Statistical power-->
 ## Poder estadístico {#statistical-power}
 
 <!--Remember from the previous chapter that under the Neyman-Pearson hypothesis testing approach, we have to specify our level of tolerance for two kinds of errors: False positives (which they called *Type I error*) and false negatives (which they called *Type II error*). People often focus heavily on Type I error, because making a false positive claim is generally viewed as a very bad thing; for example, the now discredited claims by @wake:1999 that autism was associated with vaccination led to anti-vaccine sentiment that has resulted in substantial increases in childhood diseases such as measles.  Similarly, we don't want to claim that a drug cures a disease if it really doesn't.  That's why the tolerance for Type I errors is generally set fairly low, usually at $\alpha = 0.05$.  But what about Type II errors?--> 
-Recuerda del capítulo anterior que bajo el enfoque de prueba de hipótesis de Neyman-Pearson, tenemos que especificar nuestro nivel de tolerancia para dos tipos de errores: falsos positivos (que llamaron *error tipo I*) y falsos negativos (que llamaron *tipo II error*). La gente a menudo se enfoca mucho en el error de Tipo I, porque hacer una afirmación de falso positivo generalmente se ve como algo muy malo; por ejemplo, las afirmaciones ahora desacreditadas de @wake: 1999 de que el autismo estaba asociado con la vacunación llevaron a un sentimiento antivacunas que ha resultado en un aumento sustancial de enfermedades infantiles como el sarampión. De manera similar, no queremos afirmar que un medicamento cura una enfermedad si realmente no lo hace. Es por eso que la tolerancia para los errores de Tipo I generalmente se establece bastante baja, generalmente en $\alpha = 0.05$. Pero, ¿qué pasa con los errores de tipo II?
+Recuerda del capítulo anterior que bajo el enfoque de prueba de hipótesis de Neyman-Pearson, tenemos que especificar nuestro nivel de tolerancia para dos tipos de errores: falsos positivos (que llamaron *error tipo I*) y falsos negativos (que llamaron *error tipo II*). La gente a menudo se enfoca mucho en el error de Tipo I, porque hacer una afirmación de falso positivo generalmente se ve como algo muy malo; por ejemplo, las afirmaciones ahora desacreditadas de @wake:1999 de que el autismo estaba asociado con la vacunación llevaron a un sentimiento antivacunas que ha resultado en un aumento sustancial de enfermedades infantiles como el sarampión. De manera similar, no queremos afirmar que un medicamento cura una enfermedad si realmente no lo hace. Es por eso que la tolerancia para los errores de Tipo I generalmente se establece bastante baja, generalmente en $\alpha = 0.05$. Pero, ¿qué pasa con los errores de tipo II?
 
 <!--The concept of *statistical power* is the complement of Type II error -- that is, it is the likelihood of finding a positive result given that it exists:-->
-El concepto de *poder estadístico* es el complemento al tipo de error II --, que es la posibilidad de encontrar un resultado positivo, si es que este existe: 
+El concepto de *poder estadístico* es el complemento al tipo de error II -- que es la posibilidad de encontrar un resultado positivo, si es que este existe: 
+
 $$ 
 power = 1 - \beta
 $$
 
 <!--Another important aspect of the Neyman-Pearson model that we didn't discuss earlier is the fact that in addition to specifying the acceptable levels of Type I and Type II errors, we also have to describe a specific alternative hypothesis -- that is, what is the size of the effect that we wish to detect?   Otherwise, we can't interpret $\beta$ -- the likelihood of finding a large effect is always going to be higher than finding a small effect, so $\beta$ will be different depending on the size of effect we are trying to detect.-->
+Otro aspecto importante del modelo de Neyman-Pearson que no discutimos anteriormente es el hecho de que además de especificar los niveles aceptables de errores de Tipo I y Tipo II, también tenemos que describir una hipótesis alternativa específica, es decir, ¿cuál es el tamaño del efecto que deseamos detectar? De lo contrario, no podemos interpretar $\beta$; la probabilidad de encontrar un efecto grande siempre será mayor que encontrar un efecto pequeño, por lo que $\beta$ será diferente dependiendo del tamaño del efecto que estemos tratando de detectar.
 
-Otro aspecto importante del modelo de Neyman-Pearson que no discutimos anteriormente es el hecho de que además de especificar los niveles aceptables de errores de Tipo I y Tipo II, también tenemos que describir una hipótesis alternativa específica, es decir, qué Cuál es el tamaño del efecto que deseamos detectar? De lo contrario, no podemos interpretar $ \ beta $; la probabilidad de encontrar un efecto grande siempre será mayor que encontrar un efecto pequeño, por lo que $ \ beta $ será diferente dependiendo del tamaño del efecto que estemos tratando de detectar.
-
-There are three factors that can affect statistical power:
-- Sample size: Larger samples provide greater statistical power
-- Effect size: A given design will always have greater power to find a large effect than a small effect (because finding large effects is easier)
-- Type I error rate: There is a relationship between Type I error and power such that (all else being equal) decreasing Type I error will also decrease power.
-
-We can see this through simulation.  First let's simulate a single experiment, in which we compare the means of two groups using a standard t-test.  We will vary the size of the effect (specified in terms of Cohen's d), the Type I error rate, and the sample size, and for each of these we will examine how the proportion of significant results (i.e. power) is affected. Figure \@ref(fig:plotPowerSim) shows an example of how power changes as a function of these factors. 
-
+<!-- There are three factors that can affect statistical power: -->
+<!-- - Sample size: Larger samples provide greater statistical power -->
+<!-- - Effect size: A given design will always have greater power to find a large effect than a small effect (because finding large effects is easier) -->
+<!-- - Type I error rate: There is a relationship between Type I error and power such that (all else being equal) decreasing Type I error will also decrease power. -->
 Existen tres factores que pueden afectar el poder estadístico:
-- Tamaño de la muestra: las muestras más grandes proporcionan una mayor potencia estadística
-- Tamaño del efecto: un diseño dado siempre tendrá mayor poder para encontrar un efecto grande que un efecto pequeño (porque encontrar efectos grandes es más fácil)
-- Tasa de error de tipo I: existe una relación entre el error de tipo I y la potencia de modo que (en igualdad de condiciones) la disminución del error de tipo I también disminuirá la potencia.
 
+- Tamaño de la muestra: las muestras más grandes proporcionan una mayor potencia estadística
+- Tamaño del efecto: cualquier diseño dado siempre tendrá mayor poder para encontrar un efecto grande que un efecto pequeño (porque encontrar efectos grandes es más fácil)
+- Tasa de error tipo I: existe una relación entre el error de tipo I y la potencia de modo que (en igualdad de condiciones) la disminución del error de tipo I también disminuirá la potencia.
+
+<!-- We can see this through simulation.  First let's simulate a single experiment, in which we compare the means of two groups using a standard t-test.  We will vary the size of the effect (specified in terms of Cohen's d), the Type I error rate, and the sample size, and for each of these we will examine how the proportion of significant results (i.e. power) is affected. Figure \@ref(fig:plotPowerSim) shows an example of how power changes as a function of these factors.  -->
 Podemos ver esto a través de la simulación. Primero simulemos un solo experimento, en el que comparamos las medias de dos grupos usando una prueba t estándar. Variaremos el tamaño del efecto (especificado en términos de la d de Cohen), la tasa de error de Tipo I y el tamaño de la muestra, y para cada uno de ellos examinaremos cómo se ve afectada la proporción de resultados significativos (es decir, el poder). La figura  \@ref(fig:plotPowerSim) muestra un ejemplo de cómo cambia la potencia en función de estos factores.
+
 
 ```{r powerSim, echo=FALSE}
 # Simulate power as a function of sample size, effect size, and alpha
@@ -417,11 +419,10 @@ runPowerSim <- function(df, nsims = 1000) {
 # run the simulation
 powerSimResults <- powerDf %>%
   do(runPowerSim(.))
-
 ```
 
 
-```{r plotPowerSim,echo=FALSE,fig.cap="Resultados de la simulación de potencia, que muestran la potencia en función del tamaño de la muestra, con tamaños de efecto mostrados como diferentes colores y alfa como tipo de línea. El criterio estándar del 80 por ciento de potencia se muestra mediante la línea negra punteada..",fig.width=6,fig.height=4,out.height='50%'}
+```{r plotPowerSim,echo=FALSE,fig.cap="Resultados de la simulación de potencia, que muestran la potencia en función del tamaño de la muestra, con tamaños de efecto mostrados como diferentes colores y alfa como tipo de línea. El criterio estándar del 80 por ciento de potencia se muestra mediante la línea negra punteada.",fig.width=6,fig.height=4,out.height='50%'}
 ggplot(powerSimResults,
        aes(sampSizePerGroup,power,color=as.factor(effectSize),linetype=as.factor(alpha))) +
   geom_line(size=1) +
@@ -436,14 +437,14 @@ ggplot(powerSimResults,
   )
 ```
 
-<!--This simulation shows us that even with a sample size of 96, we will have relatively little power to find a small effect ($d = 0.2$) with $\alpha = 0.005$.  This means that a study designed to do this would be *futile* -- that is, it is almost guaranteed to find nothing even if a true effect of that size exists.
+<!-- This simulation shows us that even with a sample size of 96, we will have relatively little power to find a small effect ($d = 0.2$) with $\alpha = 0.005$.  This means that a study designed to do this would be *futile* -- that is, it is almost guaranteed to find nothing even if a true effect of that size exists.
 There are at least two important reasons to care about statistical power. First, if you are a researcher, you probably don't want to spend your time doing futile experiments.  Running an underpowered study is essentially futile, because it means that there is a very low likelihood that one will find an effect, even if it exists. Second, it turns out that any positive findings that come from an underpowered study are more likely to be false compared to a well-powered study, a point we discuss in more detail in Chapter \@ref(doing-reproducible-research).-->
+Esta simulación nos muestra que incluso con una muestra de 96, relativamente tendremos poco poder para encontrar un efecto pequeño ($d = 0.2$) con $\alpha = 0.005$. Esto significa que un estudio diseñado para hacer esto sería *futil*, o sea que está casi garantizado que no encontrará nada, incluso si un efecto real de ese tamaño existe.
 
-Esta simulación nos muestra que incluso con una muestra de 96, relativamente tendremos poco poder paras encontrar un efecto pequeño ($d = 0.2$) con $\alpha = 0.005$. Esto significa que un estudio diseñado para hacer esto sería *futil*, o sea que está casi garantizado el que no encontrará nada, incluso si un efecto real de ese tamaño existe. 
 Hay al menos dos razones importantes para preocuparse por el poder estadístico. Primero, si usted es un investigador, probablemente no quiera perder su tiempo haciendo experimentos inútiles. Realizar un estudio con poca potencia es esencialmente inútil, porque significa que hay una probabilidad muy baja de que uno encuentre un efecto, incluso si existe. En segundo lugar, resulta que cualquier hallazgo positivo que provenga de un estudio con poca potencia es más probable que sea falso en comparación con un estudio con buena potencia, un punto que discutimos con más detalle en el Capítulo \@ref(doing-reproducible-research).
  
 <!--### Power analysis-->
-### Poder de análisis
+### Análisis de poder
 
 <!--Fortunately, there are tools available that allow us to determine the statistical power of an experiment. The most common use of these tools is in planning an experiment, when we would like to determine how large our sample needs to be in order to have sufficient power to find our effect of interest.
 Let's say that we are interested in running a study of how a particular personality trait differs between users of iOS versus Android devices.  Our plan is collect two groups of individuals and measure them on the personality trait, and then compare the two groups using a t-test.  In order to determine the necessary sample size, we can use power function from our statistical sofware:-->
@@ -456,7 +457,6 @@ power.t.test(d = 0.5, power = 0.8, sig.level = 0.05)
 
 <!--This tells us that we would need at least 64 subjects in each group in order to have sufficient power to find a medium-sized effect.  It's always important to run a power analysis before one starts a new study, to make sure that the study won't be futile due to a sample that is too small.
 It might have occurred to you that if the effect size is large enough, then the necessary sample will be very small.  For example, if we run the same power analysis with an effect size of d=2, then we will see that we only need about 5 subjects in each group to have sufficient power to find the difference.-->  
-
 Esto nos dice que necesitaríamos al menos 64 sujetos en cada grupo para tener suficiente poder para encontrar un efecto de tamaño medio. Siempre es importante realizar un análisis de poder antes de comenzar un nuevo estudio, para asegurarse de que el estudio no sea inútil debido a una muestra demasiado pequeña.
 
 Puede que se le haya ocurrido que si el tamaño del efecto es lo suficientemente grande, la muestra necesaria será muy pequeña. Por ejemplo, si realizamos el mismo análisis de potencia con un tamaño del efecto de d=2, veremos que solo necesitamos unos 5 sujetos en cada grupo para tener la potencia suficiente para encontrar la diferencia.

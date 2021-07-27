@@ -42,7 +42,7 @@ NHANES_adult <-
 ```
 
 <!-- We have already encountered a number of cases where we wanted to ask questions about the mean of a sample.  In this chapter, we will delve deeper into the various ways that we can compare means across groups. -->
-Hemos encontrado ya un número de casos donde queremos hacer preguntas acerca de la media de una muetra. En este capítulo, profundizaremos en las varias maneras en que podemos comparar medias entre grupos.
+Hemos encontrado ya un número de casos donde queremos hacer preguntas acerca de la media de una muestra. En este capítulo, profundizaremos en las varias maneras en que podemos comparar medias entre grupos.
 
 
 <!-- ## Testing the value of a single mean {#single-mean} -->
@@ -169,7 +169,7 @@ p2 <- ggplot(NHANES_sample,aes(RegularMarij,TVHrsNum)) +
 plot_grid(p1, p2)
 ```
 
-We can also use Student's t test to test for differences between two groups of independent observations (as we saw in an earlier chapter); we will turn later in the chapter to cases where the observations are not independent.  As a reminder, the t-statistic for comparison of two independent groups is computed as:
+<!-- We can also use Student's t test to test for differences between two groups of independent observations (as we saw in an earlier chapter); we will turn later in the chapter to cases where the observations are not independent.  As a reminder, the t-statistic for comparison of two independent groups is computed as: -->
 También podemos usar la prueba t de Student para probar diferencias entre dos grupos de observaciones independientes (como revisamos en un capítulo anterior); regresaremos después en este capítulo a casos donde las observaciones no son independientes. Como recordatorio, el estadístico t para comparaciones entre dos grupos independientes se calcula así:
 
 $$
@@ -213,7 +213,7 @@ Para calcular los errores estándar para este análisis, podemos usar exactament
 <!-- ### Effect sizes for comparing two means -->
 ### Tamaños de efecto para comparar dos medias
 
-The most commonly used effect size for a comparison between two means is Cohen's d, which (as you may remember from Chapter \@ref(ci-effect-size-power)) is an expression of the effect size in terms of standard deviation units.  For the t-test estimated using the general linear model outlined above (i.e. with a single dummy-coded variable), this is expressed as:
+<!-- The most commonly used effect size for a comparison between two means is Cohen's d, which (as you may remember from Chapter \@ref(ci-effect-size-power)) is an expression of the effect size in terms of standard deviation units.  For the t-test estimated using the general linear model outlined above (i.e. with a single dummy-coded variable), this is expressed as: -->
 El tamaño de efecto más comúnmente usado para comparar dos medias es la d de Cohen, la cual (como recordarás del Capítulo \@ref(ci-effect-size-power)) es una expresión del tamaño del efecto en términos de unidades de desviación estándar. Para la prueba t estimada usando el modelo lineal general desarrollado arriba (i.e. con una sola variable dummy codificada), esto es expresado como:
 
 $$
@@ -390,7 +390,7 @@ ggplot(df,aes(group,sysBP)) + geom_boxplot()
 Primero querríamos probar la hipótesis nula de que las medias de todos los grupos son iguales -- esto es, ninguno de los tratamientos tuvo ningún efecto comparado con el placebo. Podemos hacer esto usando un método llamado *análisis de varianza* (*analysis of variance*, ANOVA). Este es uno de los métodos más comúnmente usados en estadística en psicología, aquí sólo lo revisaremos superficialmente. La idea básica detrás de ANOVA es una que ya discutimos en el capítulo sobre el modelo lineal general, y de hecho el ANOVA es sólo un nombre para una versión específica de ese modelo.
 
 <!-- Remember from the last chapter that we can partition the total variance in the data ($SS_{total}$) into the variance that is explained by the model ($SS_{model}$) and the variance that is not ($SS_{error}$).  We can then compute a *mean square* for each of these by dividing them by their degrees of freedom; for the error this is $N - p$ (where $p$ is the number of means that we have computed), and for the model this is $p - 1$: -->
-Recordarás del capítulo anterior que podemos dividir la varianza total de los datos ($SS_{total}$) entre la varianza que es explicada por el modelo ($SS_{model}$) y la varianza que no es explicada por el modelo ($SS_{error}$). Entonces podemos calcular la *media cuadrática* (*mean square*) para cada una de éstas al dividirlas entre sus grados de libertad; para el error, los grados de libertad son $N - p$ (donde $p$ es el número de medias que calculamos), y para el modelo son $p - 1$:
+Recordarás del capítulo anterior que podemos dividir la varianza total de los datos ($SS_{total}$) en la varianza que es explicada por el modelo ($SS_{model}$) y la varianza que no es explicada por el modelo ($SS_{error}$). Entonces podemos calcular la *media cuadrática* (*mean square*) para cada una de éstas al dividirlas entre sus grados de libertad; para el error, los grados de libertad son $N - p$ (donde $p$ es el número de medias que calculamos), y para el modelo son $p - 1$:
 
 $$
 MS_{model} =\frac{SS_{model}}{df_{model}}= \frac{SS_{model}}{p-1}

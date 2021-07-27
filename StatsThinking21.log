@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2021.3.14)  16 MAR 2021 22:09
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2021.3.14)  14 MAY 2021 15:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -177,7 +177,17 @@ Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
 Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
-)
+
+(c:/Users/cthul/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/dvipsnam.
+def
+File: dvipsnam.def 2016/06/17 v3.0m Driver-dependent file (DPC,SPQR)
+) (c:/Users/cthul/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/xcolor/svgnam.de
+f
+File: svgnam.def 2016/05/11 v2.12 Predefined colors according to SVG 1.1 (UK)
+) (c:/Users/cthul/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/xcolor/x11nam.de
+f
+File: x11nam.def 2016/05/11 v2.12 Predefined colors according to Unix/X11 (UK)
+))
 (c:/Users/cthul/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.
 sty
 Package: hyperref 2021-02-27 v7.00k Hypertext links for LaTeX
@@ -338,6 +348,8 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip52
 )
+Package hyperref Info: Option `colorlinks' set `true' on input line 48.
+
 (c:/Users/cthul/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/fancyvrb/fancyvrb.
 sty
 Package: fancyvrb 2021/01/20 v3.7 verbatim text (tvz,hv)
@@ -661,7 +673,7 @@ LaTeX Warning: Label `lecturas-sugeridas' multiply defined.
 LaTeX Warning: Label `objetivos-de-aprendizaje' multiply defined.
 
 
-LaTeX Warning: Label `factores-de-bayes' multiply defined.
+LaTeX Warning: Label `apuxe9ndice' multiply defined.
 
 
 LaTeX Warning: Label `objetivos-de-aprendizaje' multiply defined.
@@ -699,24 +711,24 @@ LaTeX Warning: Label `lecturas-sugeridas' multiply defined.
 )
 \openout1 = `StatsThinking21.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 176.
-LaTeX Font Info:    ... okay on input line 176.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 176.
-LaTeX Font Info:    ... okay on input line 176.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 176.
-LaTeX Font Info:    ... okay on input line 176.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 176.
-LaTeX Font Info:    ... okay on input line 176.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 176.
-LaTeX Font Info:    ... okay on input line 176.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 176.
-LaTeX Font Info:    ... okay on input line 176.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 176.
-LaTeX Font Info:    ... okay on input line 176.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 176.
-LaTeX Font Info:    ... okay on input line 176.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 176.
-LaTeX Font Info:    ... okay on input line 176.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 181.
+LaTeX Font Info:    ... okay on input line 181.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 181.
+LaTeX Font Info:    ... okay on input line 181.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 181.
+LaTeX Font Info:    ... okay on input line 181.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 181.
+LaTeX Font Info:    ... okay on input line 181.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 181.
+LaTeX Font Info:    ... okay on input line 181.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 181.
+LaTeX Font Info:    ... okay on input line 181.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 181.
+LaTeX Font Info:    ... okay on input line 181.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 181.
+LaTeX Font Info:    ... okay on input line 181.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 181.
+LaTeX Font Info:    ... okay on input line 181.
 
 (c:/Users/cthul/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epsto
 pdf-base.sty
@@ -729,7 +741,7 @@ df-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package hyperref Info: Link coloring OFF on input line 176.
+Package hyperref Info: Link coloring ON on input line 181.
 
 (c:/Users/cthul/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.s
 ty
@@ -745,45 +757,45 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count313
 )
-LaTeX Info: Redefining \ref on input line 176.
-LaTeX Info: Redefining \pageref on input line 176.
-LaTeX Info: Redefining \nameref on input line 176.
+LaTeX Info: Redefining \ref on input line 181.
+LaTeX Info: Redefining \pageref on input line 181.
+LaTeX Info: Redefining \nameref on input line 181.
 (./StatsThinking21.out) (./StatsThinking21.out)
 \@outlinefile=\write4
 \openout4 = `StatsThinking21.out'.
 
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 1
-78.
+83.
 (c:/Users/cthul/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
-78.
+83.
 (c:/Users/cthul/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-178.
+183.
 (c:/Users/cthul/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-178.
+183.
 (c:/Users/cthul/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <14.4> on input line 178.
+(Font)              <14.4> on input line 183.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 178.
+(Font)              <10> on input line 183.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 178.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 178
+(Font)              <7> on input line 183.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 183
 .
 (c:/Users/cthul/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 178
+LaTeX Font Info:    Trying to load font information for U+msb on input line 183
 .
 (c:/Users/cthul/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -883,7 +895,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 [11]
 
 LaTeX Warning: Reference `summarizing-data' on page 12 undefined on input line 
-201.
+207.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -898,7 +910,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [12]
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 2
-03.
+09.
 (c:/Users/cthul/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
@@ -942,7 +954,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 ]
 Chapter 1.
 [17]
-Underfull \hbox (badness 1701) in paragraph at lines 254--254
+Underfull \hbox (badness 1701) in paragraph at lines 260--260
 []\T1/lmr/bx/n/17.28 æQuÈ puede hacer la es-tadÌs-tica por
  []
 
@@ -959,7 +971,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [18]
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 2
-61.
+67.
 (c:/Users/cthul/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
@@ -972,13 +984,13 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
 
 [19]
-<StatsThinking21_files/figure-latex/PureDeathSatFat-1.pdf, id=881, 289.08pt x 2
+<StatsThinking21_files/figure-latex/PureDeathSatFat-1.pdf, id=877, 289.08pt x 2
 89.08pt>
 File: StatsThinking21_files/figure-latex/PureDeathSatFat-1.pdf Graphic file (ty
 pe pdf)
 <use StatsThinking21_files/figure-latex/PureDeathSatFat-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/PureDeathSatFat-1.p
-df  used on input line 281.
+df  used on input line 287.
 (pdftex.def)             Requested size: 274.26273pt x 274.26273pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -992,7 +1004,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 }) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.285 
+l.291 
        <./StatsThinking21_files/figure-latex/PureDeathSatFat-1.pdf>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1072,7 +1084,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 ]
 Chapter 2.
 [29]
-Overfull \hbox (4.22343pt too wide) in paragraph at lines 379--389
+Overfull \hbox (4.22343pt too wide) in paragraph at lines 385--395
  [][] 
  []
 
@@ -1088,7 +1100,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 ) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.400 \textbf{Enteros}
+l.406 \textbf{Enteros}
                       . Los enteros son n√∫meros enteros sin fracci√≥n o pun...
 ]
 
@@ -1109,13 +1121,13 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
 
 [32]
-<StatsThinking21_files/figure-latex/ReliabilityValidity-1.pdf, id=971, 433.62pt
+<StatsThinking21_files/figure-latex/ReliabilityValidity-1.pdf, id=967, 433.62pt
  x 433.62pt>
 File: StatsThinking21_files/figure-latex/ReliabilityValidity-1.pdf Graphic file
  (type pdf)
 <use StatsThinking21_files/figure-latex/ReliabilityValidity-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/ReliabilityValidity
--1.pdf  used on input line 434.
+-1.pdf  used on input line 440.
 (pdftex.def)             Requested size: 181.00758pt x 181.00758pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1138,15 +1150,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 }) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.445 
+l.451 
        <./StatsThinking21_files/figure-latex/ReliabilityValidity-1.pdf>]pdfTeX 
 warning (ext4): destination with the same identifier (name{objetivos-de-aprendi
 zaje}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.449 ...ndizaje}\label{objetivos-de-aprendizaje}}
+l.455 ...ndizaje}\label{objetivos-de-aprendizaje}}
                                                   
-Overfull \hbox (1.23978pt too wide) in paragraph at lines 456--458
+Overfull \hbox (1.23978pt too wide) in paragraph at lines 462--464
 []\T1/lmr/m/n/12 Distinguir en-tre difer-entes tipos de vari-ables (cuan-ti-ta-
 ti-vas/cualitativas,
  []
@@ -1155,7 +1167,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{lecturas-suge
 ridas}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.462 ...ras sugeridas}\label{lecturas-sugeridas}}
+l.468 ...ras sugeridas}\label{lecturas-sugeridas}}
                                                   
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1196,19 +1208,19 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 ) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.521 ...pter{Resumir datos}\label{resumir-datos}}
+l.527 ...pter{Resumir datos}\label{resumir-datos}}
                                                   ]
 Chapter 3.
 [39
 
 ]
-<images/Sales_contract_Shuruppak_Louvre_AO3760.jpg, id=1021, 578.16pt x 546.04p
+<images/Sales_contract_Shuruppak_Louvre_AO3760.jpg, id=1017, 578.16pt x 546.04p
 t>
 File: images/Sales_contract_Shuruppak_Louvre_AO3760.jpg Graphic file (type jpg)
 
 <use images/Sales_contract_Shuruppak_Louvre_AO3760.jpg>
 Package pdftex.def Info: images/Sales_contract_Shuruppak_Louvre_AO3760.jpg  use
-d on input line 541.
+d on input line 547.
 (pdftex.def)             Requested size: 174.22566pt x 164.54646pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1222,7 +1234,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 }) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.545 
+l.551 
        <./images/Sales_contract_Shuruppak_Louvre_AO3760.jpg>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1245,15 +1257,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 ) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.630 
+l.636 
       ]
-<StatsThinking21_files/figure-latex/sleepHist-1.pdf, id=1054, 578.16pt x 289.08
+<StatsThinking21_files/figure-latex/sleepHist-1.pdf, id=1050, 578.16pt x 289.08
 pt>
 File: StatsThinking21_files/figure-latex/sleepHist-1.pdf Graphic file (type pdf
 )
 <use StatsThinking21_files/figure-latex/sleepHist-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/sleepHist-1.pdf  us
-ed on input line 632.
+ed on input line 638.
 (pdftex.def)             Requested size: 362.01076pt x 181.00537pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1267,22 +1279,22 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 ) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.642 \newpage
+l.648 \newpage
               ]
-<StatsThinking21_files/figure-latex/sleepAbsCumulRelFreq-1.pdf, id=1063, 578.16
+<StatsThinking21_files/figure-latex/sleepAbsCumulRelFreq-1.pdf, id=1059, 578.16
 pt x 289.08pt>
 File: StatsThinking21_files/figure-latex/sleepAbsCumulRelFreq-1.pdf Graphic fil
 e (type pdf)
 <use StatsThinking21_files/figure-latex/sleepAbsCumulRelFreq-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/sleepAbsCumulRelFre
-q-1.pdf  used on input line 680.
+q-1.pdf  used on input line 686.
 (pdftex.def)             Requested size: 362.01076pt x 181.00537pt.
-<StatsThinking21_files/figure-latex/ageHist-1.pdf, id=1064, 578.16pt x 289.08pt
+<StatsThinking21_files/figure-latex/ageHist-1.pdf, id=1060, 578.16pt x 289.08pt
 >
 File: StatsThinking21_files/figure-latex/ageHist-1.pdf Graphic file (type pdf)
 <use StatsThinking21_files/figure-latex/ageHist-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/ageHist-1.pdf  used
- on input line 687.
+ on input line 693.
 (pdftex.def)             Requested size: 362.01076pt x 181.00537pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1296,7 +1308,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 }) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.691 
+l.697 
        <./StatsThinking21_files/figure-latex/sleepHist-1.pdf>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1310,12 +1322,12 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 ) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.691 
+l.697 
       pdfTeX warning (ext4): destination with the same identifier (name{figure.
 3.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.691 
+l.697 
        <./StatsThinking21_files/figure-latex/sleepAbsCumulRelFreq-1.pdf>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1329,15 +1341,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 }) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.695 
+l.701 
        <./StatsThinking21_files/figure-latex/ageHist-1.pdf>]
-<StatsThinking21_files/figure-latex/heightHistSep-1.pdf, id=1102, 578.16pt x 57
+<StatsThinking21_files/figure-latex/heightHistSep-1.pdf, id=1098, 578.16pt x 57
 8.16pt>
 File: StatsThinking21_files/figure-latex/heightHistSep-1.pdf Graphic file (type
  pdf)
 <use StatsThinking21_files/figure-latex/heightHistSep-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/heightHistSep-1.pdf
-  used on input line 699.
+  used on input line 705.
 (pdftex.def)             Requested size: 274.2495pt x 274.2495pt.
 
 Underfull \vbox (badness 5490) has occurred while \output is active []
@@ -1354,10 +1366,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 }) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.706 
+l.712 
        <./StatsThinking21_files/figure-latex/heightHistSep-1.pdf>]
 
-LaTeX Warning: Command \' invalid in math mode on input line 737.
+LaTeX Warning: Command \' invalid in math mode on input line 743.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1371,18 +1383,18 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 ) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.738 \]
+l.744 \]
         ]
-<StatsThinking21_files/figure-latex/NormalDistPlotsWithDist-1.pdf, id=1124, 578
+<StatsThinking21_files/figure-latex/NormalDistPlotsWithDist-1.pdf, id=1120, 578
 .16pt x 289.08pt>
 File: StatsThinking21_files/figure-latex/NormalDistPlotsWithDist-1.pdf Graphic 
 file (type pdf)
 <use StatsThinking21_files/figure-latex/NormalDistPlotsWithDist-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/NormalDistPlotsWith
-Dist-1.pdf  used on input line 748.
+Dist-1.pdf  used on input line 754.
 (pdftex.def)             Requested size: 389.99414pt x 194.99706pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 748--748
+Underfull \hbox (badness 10000) in paragraph at lines 754--754
 [][]
  []
 
@@ -1407,18 +1419,18 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 }) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.761 
+l.767 
        <./StatsThinking21_files/figure-latex/NormalDistPlotsWithDist-1.pdf>]
-<StatsThinking21_files/figure-latex/SFOWaitTimes-1.pdf, id=1147, 578.16pt x 289
+<StatsThinking21_files/figure-latex/SFOWaitTimes-1.pdf, id=1143, 578.16pt x 289
 .08pt>
 File: StatsThinking21_files/figure-latex/SFOWaitTimes-1.pdf Graphic file (type 
 pdf)
 <use StatsThinking21_files/figure-latex/SFOWaitTimes-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/SFOWaitTimes-1.pdf 
- used on input line 763.
+ used on input line 769.
 (pdftex.def)             Requested size: 389.99414pt x 194.99706pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 763--763
+Underfull \hbox (badness 10000) in paragraph at lines 769--769
 [][]
  []
 
@@ -1434,13 +1446,13 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 }) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.770 
+l.776 
        <./StatsThinking21_files/figure-latex/SFOWaitTimes-1.pdf>]pdfTeX warning
  (ext4): destination with the same identifier (name{objetivos-de-aprendizaje}) 
 has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.782 ...ndizaje}\label{objetivos-de-aprendizaje}}
+l.788 ...ndizaje}\label{objetivos-de-aprendizaje}}
                                                   
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1454,7 +1466,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 sugeridas}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.797 ...ras sugeridas}\label{lecturas-sugeridas}}
+l.803 ...ras sugeridas}\label{lecturas-sugeridas}}
                                                   
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1477,30 +1489,30 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 ]
 Chapter 4.
-<images/Booster_Rocket_Breach_-_GPN-2000-001425.jpg, id=1178, 361.35pt x 466.74
+<images/Booster_Rocket_Breach_-_GPN-2000-001425.jpg, id=1174, 361.35pt x 466.74
 374pt>
 File: images/Booster_Rocket_Breach_-_GPN-2000-001425.jpg Graphic file (type jpg
 )
 <use images/Booster_Rocket_Breach_-_GPN-2000-001425.jpg>
 Package pdftex.def Info: images/Booster_Rocket_Breach_-_GPN-2000-001425.jpg  us
-ed on input line 811.
+ed on input line 817.
 (pdftex.def)             Requested size: 84.92278pt x 109.69191pt.
 [55pdfTeX warning (ext4): destination with the same identifier (name{figure.4.1
 }) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.815 
+l.821 
        <./images/Booster_Rocket_Breach_-_GPN-2000-001425.jpg>]
-<StatsThinking21_files/figure-latex/challengerTemps-1.pdf, id=1187, 578.16pt x 
+<StatsThinking21_files/figure-latex/challengerTemps-1.pdf, id=1182, 578.16pt x 
 289.08pt>
 File: StatsThinking21_files/figure-latex/challengerTemps-1.pdf Graphic file (ty
 pe pdf)
 <use StatsThinking21_files/figure-latex/challengerTemps-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/challengerTemps-1.p
-df  used on input line 819.
+df  used on input line 825.
 (pdftex.def)             Requested size: 389.99414pt x 194.99706pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 819--819
+Underfull \hbox (badness 10000) in paragraph at lines 825--825
 [][]
  []
 
@@ -1525,16 +1537,16 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 }) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.859 \end{enumerate}
+l.865 \end{enumerate}
                       <./StatsThinking21_files/figure-latex/challengerTemps-1.p
 df>]
-<StatsThinking21_files/figure-latex/plotHeight-1.pdf, id=1212, 433.62pt x 433.6
+<StatsThinking21_files/figure-latex/plotHeight-1.pdf, id=1208, 433.62pt x 433.6
 2pt>
 File: StatsThinking21_files/figure-latex/plotHeight-1.pdf Graphic file (type pd
 f)
 <use StatsThinking21_files/figure-latex/plotHeight-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/plotHeight-1.pdf  u
-sed on input line 863.
+sed on input line 869.
 (pdftex.def)             Requested size: 390.0162pt x 390.0162pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1557,33 +1569,33 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 }) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.894 \end{enumerate}
+l.900 \end{enumerate}
                       <./StatsThinking21_files/figure-latex/plotHeight-1.pdf>]
-<StatsThinking21_files/figure-latex/dentalFigs-1.pdf, id=1240, 433.62pt x 433.6
+<StatsThinking21_files/figure-latex/dentalFigs-1.pdf, id=1236, 433.62pt x 433.6
 2pt>
 File: StatsThinking21_files/figure-latex/dentalFigs-1.pdf Graphic file (type pd
 f)
 <use StatsThinking21_files/figure-latex/dentalFigs-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/dentalFigs-1.pdf  u
-sed on input line 898.
+sed on input line 904.
 (pdftex.def)             Requested size: 390.0162pt x 390.0162pt.
-<StatsThinking21_files/figure-latex/dataInkExample-1.pdf, id=1242, 578.16pt x 2
+<StatsThinking21_files/figure-latex/dataInkExample-1.pdf, id=1238, 578.16pt x 2
 89.08pt>
 File: StatsThinking21_files/figure-latex/dataInkExample-1.pdf Graphic file (typ
 e pdf)
 <use StatsThinking21_files/figure-latex/dataInkExample-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/dataInkExample-1.pd
-f  used on input line 912.
+f  used on input line 918.
 (pdftex.def)             Requested size: 389.99414pt x 194.99706pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 912--912
+Underfull \hbox (badness 10000) in paragraph at lines 918--918
 [][]
  []
 
-<images/excel_chartjunk.png, id=1244, 879.12pt x 520.90715pt>
+<images/excel_chartjunk.png, id=1240, 879.12pt x 520.90715pt>
 File: images/excel_chartjunk.png Graphic file (type png)
 <use images/excel_chartjunk.png>
-Package pdftex.def Info: images/excel_chartjunk.png  used on input line 933.
+Package pdftex.def Info: images/excel_chartjunk.png  used on input line 939.
 (pdftex.def)             Requested size: 312.00258pt x 184.87166pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1606,7 +1618,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 }) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.940 
+l.946 
        <./StatsThinking21_files/figure-latex/dentalFigs-1.pdf>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1620,44 +1632,44 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 }) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.940 
+l.946 
       pdfTeX warning (ext4): destination with the same identifier (name{figure.
 4.6}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.940 
+l.946 
        <./StatsThinking21_files/figure-latex/dataInkExample-1.pdf> <./images/ex
 cel_chartjunk.png>]
-<StatsThinking21_files/figure-latex/crimePlotAxes-1.pdf, id=1280, 578.16pt x 28
+<StatsThinking21_files/figure-latex/crimePlotAxes-1.pdf, id=1276, 578.16pt x 28
 9.08pt>
 File: StatsThinking21_files/figure-latex/crimePlotAxes-1.pdf Graphic file (type
  pdf)
 <use StatsThinking21_files/figure-latex/crimePlotAxes-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/crimePlotAxes-1.pdf
-  used on input line 942.
+  used on input line 948.
 (pdftex.def)             Requested size: 389.99414pt x 194.99706pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 942--942
+Underfull \hbox (badness 10000) in paragraph at lines 948--948
 [][]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 942--942
+Underfull \hbox (badness 10000) in paragraph at lines 948--948
 []\T1/lmr/m/n/12 Figure 4.7: []Datos de crimen de 1990 a 2014 grafi-ca-dos
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 942--942
+Underfull \hbox (badness 10000) in paragraph at lines 948--948
 \T1/lmr/m/n/12 con el tiempo. Los pan-e-les A y B mues-tran los mis-mos
  []
 
 
-Underfull \hbox (badness 5847) in paragraph at lines 942--942
+Underfull \hbox (badness 5847) in paragraph at lines 948--948
 \T1/lmr/m/n/12 datos pero con difer-entes ran-gos de eje. Datos obtenidos de
  []
 
 
-Overfull \hbox (15.9273pt too wide) in paragraph at lines 942--942
+Overfull \hbox (15.9273pt too wide) in paragraph at lines 948--948
 \T1/lmr/m/n/12 https://www.ucrdatatool.gov/Search/Crime/State/RunCrimeStatebySt
 ate.cfm 
  []
@@ -1674,18 +1686,18 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 }) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.949 \end{quote}
+l.955 \end{quote}
                   <./StatsThinking21_files/figure-latex/crimePlotAxes-1.pdf>]
-<StatsThinking21_files/figure-latex/bodyTempAxis-1.pdf, id=1295, 578.16pt x 289
+<StatsThinking21_files/figure-latex/bodyTempAxis-1.pdf, id=1291, 578.16pt x 289
 .08pt>
 File: StatsThinking21_files/figure-latex/bodyTempAxis-1.pdf Graphic file (type 
 pdf)
 <use StatsThinking21_files/figure-latex/bodyTempAxis-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/bodyTempAxis-1.pdf 
- used on input line 954.
+ used on input line 960.
 (pdftex.def)             Requested size: 389.99414pt x 194.99706pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 954--954
+Underfull \hbox (badness 10000) in paragraph at lines 960--960
 [][]
  []
 
@@ -1701,19 +1713,19 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 }) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.959 E
+l.965 E
        l factor de enga√±o apoya el argumento de que uno siempre deber√≠a de...
  <./StatsThinking21_files/figure-latex/bodyTempAxis-1.pdf>]
-<StatsThinking21_files/figure-latex/barCharLieFactor-1.pdf, id=1309, 578.16pt x
+<StatsThinking21_files/figure-latex/barCharLieFactor-1.pdf, id=1304, 578.16pt x
  289.08pt>
 File: StatsThinking21_files/figure-latex/barCharLieFactor-1.pdf Graphic file (t
 ype pdf)
 <use StatsThinking21_files/figure-latex/barCharLieFactor-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/barCharLieFactor-1.
-pdf  used on input line 962.
+pdf  used on input line 968.
 (pdftex.def)             Requested size: 389.99414pt x 194.99706pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 962--962
+Underfull \hbox (badness 10000) in paragraph at lines 968--968
 [][]
  []
 
@@ -1729,28 +1741,28 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 }) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.974 
+l.980 
        <./StatsThinking21_files/figure-latex/barCharLieFactor-1.pdf>]
-<StatsThinking21_files/figure-latex/badColors-1.pdf, id=1325, 578.16pt x 289.08
+<StatsThinking21_files/figure-latex/badColors-1.pdf, id=1321, 578.16pt x 289.08
 pt>
 File: StatsThinking21_files/figure-latex/badColors-1.pdf Graphic file (type pdf
 )
 <use StatsThinking21_files/figure-latex/badColors-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/badColors-1.pdf  us
-ed on input line 976.
+ed on input line 982.
 (pdftex.def)             Requested size: 389.99414pt x 194.99706pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 976--976
+Underfull \hbox (badness 10000) in paragraph at lines 982--982
 [][]
  []
 
-<images/religion_piechart.png, id=1327, 1019.81pt x 607.26875pt>
+<images/religion_piechart.png, id=1323, 1019.81pt x 607.26875pt>
 File: images/religion_piechart.png Graphic file (type png)
 <use images/religion_piechart.png>
-Package pdftex.def Info: images/religion_piechart.png  used on input line 982.
+Package pdftex.def Info: images/religion_piechart.png  used on input line 988.
 (pdftex.def)             Requested size: 460.55972pt x 274.25063pt.
 
-Overfull \hbox (70.55972pt too wide) in paragraph at lines 982--982
+Overfull \hbox (70.55972pt too wide) in paragraph at lines 988--988
 [][]
  []
 
@@ -1766,7 +1778,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 0}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.986 
+l.992 
        <./StatsThinking21_files/figure-latex/badColors-1.pdf>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1780,18 +1792,18 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.986 
+l.992 
        <./images/religion_piechart.png>]
-<StatsThinking21_files/figure-latex/religionBars-1.pdf, id=1349, 578.16pt x 289
+<StatsThinking21_files/figure-latex/religionBars-1.pdf, id=1345, 578.16pt x 289
 .08pt>
 File: StatsThinking21_files/figure-latex/religionBars-1.pdf Graphic file (type 
 pdf)
 <use StatsThinking21_files/figure-latex/religionBars-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/religionBars-1.pdf 
- used on input line 990.
+ used on input line 996.
 (pdftex.def)             Requested size: 389.99414pt x 194.99706pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 990--990
+Underfull \hbox (badness 10000) in paragraph at lines 996--996
 [][]
  []
 
@@ -1807,21 +1819,21 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.999 
-       <./StatsThinking21_files/figure-latex/religionBars-1.pdf>]
-<StatsThinking21_files/figure-latex/gasPrices-1.pdf, id=1362, 289.08pt x 289.08
+l.1005 
+        <./StatsThinking21_files/figure-latex/religionBars-1.pdf>]
+<StatsThinking21_files/figure-latex/gasPrices-1.pdf, id=1358, 289.08pt x 289.08
 pt>
 File: StatsThinking21_files/figure-latex/gasPrices-1.pdf Graphic file (type pdf
 )
 <use StatsThinking21_files/figure-latex/gasPrices-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/gasPrices-1.pdf  us
-ed on input line 1001.
+ed on input line 1007.
 (pdftex.def)             Requested size: 274.26273pt x 274.26273pt.
 pdfTeX warning (ext4): destination with the same identifier (name{objetivos-de-
 aprendizaje}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.1005 ...dizaje}\label{objetivos-de-aprendizaje}}
+l.1011 ...dizaje}\label{objetivos-de-aprendizaje}}
                                                   
 Underfull \vbox (badness 4872) has occurred while \output is active []
 
@@ -1837,7 +1849,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.1012   D
+l.1018   D
           escribir los principios que distinguen a las buenas y malas gr√°fi...
  <./StatsThinking21_files/figure-latex/gasPrices-1.pdf>]
 
@@ -1853,13 +1865,13 @@ Chapter 5.
 [71
 
 ]
-<StatsThinking21_files/figure-latex/childHeight-1.pdf, id=1387, 289.08pt x 289.
+<StatsThinking21_files/figure-latex/childHeight-1.pdf, id=1383, 289.08pt x 289.
 08pt>
 File: StatsThinking21_files/figure-latex/childHeight-1.pdf Graphic file (type p
 df)
 <use StatsThinking21_files/figure-latex/childHeight-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/childHeight-1.pdf  
-used on input line 1061.
+used on input line 1067.
 (pdftex.def)             Requested size: 274.26273pt x 274.26273pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1882,18 +1894,18 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 }) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.1079 
+l.1085 
         <./StatsThinking21_files/figure-latex/childHeight-1.pdf>]
-<StatsThinking21_files/figure-latex/meanError-1.pdf, id=1405, 289.08pt x 289.08
+<StatsThinking21_files/figure-latex/meanError-1.pdf, id=1401, 289.08pt x 289.08
 pt>
 File: StatsThinking21_files/figure-latex/meanError-1.pdf Graphic file (type pdf
 )
 <use StatsThinking21_files/figure-latex/meanError-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/meanError-1.pdf  us
-ed on input line 1091.
+ed on input line 1097.
 (pdftex.def)             Requested size: 274.26273pt x 274.26273pt.
 
-LaTeX Warning: Command \' invalid in math mode on input line 1096.
+LaTeX Warning: Command \' invalid in math mode on input line 1102.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1916,15 +1928,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 }) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.1097 
+l.1103 
         <./StatsThinking21_files/figure-latex/meanError-1.pdf>]
-<StatsThinking21_files/figure-latex/childHeightLine-1.pdf, id=1421, 433.62pt x 
+<StatsThinking21_files/figure-latex/childHeightLine-1.pdf, id=1417, 433.62pt x 
 433.62pt>
 File: StatsThinking21_files/figure-latex/childHeightLine-1.pdf Graphic file (ty
 pe pdf)
 <use StatsThinking21_files/figure-latex/childHeightLine-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/childHeightLine-1.p
-df  used on input line 1107.
+df  used on input line 1113.
 (pdftex.def)             Requested size: 390.0162pt x 390.0162pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1947,7 +1959,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 }) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.1126 
+l.1132 
         <./StatsThinking21_files/figure-latex/childHeightLine-1.pdf>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1958,12 +1970,12 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
 
 [78]
-<StatsThinking21_files/figure-latex/msePlot-1.pdf, id=1454, 289.08pt x 289.08pt
+<StatsThinking21_files/figure-latex/msePlot-1.pdf, id=1450, 289.08pt x 289.08pt
 >
 File: StatsThinking21_files/figure-latex/msePlot-1.pdf Graphic file (type pdf)
 <use StatsThinking21_files/figure-latex/msePlot-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/msePlot-1.pdf  used
- on input line 1136.
+ on input line 1142.
 (pdftex.def)             Requested size: 274.26273pt x 274.26273pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -1977,13 +1989,13 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 }) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.1145 
+l.1151 
         <./StatsThinking21_files/figure-latex/msePlot-1.pdf>]
-<StatsThinking21_files/figure-latex/BACrt-1.pdf, id=1467, 433.62pt x 433.62pt>
+<StatsThinking21_files/figure-latex/BACrt-1.pdf, id=1463, 433.62pt x 433.62pt>
 File: StatsThinking21_files/figure-latex/BACrt-1.pdf Graphic file (type pdf)
 <use StatsThinking21_files/figure-latex/BACrt-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/BACrt-1.pdf  used o
-n input line 1150.
+n input line 1156.
 (pdftex.def)             Requested size: 390.0162pt x 390.0162pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2006,18 +2018,18 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 }) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.1159 
+l.1165 
         <./StatsThinking21_files/figure-latex/BACrt-1.pdf>]
-<StatsThinking21_files/figure-latex/Overfitting-1.pdf, id=1484, 578.16pt x 289.
+<StatsThinking21_files/figure-latex/Overfitting-1.pdf, id=1480, 578.16pt x 289.
 08pt>
 File: StatsThinking21_files/figure-latex/Overfitting-1.pdf Graphic file (type p
 df)
 <use StatsThinking21_files/figure-latex/Overfitting-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/Overfitting-1.pdf  
-used on input line 1170.
+used on input line 1176.
 (pdftex.def)             Requested size: 389.99414pt x 194.99706pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1170--1170
+Underfull \hbox (badness 10000) in paragraph at lines 1176--1176
 [][]
  []
 
@@ -2042,7 +2054,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 }) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.1174 
+l.1180 
         <./StatsThinking21_files/figure-latex/Overfitting-1.pdf>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2053,12 +2065,12 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
 
 [84]
-<StatsThinking21_files/figure-latex/MinSSE-1.pdf, id=1507, 289.08pt x 289.08pt>
+<StatsThinking21_files/figure-latex/MinSSE-1.pdf, id=1503, 289.08pt x 289.08pt>
 
 File: StatsThinking21_files/figure-latex/MinSSE-1.pdf Graphic file (type pdf)
 <use StatsThinking21_files/figure-latex/MinSSE-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/MinSSE-1.pdf  used 
-on input line 1197.
+on input line 1203.
 (pdftex.def)             Requested size: 274.26273pt x 274.26273pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2072,7 +2084,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 ) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.1249 
+l.1255 
        ]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2086,12 +2098,12 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 }) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.1249 
+l.1255 
        pdfTeX warning (ext4): destination with the same identifier (name{table.
 5.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.1249 
+l.1255 
         <./StatsThinking21_files/figure-latex/MinSSE-1.pdf>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2114,7 +2126,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 ) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.1305 
+l.1311 
        ]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2125,9 +2137,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [89]
-Underfull \hbox (badness 2302) in paragraph at lines 1345--1347
+Underfull \hbox (badness 2302) in paragraph at lines 1351--1353
 \T1/lmr/m/n/12 ucrdatatool . gov / Search / Crime / State / RunCrimeOneYearofDa
-ta . cfm$[]). El
+ta . cfm$[][]). El
  []
 
 
@@ -2142,32 +2154,32 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 ) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.1348 P
+l.1354 P
         odemos visualizar estos datos al generar un mapa mostrando una distr...
 ]
-<StatsThinking21_files/figure-latex/crimeHist-1.pdf, id=1555, 578.16pt x 289.08
+<StatsThinking21_files/figure-latex/crimeHist-1.pdf, id=1551, 578.16pt x 289.08
 pt>
 File: StatsThinking21_files/figure-latex/crimeHist-1.pdf Graphic file (type pdf
 )
 <use StatsThinking21_files/figure-latex/crimeHist-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/crimeHist-1.pdf  us
-ed on input line 1351.
+ed on input line 1357.
 (pdftex.def)             Requested size: 389.99414pt x 194.99706pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1351--1351
+Underfull \hbox (badness 10000) in paragraph at lines 1357--1357
 [][]
  []
 
-<StatsThinking21_files/figure-latex/popVsCrime-1.pdf, id=1557, 578.16pt x 289.0
+<StatsThinking21_files/figure-latex/popVsCrime-1.pdf, id=1553, 578.16pt x 289.0
 8pt>
 File: StatsThinking21_files/figure-latex/popVsCrime-1.pdf Graphic file (type pd
 f)
 <use StatsThinking21_files/figure-latex/popVsCrime-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/popVsCrime-1.pdf  u
-sed on input line 1357.
+sed on input line 1363.
 (pdftex.def)             Requested size: 389.99414pt x 194.99706pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1357--1357
+Underfull \hbox (badness 10000) in paragraph at lines 1363--1363
 [][]
  []
 
@@ -2183,15 +2195,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 }) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.1361 
+l.1367 
         <./StatsThinking21_files/figure-latex/crimeHist-1.pdf>]
-<StatsThinking21_files/figure-latex/crimeZplot-1.pdf, id=1572, 289.08pt x 289.0
+<StatsThinking21_files/figure-latex/crimeZplot-1.pdf, id=1568, 289.08pt x 289.0
 8pt>
 File: StatsThinking21_files/figure-latex/crimeZplot-1.pdf Graphic file (type pd
 f)
 <use StatsThinking21_files/figure-latex/crimeZplot-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/crimeZplot-1.pdf  u
-sed on input line 1371.
+sed on input line 1377.
 (pdftex.def)             Requested size: 274.26273pt x 274.26273pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2205,7 +2217,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 }) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.1376 
+l.1382 
         <./StatsThinking21_files/figure-latex/popVsCrime-1.pdf>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2219,39 +2231,39 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 0}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.1376 
+l.1382 
         <./StatsThinking21_files/figure-latex/crimeZplot-1.pdf>]
-<StatsThinking21_files/figure-latex/crimeZmap-1.pdf, id=1593, 433.62pt x 433.62
+<StatsThinking21_files/figure-latex/crimeZmap-1.pdf, id=1589, 433.62pt x 433.62
 pt>
 File: StatsThinking21_files/figure-latex/crimeZmap-1.pdf Graphic file (type pdf
 )
 <use StatsThinking21_files/figure-latex/crimeZmap-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/crimeZmap-1.pdf  us
-ed on input line 1379.
+ed on input line 1385.
 (pdftex.def)             Requested size: 390.0162pt x 390.0162pt.
-<StatsThinking21_files/figure-latex/zDensityCDF-1.pdf, id=1594, 433.62pt x 433.
+<StatsThinking21_files/figure-latex/zDensityCDF-1.pdf, id=1590, 433.62pt x 433.
 62pt>
 File: StatsThinking21_files/figure-latex/zDensityCDF-1.pdf Graphic file (type p
 df)
 <use StatsThinking21_files/figure-latex/zDensityCDF-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/zDensityCDF-1.pdf  
-used on input line 1392.
+used on input line 1398.
 (pdftex.def)             Requested size: 390.0162pt x 390.0162pt.
-<StatsThinking21_files/figure-latex/zDensity2SD-1.pdf, id=1596, 433.62pt x 433.
+<StatsThinking21_files/figure-latex/zDensity2SD-1.pdf, id=1592, 433.62pt x 433.
 62pt>
 File: StatsThinking21_files/figure-latex/zDensity2SD-1.pdf Graphic file (type p
 df)
 <use StatsThinking21_files/figure-latex/zDensity2SD-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/zDensity2SD-1.pdf  
-used on input line 1400.
+used on input line 1406.
 (pdftex.def)             Requested size: 390.0162pt x 390.0162pt.
-<StatsThinking21_files/figure-latex/stdScores-1.pdf, id=1598, 289.08pt x 289.08
+<StatsThinking21_files/figure-latex/stdScores-1.pdf, id=1594, 289.08pt x 289.08
 pt>
 File: StatsThinking21_files/figure-latex/stdScores-1.pdf Graphic file (type pdf
 )
 <use StatsThinking21_files/figure-latex/stdScores-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/stdScores-1.pdf  us
-ed on input line 1412.
+ed on input line 1418.
 (pdftex.def)             Requested size: 274.26273pt x 274.26273pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2274,7 +2286,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.1419 
+l.1425 
         <./StatsThinking21_files/figure-latex/crimeZmap-1.pdf>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2288,7 +2300,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.1419 
+l.1425 
         <./StatsThinking21_files/figure-latex/zDensityCDF-1.pdf>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2302,7 +2314,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.1419 
+l.1425 
         <./StatsThinking21_files/figure-latex/zDensity2SD-1.pdf>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2316,31 +2328,31 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.1419 
+l.1425 
         <./StatsThinking21_files/figure-latex/stdScores-1.pdf>]
-<StatsThinking21_files/figure-latex/crimeTypePlot-1.pdf, id=1652, 578.16pt x 28
+<StatsThinking21_files/figure-latex/crimeTypePlot-1.pdf, id=1648, 578.16pt x 28
 9.08pt>
 File: StatsThinking21_files/figure-latex/crimeTypePlot-1.pdf Graphic file (type
  pdf)
 <use StatsThinking21_files/figure-latex/crimeTypePlot-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/crimeTypePlot-1.pdf
-  used on input line 1421.
+  used on input line 1427.
 (pdftex.def)             Requested size: 389.99414pt x 194.99706pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1421--1421
+Underfull \hbox (badness 10000) in paragraph at lines 1427--1427
 [][]
  []
 
-<StatsThinking21_files/figure-latex/crimeTypePopPlot-1.pdf, id=1654, 578.16pt x
+<StatsThinking21_files/figure-latex/crimeTypePopPlot-1.pdf, id=1650, 578.16pt x
  289.08pt>
 File: StatsThinking21_files/figure-latex/crimeTypePopPlot-1.pdf Graphic file (t
 ype pdf)
 <use StatsThinking21_files/figure-latex/crimeTypePopPlot-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/crimeTypePopPlot-1.
-pdf  used on input line 1427.
+pdf  used on input line 1433.
 (pdftex.def)             Requested size: 389.99414pt x 194.99706pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1427--1427
+Underfull \hbox (badness 10000) in paragraph at lines 1433--1433
 [][]
  []
 
@@ -2356,7 +2368,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.1431 
+l.1437 
         <./StatsThinking21_files/figure-latex/crimeTypePlot-1.pdf>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2370,19 +2382,19 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 16}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.1431 
+l.1437 
         <./StatsThinking21_files/figure-latex/crimeTypePopPlot-1.pdf>]pdfTeX wa
 rning (ext4): destination with the same identifier (name{objetivos-de-aprendiza
 je}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.1435 ...dizaje}\label{objetivos-de-aprendizaje}}
+l.1441 ...dizaje}\label{objetivos-de-aprendizaje}}
                                                   pdfTeX warning (ext4): destin
 ation with the same identifier (name{apuxe9ndice}) has been already used, dupli
 cate ignored
 <to be read again> 
                    \relax 
-l.1450 \section{Ap√©ndice}\label{apuxe9ndice}}
+l.1456 \section{Ap√©ndice}\label{apuxe9ndice}}
                                               
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2435,16 +2447,16 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
 
 [106]
-<StatsThinking21_files/figure-latex/ElectionResults-1.pdf, id=1713, 578.16pt x 
+<StatsThinking21_files/figure-latex/ElectionResults-1.pdf, id=1709, 578.16pt x 
 289.08pt>
 File: StatsThinking21_files/figure-latex/ElectionResults-1.pdf Graphic file (ty
 pe pdf)
 <use StatsThinking21_files/figure-latex/ElectionResults-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/ElectionResults-1.p
-df  used on input line 1543.
+df  used on input line 1549.
 (pdftex.def)             Requested size: 389.99414pt x 194.99706pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1543--1543
+Underfull \hbox (badness 10000) in paragraph at lines 1549--1549
 [][]
  []
 
@@ -2460,7 +2472,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.1547 
+l.1553 
         <./StatsThinking21_files/figure-latex/ElectionResults-1.pdf>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2472,13 +2484,13 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [108]
 
-LaTeX Warning: Command \' invalid in math mode on input line 1577.
+LaTeX Warning: Command \' invalid in math mode on input line 1583.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 1577.
+LaTeX Warning: Command \' invalid in math mode on input line 1583.
 
 
-Overfull \hbox (12.82736pt too wide) detected at line 1581
+Overfull \hbox (12.82736pt too wide) detected at line 1587
 \OML/lmm/m/it/12 P\OT1/lmr/m/n/12 (\OML/lmm/m/it/12 Roll\OT1/lmr/m/n/12 6[] \OM
 S/lmsy/m/n/12 [ \OML/lmm/m/it/12 Roll\OT1/lmr/m/n/12 6[]) = \OML/lmm/m/it/12 P\
 OT1/lmr/m/n/12 (\OML/lmm/m/it/12 Roll\OT1/lmr/m/n/12 6[]) + \OML/lmm/m/it/12 P\
@@ -2505,13 +2517,13 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
 
 [110]
-<StatsThinking21_files/figure-latex/ThrowMatrix-1.pdf, id=1739, 289.08pt x 289.
+<StatsThinking21_files/figure-latex/ThrowMatrix-1.pdf, id=1735, 289.08pt x 289.
 08pt>
 File: StatsThinking21_files/figure-latex/ThrowMatrix-1.pdf Graphic file (type p
 df)
 <use StatsThinking21_files/figure-latex/ThrowMatrix-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/ThrowMatrix-1.pdf  
-used on input line 1620.
+used on input line 1626.
 (pdftex.def)             Requested size: 274.26273pt x 274.26273pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2525,7 +2537,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.1624 
+l.1630 
         <./StatsThinking21_files/figure-latex/ThrowMatrix-1.pdf>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2566,13 +2578,13 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 }) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.1726 
+l.1732 
        ]
-<images/conditional_probability.png, id=1777, 578.16pt x 433.62pt>
+<images/conditional_probability.png, id=1773, 578.16pt x 433.62pt>
 File: images/conditional_probability.png Graphic file (type png)
 <use images/conditional_probability.png>
 Package pdftex.def Info: images/conditional_probability.png  used on input line
- 1736.
+ 1742.
 (pdftex.def)             Requested size: 365.68071pt x 274.26053pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2586,9 +2598,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.1740 
+l.1746 
         <./images/conditional_probability.png>]
-Overfull \hbox (27.60844pt too wide) in paragraph at lines 1784--1785
+Overfull \hbox (27.60844pt too wide) in paragraph at lines 1790--1791
 []\T1/lmr/m/n/12 Basados en es-tas prob-a-bil-i-dades con-jun-tas, pode-mos cal
 -cu-lar $\OML/lmm/m/it/12 P\OT1/lmr/m/n/12 (\OML/lmm/m/it/12 diabetes\OMS/lmsy/
 m/n/12 j\OML/lmm/m/it/12 inactive\OT1/lmr/m/n/12 )$\T1/lmr/m/n/12 .
@@ -2606,7 +2618,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 }) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.1785 
+l.1791 
        ]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2620,15 +2632,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 }) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.1796 
+l.1802 
        ]
-Overfull \hbox (16.29677pt too wide) in paragraph at lines 1809--1810
+Overfull \hbox (16.29677pt too wide) in paragraph at lines 1815--1816
 \T1/lmr/m/n/12 mien-tras que la prob-a-bil-i-dad condi-cional $\OML/lmm/m/it/12
  P\OT1/lmr/m/n/12 ([])$
  []
 
 
-Underfull \hbox (badness 1389) in paragraph at lines 1812--1812
+Underfull \hbox (badness 1389) in paragraph at lines 1818--1818
 []\T1/lmr/bx/n/17.28 Invertir una prob-a-bil-i-dad condi-cional:
  []
 
@@ -2653,7 +2665,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-15.11652pt}.
 
 [120]
-Overfull \hbox (3.24248pt too wide) detected at line 1840
+Overfull \hbox (3.24248pt too wide) detected at line 1846
 \OML/lmm/m/it/12 P\OT1/lmr/m/n/12 ([]) = []
  []
 
@@ -2696,7 +2708,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 s-de-aprendizaje}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.1914 ...dizaje}\label{objetivos-de-aprendizaje}}
+l.1920 ...dizaje}\label{objetivos-de-aprendizaje}}
                                                   
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2710,13 +2722,13 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 -sugeridas}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.1937 ...as sugeridas}\label{lecturas-sugeridas}}
+l.1943 ...as sugeridas}\label{lecturas-sugeridas}}
                                                   pdfTeX warning (ext4): destin
 ation with the same identifier (name{apuxe9ndice}) has been already used, dupli
 cate ignored
 <to be read again> 
                    \relax 
-l.1946 \section{Ap√©ndice}\label{apuxe9ndice}}
+l.1952 \section{Ap√©ndice}\label{apuxe9ndice}}
                                               
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2754,16 +2766,16 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [129]
-<StatsThinking21_files/figure-latex/samplePlot-1.pdf, id=1855, 578.16pt x 289.0
+<StatsThinking21_files/figure-latex/samplePlot-1.pdf, id=1851, 578.16pt x 289.0
 8pt>
 File: StatsThinking21_files/figure-latex/samplePlot-1.pdf Graphic file (type pd
 f)
 <use StatsThinking21_files/figure-latex/samplePlot-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/samplePlot-1.pdf  u
-sed on input line 2020.
+sed on input line 2026.
 (pdftex.def)             Requested size: 389.99414pt x 194.99706pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 2020--2020
+Underfull \hbox (badness 10000) in paragraph at lines 2026--2026
 [][]
  []
 
@@ -2782,12 +2794,12 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 }) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.2027 
+l.2033 
        pdfTeX warning (ext4): destination with the same identifier (name{figure
 .7.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.2027 
+l.2033 
         <./StatsThinking21_files/figure-latex/samplePlot-1.pdf>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2798,16 +2810,16 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [131]
-<StatsThinking21_files/figure-latex/alcDist50-1.pdf, id=1875, 578.16pt x 289.08
+<StatsThinking21_files/figure-latex/alcDist50-1.pdf, id=1871, 578.16pt x 289.08
 pt>
 File: StatsThinking21_files/figure-latex/alcDist50-1.pdf Graphic file (type pdf
 )
 <use StatsThinking21_files/figure-latex/alcDist50-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/alcDist50-1.pdf  us
-ed on input line 2048.
+ed on input line 2054.
 (pdftex.def)             Requested size: 389.99414pt x 194.99706pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 2048--2048
+Underfull \hbox (badness 10000) in paragraph at lines 2054--2054
 [][]
  []
 
@@ -2832,15 +2844,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.2057 
+l.2063 
         <./StatsThinking21_files/figure-latex/alcDist50-1.pdf>]
-<StatsThinking21_files/figure-latex/normalCutoffs-1.pdf, id=1893, 289.08pt x 28
+<StatsThinking21_files/figure-latex/normalCutoffs-1.pdf, id=1889, 289.08pt x 28
 9.08pt>
 File: StatsThinking21_files/figure-latex/normalCutoffs-1.pdf Graphic file (type
  pdf)
 <use StatsThinking21_files/figure-latex/normalCutoffs-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/normalCutoffs-1.pdf
-  used on input line 2061.
+  used on input line 2067.
 (pdftex.def)             Requested size: 274.26273pt x 274.26273pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -2867,13 +2879,13 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 as been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.2081 ...dizaje}\label{objetivos-de-aprendizaje}}
+l.2087 ...dizaje}\label{objetivos-de-aprendizaje}}
                                                   pdfTeX warning (ext4): destin
 ation with the same identifier (name{lecturas-sugeridas}) has been already used
 , duplicate ignored
 <to be read again> 
                    \relax 
-l.2100 ...as sugeridas}\label{lecturas-sugeridas}}
+l.2106 ...as sugeridas}\label{lecturas-sugeridas}}
                                                   
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2906,16 +2918,16 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
 
 [139]
-<StatsThinking21_files/figure-latex/rngExamples-1.pdf, id=1935, 578.16pt x 289.
+<StatsThinking21_files/figure-latex/rngExamples-1.pdf, id=1931, 578.16pt x 289.
 08pt>
 File: StatsThinking21_files/figure-latex/rngExamples-1.pdf Graphic file (type p
 df)
 <use StatsThinking21_files/figure-latex/rngExamples-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/rngExamples-1.pdf  
-used on input line 2158.
+used on input line 2164.
 (pdftex.def)             Requested size: 389.99414pt x 194.99706pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 2158--2158
+Underfull \hbox (badness 10000) in paragraph at lines 2164--2164
 [][]
  []
 
@@ -2931,29 +2943,29 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.2166 ...ciuxf3n-con-el-muxe9todo-de-montecarlo}}
+l.2172 ...ciuxf3n-con-el-muxe9todo-de-montecarlo}}
                                                    <./StatsThinking21_files/fig
 ure-latex/rngExamples-1.pdf>]
-<StatsThinking21_files/figure-latex/finishingTimes-1.pdf, id=1947, 578.16pt x 2
+<StatsThinking21_files/figure-latex/finishingTimes-1.pdf, id=1943, 578.16pt x 2
 89.08pt>
 File: StatsThinking21_files/figure-latex/finishingTimes-1.pdf Graphic file (typ
 e pdf)
 <use StatsThinking21_files/figure-latex/finishingTimes-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/finishingTimes-1.pd
-f  used on input line 2171.
+f  used on input line 2177.
 (pdftex.def)             Requested size: 389.99414pt x 194.99706pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 2171--2171
+Underfull \hbox (badness 10000) in paragraph at lines 2177--2177
 [][]
  []
 
-<StatsThinking21_files/figure-latex/finishTimeSim-1.pdf, id=1949, 289.08pt x 28
+<StatsThinking21_files/figure-latex/finishTimeSim-1.pdf, id=1945, 289.08pt x 28
 9.08pt>
 File: StatsThinking21_files/figure-latex/finishTimeSim-1.pdf Graphic file (type
  pdf)
 <use StatsThinking21_files/figure-latex/finishTimeSim-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/finishTimeSim-1.pdf
-  used on input line 2177.
+  used on input line 2183.
 (pdftex.def)             Requested size: 274.26273pt x 274.26273pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -2967,10 +2979,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.2178 \end{figure}
+l.2184 \end{figure}
                     <./StatsThinking21_files/figure-latex/finishingTimes-1.pdf>
 ]
-Underfull \hbox (badness 1888) in paragraph at lines 2183--2183
+Underfull \hbox (badness 1888) in paragraph at lines 2189--2189
 []\T1/lmr/bx/n/17.28 Usando sim-u-la-ciones para es-tadÌs-tica:
  []
 
@@ -2989,15 +3001,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.2186 
+l.2192 
         <./StatsThinking21_files/figure-latex/finishTimeSim-1.pdf>]
-<StatsThinking21_files/figure-latex/bootstrapSEM-1.pdf, id=1972, 289.08pt x 289
+<StatsThinking21_files/figure-latex/bootstrapSEM-1.pdf, id=1968, 289.08pt x 289
 .08pt>
 File: StatsThinking21_files/figure-latex/bootstrapSEM-1.pdf Graphic file (type 
 pdf)
 <use StatsThinking21_files/figure-latex/bootstrapSEM-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/bootstrapSEM-1.pdf 
- used on input line 2197.
+ used on input line 2203.
 (pdftex.def)             Requested size: 274.26273pt x 274.26273pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -3020,19 +3032,19 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.2201 
+l.2207 
         <./StatsThinking21_files/figure-latex/bootstrapSEM-1.pdf>]pdfTeX warnin
 g (ext4): destination with the same identifier (name{objetivos-de-aprendizaje})
  has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.2220 ...dizaje}\label{objetivos-de-aprendizaje}}
+l.2226 ...dizaje}\label{objetivos-de-aprendizaje}}
                                                   pdfTeX warning (ext4): destin
 ation with the same identifier (name{lecturas-sugeridas}) has been already used
 , duplicate ignored
 <to be read again> 
                    \relax 
-l.2237 ...as sugeridas}\label{lecturas-sugeridas}}
+l.2243 ...as sugeridas}\label{lecturas-sugeridas}}
                                                   
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -3046,7 +3058,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 }) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.2246 ...p√≥tesis}\label{prueba-de-hipuxf3tesis}}
+l.2252 ...e hip√≥tesis}\label{hypothesis-testing}}
                                                   ]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -3061,7 +3073,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 ]
 Chapter 9.
 
-Underfull \hbox (badness 4752) in paragraph at lines 2263--2263
+Underfull \hbox (badness 4752) in paragraph at lines 2269--2269
 \T1/lmr/bx/n/17.28 (Null Hy-poth-e-sis Sta-tis-ti-cal Test-ing,
  []
 
@@ -3093,13 +3105,13 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
 
 [150]
-<StatsThinking21_files/figure-latex/bmiSample-1.pdf, id=2033, 289.08pt x 289.08
+<StatsThinking21_files/figure-latex/bmiSample-1.pdf, id=2028, 289.08pt x 289.08
 pt>
 File: StatsThinking21_files/figure-latex/bmiSample-1.pdf Graphic file (type pdf
 )
 <use StatsThinking21_files/figure-latex/bmiSample-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/bmiSample-1.pdf  us
-ed on input line 2367.
+ed on input line 2373.
 (pdftex.def)             Requested size: 274.26273pt x 274.26273pt.
 
 Underfull \vbox (badness 1248) has occurred while \output is active []
@@ -3125,12 +3137,12 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 }) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.2374 
+l.2380 
        pdfTeX warning (ext4): destination with the same identifier (name{figure
 .9.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.2374 
+l.2380 
         <./StatsThinking21_files/figure-latex/bmiSample-1.pdf>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -3141,16 +3153,16 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
 
 [153]
-<StatsThinking21_files/figure-latex/tVersusNormal-1.pdf, id=2060, 578.16pt x 28
+<StatsThinking21_files/figure-latex/tVersusNormal-1.pdf, id=2056, 578.16pt x 28
 9.08pt>
 File: StatsThinking21_files/figure-latex/tVersusNormal-1.pdf Graphic file (type
  pdf)
 <use StatsThinking21_files/figure-latex/tVersusNormal-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/tVersusNormal-1.pdf
-  used on input line 2386.
+  used on input line 2392.
 (pdftex.def)             Requested size: 389.99414pt x 194.99706pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 2386--2386
+Underfull \hbox (badness 10000) in paragraph at lines 2392--2392
 [][]
  []
 
@@ -3166,15 +3178,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.2393 
+l.2399 
         <./StatsThinking21_files/figure-latex/tVersusNormal-1.pdf>]
-<StatsThinking21_files/figure-latex/coinFlips-1.pdf, id=2073, 289.08pt x 289.08
+<StatsThinking21_files/figure-latex/coinFlips-1.pdf, id=2069, 289.08pt x 289.08
 pt>
 File: StatsThinking21_files/figure-latex/coinFlips-1.pdf Graphic file (type pdf
 )
 <use StatsThinking21_files/figure-latex/coinFlips-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/coinFlips-1.pdf  us
-ed on input line 2409.
+ed on input line 2415.
 (pdftex.def)             Requested size: 274.26273pt x 274.26273pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -3197,9 +3209,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.2416 
+l.2422 
         <./StatsThinking21_files/figure-latex/coinFlips-1.pdf>]
-Underfull \hbox (badness 1354) in paragraph at lines 2417--2418
+Underfull \hbox (badness 1354) in paragraph at lines 2423--2424
 []\T1/lmr/m/n/12 Hagamos el c·l-culo an·l-ogo para nue-stro ejem-plo de IMC/act
 ividad.
  []
@@ -3213,16 +3225,16 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
 
 [157]
-<StatsThinking21_files/figure-latex/squatPlot-1.pdf, id=2097, 578.16pt x 289.08
+<StatsThinking21_files/figure-latex/squatPlot-1.pdf, id=2093, 578.16pt x 289.08
 pt>
 File: StatsThinking21_files/figure-latex/squatPlot-1.pdf Graphic file (type pdf
 )
 <use StatsThinking21_files/figure-latex/squatPlot-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/squatPlot-1.pdf  us
-ed on input line 2498.
+ed on input line 2504.
 (pdftex.def)             Requested size: 389.99414pt x 194.99706pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 2498--2498
+Underfull \hbox (badness 10000) in paragraph at lines 2504--2504
 [][]
  []
 
@@ -3247,12 +3259,12 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 }) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.2515 \end{verbatim}
+l.2521 \end{verbatim}
                      pdfTeX warning (ext4): destination with the same identifie
 r (name{table.9.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.2515 \end{verbatim}
+l.2521 \end{verbatim}
                      ]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -3266,20 +3278,20 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.2515 \end{verbatim}
+l.2521 \end{verbatim}
                       <./StatsThinking21_files/figure-latex/squatPlot-1.pdf>]
-Overfull \hbox (36.07521pt too wide) in paragraph at lines 2515--2515
+Overfull \hbox (36.07521pt too wide) in paragraph at lines 2521--2521
 []\T1/lmtt/m/n/12 ## alternative hypothesis: true difference in means is greate
 r than 0[] 
  []
 
-<StatsThinking21_files/figure-latex/shuffleHist-1.pdf, id=2124, 289.08pt x 289.
+<StatsThinking21_files/figure-latex/shuffleHist-1.pdf, id=2120, 289.08pt x 289.
 08pt>
 File: StatsThinking21_files/figure-latex/shuffleHist-1.pdf Graphic file (type p
 df)
 <use StatsThinking21_files/figure-latex/shuffleHist-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/shuffleHist-1.pdf  
-used on input line 2522.
+used on input line 2528.
 (pdftex.def)             Requested size: 274.26273pt x 274.26273pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -3302,14 +3314,14 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.2526 
+l.2532 
         <./StatsThinking21_files/figure-latex/shuffleHist-1.pdf>]
-<StatsThinking21_files/figure-latex/simDiff-1.pdf, id=2141, 289.08pt x 289.08pt
+<StatsThinking21_files/figure-latex/simDiff-1.pdf, id=2137, 289.08pt x 289.08pt
 >
 File: StatsThinking21_files/figure-latex/simDiff-1.pdf Graphic file (type pdf)
 <use StatsThinking21_files/figure-latex/simDiff-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/simDiff-1.pdf  used
- on input line 2533.
+ on input line 2539.
 (pdftex.def)             Requested size: 274.26273pt x 274.26273pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -3335,7 +3347,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 6}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.2542 
+l.2548 
         <./StatsThinking21_files/figure-latex/simDiff-1.pdf>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -3373,16 +3385,16 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
 
 [168]
-<StatsThinking21_files/figure-latex/sigResults-1.pdf, id=2204, 578.16pt x 289.0
+<StatsThinking21_files/figure-latex/sigResults-1.pdf, id=2200, 578.16pt x 289.0
 8pt>
 File: StatsThinking21_files/figure-latex/sigResults-1.pdf Graphic file (type pd
 f)
 <use StatsThinking21_files/figure-latex/sigResults-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/sigResults-1.pdf  u
-sed on input line 2630.
+sed on input line 2636.
 (pdftex.def)             Requested size: 389.99414pt x 194.99706pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 2630--2630
+Underfull \hbox (badness 10000) in paragraph at lines 2636--2636
 [][]
  []
 
@@ -3401,17 +3413,17 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 7}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.2637 
+l.2643 
         <./StatsThinking21_files/figure-latex/sigResults-1.pdf>]
-<StatsThinking21_files/figure-latex/nullSim-1.pdf, id=2218, 578.16pt x 289.08pt
+<StatsThinking21_files/figure-latex/nullSim-1.pdf, id=2214, 578.16pt x 289.08pt
 >
 File: StatsThinking21_files/figure-latex/nullSim-1.pdf Graphic file (type pdf)
 <use StatsThinking21_files/figure-latex/nullSim-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/nullSim-1.pdf  used
- on input line 2643.
+ on input line 2649.
 (pdftex.def)             Requested size: 389.99414pt x 194.99706pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 2643--2643
+Underfull \hbox (badness 10000) in paragraph at lines 2649--2649
 [][]
  []
 
@@ -3436,19 +3448,19 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 8}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.2647 
+l.2653 
         <./StatsThinking21_files/figure-latex/nullSim-1.pdf>]pdfTeX warning (ex
 t4): destination with the same identifier (name{objetivos-de-aprendizaje}) has 
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.2651 ...dizaje}\label{objetivos-de-aprendizaje}}
+l.2657 ...dizaje}\label{objetivos-de-aprendizaje}}
                                                   pdfTeX warning (ext4): destin
 ation with the same identifier (name{lecturas-sugeridas}) has been already used
 , duplicate ignored
 <to be read again> 
                    \relax 
-l.2670 ...as sugeridas}\label{lecturas-sugeridas}}
+l.2676 ...as sugeridas}\label{lecturas-sugeridas}}
                                                   
 Underfull \vbox (badness 1721) has occurred while \output is active []
 
@@ -3495,7 +3507,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [176]
-Underfull \hbox (badness 1048) in paragraph at lines 2712--2713
+Underfull \hbox (badness 1048) in paragraph at lines 2720--2721
 \T1/lmr/m/n/12 desviaciÛn es-t·n-dar de la poblaciÛn pode-mos cal-cu-lar el in-
 ter-valo de
  []
@@ -3509,6 +3521,14 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [177]
+<StatsThinking21_files/figure-latex/CISampSize-1.pdf, id=2266, 289.08pt x 289.0
+8pt>
+File: StatsThinking21_files/figure-latex/CISampSize-1.pdf Graphic file (type pd
+f)
+<use StatsThinking21_files/figure-latex/CISampSize-1.pdf>
+Package pdftex.def Info: StatsThinking21_files/figure-latex/CISampSize-1.pdf  u
+sed on input line 2744.
+(pdftex.def)             Requested size: 274.26273pt x 274.26273pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -3518,14 +3538,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [178]
-<StatsThinking21_files/figure-latex/CISampSize-1.pdf, id=2277, 289.08pt x 289.0
-8pt>
-File: StatsThinking21_files/figure-latex/CISampSize-1.pdf Graphic file (type pd
-f)
-<use StatsThinking21_files/figure-latex/CISampSize-1.pdf>
-Package pdftex.def Info: StatsThinking21_files/figure-latex/CISampSize-1.pdf  u
-sed on input line 2743.
-(pdftex.def)             Requested size: 274.26273pt x 274.26273pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -3538,7 +3550,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 .1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.2750 
+l.2751 
         <./StatsThinking21_files/figure-latex/CISampSize-1.pdf>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -3549,6 +3561,8 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [180]
+Underfull \vbox (badness 3954) has occurred while \output is active []
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -3558,14 +3572,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [181]
-<StatsThinking21_files/figure-latex/genderHist-1.pdf, id=2308, 289.08pt x 289.0
-8pt>
-File: StatsThinking21_files/figure-latex/genderHist-1.pdf Graphic file (type pd
-f)
-<use StatsThinking21_files/figure-latex/genderHist-1.pdf>
-Package pdftex.def Info: StatsThinking21_files/figure-latex/genderHist-1.pdf  u
-sed on input line 2823.
-(pdftex.def)             Requested size: 274.26273pt x 274.26273pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -3578,8 +3584,16 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.2827 
+l.2822 
        ]
+<StatsThinking21_files/figure-latex/genderHist-1.pdf, id=2309, 289.08pt x 289.0
+8pt>
+File: StatsThinking21_files/figure-latex/genderHist-1.pdf Graphic file (type pd
+f)
+<use StatsThinking21_files/figure-latex/genderHist-1.pdf>
+Package pdftex.def Info: StatsThinking21_files/figure-latex/genderHist-1.pdf  u
+sed on input line 2824.
+(pdftex.def)             Requested size: 274.26273pt x 274.26273pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -3592,18 +3606,14 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 .2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.2827 
+l.2828 
         <./StatsThinking21_files/figure-latex/genderHist-1.pdf>]
-
-LaTeX Warning: Reference `modeling-continuous-relationships' on page 184 undefi
-ned on input line 2831.
-
-<StatsThinking21_files/figure-latex/corrFig-1.pdf, id=2325, 650.43pt x 433.62pt
+<StatsThinking21_files/figure-latex/corrFig-1.pdf, id=2323, 650.43pt x 433.62pt
 >
 File: StatsThinking21_files/figure-latex/corrFig-1.pdf Graphic file (type pdf)
 <use StatsThinking21_files/figure-latex/corrFig-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/corrFig-1.pdf  used
- on input line 2835.
+ on input line 2837.
 (pdftex.def)             Requested size: 390.0129pt x 260.00859pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -3626,7 +3636,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 .3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.2847 
+l.2851 
         <./StatsThinking21_files/figure-latex/corrFig-1.pdf>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -3640,8 +3650,17 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.2869 
-       ]
+l.2874 E
+        l concepto de \emph{poder estad√≠stico} es el complemento al tipo de...
+]
+<StatsThinking21_files/figure-latex/plotPowerSim-1.pdf, id=2354, 433.62pt x 289
+.08pt>
+File: StatsThinking21_files/figure-latex/plotPowerSim-1.pdf Graphic file (type 
+pdf)
+<use StatsThinking21_files/figure-latex/plotPowerSim-1.pdf>
+Package pdftex.def Info: StatsThinking21_files/figure-latex/plotPowerSim-1.pdf 
+ used on input line 2897.
+(pdftex.def)             Requested size: 390.0162pt x 260.01079pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -3651,14 +3670,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [187]
-<StatsThinking21_files/figure-latex/plotPowerSim-1.pdf, id=2362, 433.62pt x 289
-.08pt>
-File: StatsThinking21_files/figure-latex/plotPowerSim-1.pdf Graphic file (type 
-pdf)
-<use StatsThinking21_files/figure-latex/plotPowerSim-1.pdf>
-Package pdftex.def Info: StatsThinking21_files/figure-latex/plotPowerSim-1.pdf 
- used on input line 2892.
-(pdftex.def)             Requested size: 390.0162pt x 260.01079pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 15.35403pt, for example:
@@ -3671,7 +3682,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 .4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.2897 
+l.2903 
         <./StatsThinking21_files/figure-latex/plotPowerSim-1.pdf>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -3685,7 +3696,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 s-de-aprendizaje}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.2938 ...dizaje}\label{objetivos-de-aprendizaje}}
+l.2944 ...dizaje}\label{objetivos-de-aprendizaje}}
                                                   
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -3699,7 +3710,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 -sugeridas}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.2953 ...as sugeridas}\label{lecturas-sugeridas}}
+l.2959 ...as sugeridas}\label{lecturas-sugeridas}}
                                                   
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -3726,12 +3737,9 @@ Chapter 11.
 <images/BayesianInference.png, id=2401, 502.7583pt x 304.2567pt>
 File: images/BayesianInference.png Graphic file (type png)
 <use images/BayesianInference.png>
-Package pdftex.def Info: images/BayesianInference.png  used on input line 2975.
+Package pdftex.def Info: images/BayesianInference.png  used on input line 2981.
 
 (pdftex.def)             Requested size: 311.99843pt x 188.81361pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -3744,16 +3752,16 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 .1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.2984 
+l.2990 
         <./images/BayesianInference.png>]
 
-LaTeX Warning: Command \' invalid in math mode on input line 2998.
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 3000.
-
-
 LaTeX Warning: Command \' invalid in math mode on input line 3004.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 3006.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 3010.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -3764,21 +3772,19 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
 
 [195]
-Underfull \hbox (badness 4217) in paragraph at lines 3016--3018
-[]\T1/lmr/m/it/12 probabilidad marginal \T1/lmr/m/n/12 ($\OML/lmm/m/it/12 P\OT1
+Underfull \hbox (badness 3354) in paragraph at lines 3022--3024
+[]\T1/lmr/m/it/12 Probabilidad marginal \T1/lmr/m/n/12 ($\OML/lmm/m/it/12 P\OT1
 /lmr/m/n/12 ([])$\T1/lmr/m/n/12 ): æQuÈ
  []
 
 
-Underfull \hbox (badness 1019) in paragraph at lines 3033--3034
-\T1/lmr/m/n/12 real pero pode-mos asumar que es pe-queÒo. De acuerdo a la FAA
+Underfull \hbox (badness 3000) in paragraph at lines 3024--3025
+[]\T1/lmr/m/it/12 Probabilidad pos-te-rior \T1/lmr/m/n/12 ($\OML/lmm/m/it/12 P[
+]\OMS/lmsy/m/n/12 j[]\OT1/lmr/m/n/12 )$\T1/lmr/m/n/12 ):
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 3033--3034
-\T1/lmr/m/n/12 ([]$https : / / www . faa . gov / air _ tra^^^c / by _ the _ num
-bers / media / Air _ Tra^^^c _
- []
+Underfull \vbox (badness 2126) has occurred while \output is active []
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -3789,8 +3795,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [196]
-Underfull \vbox (badness 2197) has occurred while \output is active []
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 15.35403pt, for example:
@@ -3809,6 +3813,12 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [198]
+<StatsThinking21_files/figure-latex/like2-1.pdf, id=2441, 289.08pt x 289.08pt>
+File: StatsThinking21_files/figure-latex/like2-1.pdf Graphic file (type pdf)
+<use StatsThinking21_files/figure-latex/like2-1.pdf>
+Package pdftex.def Info: StatsThinking21_files/figure-latex/like2-1.pdf  used o
+n input line 3092.
+(pdftex.def)             Requested size: 274.26273pt x 274.26273pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 15.35403pt, for example:
@@ -3818,12 +3828,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
 
 [199]
-<StatsThinking21_files/figure-latex/like2-1.pdf, id=2454, 289.08pt x 289.08pt>
-File: StatsThinking21_files/figure-latex/like2-1.pdf Graphic file (type pdf)
-<use StatsThinking21_files/figure-latex/like2-1.pdf>
-Package pdftex.def Info: StatsThinking21_files/figure-latex/like2-1.pdf  used o
-n input line 3086.
-(pdftex.def)             Requested size: 274.26273pt x 274.26273pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -3836,7 +3840,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 .2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.3093 
+l.3104 
         <./StatsThinking21_files/figure-latex/like2-1.pdf>]
 <StatsThinking21_files/figure-latex/posteriorDist-1.pdf, id=2467, 289.08pt x 28
 9.08pt>
@@ -3844,11 +3848,8 @@ File: StatsThinking21_files/figure-latex/posteriorDist-1.pdf Graphic file (type
  pdf)
 <use StatsThinking21_files/figure-latex/posteriorDist-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/posteriorDist-1.pdf
-  used on input line 3100.
+  used on input line 3106.
 (pdftex.def)             Requested size: 274.26273pt x 274.26273pt.
-
-Underfull \vbox (badness 1484) has occurred while \output is active []
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 15.35403pt, for example:
@@ -3861,8 +3862,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 .3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.3107 
+l.3113 
         <./StatsThinking21_files/figure-latex/posteriorDist-1.pdf>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -3878,7 +3881,7 @@ File: StatsThinking21_files/figure-latex/posteriorDistPrior-1.pdf Graphic file
 (type pdf)
 <use StatsThinking21_files/figure-latex/posteriorDistPrior-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/posteriorDistPrior-
-1.pdf  used on input line 3131.
+1.pdf  used on input line 3137.
 (pdftex.def)             Requested size: 311.99884pt x 311.99884pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -3901,8 +3904,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 .4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.3135 
+l.3141 
         <./StatsThinking21_files/figure-latex/posteriorDistPrior-1.pdf>]
+Underfull \vbox (badness 1721) has occurred while \output is active []
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 15.35403pt, for example:
@@ -3914,23 +3919,23 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [205]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                Make it at least 15.35403pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.35403pt}.
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+(fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
 
 [206]
-<StatsThinking21_files/figure-latex/bayesTesting-1.pdf, id=2528, 289.08pt x 289
+<StatsThinking21_files/figure-latex/bayesTesting-1.pdf, id=2526, 289.08pt x 289
 .08pt>
 File: StatsThinking21_files/figure-latex/bayesTesting-1.pdf Graphic file (type 
 pdf)
 <use StatsThinking21_files/figure-latex/bayesTesting-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/bayesTesting-1.pdf 
- used on input line 3170.
+ used on input line 3176.
 (pdftex.def)             Requested size: 274.26273pt x 274.26273pt.
 
-Overfull \hbox (36.07521pt too wide) in paragraph at lines 3185--3185
+Overfull \hbox (36.07521pt too wide) in paragraph at lines 3191--3191
 []\T1/lmtt/m/n/12 ## alternative hypothesis: true difference in means is greate
 r than 0[] 
  []
@@ -3946,21 +3951,20 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [207]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                Make it at least 15.35403pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.35403pt}.
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+(fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
 
 [208pdfTeX warning (ext4): destination with the same identifier (name{figure.11
 .5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.3199 \end{verbatim}
-                      <./StatsThinking21_files/figure-latex/bayesTesting-1.pdf>
-]
+l.3194 
+        <./StatsThinking21_files/figure-latex/bayesTesting-1.pdf>]
 LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 
-3199.
+3205.
 (c:/Users/cthul/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
@@ -3975,22 +3979,28 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [209]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                Make it at least 15.35403pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.35403pt}.
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+(fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
 
 [210]pdfTeX warning (ext4): destination with the same identifier (name{objetivo
 s-de-aprendizaje}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.3246 ...dizaje}\label{objetivos-de-aprendizaje}}
+l.3252 ...dizaje}\label{objetivos-de-aprendizaje}}
                                                   
-Underfull \hbox (badness 1371) in paragraph at lines 3268--3270
+Underfull \hbox (badness 1371) in paragraph at lines 3274--3276
 \T1/lmr/m/it/12 Enigma Code, Hunted Down Rus-sian Sub-marines, and Emerged
  []
 
+pdfTeX warning (ext4): destination with the same identifier (name{apuxe9ndice})
+ has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.3280 \section{Ap√©ndice:}\label{apuxe9ndice}}
+                                               
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 15.35403pt, for example:
@@ -4000,21 +4010,21 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
 
 [211]
-<StatsThinking21_files/figure-latex/rejectionSampling-1.pdf, id=2572, 289.08pt 
+<StatsThinking21_files/figure-latex/rejectionSampling-1.pdf, id=2570, 289.08pt 
 x 289.08pt>
 File: StatsThinking21_files/figure-latex/rejectionSampling-1.pdf Graphic file (
 type pdf)
 <use StatsThinking21_files/figure-latex/rejectionSampling-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/rejectionSampling-1
-.pdf  used on input line 3315.
+.pdf  used on input line 3321.
 (pdftex.def)             Requested size: 274.26273pt x 274.26273pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                Make it at least 15.35403pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.35403pt}.
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+(fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
 
 [212]
 
@@ -4029,16 +4039,16 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 .6}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.3319 ...abel{modelar-relaciones-categuxf3ricas}}
+l.3325 ...abel{modelar-relaciones-categuxf3ricas}}
                                                    <./StatsThinking21_files/fig
 ure-latex/rejectionSampling-1.pdf>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                Make it at least 15.35403pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.35403pt}.
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+(fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
 
 [214
 
@@ -4057,7 +4067,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.3357 
+l.3363 
        ]
 <StatsThinking21_files/figure-latex/chisqDist-1.pdf, id=2606, 578.16pt x 289.08
 pt>
@@ -4065,10 +4075,10 @@ File: StatsThinking21_files/figure-latex/chisqDist-1.pdf Graphic file (type pdf
 )
 <use StatsThinking21_files/figure-latex/chisqDist-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/chisqDist-1.pdf  us
-ed on input line 3359.
+ed on input line 3365.
 (pdftex.def)             Requested size: 389.99414pt x 194.99706pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 3359--3359
+Underfull \hbox (badness 10000) in paragraph at lines 3365--3365
 [][]
  []
 
@@ -4084,7 +4094,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 .1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.3365 
+l.3371 
         <./StatsThinking21_files/figure-latex/chisqDist-1.pdf>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -4098,7 +4108,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.3389 
+l.3395 
        ]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -4112,7 +4122,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.3427 
+l.3433 
        ]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -4122,12 +4132,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[220]pdfTeX warning (ext4): destination with the same identifier (name{factores
--de-bayes}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.3488 ...ores de Bayes}\label{factores-de-bayes}}
-                                                  
+[220]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 15.35403pt, for example:
@@ -4140,9 +4145,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.3491 \[
+l.3497 \[
          ]
-Overfull \hbox (11.3752pt too wide) in paragraph at lines 3505--3505
+Overfull \hbox (11.3752pt too wide) in paragraph at lines 3511--3511
 []\T1/lmtt/m/n/12 ## Bayes factor type: BFcontingencyTable, independent multino
 mial[] 
  []
@@ -4168,14 +4173,14 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 6}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.3562 
+l.3568 
        ]
-Overfull \hbox (47.1798pt too wide) in alignment at lines 3563--3567
+Overfull \hbox (47.1798pt too wide) in alignment at lines 3569--3573
  [] [] [] [] [] [] [] [] [] 
  []
 
 
-Overfull \hbox (47.1798pt too wide) in alignment at lines 3567--3571
+Overfull \hbox (47.1798pt too wide) in alignment at lines 3573--3577
  [] [] [] [] [] [] [] [] [] 
  []
 
@@ -4183,7 +4188,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{objetivos-de-
 aprendizaje}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.3576 ...dizaje}\label{objetivos-de-aprendizaje}}
+l.3582 ...dizaje}\label{objetivos-de-aprendizaje}}
                                                   
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -4216,17 +4221,17 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 ]
 Chapter 13.
 [227]
-Underfull \hbox (badness 1418) in paragraph at lines 3612--3612
+Underfull \hbox (badness 1418) in paragraph at lines 3620--3620
 []\T1/lmr/bx/n/17.28 æLa in-equidad de in-greso est· rela-
  []
 
-<StatsThinking21_files/figure-latex/hateCrimeGini-1.pdf, id=2680, 289.08pt x 28
+<StatsThinking21_files/figure-latex/hateCrimeGini-1.pdf, id=2681, 289.08pt x 28
 9.08pt>
 File: StatsThinking21_files/figure-latex/hateCrimeGini-1.pdf Graphic file (type
  pdf)
 <use StatsThinking21_files/figure-latex/hateCrimeGini-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/hateCrimeGini-1.pdf
-  used on input line 3615.
+  used on input line 3623.
 (pdftex.def)             Requested size: 289.09251pt x 289.09251pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -4240,7 +4245,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 .1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.3625 
+l.3633 
         <./StatsThinking21_files/figure-latex/hateCrimeGini-1.pdf>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -4254,9 +4259,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.3660 
+l.3668 
        ]
-Overfull \hbox (66.95023pt too wide) in paragraph at lines 3688--3688
+Overfull \hbox (66.95023pt too wide) in paragraph at lines 3696--3696
 []\T1/lmtt/m/n/12 ## data:  hateCrimes$avg_hatecrimes_per_100k_fbi and hateCrim
 es$gini_index[] 
  []
@@ -4270,20 +4275,14 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
 
 [230]
-<StatsThinking21_files/figure-latex/shuffleCorr-1.pdf, id=2707, 289.08pt x 289.
+<StatsThinking21_files/figure-latex/shuffleCorr-1.pdf, id=2708, 289.08pt x 289.
 08pt>
 File: StatsThinking21_files/figure-latex/shuffleCorr-1.pdf Graphic file (type p
 df)
 <use StatsThinking21_files/figure-latex/shuffleCorr-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/shuffleCorr-1.pdf  
-used on input line 3695.
+used on input line 3703.
 (pdftex.def)             Requested size: 274.26273pt x 274.26273pt.
-
-Underfull \hbox (badness 1137) in paragraph at lines 3698--3700
-\T1/lmr/m/n/12 vÈase ApÈndice para m·s so-bre esto. ### Cor-rela-ciones Ro-bus-
-tas
- []
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -4296,15 +4295,16 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 .2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.3700 
-        <./StatsThinking21_files/figure-latex/shuffleCorr-1.pdf>]
-<StatsThinking21_files/figure-latex/outlierCorr-1.pdf, id=2721, 289.08pt x 289.
+l.3709 ...es Robustas}\label{robust-correlations}}
+                                                   <./StatsThinking21_files/fig
+ure-latex/shuffleCorr-1.pdf>]
+<StatsThinking21_files/figure-latex/outlierCorr-1.pdf, id=2722, 289.08pt x 289.
 08pt>
 File: StatsThinking21_files/figure-latex/outlierCorr-1.pdf Graphic file (type p
 df)
 <use StatsThinking21_files/figure-latex/outlierCorr-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/outlierCorr-1.pdf  
-used on input line 3704.
+used on input line 3714.
 (pdftex.def)             Requested size: 274.26273pt x 274.26273pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -4318,9 +4318,9 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 .3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.3708 
+l.3718 
         <./StatsThinking21_files/figure-latex/outlierCorr-1.pdf>]
-Overfull \hbox (66.95023pt too wide) in paragraph at lines 3721--3721
+Overfull \hbox (66.95023pt too wide) in paragraph at lines 3731--3731
 []\T1/lmtt/m/n/12 ## data:  hateCrimes$avg_hatecrimes_per_100k_fbi and hateCrim
 es$gini_index[] 
  []
@@ -4343,24 +4343,24 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
 
 [234]
-<images/dag_example.png, id=2749, 963.6pt x 501.875pt>
+<images/dag_example.png, id=2752, 963.6pt x 501.875pt>
 File: images/dag_example.png Graphic file (type png)
 <use images/dag_example.png>
-Package pdftex.def Info: images/dag_example.png  used on input line 3744.
+Package pdftex.def Info: images/dag_example.png  used on input line 3754.
 (pdftex.def)             Requested size: 526.58517pt x 274.26309pt.
 
-Overfull \hbox (136.58517pt too wide) in paragraph at lines 3744--3744
+Overfull \hbox (136.58517pt too wide) in paragraph at lines 3754--3754
 [][]
  []
 
-<images/dag_latent_example.png, id=2750, 963.6pt x 501.875pt>
+<images/dag_latent_example.png, id=2753, 963.6pt x 501.875pt>
 File: images/dag_latent_example.png Graphic file (type png)
 <use images/dag_latent_example.png>
-Package pdftex.def Info: images/dag_latent_example.png  used on input line 3748
+Package pdftex.def Info: images/dag_latent_example.png  used on input line 3758
 .
 (pdftex.def)             Requested size: 526.58517pt x 274.26309pt.
 
-Overfull \hbox (136.58517pt too wide) in paragraph at lines 3748--3748
+Overfull \hbox (136.58517pt too wide) in paragraph at lines 3758--3758
 [][]
  []
 
@@ -4376,7 +4376,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 .4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.3752 
+l.3762 
         <./images/dag_example.png>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -4390,25 +4390,25 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 .5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.3752 
+l.3762 
         <./images/dag_latent_example.png>]pdfTeX warning (ext4): destination wi
 th the same identifier (name{objetivos-de-aprendizaje}) has been already used, 
 duplicate ignored
 <to be read again> 
                    \relax 
-l.3758 ...dizaje}\label{objetivos-de-aprendizaje}}
+l.3768 ...dizaje}\label{objetivos-de-aprendizaje}}
                                                   pdfTeX warning (ext4): destin
 ation with the same identifier (name{lecturas-sugeridas}) has been already used
 , duplicate ignored
 <to be read again> 
                    \relax 
-l.3773 ...as sugeridas}\label{lecturas-sugeridas}}
+l.3783 ...as sugeridas}\label{lecturas-sugeridas}}
                                                   pdfTeX warning (ext4): destin
 ation with the same identifier (name{apuxe9ndice}) has been already used, dupli
 cate ignored
 <to be read again> 
                    \relax 
-l.3782 \section{Ap√©ndice:}\label{apuxe9ndice}}
+l.3792 \section{Ap√©ndice:}\label{apuxe9ndice}}
                                                
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -4419,11 +4419,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [237]
-<StatsThinking21_files/figure-latex/gini0-1.pdf, id=2772, 578.16pt x 578.16pt>
+<StatsThinking21_files/figure-latex/gini0-1.pdf, id=2773, 578.16pt x 578.16pt>
 File: StatsThinking21_files/figure-latex/gini0-1.pdf Graphic file (type pdf)
 <use StatsThinking21_files/figure-latex/gini0-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/gini0-1.pdf  used o
-n input line 3794.
+n input line 3804.
 (pdftex.def)             Requested size: 311.99884pt x 311.99884pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -4446,7 +4446,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 .6}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.3805 
+l.3813 
         <./StatsThinking21_files/figure-latex/gini0-1.pdf>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -4461,13 +4461,13 @@ Chapter 14.
 [241
 
 ]
-<StatsThinking21_files/figure-latex/StudytimeGrades-1.pdf, id=2799, 216.81pt x 
+<StatsThinking21_files/figure-latex/StudytimeGrades-1.pdf, id=2804, 216.81pt x 
 216.81pt>
 File: StatsThinking21_files/figure-latex/StudytimeGrades-1.pdf Graphic file (ty
 pe pdf)
 <use StatsThinking21_files/figure-latex/StudytimeGrades-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/StudytimeGrades-1.p
-df  used on input line 3831.
+df  used on input line 3841.
 (pdftex.def)             Requested size: 216.81938pt x 216.81938pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -4481,7 +4481,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 .1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.3847 
+l.3857 
         <./StatsThinking21_files/figure-latex/StudytimeGrades-1.pdf>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -4492,13 +4492,13 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [243]
-<StatsThinking21_files/figure-latex/LinearRegression-1.pdf, id=2817, 289.08pt x
+<StatsThinking21_files/figure-latex/LinearRegression-1.pdf, id=2822, 289.08pt x
  289.08pt>
 File: StatsThinking21_files/figure-latex/LinearRegression-1.pdf Graphic file (t
 ype pdf)
 <use StatsThinking21_files/figure-latex/LinearRegression-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/LinearRegression-1.
-pdf  used on input line 3884.
+pdf  used on input line 3894.
 (pdftex.def)             Requested size: 274.26273pt x 274.26273pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -4521,7 +4521,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 .2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.3893 
+l.3903 
         <./StatsThinking21_files/figure-latex/LinearRegression-1.pdf>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -4535,7 +4535,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.3918 \]
+l.3928 \]
          ]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -4555,7 +4555,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
 
 [248]
-Overfull \hbox (11.3752pt too wide) in paragraph at lines 4000--4000
+Overfull \hbox (11.3752pt too wide) in paragraph at lines 4010--4010
 []\T1/lmtt/m/n/12 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 '
  ' 1[] 
  []
@@ -4578,30 +4578,30 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
 
 [250]
-Overfull \hbox (17.5432pt too wide) in paragraph at lines 4057--4057
+Overfull \hbox (17.5432pt too wide) in paragraph at lines 4067--4067
 []\T1/lmtt/m/n/12 ##       1       2       3       4       5       6       7   
     8[] 
  []
 
 
-Overfull \hbox (17.52219pt too wide) in paragraph at lines 4057--4057
+Overfull \hbox (17.52219pt too wide) in paragraph at lines 4067--4067
 []\T1/lmtt/m/n/12 ##  3.5833  0.7500 -3.5833 -0.0833  0.7500 -6.4167  2.0833  2
 .9167[] 
  []
 
 
-Overfull \hbox (11.3752pt too wide) in paragraph at lines 4057--4057
+Overfull \hbox (11.3752pt too wide) in paragraph at lines 4067--4067
 []\T1/lmtt/m/n/12 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 '
  ' 1[] 
  []
 
-<StatsThinking21_files/figure-latex/LinearRegressionByPriorClass-1.pdf, id=2869
+<StatsThinking21_files/figure-latex/LinearRegressionByPriorClass-1.pdf, id=2874
 , 433.62pt x 289.08pt>
 File: StatsThinking21_files/figure-latex/LinearRegressionByPriorClass-1.pdf Gra
 phic file (type pdf)
 <use StatsThinking21_files/figure-latex/LinearRegressionByPriorClass-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/LinearRegressionByP
-riorClass-1.pdf  used on input line 4060.
+riorClass-1.pdf  used on input line 4070.
 (pdftex.def)             Requested size: 390.0162pt x 260.01079pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -4624,7 +4624,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 .3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.4067 
+l.4077 
         <./StatsThinking21_files/figure-latex/LinearRegressionByPriorClass-1.pd
 f>]
 
@@ -4636,31 +4636,31 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [253]
-Overfull \hbox (23.7252pt too wide) in paragraph at lines 4138--4138
+Overfull \hbox (23.7252pt too wide) in paragraph at lines 4148--4148
 []\T1/lmtt/m/n/12 ## lm(formula = speaking ~ caffeine + anxiety + caffeine * an
 xiety,[] 
  []
 
 
-Overfull \hbox (17.5502pt too wide) in paragraph at lines 4138--4138
+Overfull \hbox (17.5502pt too wide) in paragraph at lines 4148--4148
 []\T1/lmtt/m/n/12 ##                            Estimate Std. Error t value Pr(
 >|t|)[] 
  []
 
 
-Overfull \hbox (36.0682pt too wide) in paragraph at lines 4138--4138
+Overfull \hbox (36.0682pt too wide) in paragraph at lines 4148--4148
 []\T1/lmtt/m/n/12 ## (Intercept)                 17.4308     5.4301    3.21  0.
 00546 **[] 
  []
 
 
-Overfull \hbox (42.2152pt too wide) in paragraph at lines 4138--4138
+Overfull \hbox (42.2152pt too wide) in paragraph at lines 4148--4148
 []\T1/lmtt/m/n/12 ## caffeine                    -0.4742     0.0966   -4.91  0.
 00016 ***[] 
  []
 
 
-Overfull \hbox (42.24321pt too wide) in paragraph at lines 4138--4138
+Overfull \hbox (42.24321pt too wide) in paragraph at lines 4148--4148
 []\T1/lmtt/m/n/12 ## anxietynotAnxious          -43.4487     7.7914   -5.58  4.
 2e-05 ***[] 
  []
@@ -4674,27 +4674,27 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [254]
-Overfull \hbox (42.2362pt too wide) in paragraph at lines 4138--4138
+Overfull \hbox (42.2362pt too wide) in paragraph at lines 4148--4148
 []\T1/lmtt/m/n/12 ## caffeine:anxietynotAnxious   1.0839     0.1293    8.38  3.
 0e-07 ***[] 
  []
 
 
-Overfull \hbox (11.3752pt too wide) in paragraph at lines 4138--4138
+Overfull \hbox (11.3752pt too wide) in paragraph at lines 4148--4148
 []\T1/lmtt/m/n/12 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 '
  ' 1[] 
  []
 
-<StatsThinking21_files/figure-latex/CaffeineAnxietyInteraction-1.pdf, id=2898, 
+<StatsThinking21_files/figure-latex/CaffeineAnxietyInteraction-1.pdf, id=2903, 
 578.16pt x 578.16pt>
 File: StatsThinking21_files/figure-latex/CaffeineAnxietyInteraction-1.pdf Graph
 ic file (type pdf)
 <use StatsThinking21_files/figure-latex/CaffeineAnxietyInteraction-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/CaffeineAnxietyInte
-raction-1.pdf  used on input line 4143.
+raction-1.pdf  used on input line 4153.
 (pdftex.def)             Requested size: 311.99884pt x 311.99884pt.
 
-Overfull \hbox (11.3752pt too wide) in paragraph at lines 4158--4158
+Overfull \hbox (11.3752pt too wide) in paragraph at lines 4168--4168
 []\T1/lmtt/m/n/12 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 '
  ' 1[] 
  []
@@ -4720,7 +4720,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 .4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.4166 
+l.4176 
         <./StatsThinking21_files/figure-latex/CaffeineAnxietyInteraction-1.pdf>
 ]
 
@@ -4732,12 +4732,12 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [257]
-<StatsThinking21_files/figure-latex/qqplots-1.pdf, id=2921, 578.16pt x 289.08pt
+<StatsThinking21_files/figure-latex/qqplots-1.pdf, id=2926, 578.16pt x 289.08pt
 >
 File: StatsThinking21_files/figure-latex/qqplots-1.pdf Graphic file (type pdf)
 <use StatsThinking21_files/figure-latex/qqplots-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/qqplots-1.pdf  used
- on input line 4198.
+ on input line 4208.
 (pdftex.def)             Requested size: 311.99884pt x 155.9994pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -4752,10 +4752,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [258]
 
-LaTeX Warning: Reference `overfitting' on page 259 undefined on input line 4225
-.
-
-
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
 (fancyhdr)                \setlength{\headheight}{14.49998pt}.
@@ -4767,12 +4763,12 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 .5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.4226 
+l.4236 
         <./StatsThinking21_files/figure-latex/qqplots-1.pdf>]
-<images/crossvalidation.png, id=2940, 793.2837pt x 407.121pt>
+<images/crossvalidation.png, id=2946, 793.2837pt x 407.121pt>
 File: images/crossvalidation.png Graphic file (type png)
 <use images/crossvalidation.png>
-Package pdftex.def Info: images/crossvalidation.png  used on input line 4235.
+Package pdftex.def Info: images/crossvalidation.png  used on input line 4245.
 (pdftex.def)             Requested size: 320.6366pt x 164.55385pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -4786,7 +4782,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.4236 \end{figure}
+l.4246 \end{figure}
                    ]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -4800,30 +4796,30 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.4258 
+l.4268 
        pdfTeX warning (ext4): destination with the same identifier (name{figure
 .14.6}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.4258 
+l.4268 
         <./images/crossvalidation.png>]pdfTeX warning (ext4): destination with 
 the same identifier (name{objetivos-de-aprendizaje}) has been already used, dup
 licate ignored
 <to be read again> 
                    \relax 
-l.4272 ...dizaje}\label{objetivos-de-aprendizaje}}
+l.4282 ...dizaje}\label{objetivos-de-aprendizaje}}
                                                   pdfTeX warning (ext4): destin
 ation with the same identifier (name{lecturas-sugeridas}) has been already used
 , duplicate ignored
 <to be read again> 
                    \relax 
-l.4287 ...as sugeridas}\label{lecturas-sugeridas}}
+l.4297 ...as sugeridas}\label{lecturas-sugeridas}}
                                                   pdfTeX warning (ext4): destin
 ation with the same identifier (name{apuxe9ndice}) has been already used, dupli
 cate ignored
 <to be read again> 
                    \relax 
-l.4296 \section{Ap√©ndice}\label{apuxe9ndice}}
+l.4306 \section{Ap√©ndice}\label{apuxe9ndice}}
                                               
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -4843,10 +4839,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [263]
-<images/glm_matrix.png, id=2968, 289.08pt x 219.4599pt>
+<images/glm_matrix.png, id=2974, 289.08pt x 219.4599pt>
 File: images/glm_matrix.png Graphic file (type png)
 <use images/glm_matrix.png>
-Package pdftex.def Info: images/glm_matrix.png  used on input line 4336.
+Package pdftex.def Info: images/glm_matrix.png  used on input line 4346.
 (pdftex.def)             Requested size: 289.0837pt x 219.46269pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -4869,7 +4865,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 .7}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.4376 \end{Shaded}
+l.4386 \end{Shaded}
                     <./images/glm_matrix.png>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -4884,13 +4880,13 @@ Chapter 15.
 [267
 
 ]
-Overfull \hbox (5.2002pt too wide) in paragraph at lines 4410--4410
+Overfull \hbox (5.2002pt too wide) in paragraph at lines 4420--4420
 []\T1/lmtt/m/n/12 ## number of successes = 38, number of trials = 200, p-value 
 = 1[] 
  []
 
 
-Overfull \hbox (66.95023pt too wide) in paragraph at lines 4410--4410
+Overfull \hbox (66.95023pt too wide) in paragraph at lines 4420--4420
 []\T1/lmtt/m/n/12 ## alternative hypothesis: true probability of success is gre
 ater than 0.5[] 
  []
@@ -4913,16 +4909,16 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [269]
-<StatsThinking21_files/figure-latex/PotTVViolin-1.pdf, id=2999, 578.16pt x 289.
+<StatsThinking21_files/figure-latex/PotTVViolin-1.pdf, id=3006, 578.16pt x 289.
 08pt>
 File: StatsThinking21_files/figure-latex/PotTVViolin-1.pdf Graphic file (type p
 df)
 <use StatsThinking21_files/figure-latex/PotTVViolin-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/PotTVViolin-1.pdf  
-used on input line 4473.
+used on input line 4483.
 (pdftex.def)             Requested size: 389.99414pt x 194.99706pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 4473--4473
+Underfull \hbox (badness 10000) in paragraph at lines 4483--4483
 [][]
  []
 
@@ -4938,12 +4934,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 .1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.4478 
+l.4487 
         <./StatsThinking21_files/figure-latex/PotTVViolin-1.pdf>]
-Overfull \hbox (17.5502pt too wide) in paragraph at lines 4497--4497
+Overfull \hbox (17.5502pt too wide) in paragraph at lines 4506--4506
 []\T1/lmtt/m/n/12 ## alternative hypothesis: true difference in means is less t
 han 0[] 
  []
+
+
+Underfull \vbox (badness 1365) has occurred while \output is active []
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -4954,7 +4953,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [271]
-Overfull \hbox (11.3752pt too wide) in paragraph at lines 4530--4530
+Overfull \hbox (11.3752pt too wide) in paragraph at lines 4539--4539
 []\T1/lmtt/m/n/12 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 '
  ' 1[] 
  []
@@ -4977,31 +4976,23 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [273]
-Overfull \hbox (60.64401pt too wide) in paragraph at lines 4569--4569
+Overfull \hbox (60.64401pt too wide) in paragraph at lines 4577--4577
 []\T1/lmr/bx/n/17.28 Comparar ob-ser-va-ciones pareadas/relacionadas 
  []
 
-<StatsThinking21_files/figure-latex/BPfig-1.pdf, id=3033, 578.16pt x 289.08pt>
+<StatsThinking21_files/figure-latex/BPfig-1.pdf, id=3038, 578.16pt x 289.08pt>
 File: StatsThinking21_files/figure-latex/BPfig-1.pdf Graphic file (type pdf)
 <use StatsThinking21_files/figure-latex/BPfig-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/BPfig-1.pdf  used o
-n input line 4574.
+n input line 4582.
 (pdftex.def)             Requested size: 389.99414pt x 194.99706pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 4574--4574
+Underfull \hbox (badness 10000) in paragraph at lines 4582--4582
 [][]
  []
 
 
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-[274]
-Overfull \hbox (36.07521pt too wide) in paragraph at lines 4591--4591
+Overfull \hbox (36.07521pt too wide) in paragraph at lines 4599--4599
 []\T1/lmtt/m/n/12 ## alternative hypothesis: true difference in means is not eq
 ual to 0[] 
  []
@@ -5014,19 +5005,28 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
+[274]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
 [275pdfTeX warning (ext4): destination with the same identifier (name{figure.15
 .2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.4596 
+l.4604 
         <./StatsThinking21_files/figure-latex/BPfig-1.pdf>]
-<StatsThinking21_files/figure-latex/BPDiffHist-1.pdf, id=3051, 289.08pt x 289.0
+<StatsThinking21_files/figure-latex/BPDiffHist-1.pdf, id=3056, 289.08pt x 289.0
 8pt>
 File: StatsThinking21_files/figure-latex/BPDiffHist-1.pdf Graphic file (type pd
 f)
 <use StatsThinking21_files/figure-latex/BPDiffHist-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/BPDiffHist-1.pdf  u
-sed on input line 4598.
+sed on input line 4606.
 (pdftex.def)             Requested size: 274.26273pt x 274.26273pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -5040,21 +5040,21 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 .3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.4618 \end{verbatim}
+l.4626 \end{verbatim}
                       <./StatsThinking21_files/figure-latex/BPDiffHist-1.pdf>]
-Overfull \hbox (17.52919pt too wide) in paragraph at lines 4618--4618
+Overfull \hbox (17.52919pt too wide) in paragraph at lines 4626--4626
 []\T1/lmtt/m/n/12 ## number of successes = 96, number of trials = 200, p-value 
 = 0.6[] 
  []
 
 
-Overfull \hbox (66.95023pt too wide) in paragraph at lines 4618--4618
+Overfull \hbox (66.95023pt too wide) in paragraph at lines 4626--4626
 []\T1/lmtt/m/n/12 ## alternative hypothesis: true probability of success is not
  equal to 0.5[] 
  []
 
 
-Overfull \hbox (36.07521pt too wide) in paragraph at lines 4639--4639
+Overfull \hbox (36.07521pt too wide) in paragraph at lines 4647--4647
 []\T1/lmtt/m/n/12 ## alternative hypothesis: true difference in means is not eq
 ual to 0[] 
  []
@@ -5068,13 +5068,13 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [277]
-<StatsThinking21_files/figure-latex/DrugTrial-1.pdf, id=3072, 289.08pt x 289.08
+<StatsThinking21_files/figure-latex/DrugTrial-1.pdf, id=3077, 289.08pt x 289.08
 pt>
 File: StatsThinking21_files/figure-latex/DrugTrial-1.pdf Graphic file (type pdf
 )
 <use StatsThinking21_files/figure-latex/DrugTrial-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/DrugTrial-1.pdf  us
-ed on input line 4664.
+ed on input line 4672.
 (pdftex.def)             Requested size: 274.26273pt x 274.26273pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -5097,13 +5097,13 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 .4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.4671 
+l.4679 
         <./StatsThinking21_files/figure-latex/DrugTrial-1.pdf>]
-<StatsThinking21_files/figure-latex/FDist-1.pdf, id=3091, 289.08pt x 289.08pt>
+<StatsThinking21_files/figure-latex/FDist-1.pdf, id=3096, 289.08pt x 289.08pt>
 File: StatsThinking21_files/figure-latex/FDist-1.pdf Graphic file (type pdf)
 <use StatsThinking21_files/figure-latex/FDist-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/FDist-1.pdf  used o
-n input line 4685.
+n input line 4693.
 (pdftex.def)             Requested size: 274.26273pt x 274.26273pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -5126,13 +5126,19 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 .5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.4689 
-        <./StatsThinking21_files/figure-latex/FDist-1.pdf>]
-Overfull \hbox (11.3752pt too wide) in paragraph at lines 4710--4710
+l.4718 \end{verbatim}
+                      <./StatsThinking21_files/figure-latex/FDist-1.pdf>]
+Overfull \hbox (11.3752pt too wide) in paragraph at lines 4718--4718
 []\T1/lmtt/m/n/12 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 '
  ' 1[] 
  []
 
+pdfTeX warning (ext4): destination with the same identifier (name{objetivos-de-
+aprendizaje}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.4725 ...dizaje}\label{objetivos-de-aprendizaje}}
+                                                  
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 15.35403pt, for example:
@@ -5141,17 +5147,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
 
-[282]pdfTeX warning (ext4): destination with the same identifier (name{objetivo
-s-de-aprendizaje}) has been already used, duplicate ignored
+[282]pdfTeX warning (ext4): destination with the same identifier (name{apuxe9nd
+ice}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.4717 ...dizaje}\label{objetivos-de-aprendizaje}}
-                                                  pdfTeX warning (ext4): destin
-ation with the same identifier (name{apuxe9ndice}) has been already used, dupli
-cate ignored
-<to be read again> 
-                   \relax 
-l.4734 \section{Ap√©ndice}\label{apuxe9ndice}}
+l.4742 \section{Ap√©ndice}\label{apuxe9ndice}}
                                               
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -5162,25 +5162,25 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [283]
-Overfull \hbox (48.42522pt too wide) in paragraph at lines 4779--4779
+Overfull \hbox (48.42522pt too wide) in paragraph at lines 4787--4787
 []\T1/lmtt/m/n/12 ## Linear mixed model fit by REML. t-tests use Satterthwaite'
 s method [[] 
  []
 
 
-Overfull \hbox (23.7112pt too wide) in paragraph at lines 4779--4779
+Overfull \hbox (23.7112pt too wide) in paragraph at lines 4787--4787
 []\T1/lmtt/m/n/12 ## (Intercept)      121.370      1.118 210.361  108.55   <2e-
 16 ***[] 
  []
 
 
-Overfull \hbox (17.52919pt too wide) in paragraph at lines 4779--4779
+Overfull \hbox (17.52919pt too wide) in paragraph at lines 4787--4787
 []\T1/lmtt/m/n/12 ## timepointBPSys2   -1.020      0.373 199.000   -2.74   0.00
 68 **[] 
  []
 
 
-Overfull \hbox (11.3752pt too wide) in paragraph at lines 4779--4779
+Overfull \hbox (11.3752pt too wide) in paragraph at lines 4787--4787
 []\T1/lmtt/m/n/12 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 '
  ' 1[] 
  []
@@ -5194,35 +5194,17 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
 
 [284]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-[285]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 15.35403pt, for example:
-(fancyhdr)                \setlength{\headheight}{15.35403pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
-
-[286
+Chapter 16.
+[285
 
 ]
-Chapter 16.
-[287]
-<StatsThinking21_files/figure-latex/AtoZBMIChangeDensity-1.pdf, id=3146, 289.08
+<StatsThinking21_files/figure-latex/AtoZBMIChangeDensity-1.pdf, id=3143, 289.08
 pt x 289.08pt>
 File: StatsThinking21_files/figure-latex/AtoZBMIChangeDensity-1.pdf Graphic fil
 e (type pdf)
 <use StatsThinking21_files/figure-latex/AtoZBMIChangeDensity-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/AtoZBMIChangeDensit
-y-1.pdf  used on input line 4830.
+y-1.pdf  used on input line 4838.
 (pdftex.def)             Requested size: 194.99706pt x 194.99706pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -5232,7 +5214,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
 
-[288]
+[286]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 15.35403pt, for example:
@@ -5241,11 +5223,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
 
-[289pdfTeX warning (ext4): destination with the same identifier (name{figure.16
+[287pdfTeX warning (ext4): destination with the same identifier (name{figure.16
 .1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.4869   \end{itemize}
+l.4877   \end{itemize}
                        <./StatsThinking21_files/figure-latex/AtoZBMIChangeDensi
 ty-1.pdf>]
 
@@ -5256,27 +5238,27 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
 
-[290]
-Overfull \hbox (11.3752pt too wide) in paragraph at lines 4910--4910
+[288]
+Overfull \hbox (11.3752pt too wide) in paragraph at lines 4918--4918
 []\T1/lmtt/m/n/12 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 '
  ' 1[] 
  []
 
-<StatsThinking21_files/figure-latex/residualPlot-1.pdf, id=3177, 289.08pt x 289
+<StatsThinking21_files/figure-latex/residualPlot-1.pdf, id=3173, 289.08pt x 289
 .08pt>
 File: StatsThinking21_files/figure-latex/residualPlot-1.pdf Graphic file (type 
 pdf)
 <use StatsThinking21_files/figure-latex/residualPlot-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/residualPlot-1.pdf 
- used on input line 4921.
+ used on input line 4929.
 (pdftex.def)             Requested size: 289.09251pt x 289.09251pt.
-<StatsThinking21_files/figure-latex/diagnosticQQPlot-1.pdf, id=3179, 289.08pt x
+<StatsThinking21_files/figure-latex/diagnosticQQPlot-1.pdf, id=3175, 289.08pt x
  289.08pt>
 File: StatsThinking21_files/figure-latex/diagnosticQQPlot-1.pdf Graphic file (t
 ype pdf)
 <use StatsThinking21_files/figure-latex/diagnosticQQPlot-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/diagnosticQQPlot-1.
-pdf  used on input line 4929.
+pdf  used on input line 4937.
 (pdftex.def)             Requested size: 289.09251pt x 289.09251pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -5286,7 +5268,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
 
-[291]
+[289]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 15.35403pt, for example:
@@ -5295,11 +5277,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
 
-[292pdfTeX warning (ext4): destination with the same identifier (name{figure.16
+[290pdfTeX warning (ext4): destination with the same identifier (name{figure.16
 .2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.4931 \end{figure}
+l.4939 \end{figure}
                     <./StatsThinking21_files/figure-latex/residualPlot-1.pdf>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -5309,14 +5291,14 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
 
-[293pdfTeX warning (ext4): destination with the same identifier (name{figure.16
+[291pdfTeX warning (ext4): destination with the same identifier (name{figure.16
 .3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.4938 E
+l.4946 E
         l resultado significativo en la prueba F omnibus tampoco nos dice cu...
  <./StatsThinking21_files/figure-latex/diagnosticQQPlot-1.pdf>]
-Overfull \hbox (60.77522pt too wide) in paragraph at lines 4950--4950
+Overfull \hbox (60.77522pt too wide) in paragraph at lines 4958--4958
 []\T1/lmtt/m/n/12 ## P value adjustment: tukey method for comparing a family of
  4 estimates[] 
  []
@@ -5329,7 +5311,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
 
-[294]
+[292]
 Underfull \vbox (badness 2790) has occurred while \output is active []
 
 
@@ -5340,19 +5322,19 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
 
-[295pdfTeX warning (ext4): destination with the same identifier (name{table.16.
+[293pdfTeX warning (ext4): destination with the same identifier (name{table.16.
 1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.5000     p
+l.5008     p
             roporciones]
-Underfull \hbox (badness 1484) in paragraph at lines 5014--5015
+Underfull \hbox (badness 1484) in paragraph at lines 5022--5023
 []\T1/lmr/m/n/12 Primero cal-cule-mos el es-tadÌs-tico, us-ando una fun-ciÛn de
  la prueba
  []
 
 
-Overfull \hbox (11.3752pt too wide) in paragraph at lines 5037--5037
+Overfull \hbox (11.3752pt too wide) in paragraph at lines 5045--5045
 []\T1/lmtt/m/n/12 ## Bayes factor type: BFcontingencyTable, independent multino
 mial[] 
  []
@@ -5365,7 +5347,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
 
-[296]
+[294]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 15.35403pt, for example:
@@ -5374,7 +5356,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
 
-[297]
+[295]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -5383,11 +5365,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[298
+[296
 
 ]
 Chapter 17.
-[299]
+[297]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 15.35403pt, for example:
@@ -5395,6 +5377,24 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller to compensate:
 
 (fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
+
+[298]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 15.35403pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.35403pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
+
+[299]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [300]
 
@@ -5406,30 +5406,12 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
 
 [301]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-[302]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 15.35403pt, for example:
-(fancyhdr)                \setlength{\headheight}{15.35403pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
-
-[303]
-<StatsThinking21_files/figure-latex/PPVsim-1.pdf, id=3292, 433.62pt x 289.08pt>
+<StatsThinking21_files/figure-latex/PPVsim-1.pdf, id=3285, 433.62pt x 289.08pt>
 
 File: StatsThinking21_files/figure-latex/PPVsim-1.pdf Graphic file (type pdf)
 <use StatsThinking21_files/figure-latex/PPVsim-1.pdf>
 Package pdftex.def Info: StatsThinking21_files/figure-latex/PPVsim-1.pdf  used 
-on input line 5158.
+on input line 5165.
 (pdftex.def)             Requested size: 390.0162pt x 260.01079pt.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -5439,7 +5421,25 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[304]
+[302pdfTeX warning (ext4): destination with the same identifier (name{figure.17
+.1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.5171 
+        <./StatsThinking21_files/figure-latex/PPVsim-1.pdf>]
+<StatsThinking21_files/figure-latex/CurseSim-1.pdf, id=3299, 578.16pt x 289.08p
+t>
+File: StatsThinking21_files/figure-latex/CurseSim-1.pdf Graphic file (type pdf)
+
+<use StatsThinking21_files/figure-latex/CurseSim-1.pdf>
+Package pdftex.def Info: StatsThinking21_files/figure-latex/CurseSim-1.pdf  use
+d on input line 5180.
+(pdftex.def)             Requested size: 389.99414pt x 194.99706pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 5180--5180
+[][]
+ []
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 15.35403pt, for example:
@@ -5448,25 +5448,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
 
-[305pdfTeX warning (ext4): destination with the same identifier (name{figure.17
-.1}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  
-l.5169 
-        <./StatsThinking21_files/figure-latex/PPVsim-1.pdf>]
-<StatsThinking21_files/figure-latex/CurseSim-1.pdf, id=3312, 578.16pt x 289.08p
-t>
-File: StatsThinking21_files/figure-latex/CurseSim-1.pdf Graphic file (type pdf)
-
-<use StatsThinking21_files/figure-latex/CurseSim-1.pdf>
-Package pdftex.def Info: StatsThinking21_files/figure-latex/CurseSim-1.pdf  use
-d on input line 5173.
-(pdftex.def)             Requested size: 389.99414pt x 194.99706pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 5173--5173
-[][]
- []
-
+[303]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -5475,11 +5457,11 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[306pdfTeX warning (ext4): destination with the same identifier (name{figure.17
+[304pdfTeX warning (ext4): destination with the same identifier (name{figure.17
 .2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.5177 
+l.5189 
         <./StatsThinking21_files/figure-latex/CurseSim-1.pdf>]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -5489,7 +5471,27 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
 
+[305]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 15.35403pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.35403pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
+
+[306]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 15.35403pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.35403pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
+
 [307]
+Underfull \vbox (badness 1264) has occurred while \output is active []
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 15.35403pt, for example:
@@ -5499,6 +5501,8 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
 
 [308]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 15.35403pt, for example:
@@ -5516,37 +5520,17 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
 
-[310]
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 15.35403pt, for example:
-(fancyhdr)                \setlength{\headheight}{15.35403pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
-
-[311]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 15.35403pt, for example:
-(fancyhdr)                \setlength{\headheight}{15.35403pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
-
-[312]pdfTeX warning (ext4): destination with the same identifier (name{objetivo
+[310]pdfTeX warning (ext4): destination with the same identifier (name{objetivo
 s-de-aprendizaje}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.5297 ...dizaje}\label{objetivos-de-aprendizaje}}
+l.5304 ...dizaje}\label{objetivos-de-aprendizaje}}
                                                   pdfTeX warning (ext4): destin
 ation with the same identifier (name{lecturas-sugeridas}) has been already used
 , duplicate ignored
 <to be read again> 
                    \relax 
-l.5310 ...as sugeridas}\label{lecturas-sugeridas}}
+l.5317 ...as sugeridas}\label{lecturas-sugeridas}}
                                                   
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -5556,7 +5540,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
 
-[313]
+[311]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -5565,18 +5549,18 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[314
+[312
 
-] [315]
-Underfull \hbox (badness 3179) in paragraph at lines 5373--5375
+] [313]
+Underfull \hbox (badness 3179) in paragraph at lines 5380--5382
 [][]\T1/lmr/m/n/12 Kerr, N L. 1998. ``HARK-ing: Hy-poth-e-siz-ing Af-ter the Re
 -sults
  []
 
 
-Underfull \hbox (badness 1997) in paragraph at lines 5373--5375
+Underfull \hbox (badness 1997) in paragraph at lines 5380--5382
 \T1/lmr/m/n/12 Are Known.'' \T1/lmr/m/it/12 Pers Soc Psy-chol Rev \T1/lmr/m/n/1
-2 2 (3): 196--217. []$https :
+2 2 (3): 196--217. [][]$https :
  []
 
 
@@ -5587,7 +5571,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[316]
+[314]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 15.35403pt, for example:
@@ -5596,7 +5580,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-3.35403pt}.
 
-[317] (./StatsThinking21.aux)
+[315] (./StatsThinking21.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -5604,49 +5588,43 @@ LaTeX Warning: There were undefined references.
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `StatsThinking21.out' has not changed.
-(rerunfilecheck)             Checksum: BE8C23F118DEB94E29FDA6A13111C8B3;31509.
+(rerunfilecheck)             Checksum: C3DEA32A5B49AB3488A1C201AAE2119F;31400.
  ) 
 Here is how much of TeX's memory you used:
- 14377 strings out of 481008
- 238086 string characters out of 5907772
- 540154 words of memory out of 5000000
- 30220 multiletter control sequences out of 15000+600000
+ 14458 strings out of 481008
+ 239722 string characters out of 5907772
+ 550719 words of memory out of 5000000
+ 30292 multiletter control sequences out of 15000+600000
  479541 words of font info for 79 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  71i,12n,74p,1886b,483s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning (dest): name{ref-wake} has been referenced but does not exist,
- replaced by a fixed one
-
-pdfTeX warning (dest): name{ref-sche} has been referenced but does not exist, r
-eplaced by a fixed one
-
-{c:/Users/cthul/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit
-.enc}{c:/Users/cthul/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-e
-c.enc}{c:/Users/cthul/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-
-ts1.enc}{c:/Users/cthul/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/l
-m-rm.enc}{c:/Users/cthul/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/
-lm-mathsy.enc}{c:/Users/cthul/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvip
-s/lm/lm-mathex.enc}<c:/Users/cthul/AppData/Roaming/TinyTeX/texmf-dist/fonts/typ
-e1/public/lm/lmbx12.pfb><c:/Users/cthul/AppData/Roaming/TinyTeX/texmf-dist/font
-s/type1/public/lm/lmbxi10.pfb><c:/Users/cthul/AppData/Roaming/TinyTeX/texmf-dis
-t/fonts/type1/public/lm/lmex10.pfb><c:/Users/cthul/AppData/Roaming/TinyTeX/texm
-f-dist/fonts/type1/public/lm/lmmi12.pfb><c:/Users/cthul/AppData/Roaming/TinyTeX
-/texmf-dist/fonts/type1/public/lm/lmmi6.pfb><c:/Users/cthul/AppData/Roaming/Tin
-yTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb><c:/Users/cthul/AppData/Roaming
-/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/cthul/AppData/Roa
-ming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb><c:/Users/cthul/AppData
-/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr6.pfb><c:/Users/cthul/AppD
-ata/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/Users/cthul/A
-ppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri12.pfb><c:/Users/ct
-hul/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Use
-rs/cthul/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy8.pfb><c:
-/Users/cthul/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt12.pf
-b><c:/Users/cthul/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt
-i10.pfb>
-Output written on StatsThinking21.pdf (317 pages, 4273421 bytes).
+{c:/Users/cthul/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-math
+it.enc}{c:/Users/cthul/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm
+-ec.enc}{c:/Users/cthul/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/l
+m-ts1.enc}{c:/Users/cthul/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm
+/lm-rm.enc}{c:/Users/cthul/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/l
+m/lm-mathsy.enc}{c:/Users/cthul/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dv
+ips/lm/lm-mathex.enc}<c:/Users/cthul/AppData/Roaming/TinyTeX/texmf-dist/fonts/t
+ype1/public/lm/lmbx12.pfb><c:/Users/cthul/AppData/Roaming/TinyTeX/texmf-dist/fo
+nts/type1/public/lm/lmbxi10.pfb><c:/Users/cthul/AppData/Roaming/TinyTeX/texmf-d
+ist/fonts/type1/public/lm/lmex10.pfb><c:/Users/cthul/AppData/Roaming/TinyTeX/te
+xmf-dist/fonts/type1/public/lm/lmmi12.pfb><c:/Users/cthul/AppData/Roaming/TinyT
+eX/texmf-dist/fonts/type1/public/lm/lmmi6.pfb><c:/Users/cthul/AppData/Roaming/T
+inyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb><c:/Users/cthul/AppData/Roami
+ng/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/cthul/AppData/R
+oaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb><c:/Users/cthul/AppDa
+ta/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr6.pfb><c:/Users/cthul/Ap
+pData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/Users/cthul
+/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri12.pfb><c:/Users/
+cthul/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/U
+sers/cthul/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy8.pfb><
+c:/Users/cthul/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt12.
+pfb><c:/Users/cthul/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lm
+tti10.pfb>
+Output written on StatsThinking21.pdf (315 pages, 4274898 bytes).
 PDF statistics:
- 3713 PDF objects out of 4296 (max. 8388607)
- 3166 compressed objects within 32 object streams
+ 3709 PDF objects out of 4296 (max. 8388607)
+ 3164 compressed objects within 32 object streams
  981 named destinations out of 1000 (max. 500000)
- 1667 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1659 words of extra memory for PDF output out of 10000 (max. 10000000)
 

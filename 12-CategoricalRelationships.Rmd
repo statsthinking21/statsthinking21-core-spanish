@@ -150,7 +150,7 @@ plot_grid(p1, p2)
 ```
 
 <!-- Let's verify that the chi-squared distribution accurately describes the sum of squares of a set of standard normal random variables, using simulation. To do this, we repeatedly draw sets of 8 random numbers, and add up each set after squaring each value.  The right panel of Figure \@ref(fig:chisqDist) shows that the theoretical distribution matches closely with the results of a simulation that repeatedly added together the squares of a set of random normal variables.  -->
-Verifiquemos que la distribución ji-cuadrada describe con exactitud la suma de cuadrados de un cojunto de variables aleatorias normales estándares, usando una simulación. Para hacer esto, repetidamente tomamos un conjunto de 8 números aleatorios, y sumamos cada conjunto después de haberlos elevado al cuadrado. El panel derecho de la Figura \@ref(fig:chisqDist) muestra que la distribución teórica coincide cercanamente con los resultados de la simulación que repetidamente suma juntos los cuadrados de un conjunto de variables normales aleatorias.
+Verifiquemos que la distribución ji-cuadrada describe con exactitud la suma de cuadrados de un conjunto de variables aleatorias normales estándares, usando una simulación. Para hacer esto, repetidamente tomamos un conjunto de 8 números aleatorios, y sumamos cada conjunto después de haberlos elevado al cuadrado. El panel derecho de la Figura \@ref(fig:chisqDist) muestra que la distribución teórica coincide cercanamente con los resultados de la simulación que repetidamente suma juntos los cuadrados de un conjunto de variables normales aleatorias.
 
 <!-- For the candy example, we can compute the likelihood of our observed chi-squared value of `r I(chisqVal)` under the null hypothesis of equal frequency across all candies. We use a chi-squared distribution with degrees of freedom equal to k - 1 (where k = the number of categories) since we lost one degree of freedom when we computed the mean in order to generate the expected values.  The resulting p-value (`r I(sprintf('P(Chi-squared) > %0.2f = %0.3f',chisqVal,pval))`) shows that the observed counts of candies are not particularly surprising based on the proportions printed on the bag of candy, and we would not reject the null hypothesis of equal proportions. -->
 Para el ejemplo de los dulces, podemos calcular la probabilidad de nuestro valor ji-cuadrada observado de `r I(chisqVal)` bajo la hipótesis nula de que la frecuencia de los diferentes tipos de dulces sería igual. Usamos una distribución ji-cuadrada con grados de libertad igual a k - 1 (donde k = número de categorías) porque perdimos un grado de libertad cuando calculamos la media para generar los valores esperados. El valor p resultante (`r I(sprintf('P(Chi-squared) > %0.2f = %0.3f',chisqVal,pval))`) muestra que los conteos observados de dulces no son particularmente sorprendentes basados en las proporciones que menciona la etiqueta de la bolsa de dulces, y no rechazaríamos la hipótesis nula de proporciones iguales.
@@ -339,12 +339,12 @@ La razón de posibilidades muestra que las posibilidades de ser revisado son 2.5
 ## Factores de Bayes
 
 <!-- We discussed Bayes factors in the earlier chapter on Bayesian statistics -- you may remember that it represents the ratio of the likelihood of the data under each of the two hypotheses: -->
-Discutimos los factores de Bayes en el capítulo anterior sobre estadística Bayesiana -- podrás recordar que representan la razón de las probabilidades de los datos bajo cada una de las dos hipótesis:
+Discutimos los factores de Bayes en el capítulo anterior sobre estadística Bayesiana -- podrás recordar que representan la razón de las probabilidades (*likelihood*) de los datos bajo cada una de las dos hipótesis:
 $$ 
 K = \frac{P(data|H_A)}{P(data|H_0)} = \frac{P(H_A|data)*P(H_A)}{P(H_0|data)*P(H_0)}
 $$
 <!-- We can compute the Bayes factor for the police search data using a special package for the R statistical software: -->
-Podemos calcular el factor de Bayes para los datos de las revisiones policíacas usando un paquete espeical para el software estadístico R:
+Podemos calcular el factor de Bayes para los datos de las revisiones policiacas usando un paquete especial para el software estadístico R:
 
 ```{r echo=FALSE}
 # compute Bayes factor 
@@ -393,7 +393,7 @@ kable(depressedSleepTroubleTable, caption="Relación entre depresión y problema
 ```
 
 <!-- Simply by looking at these data, we can tell that it is likely that there is a relationship between the two variables; notably, while the total number of people with sleep trouble is much less than those without, for people who report being depresssed most days the number with sleep problems is greater than those without.  We can quantify this directly using the chi-squared test: -->
-Simplemente observados estos datos, podemos decir que es probable que haya una relación entre estas dos variables; notablemente, mientras que el total de personas con problemas de sueño es mucho menor que aquellas sin estos problemas, para aquellas personas que reportaron sentirse deprimidas la mayoría de los días el número de personas con problemas de sueño es mayor que las que no tienen problemas de sueño. Podemos cuantificar esto directamente usando la prueba ji-cuadrada:
+Simplemente observando estos datos podemos decir que es probable que haya una relación entre estas dos variables; notablemente, mientras que el total de personas con problemas de sueño es mucho menor que aquellas sin estos problemas, para aquellas personas que reportaron sentirse deprimidas la mayoría de los días el número de personas con problemas de sueño es mayor que las que no tienen problemas de sueño. Podemos cuantificar esto directamente usando la prueba ji-cuadrada:
 
 ```{r echo=FALSE}
 # need to remove the column with the label names

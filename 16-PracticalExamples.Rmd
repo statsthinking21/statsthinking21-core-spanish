@@ -73,7 +73,7 @@ De acuerdo a los autores, el objetivo de su estudio fue:
 ### 2: Identificar o recolectar los datos apropiados.
 
 <!-- To answer their question, the investigators randomly assigned each of 311 overweight/obese women to one of four different diets (Atkins, Zone, Ornish, or LEARN), and measured their weight along with many other measures of health over time.  The authors recorded a large number of variables, but for the main question of interest let's focus on a single variable: Body Mass Index (BMI).  Further, since our goal is to measure lasting changes in BMI, we will only look at the measurement taken at 12 months after onset of the diet. -->
-Para responder la pregunta, los investigadores asignaron aleatoriamente a 311 mujeres con sobrepeso u obesidad a una de cuatro diferentes dietas (Atkins, Zone, Ornish, or LEARN), y midieron su peso junto con otras variables de salud a lo largo del tiempo. Los autores registraron un gran número de variables, pero para la pregunta principal de interés nos enfocaremos en una variable sencilla: Índice de Masa Corporal (MCI; Body Mass Index, BMI). Además, como nuestra meta es medir cambios perdurables en IMC, revisaremos únicamente la medición tomada 12 meses después del inicio de la dieta.
+Para responder la pregunta, los investigadores asignaron aleatoriamente a 311 mujeres con sobrepeso u obesidad a una de cuatro diferentes dietas (Atkins, Zone, Ornish, or LEARN), y midieron su peso junto con otras variables de salud a lo largo del tiempo. Los autores registraron un gran número de variables, pero para la pregunta principal de interés nos enfocaremos en una variable sencilla: Índice de Masa Corporal (IMC; Body Mass Index, BMI). Además, como nuestra meta es medir cambios perdurables en IMC, revisaremos únicamente la medición tomada 12 meses después del inicio de la dieta.
 
 <!-- ### 3: Prepare the data for analysis -->
 ### 3: Preparar los datos para el análisis.
@@ -220,11 +220,11 @@ ggplot(dietDf, aes(x=lmResid, group=diet, color=diet)) +
 ```
 
 <!-- Another important assumption of the statistical tests that we apply to linear models is that the residuals from the model are normally distributed. The right panel of Figure \@ref(fig:diagnosticQQPlot) shows a Q-Q (quantile-quantile) plot, which plots the residuals against their expected values based on their quantiles in the normal distribution. If the residuals are normally distributed then the data points should fall along the dashed line --- in this case it looks pretty good, except for a couple of outliers that are apparent here.  Because this model is also relatively robust to violations of normality, and these are fairly small, we will go ahead and use the results. -->
-Otra suposición importante de las pruebas estadísticas que aplicamos a modelos lineales es que los residuales del modelo están normalmente distribuidos. El panel derecho de la Figura \@ref(fig:diagnosticQQPlot) muestra una gráfica Q-Q (quantile-quantile, cuantil-cuantil) que grafica los residuales contra su valor esperado basado en sus cuantiles en la distribución normal. Si los residuales están normalmente distribuidos entonces los datos caerían a lo largo de la línea punteada --- en este caso se ven bastante bien, excepto por un par de outliers (valores atípicos) que son aparentes aquí. Debido a que este modelo es también relativamente robusto a desviaciones de la normalidad, y a que éstas son relativamente pequeñas, seguiremos adelante y usaremos estos resultados.
+Otra suposición importante de las pruebas estadísticas que aplicamos a modelos lineales es que los residuales del modelo están normalmente distribuidos. El panel derecho de la Figura \@ref(fig:diagnosticQQPlot) muestra una gráfica Q-Q (*quantile-quantile*, cuantil-cuantil) que grafica los residuales contra su valor esperado basado en sus cuantiles en la distribución normal. Si los residuales están normalmente distribuidos entonces los datos caerían a lo largo de la línea punteada --- en este caso se ven bastante bien, excepto por un par de outliers (valores atípicos) que son aparentes aquí. Debido a que este modelo es también relativamente robusto a desviaciones de la normalidad, y a que éstas son relativamente pequeñas, seguiremos adelante y usaremos estos resultados.
 
 
 <!-- Q-Q plot of actual residual values against theoretical residual values -->
-```{r diagnosticQQPlot, echo=FALSE, fig.cap="Gráfica Q-Q de los valore residuales reales contra sus valores residuales teóricos.", fig.width=4, fig.height=4}
+```{r diagnosticQQPlot, echo=FALSE, fig.cap="Gráfica Q-Q de los valores residuales reales contra sus valores residuales teóricos.", fig.width=4, fig.height=4}
 
 ggplot(dietDf, aes(sample = lmResid)) +
   stat_qq() + stat_qq_line()
@@ -283,9 +283,9 @@ Esto nos muestra que hay evidencia muy fuerte (factor de Bayes cercano a 100) de
 ### ¿Qué pasa con los posibles factores de confusión (confounds)?
 
 <!-- If we look more closely at the Garder paper, we will see that they also report statistics on how many individuals in each group had been diagnosed with *metabolic syndrome*, which is a syndrome characterized by high blood pressure, high blood glucose, excess body fat around the waist, and abnormal cholesterol levels and is associated with increased risk for cardiovascular problems. Here are the data from the Gardner paper: -->
-Si vemos más de cerca el artículo de Gardner, veremos que también reportaron estadísticas sobre cuántas personas en cada grupo habían sido diagnosticadas con *síndrome metabólico*, que es un síndrome caracterizado por presión sanguínea alta, alta glucosa en sangre, exceso de grasa corporal alrededor de la cintura, y niveles de colesterol anormales; este síndrome está asociado con mayor riesgo de problemas cardiovasculares. Aquí están los datos del artículo de Gardner:
+Si vemos más de cerca el artículo de Gardner, veremos que también reportaron estadísticas sobre cuántas personas en cada grupo habían sido diagnosticadas con *síndrome metabólico*, que es un síndrome caracterizado por presión sanguínea alta, alta glucosa en sangre, exceso de grasa corporal alrededor de la cintura, y niveles de colesterol anormales; este síndrome está asociado con mayor riesgo de problemas cardiovasculares. En la tabla \@ref(tab:metabolicSyndrome) están los datos del artículo de Gardner.
 
-```{r echo=FALSE}
+```{r metabolicSyndrome, echo=FALSE}
 summaryDf <- 
   summaryDf %>% 
   mutate(
