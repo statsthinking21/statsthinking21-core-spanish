@@ -1,6 +1,0 @@
-"0","# Absolute and relative frequencies and percentages for PhysActive variable
-kable(PhysActive_table_filtered, caption='Frecuencias absolutas y relativas, y porcentajes de la variable PhysActive')
-"
-"2","Error in gsub(""\"""", ""\\\"""", string, fixed = TRUE) : 
-  input string 2 is invalid UTF-8
-"

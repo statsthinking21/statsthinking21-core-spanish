@@ -1,8 +1,0 @@
-"0","# summarize physical activity data"
-"0","# resumir datos de actividad física"
-"0","PhysActive_table <- NHANES %>%"
-"0","  dplyr::select(PhysActive) %>% # select the variable"
-"0","  group_by(PhysActive) %>% # group by values of the variable"
-"0","  summarize(AbsoluteFrequency = n()) # count the values"
-"2","`summarise()` ungrouping output (override with `.groups` argument)
-"

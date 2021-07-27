@@ -1,2 +1,0 @@
-"0","# compute error compared to the mode and plot histogram"
-"0","error_mode <- NHANES_child$Height - height_mode"

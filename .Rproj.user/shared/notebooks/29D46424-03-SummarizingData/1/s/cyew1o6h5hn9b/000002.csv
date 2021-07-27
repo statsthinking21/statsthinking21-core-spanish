@@ -1,5 +1,0 @@
-"0","kable(SleepHrsNight_cumulative, caption='Distribuciones de frecuencias absolutas y acumuladas para la variable SleepHrsNight')
-"
-"2","Error in gsub(""\"""", ""\\\"""", string, fixed = TRUE) : 
-  input string 2 is invalid UTF-8
-"

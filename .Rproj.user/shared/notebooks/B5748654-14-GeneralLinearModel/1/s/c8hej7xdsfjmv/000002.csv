@@ -1,5 +1,0 @@
-"0","qq_df <- tibble(norm=rnorm(100),"
-"0","                unif=runif(100))"
-"2","Error in tibble(norm = rnorm(100), unif = runif(100)) : 
-  could not find function ""tibble""
-"

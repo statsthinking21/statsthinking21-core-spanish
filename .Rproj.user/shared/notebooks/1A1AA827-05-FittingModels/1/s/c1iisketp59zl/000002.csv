@@ -1,6 +1,0 @@
-"0","# create function to compute mode and apply to child height data from NHANES"
-"0","getmode <- function(v) {"
-"0","  uniqv <- unique(v)"
-"0","  return(uniqv[which.max(tabulate(match(v, uniqv)))])"
-"0","}"
-"0","height_mode <- getmode(NHANES_child$Height)"
