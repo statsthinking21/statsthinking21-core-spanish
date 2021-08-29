@@ -4,6 +4,6 @@ output:
   pdf_document: default
 ---
 
-# References
+# Referencias
 
-`r if (knitr::is_html_output()) '# References {-}'`
+`r if (knitr::is_html_output()) '# Referencias {-}'`

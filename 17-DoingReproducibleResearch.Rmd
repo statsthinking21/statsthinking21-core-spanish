@@ -381,5 +381,3 @@ Es responsabilidad de cada científico el mejorar sus prácticas de investigaci�
 
 \newpage
 
-# Referencias {-}
-

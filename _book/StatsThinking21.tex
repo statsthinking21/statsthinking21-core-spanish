@@ -1,15 +1,15 @@
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
-\PassOptionsToPackage{dvipsnames,svgnames*,x11names*}{xcolor}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 %
 \documentclass[
   12pt,
 ]{book}
 \usepackage{amsmath,amssymb}
 \usepackage{lmodern}
-\usepackage{ifxetex,ifluatex}
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+\usepackage{iftex}
+\ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
@@ -41,10 +41,10 @@
 \hypersetup{
   pdftitle={Statistical Thinking for the 21st Century},
   colorlinks=true,
-  linkcolor=Maroon,
-  filecolor=Maroon,
-  citecolor=Blue,
-  urlcolor=blue,
+  linkcolor={Maroon},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={blue},
   pdfcreator={LaTeX via pandoc}}
 \urlstyle{same} % disable monospaced font for URLs
 \usepackage{color}
@@ -114,6 +114,29 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{5}
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 \usepackage{fancyhdr} \pagestyle{fancy} \fancyhf{} \fancyhead[LO]{\leftmark} \fancyhead[RE]{\rightmark} \fancyhead[RO,LE]{\thepage} \fancyfoot[RO,LE]{Statistical Thinking for the 21st Century - Poldrack}
 \renewcommand{\footrulewidth}{1pt}
 \usepackage{booktabs}
@@ -130,29 +153,9 @@
 \usepackage[normalem]{ulem}
 \usepackage{makecell}
 \usepackage{xcolor}
-\ifluatex
+\ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
-\newlength{\cslhangindent}
-\setlength{\cslhangindent}{1.5em}
-\newlength{\csllabelwidth}
-\setlength{\csllabelwidth}{3em}
-\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
- {% don't indent paragraphs
-  \setlength{\parindent}{0pt}
-  % turn on hanging indent if param 1 is 1
-  \ifodd #1 \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces\fi
-  % set entry spacing
-  \ifnum #2 > 0
-  \setlength{\parskip}{#2\baselineskip}
-  \fi
- }%
- {}
-\usepackage{calc}
-\newcommand{\CSLBlock}[1]{#1\hfill\break}
-\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
-\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
-\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
 \title{Statistical Thinking for the 21st Century}
 \author{Copyright 2019 Russell A. Poldrack\\
@@ -161,23 +164,8 @@ Translation to Spanish(MX) by\\
 Manuel Mejia\\
 Tanya Nuño\\
 Lizeth Reyes}
-\date{Draft: 2021-05-14}
+\date{Draft: 2021-08-29}
 
-\usepackage{amsthm}
-\newtheorem{theorem}{Theorem}[chapter]
-\newtheorem{lemma}{Lemma}[chapter]
-\newtheorem{corollary}{Corollary}[chapter]
-\newtheorem{proposition}{Proposition}[chapter]
-\newtheorem{conjecture}{Conjecture}[chapter]
-\theoremstyle{definition}
-\newtheorem{definition}{Definition}[chapter]
-\theoremstyle{definition}
-\newtheorem{example}{Example}[chapter]
-\theoremstyle{definition}
-\newtheorem{exercise}{Exercise}[chapter]
-\theoremstyle{remark}
-\newtheorem*{remark}{Remark}
-\newtheorem*{solution}{Solution}
 \begin{document}
 \maketitle
 
@@ -197,9 +185,9 @@ Este libro también fue escrito en el despertar de la crisis de reproducibilidad
 \hypertarget{por-quuxe9-existe-este-libro}{%
 \section{¿Por qué existe este libro?}\label{por-quuxe9-existe-este-libro}}
 
-En 2018, comencé a enseñar un curso de estadística de licenciatura en Stanford (Psych 10/Stats 60). Nunca había enseñado estadística antes, y esta era una oportunidad de sacudir las cosas. He estado cada más insatisfecho con la educación estadística en la licenciatura en psicología, y quería brindar nuevas ideas y aproximaciones a la clase. En particular, quería brindar las aproximaciones que están siendo cada vez más usadas en la práctica estadística real en el siglo 21. Como lo han dicho tan claramente Brad Efron y Trevor Hastie en su libro ``Computer Age Statistical Inference: Algorithms, Evidence, and Data Science,'' estos métodos toman la ventaja del poder computacional de hoy en día para resolver problemas en maneras que van mucho más allá de los métodos estándar que son usualmente enseñados en los cursos de estadística a estudiantes de licenciatura en psicología.
+En 2018, comencé a enseñar un curso de estadística de licenciatura en Stanford (Psych 10/Stats 60). Nunca había enseñado estadística antes, y esta era una oportunidad de sacudir las cosas. He estado cada más insatisfecho con la educación estadística en la licenciatura en psicología, y quería brindar nuevas ideas y aproximaciones a la clase. En particular, quería brindar las aproximaciones que están siendo cada vez más usadas en la práctica estadística real en el siglo 21. Como lo han dicho tan claramente Brad Efron y Trevor Hastie en su libro ``Computer Age Statistical Inference: Algorithms, Evidence, and Data Science'', estos métodos toman la ventaja del poder computacional de hoy en día para resolver problemas en maneras que van mucho más allá de los métodos estándar que son usualmente enseñados en los cursos de estadística a estudiantes de licenciatura en psicología.
 
-El primer año que enseñé esa clase, usé como libro de texto el increíble libro de Andy Field en su versión de novela gráfica, ``An Adventure in Statistics.'' El libro tiene muchas cosas que realmente me gustan -- en particular, me gusta la manera en que presenta la práctica estadística alrededor de la construcción de modelos, y trata la prueba de hipótesis con suficiente cuidado (aunque con insuficiente desdén, en mi opinión). Desafortunadamente, la mayoría de mis estudiantes odiaron el libro, principalmente porque implicaba navegar por demasiada historia para llegar al conocimiento estadístico. También lo incontré insuficiente porque había una cantidad de temas (particularmente aquellos del campo de la inteligencia artificial conocidos como \emph{machine learning}) que quería incluir pero que no estaban mencionados en el libro. Finalmente sentí que los estudiantes encontrarían mejor el revisar un libro que siguiera muy de cerca mis clases, por lo que comencé a escribir mis clases en un conjunto de cuadernos computacionales que eventualmente se convertirían en este libro. La estructura de este libro sigue aproximadamente la del libro de Field, porque las clases originalmente se basaron en gran medida en el curso de ese libro, pero el contenido es sustancialmente diferente (y casi seguro que mucho menos divertido o inteligente). También ajusté el libro para el sistema de trimestre de 10 semanas que se usa en Stanford, que provee menos tiempo que el semestre de 16 semanas para los que la mayoría de los libros de texto de estadística están escritos.
+El primer año que enseñé esa clase, usé como libro de texto el increíble libro de Andy Field en su versión de novela gráfica, ``An Adventure in Statistics''. El libro tiene muchas cosas que realmente me gustan -- en particular, me gusta la manera en que presenta la práctica estadística alrededor de la construcción de modelos, y trata la prueba de hipótesis con suficiente cuidado (aunque con insuficiente desdén, en mi opinión). Desafortunadamente, la mayoría de mis estudiantes odiaron el libro, principalmente porque implicaba navegar por demasiada historia para llegar al conocimiento estadístico. También lo incontré insuficiente porque había una cantidad de temas (particularmente aquellos del campo de la inteligencia artificial conocidos como \emph{machine learning}) que quería incluir pero que no estaban mencionados en el libro. Finalmente sentí que los estudiantes encontrarían mejor el revisar un libro que siguiera muy de cerca mis clases, por lo que comencé a escribir mis clases en un conjunto de cuadernos computacionales que eventualmente se convertirían en este libro. La estructura de este libro sigue aproximadamente la del libro de Field, porque las clases originalmente se basaron en gran medida en el curso de ese libro, pero el contenido es sustancialmente diferente (y casi seguro que mucho menos divertido o inteligente). También ajusté el libro para el sistema de trimestre de 10 semanas que se usa en Stanford, que provee menos tiempo que el semestre de 16 semanas para los que la mayoría de los libros de texto de estadística están escritos.
 
 \hypertarget{la-era-dorada-de-la-informaciuxf3n}{%
 \section{La era dorada de la información}\label{la-era-dorada-de-la-informaciuxf3n}}
@@ -252,7 +240,7 @@ Podemos distinguir el pensamiento estadístico de otras formas de pensamiento qu
 \hypertarget{lidiar-con-la-ansiedad-estaduxedstica}{%
 \section{Lidiar con la ansiedad estadística}\label{lidiar-con-la-ansiedad-estaduxedstica}}
 
-Muchas personas entran a su primera clase de estadística con mucho temor y ansiedad, especialmente una vez que escuchan que también van a tener que aprender código, a fin de analizar datos. En mi clase le doy a les estudientes una encuesta previa a la primera sesión de clase con la intención de medir su actitud hacia la estadística, pidiéndoles que califiquen un número de afirmaciones en una escala del 1 (fuertemente en desacuerdo) a 7 (fuertemente de acuerdo). Uno de los ítems en la encuesta es ``El pensamiento de inscribirme a un curso de estadística me pone nerviosx.'' En mi clase más reciente, casi dos tercios de la clase respondió con un 5 o más, y un cuarto de les estudiantes mencionó que estaban fuertemente de acuerdo con la aclaración. Entonces si tú te sientes nerviose acerca de empezar a aprender estadística, no estás sole.
+Muchas personas entran a su primera clase de estadística con mucho temor y ansiedad, especialmente una vez que escuchan que también van a tener que aprender código, a fin de analizar datos. En mi clase le doy a les estudientes una encuesta previa a la primera sesión de clase con la intención de medir su actitud hacia la estadística, pidiéndoles que califiquen un número de afirmaciones en una escala del 1 (fuertemente en desacuerdo) a 7 (fuertemente de acuerdo). Uno de los ítems en la encuesta es ``El pensamiento de inscribirme a un curso de estadística me pone nerviosx''. En mi clase más reciente, casi dos tercios de la clase respondió con un 5 o más, y un cuarto de les estudiantes mencionó que estaban fuertemente de acuerdo con la aclaración. Entonces si tú te sientes nerviose acerca de empezar a aprender estadística, no estás sole.
 
 La ansiedad se siente incómoda, pero la psicología nos dice que esta clase de respuesta emocional en realidad puede ayudarnos a desempeñarnos \emph{mejor} en varias tareas, mediante focalizar nuestra atención. Así que si empiezas a sentirte ansiose por el material en este curso, recuerda que muches otres en esta clase se sienten de una manera similar y que esa respuesta emocional en realidad puede ayudarte a desempeñarte mejor (¡incluso si no parece de esa manera!).
 
@@ -279,9 +267,9 @@ Una manera en la que podemos responder esta pregunta es sentido común.
 Si comemos grasa, ésta se va a convertir en grasa en nuestro cuerpo, ¿cierto?
 Y todes hemos visto fotos de arterias obstruidas con grasa, así que comer grasa va a obstruir nuestras arterias, ¿cierto?
 
-Otra manera en la que podemos responder esta pregunta es mediante esuchar a figuras de autoridad. Las pautas alimenticias de la FDA (Food and Drug Administration, por sus siglas en inglés) tienen como una de sus recomendaciones clave que ``Un patrón de comida saludable limita las grasas saturadas.'' Uno esperaría qu estas pautas estén basadas en ciencia, y en algunos casos es así, pero como Nina Teicholz señaló en su libro ``Big Fat Surprise''(\protect\hyperlink{ref-teic:2014}{Teicholz 2014}), esta recomendación en particular parece estar más basada en el dogma de investigadores de la nutrición que en evidencia actual.
+Otra manera en la que podemos responder esta pregunta es mediante esuchar a figuras de autoridad. Las pautas alimenticias de la FDA (Food and Drug Administration, por sus siglas en inglés) tienen como una de sus recomendaciones clave que ``Un patrón de comida saludable limita las grasas saturadas''. Uno esperaría qu estas pautas estén basadas en ciencia, y en algunos casos es así, pero como Nina Teicholz señaló en su libro ``Big Fat Surprise''(\protect\hyperlink{ref-teic:2014}{Teicholz 2014}), esta recomendación en particular parece estar más basada en el dogma de investigadores de la nutrición que en evidencia actual.
 
-Finalmente, podemos revisar verdadera investigación científica. Empecemos por revisar el gran estudio llamado PURE Study (por sus siglas en inglés), el cual ha examinado dietas y resultados de salud (incluida la muerte) en más de 135,000 personas de 18 países diferentes. En uno de los análisis de esta base de datos (publicada en \emph{The Lancet} en 2017; \protect\hyperlink{ref-dehg:ment:zhan:2017}{Dehghan et al.} (\protect\hyperlink{ref-dehg:ment:zhan:2017}{2017})), lxs investigadores de PURE reportaron un análisis de cómo el consumo de varias clases de macronutrientes (incluidas las grasas saturadas y carbohidratos) está relacionada con la probabilidad de morir durante el tiempo en que se siguió a las personas. Lxs sujetos del estudio fueron seguidos por una duración \emph{media} de 7.4 años, significando que la mitad de las personas del estudio fueron seguidas por menos y la otra mitad fue seguida por más de 7.4 años. La Figura \ref{fig:PureDeathSatFat} grafica algunos de los datos del estudio (extraídos del documento), mostrando la relación entre el consumo de las grasas saturadas y carbohidratos y el riesgo de morir por cualquier causa.
+Finalmente, podemos revisar verdadera investigación científica. Empecemos por revisar el gran estudio llamado PURE Study (por sus siglas en inglés), el cual ha examinado dietas y resultados de salud (incluida la muerte) en más de 135,000 personas de 18 países diferentes. En uno de los análisis de esta base de datos (publicada en \emph{The Lancet} en 2017; Dehghan et al. (\protect\hyperlink{ref-dehg:ment:zhan:2017}{2017})), lxs investigadores de PURE reportaron un análisis de cómo el consumo de varias clases de macronutrientes (incluidas las grasas saturadas y carbohidratos) está relacionada con la probabilidad de morir durante el tiempo en que se siguió a las personas. Lxs sujetos del estudio fueron seguidos por una duración \emph{media} de 7.4 años, significando que la mitad de las personas del estudio fueron seguidas por menos y la otra mitad fue seguida por más de 7.4 años. La Figura \ref{fig:PureDeathSatFat} grafica algunos de los datos del estudio (extraídos del documento), mostrando la relación entre el consumo de las grasas saturadas y carbohidratos y el riesgo de morir por cualquier causa.
 
 \begin{figure}
 \includegraphics[height=0.5\textheight]{StatsThinking21_files/figure-latex/PureDeathSatFat-1} \caption{Una gráfica de datos del estudio PURE, mostrando la relación entre muerte debido a cualquier causa y la ingesta relativa de grasas saturadas y carbohidratos.}\label{fig:PureDeathSatFat}
@@ -296,7 +284,7 @@ Basándonos en los datos, también nos gustaría hacer predicciones sobre result
 \hypertarget{las-grandes-ideas-de-la-estaduxedstica}{%
 \section{Las grandes ideas de la estadística}\label{las-grandes-ideas-de-la-estaduxedstica}}
 
-Hay un número de ideas sumamente básicas que interceptan casi todos los aspectos del pensamiento estadístico. Algunas de ellas son señaladas por (\protect\hyperlink{ref-stig}{Stigler 2016}) en su increíble libro ``Los Siete Pilares de la sabiduría Estadística,'' el cual he ampliado aquí.
+Hay un número de ideas sumamente básicas que interceptan casi todos los aspectos del pensamiento estadístico. Algunas de ellas son señaladas por (\protect\hyperlink{ref-stig}{Stigler 2016}) en su increíble libro ``Los Siete Pilares de la sabiduría Estadística'', el cual he ampliado aquí.
 
 \hypertarget{aprendiendo-de-los-datos}{%
 \subsection{Aprendiendo de los datos}\label{aprendiendo-de-los-datos}}
@@ -308,7 +296,7 @@ La estadística nos proporciona una manera de describir cómo se pueden utilizar
 \hypertarget{agregaciuxf3n-aggregation}{%
 \subsection{\texorpdfstring{Agregación (\emph{aggregation})}{Agregación (aggregation)}}\label{agregaciuxf3n-aggregation}}
 
-Otra manera de pensar en la estadística es como ``la ciencia de tirar datos.'' En el ejemplo anterior del estudio PURE, tomamos más de 100,000 números y los condensamos a diez. Es esta clase de \emph{agregación} la que es uno de los conceptos más importantes de la estadística. Cuando fue desarrollado por primera vez, fue revolucionario: si descartamos todos los detalles sobre cada uno de lxs participantes, ¿cómo podemos estar seguros de que no nos estamos perdiendo algo importante?
+Otra manera de pensar en la estadística es como ``la ciencia de tirar datos''. En el ejemplo anterior del estudio PURE, tomamos más de 100,000 números y los condensamos a diez. Es esta clase de \emph{agregación} la que es uno de los conceptos más importantes de la estadística. Cuando fue desarrollado por primera vez, fue revolucionario: si descartamos todos los detalles sobre cada uno de lxs participantes, ¿cómo podemos estar seguros de que no nos estamos perdiendo algo importante?
 
 Como veremos, la estadística nos proporciona formas de caracterizar la estructura de agregados de datos, y con fundamentos teóricos que explican por qué esto suele funcionar bien. Sin embargo, también es importante tener en cuenta que la agregación puede ir demasiado lejos, y más adelante encontraremos casos en los que un resumen puede proporcionar una imagen engañosa de los datos que se resumen.
 
@@ -326,7 +314,7 @@ El concepto de agregación implica que podemos obtener información útil al col
 \hypertarget{causalidad-y-estaduxedstica}{%
 \section{Causalidad y estadística}\label{causalidad-y-estaduxedstica}}
 
-El estudio PURE pareció proporcionar pruebas bastante sólidas de una relación positiva entre comer grasas saturadas y vivir más tiempo, pero esto no nos dice lo que realmente queremos saber: si comemos más grasas saturadas, ¿nos hará vivir más tiempo? Esto se debe a que no sabemos si existe una relación causal directa entre comer grasas saturadas y vivir más tiempo. Los datos son consistentes con tal relación, pero son igualmente consistentes con algún otro factor que causa tanto una mayor cantidad de grasas saturadas como una vida más larga. Por ejemplo, es probable que las personas que son más ricas consuman más grasas saturadas y las personas más ricas tienden a vivir más tiempo, pero su vida más larga no se debe necesariamente a la ingesta de grasas, sino que podría deberse a una mejor atención de la salud, una reducción del estrés psicológico, mejor calidad de los alimentos o muchos otros factores. Los investigadores del estudio PURE intentaron tener en cuenta estos factores, pero no podemos estar seguros de que sus esfuerzos eliminaron por completo los efectos de otras variables. El hecho de que otros factores puedan explicar la relación entre la ingesta de grasas saturadas y la muerte es un ejemplo de por qué las clases de introducción a la estadística a menudo enseñan que ``la correlación no implica causalidad,'' aunque el renombrado experto en visualización de datos Edward Tufte ha agregado, ``pero seguro que es una pista.''
+El estudio PURE pareció proporcionar pruebas bastante sólidas de una relación positiva entre comer grasas saturadas y vivir más tiempo, pero esto no nos dice lo que realmente queremos saber: si comemos más grasas saturadas, ¿nos hará vivir más tiempo? Esto se debe a que no sabemos si existe una relación causal directa entre comer grasas saturadas y vivir más tiempo. Los datos son consistentes con tal relación, pero son igualmente consistentes con algún otro factor que causa tanto una mayor cantidad de grasas saturadas como una vida más larga. Por ejemplo, es probable que las personas que son más ricas consuman más grasas saturadas y las personas más ricas tienden a vivir más tiempo, pero su vida más larga no se debe necesariamente a la ingesta de grasas, sino que podría deberse a una mejor atención de la salud, una reducción del estrés psicológico, mejor calidad de los alimentos o muchos otros factores. Los investigadores del estudio PURE intentaron tener en cuenta estos factores, pero no podemos estar seguros de que sus esfuerzos eliminaron por completo los efectos de otras variables. El hecho de que otros factores puedan explicar la relación entre la ingesta de grasas saturadas y la muerte es un ejemplo de por qué las clases de introducción a la estadística a menudo enseñan que ``la correlación no implica causalidad'', aunque el renombrado experto en visualización de datos Edward Tufte ha agregado, ``pero seguro que es una pista.''
 
 Aunque la investigación observacional (como el estudio PURE) no puede demostrar de manera concluyente las relaciones causales, generalmente pensamos que la causalidad se puede demostrar utilizando estudios que controlan y manipulan experimentalmente un factor específico. En medicina, este tipo de estudio se conoce como \emph{ensayo controlado aleatorio} (ECA, del inglés \emph{randomized controlled trial}, RCT). Digamos que queríamos hacer un ECA para examinar si el aumento de la ingesta de grasas saturadas aumenta la esperanza de vida. Para hacer esto, tomaríamos muestras de un grupo de personas y luego las asignaríamos a un grupo de tratamiento (al que se le indicaría que aumentara su ingesta de grasas saturadas) o un grupo de control (al que se le diría que siguiera comiendo lo mismo que antes) . Es fundamental que asignemos a los individuos a estos grupos al azar. De lo contrario, las personas que eligen el tratamiento pueden ser diferentes de alguna manera a las personas que eligen el grupo de control; por ejemplo, es más probable que también adopten otros comportamientos saludables. Luego seguiríamos a los participantes a lo largo del tiempo y veríamos cuántas personas de cada grupo murieron. Debido a que asignamos al azar a los participantes a los grupos de tratamiento o de control, podemos estar razonablemente seguros de que no hay otras diferencias entre los grupos que \emph{confundirían} el efecto del tratamiento; sin embargo, todavía no podemos estar seguros porque a veces la aleatorización produce grupos de tratamiento versus grupos de control que \emph{varían} de alguna manera importante. Lxs investigadores a menudo intentan abordar estos factores de confusión mediante análisis estadísticos, pero eliminar la influencia de un factor de confusión de los datos puede resultar muy difícil.
 
@@ -366,12 +354,12 @@ Al leer este capítulo, tu deberías de ser capaz de:
 \hypertarget{quuxe9-son-los-datos}{%
 \section{¿Qué son los datos?}\label{quuxe9-son-los-datos}}
 
-Cuando hablamos de los datos lo hacemos en plural. Si te encuentras buscando información de estadística en inglés y aparece como ``data,'' recuerda que se trata de una palabra que siempre permanece en plural.
+Cuando hablamos de los datos lo hacemos en plural. Si te encuentras buscando información de estadística en inglés y aparece como ``data'', recuerda que se trata de una palabra que siempre permanece en plural.
 
 \hypertarget{datos-cualitativos}{%
 \subsection{Datos Cualitativos}\label{datos-cualitativos}}
 
-Los datos se componen de \emph{variables}, en donde una variable refleja una medida o cantidad única. Algunas variables son \emph{cualitativas}, lo que significa que describen una cualidad en lugar de una cantidad numérica. Por ejemplo, en mi curso de estadística generalmente doy un cuestionario introductorio, con el propósito de obtener datos que pueda usar en clase y para aprender más sobre los estudiantes. Una de las preguntas que hago es ``¿Cuál es tu comida favorita?'' a lo cual algunas de las respuestas han sido: arándanos, chocolate, tamales, pasta, pizza y mango. Esos datos no son esencialmente numéricos; podríamos asignarles números a cada uno (1=arándanos, 2=chocolate, etc), pero solamente estaríamos utilizando los números como etiquetas en lugar de números reales; por ejemplo, no tendría sentido sumar los números en este caso. Sin embargo, a menudo codificaremos datos cualitativos utilizando números para poder trabajar más facilmente con ellos, como verán más adelante en este libro.
+Los datos se componen de \emph{variables}, en donde una variable refleja una medida o cantidad única. Algunas variables son \emph{cualitativas}, lo que significa que describen una cualidad en lugar de una cantidad numérica. Por ejemplo, en mi curso de estadística generalmente doy un cuestionario introductorio, con el propósito de obtener datos que pueda usar en clase y para aprender más sobre los estudiantes. Una de las preguntas que hago es ``¿Cuál es tu comida favorita?'', a lo cual algunas de las respuestas han sido: arándanos, chocolate, tamales, pasta, pizza y mango. Esos datos no son esencialmente numéricos; podríamos asignarles números a cada uno (1=arándanos, 2=chocolate, etc), pero solamente estaríamos utilizando los números como etiquetas en lugar de números reales; por ejemplo, no tendría sentido sumar los números en este caso. Sin embargo, a menudo codificaremos datos cualitativos utilizando números para poder trabajar más facilmente con ellos, como verán más adelante en este libro.
 
 \hypertarget{datos-cuantitativos}{%
 \subsection{Datos cuantitativos}\label{datos-cuantitativos}}
@@ -383,14 +371,14 @@ Más comunmente en estadística trabajaremos con datos \emph{cuantitativos}, lo 
 \caption{\label{tab:WhyTakingClass}Counts of the prevalence of different responses to the question "Why are you taking this class?"}
 \centering
 \begin{tabular}[t]{lr}
-\toprule
+\toprule{}
 Why are you taking this class? & Number of students\\
-\midrule
+\midrule{}
 It fulfills a degree plan requirement & 105\\
 It fulfills a General Education Breadth Requirement & 32\\
 It is not required but I am interested in the topic & 11\\
 Other & 4\\
-\bottomrule
+\bottomrule{}
 \end{tabular}
 \end{table}
 
@@ -401,7 +389,7 @@ Nota que las respuestas de los estudiantes fueron cualitativas, pero generamos u
 
 Existen varios tipos diferentes de números con los que trabajamos en estadística. Es importante entender estas diferencias, en parte porque los lenguajes de programación como R a menudo los distinguen.
 
-\textbf{Números binarios}. Los más simples son los números binarios -- cero ó uno. A menudo usaremos números binarios para representar si algo es verdadero o falso, o presente o ausente. Por ejemplo, puede que le pregunte a 10 personas si alguna vez han tenido dolor de cabeza por migraña, registrando sus respuestas como ``Sí'' ó ``No.'' En ocasiones es útil usar valores \emph{lógicos}, los cuales toman los valores de \texttt{VERDADERO} o \texttt{FALSO}. Esto puede ser especialmente útil cuando comenzamos a utilizar lenguajes de programación como R para analizar nuestros datos, ya que, estos lenguajes comprenden los conceptos de VERDADERO y FALSO. De hecho, la mayoría de los lenguajes de programación tratan los valores de verdad y los números binarios de manera equivalente. El número 1 es igual al valor lógico \texttt{VERDADERO}, y el número cero es igual al valor lógico \texttt{FALSO}.
+\textbf{Números binarios}. Los más simples son los números binarios -- cero ó uno. A menudo usaremos números binarios para representar si algo es verdadero o falso, o presente o ausente. Por ejemplo, puede que le pregunte a 10 personas si alguna vez han tenido dolor de cabeza por migraña, registrando sus respuestas como ``Sí'' ó ``No''. En ocasiones es útil usar valores \emph{lógicos}, los cuales toman los valores de \texttt{VERDADERO} o \texttt{FALSO}. Esto puede ser especialmente útil cuando comenzamos a utilizar lenguajes de programación como R para analizar nuestros datos, ya que, estos lenguajes comprenden los conceptos de VERDADERO y FALSO. De hecho, la mayoría de los lenguajes de programación tratan los valores de verdad y los números binarios de manera equivalente. El número 1 es igual al valor lógico \texttt{VERDADERO}, y el número cero es igual al valor lógico \texttt{FALSO}.
 
 \textbf{Enteros}. Los enteros son números enteros sin fracción o punto decimal. Nos encontramos más comunmente números enteros cuando contamos cosas, pero también ocurren en la medición de aspectos psicológicos. Por ejemplo, en mi cuestionario introductorio administro un set de preguntas sobre actitudes hacia la estadística (tal como ``La estadística me parece misteriosa.''), para lo cual les estudiantes responden con un número entre 1 (``Muy en desacuerdo'') y 7 (``Muy de acuerdo'').
 
@@ -430,7 +418,7 @@ Cuando pensamos en aquello que constituye a una buena medición, usualmente dist
 \hypertarget{confiabilidad}{%
 \subsection{Confiabilidad}\label{confiabilidad}}
 
-La confiabilidad se refiere a la consistencia de nuestras mediciones. Una forma común de confiabilidad, conocida como ``confiabilidad test-retest,'' mide qué tan bien concuerdan las mediciones si la misma medición se realiza dos veces. Por ejemplo, si te doy un cuestionario sobre tu actitud con respecto a la estadística hoy, y repito este mismo cuestionario mañana, al comparar tus respuestas en los dos días esperaríamos que tuvieran resultados muy similares entre sí, a menos que algo sucediera entre la aplicación de ambos cuestionarios que haya cambiado tu perspectiva de la estadística (¡como leer este libro!).
+La confiabilidad se refiere a la consistencia de nuestras mediciones. Una forma común de confiabilidad, conocida como ``confiabilidad test-retest'', mide qué tan bien concuerdan las mediciones si la misma medición se realiza dos veces. Por ejemplo, si te doy un cuestionario sobre tu actitud con respecto a la estadística hoy, y repito este mismo cuestionario mañana, al comparar tus respuestas en los dos días esperaríamos que tuvieran resultados muy similares entre sí, a menos que algo sucediera entre la aplicación de ambos cuestionarios que haya cambiado tu perspectiva de la estadística (¡como leer este libro!).
 
 Otra forma de evaluar la confiabilidad surge en casos en que los datos incluyen juicios subjetivos. Por ejemplo, digamos que unx investigadorx quiere determinar si un tratamiento cambia qué tan bien interactúa unx niñx que se encuentra dentro del espectro autista con otros niñxs, lo cual es medido a través de expertos que observan al niñx y califican sus interacciones con lxs otrxs niñxs. En este caso queremos asegurarnos de que las respuestas no dependan del individuo que está calificando-- nos gustaría que existiera una alta \emph{confiabilidad entre calificadores}. Esto puede ser evaluado teniendo más de unx solx evaluadorx, y después al comparar sus calificaciones asegurarnos de que concuerden entre sí.
 
@@ -451,8 +439,8 @@ La confiabilidad es importante, pero por sí misma no es suficiente: Después de
 
 \emph{Validez predictiva} Si nuestras mediciones son verdaderamente válidas, entonces también deberían de poder predecir otros resultados. Por ejemplo, digamos que pensamos que el rasgo psicológico de la búsqueda de sensaciones (el deseo de nuevas experiencias) está relacionado con la toma de riesgos en el mundo real. Para probar la validez predictiva de una medición de la búsqueda de sensaciones, probaríamos qué tan bien los puntajes en la prueba predicen los puntajes en un cuestionario diferente que mide la toma de riesgos en el mundo real.
 
-\hypertarget{objetivos-de-aprendizaje}{%
-\section{Objetivos de aprendizaje}\label{objetivos-de-aprendizaje}}
+\hypertarget{objetivos-de-aprendizaje-1}{%
+\section{Objetivos de aprendizaje}\label{objetivos-de-aprendizaje-1}}
 
 Al haber leído este capítulo deberías de ser capaz de:
 
@@ -464,8 +452,8 @@ Al haber leído este capítulo deberías de ser capaz de:
   Distinguir entre conceptos de confiabilidad y validez y poder aplicar cada concepto a un conjunto de datos en particular.
 \end{itemize}
 
-\hypertarget{lecturas-sugeridas}{%
-\section{Lecturas sugeridas}\label{lecturas-sugeridas}}
+\hypertarget{lecturas-sugeridas-1}{%
+\section{Lecturas sugeridas}\label{lecturas-sugeridas-1}}
 
 \begin{itemize}
 \tightlist
@@ -495,7 +483,7 @@ Todas las variables deben tomar al menos dos valores diferentes posibles (de lo 
 
 Hay cuatro escalas diferentes de medición que van de la mano con estas diferentes formas en que los valores de una variable pueden diferir.
 
-\emph{Escala Nominal}. Una variable nominal satisface el criterio de identidad, de modo que cada valor de la variable representa algo diferente, pero los números simplemente sirven como etiquetas cualitativas, como mencionamos al principio. Por ejemplo, es posible que le preguntemos a las personas el partido politico al que se suscriben, y después codificar esa información como números: 1= ``Republicanos,'' 2= ``Demócrata,'' 3= ``Libertaria,'' etc. Sin embargo, los números no tienen ninguna relación ordenada entre sí.
+\emph{Escala Nominal}. Una variable nominal satisface el criterio de identidad, de modo que cada valor de la variable representa algo diferente, pero los números simplemente sirven como etiquetas cualitativas, como mencionamos al principio. Por ejemplo, es posible que le preguntemos a las personas el partido politico al que se suscriben, y después codificar esa información como números: 1= ``Republicanos'', 2= ``Demócrata'', 3= ``Libertaria'', etc. Sin embargo, los números no tienen ninguna relación ordenada entre sí.
 
 \emph{Escala ordinal}. Una variable ordinal satisface el criterio de identidad y magnitud, como que el valor puede ser ordenado en términos de su magnitud. Por ejemplo, le podemos preguntar a una persona con dolor crónico que llene un formato diario en donde evalúe qué tan mal siente su dolor, utilizando una escala numérica del 1 al 7. Hay que tomar en cuenta que, si bien la persona presumiblemente siente más dolor en un día en el que reporta un 6 frente a un día en que reporta un 3, no tendría sentido decir que su dolor es dos veces más intenso en el primero que en el último día; el orden nos da información sobre la magnitud relativa, pero las diferencias entre los valores no son necesariamente iguales en magnitud.
 
@@ -510,14 +498,14 @@ Hay dos razones importantes a las cuales les debemos de prestar atención a la e
 \caption{\label{tab:MeasurementTypes}Different scales of measurement admit different types of numeric operations}
 \centering
 \begin{tabular}[t]{lllll}
-\toprule
+\toprule{}
   & Equal/not equal & >/< & +/- & Multiply/divide\\
-\midrule
+\midrule{}
 Nominal & OK &  &  & \\
 Ordinal & OK & OK &  & \\
 Interval & OK & OK & OK & \\
 Ratio & OK & OK & OK & OK\\
-\bottomrule
+\bottomrule{}
 \end{tabular}
 \end{table}
 
@@ -534,7 +522,7 @@ En este Capítulo discutiremos por qué y cómo resumir datos.
 
 Cuando resumimos datos, estamos necesariamente tirando información, y uno podría objetar esto plausiblemente. Como un ejemplo, regresemos al estudio PURE que discutimos en el Capítulo 1. ¿No deberíamos pensar que todos los detalles de cada individuo importan, más allá de los que se resumieron en el conjunto de datos? ¿Qué decir de los detalles específicos sobre cómo fue recolectada la información, como el momento del día o el estado de ánimo del participante? Todos esos detalles se pierden cuando resumimos los datos.
 
-Resumimos datos en general porque nos provee de una manera de \emph{generalizar} - esto es, hacer enunciados generales que van más allá de observaciones específicas. La importancia de la generalización fue subrayada por el escritor Jorge Luis Borges en su cuento ``Funes El Memorioso,'' donde describe a un individuo que pierde la habilidad de olvidar. Borges se enfoca en la relación entre generalización (i.e.~tirar datos) y el pensamiento: ``Pensar es olvidar diferencias, es generalizar, abstraer. En el abarrotado mundo de Funes no había sino detalles, casi inmediatos.''
+Resumimos datos en general porque nos provee de una manera de \emph{generalizar} - esto es, hacer enunciados generales que van más allá de observaciones específicas. La importancia de la generalización fue subrayada por el escritor Jorge Luis Borges en su cuento ``Funes El Memorioso'', donde describe a un individuo que pierde la habilidad de olvidar. Borges se enfoca en la relación entre generalización (i.e.~tirar datos) y el pensamiento: ``Pensar es olvidar diferencias, es generalizar, abstraer. En el abarrotado mundo de Funes no había sino detalles, casi inmediatos''.
 
 Les psicólogues han estudiado por largo tiempo todas las maneras en que la generalización es central al pensamiento. Un ejemplo es la categorización: somos capaces de reconocer fácilmente diferentes ejemplos de la categoría de ``aves'' a pesar de que los ejemplos individuales puedan ser muy diferentes en características superficiales (como un avestruz, un petirrojo, y una gallina). De manera importante, la generalización nos permite hacer predicciones acerca de estos individuos -- en el caso de las aves, podemos predecir que vuelan y comen semillas, y que probablemente no puedan manejar un carro o hablar inglés. Estas predicciones no serán siempre correctas, pero frecuentemente serán suficientemente buenas para ser útiles en el mundo.
 
@@ -544,7 +532,7 @@ Les psicólogues han estudiado por largo tiempo todas las maneras en que la gene
 Una manera simple de resumir datos es el generar una tabla que represente el conteo de varios tipos de observaciones. Este tipo de tabla ha sido usado durante miles de años (ve la Figura \ref{fig:salesContract}).
 
 \begin{figure}
-\includegraphics[width=8in,height=0.3\textheight]{images/Sales_contract_Shuruppak_Louvre_AO3760} \caption{Una tabla sumeria en el Louvre, que muestra un contrato de venta de una casa y un terreno. Dominio público, via Wikimedia Commons.}\label{fig:salesContract}
+\includegraphics[height=0.3\textheight]{images/Sales_contract_Shuruppak_Louvre_AO3760} \caption{Una tabla sumeria en el Louvre, que muestra un contrato de venta de una casa y un terreno. Dominio público, via Wikimedia Commons.}\label{fig:salesContract}
 \end{figure}
 
 Veamos algunos ejemplos del uso de tablas, usando un conjunto de datos más realista. A lo largo de este libro usaremos la base de datos de la \href{https://www.cdc.gov/nchs/nhanes/index.htm}{Encuesta Nacional de Nutrición y Salud (National Health and Nutrition Examination Survey, NHANES)}. Este es un estudio en curso que evalúa el status de salud y nutrición de una muestra de individuos de los Estados Unidos en múltiples variables diferentes. Aquí usaremos una versión de la base de datos que está disponible con las librerías del software R. Para este ejemplo, miraremos una variable simple llamada ``PhysActive'' en la base de datos. Esta variable contiene uno de tres diferentes valores: ``Sí'' o ``No'' (indicando si la persona reportó o no el hacer ``deportes moderados o de intensidad vigorosa, actividades de fitness o recreacionales''), o ``NA'' si el dato está perdido para ese individuo. Existen varias razones por las cuales el dato podría estar perdido; por ejemplo, esta pregunta no se le realizó a niños menores a 12 años, mientras que en otros casos un adulto podría haber declinado el contestar la pregunta durante la entrevista.
@@ -566,9 +554,9 @@ NA & 1334\\
 \hline
 \end{tabular}
 
-Esta tabla muestra las frecuencias de cada uno de los diferentes valores; había 2473 individuos que respondieron ``No'' a la pregunta, 2972 que respondieron ``Sí,'' y 1334 de quienes no hubo una respuesta. Llamamos a esto una \emph{distribución de frecuencias} porque nos dice qué tan frecuente sucede en nuestra muestra cada uno de los valores posibles.
+Esta tabla muestra las frecuencias de cada uno de los diferentes valores; había 2473 individuos que respondieron ``No'' a la pregunta, 2972 que respondieron ``Sí'', y 1334 de quienes no hubo una respuesta. Llamamos a esto una \emph{distribución de frecuencias} porque nos dice qué tan frecuente sucede en nuestra muestra cada uno de los valores posibles.
 
-Esto nos muestra la frecuencia absoluta de las dos respuestas, para todas las personas que sí dieron una respuesta. De esta información, podemos ver que hubo más personas respondiendo ``Sí'' que ``No,'' pero puede ser difícil ver qué tan grande es la diferencia sólo viendo estos números absolutos. Por esta razón, frecuentemente preferimos presentar los datos usando \emph{frecuencias relativas}, que se obtienen dividiendo cada frecuencia entre la suma de todas las frecuencias absolutas:
+Esto nos muestra la frecuencia absoluta de las dos respuestas, para todas las personas que sí dieron una respuesta. De esta información, podemos ver que hubo más personas respondiendo ``Sí'' que ``No'', pero puede ser difícil ver qué tan grande es la diferencia sólo viendo estos números absolutos. Por esta razón, frecuentemente preferimos presentar los datos usando \emph{frecuencias relativas}, que se obtienen dividiendo cada frecuencia entre la suma de todas las frecuencias absolutas:
 
 \[
 frecuencia\ relativa_i = \frac{frecuencia\ absoluta_i}{\sum_{j=1}^N frecuencia\ absoluta_j}
@@ -590,7 +578,7 @@ Yes & 2972 & 0.55 & 55\\
 \end{tabular}
 \end{table}
 
-Esto nos deja ver que el 45.4 por ciento de los individuos en la muestra NHANES dijo ``No'' y el 54.6 por ciento dijo ``Sí.''
+Esto nos deja ver que el 45.4 por ciento de los individuos en la muestra NHANES dijo ``No'' y el 54.6 por ciento dijo ``Sí''.
 
 \hypertarget{cumulative-distributions}{%
 \subsection{Distribuciones acumuladas}\label{cumulative-distributions}}
@@ -763,7 +751,7 @@ Como veremos más tarde cuando discutamos el teorema del límite central, existe
 
 Los ejemplos en la Figura \ref{fig:NormalDistPlotsWithDist} siguen una distribución normal relativamente bien, pero en muchos casos los datos se desviarán de una manera sistemática de la distribución normal. Una manera en la que los datos se pueden desviar es cuando son asimétricos (o sesgados), cuando una cola de la distribución es más densa que la otra. Nos referimos a esto como ``asimetría'' (o sesgo, ``skewness'' en inglés). La asimetría comúnmente sucede cuando la medida está restringida a ser no-negativa, como cuando estamos contando cosas o midiendo lapsos de tiempo (y por lo tanto la variable no puede tomar valores negativos).
 
-Un ejemplo de asimetría se puede ver en el promedio de tiempos de espera en las líneas de seguridad aeropuertaria del Aeropuerto Internacional de San Francisco, graficado en el panel izquierdo de la Figura \ref{fig:SFOWaitTimes}. Puedes observar que mientras la mayoría de los tiempos son menores a 20 minutos, hay un número de casos donde pueden ser mucho mayores, ¡sobre los 60 minutos! Este es un ejemplo de una distribución ``asimétrica a la derecha,'' donde la cola derecha es más larga que la izquierda; este tipo de asimetría es común cuando observamos conteos o tiempos medidos, que no pueden ser menores a cero. Es menos común ver distribuciones ``asimétricas a la izquierda,'' pero pueden ocurrir, por ejemplo cuando vemos valores de fracciones que no pueden tomar valores mayores a uno.
+Un ejemplo de asimetría se puede ver en el promedio de tiempos de espera en las líneas de seguridad aeropuertaria del Aeropuerto Internacional de San Francisco, graficado en el panel izquierdo de la Figura \ref{fig:SFOWaitTimes}. Puedes observar que mientras la mayoría de los tiempos son menores a 20 minutos, hay un número de casos donde pueden ser mucho mayores, ¡sobre los 60 minutos! Este es un ejemplo de una distribución ``asimétrica a la derecha'', donde la cola derecha es más larga que la izquierda; este tipo de asimetría es común cuando observamos conteos o tiempos medidos, que no pueden ser menores a cero. Es menos común ver distribuciones ``asimétricas a la izquierda'', pero pueden ocurrir, por ejemplo cuando vemos valores de fracciones que no pueden tomar valores mayores a uno.
 
 \begin{figure}
 \includegraphics[height=0.5\textheight]{StatsThinking21_files/figure-latex/SFOWaitTimes-1} \caption{Ejemplos de distribuciones asimétricas a la derecha y con cola larga. Izquierda: Tiempo promedio de espera en seguridad en el SFO Terminal A (Enero-Octubre 2017), obtenidos de https://awt.cbp.gov/ . Derecha: Histograma del número de amigos en Facebook entre 3,663 individuos, obtenidos de la Stanford Large Network Database. La persona con el máximo número de amigos está indicada con un diamante.}\label{fig:SFOWaitTimes}
@@ -772,7 +760,7 @@ Un ejemplo de asimetría se puede ver en el promedio de tiempos de espera en las
 \hypertarget{distribuciones-con-colas-largas}{%
 \subsection{Distribuciones con colas largas}\label{distribuciones-con-colas-largas}}
 
-Históricamente, la estadística se ha enfocado fuertemente en datos que están distribuidos de manera normal, pero existen muchos tipos de datos que no se parecen en nada a la distribución normal. En particular, muchas distribuciones en el mundo real tienen ``cola larga,'' esto significa que la cola derecha se extiende mucho más allá de los valores típicos de la distribución. Uno de los tipos de datos más interesantes donde ocurren distribuciones con cola larga suceden del análisis de redes sociales (\emph{social networks}). Para un ejemplo, veamos los datos sobre la cantidad de amigos en Facebook del \href{https://snap.stanford.edu/data/egonets-Facebook.html}{Stanford Large Network Database} y grafiquemos el histograma del número de amigos en una muestra de 3,663 personas en la base de datos (ve el panel derecho de la Figura \ref{fig:SFOWaitTimes}). Como podemos ver, esta distribución tiene una cola derecha muy larga -- la persona promedio tiene 24.09 amigos, ¡mientras que la persona con la mayor cantidad de amigos (marcada por el diamante) tiene 1043!
+Históricamente, la estadística se ha enfocado fuertemente en datos que están distribuidos de manera normal, pero existen muchos tipos de datos que no se parecen en nada a la distribución normal. En particular, muchas distribuciones en el mundo real tienen ``cola larga'', esto significa que la cola derecha se extiende mucho más allá de los valores típicos de la distribución. Uno de los tipos de datos más interesantes donde ocurren distribuciones con cola larga suceden del análisis de redes sociales (\emph{social networks}). Para un ejemplo, veamos los datos sobre la cantidad de amigos en Facebook del \href{https://snap.stanford.edu/data/egonets-Facebook.html}{Stanford Large Network Database} y grafiquemos el histograma del número de amigos en una muestra de 3,663 personas en la base de datos (ve el panel derecho de la Figura \ref{fig:SFOWaitTimes}). Como podemos ver, esta distribución tiene una cola derecha muy larga -- la persona promedio tiene 24.09 amigos, ¡mientras que la persona con la mayor cantidad de amigos (marcada por el diamante) tiene 1043!
 
 Distribuciones con cola larga han sido cada vez más reconocidas en el mundo real. En particular, muchas características de sistemas complejos son caracterizadas por estas distribuciones, desde la frecuencia de palabras en un texto, hasta el número de vuelos que llegan y salen de diferentes aeropuertos, como la conectividad de redes neuronales. Existen diferentes maneras en que las distribuciones de cola larga pueden suceder, pero una común sucede en casos del llamado ``Efecto Mateo'' de la Biblia Cristiana:
 
@@ -780,12 +768,12 @@ Distribuciones con cola larga han sido cada vez más reconocidas en el mundo rea
 Porque al que tiene, le será dado, y tendrá más; y al que no tiene, aun lo que tiene le será quitado. - Mateo 25:29, Reina Valera 1960.
 \end{quote}
 
-Esto frecuentemente es parafraseado como ``los ricos se enriquecen más.'' En estas situaciones, las ventajas se combinan o multiplican, de tal manera que aquellos con más amigos tienen acceso aún a más amigos nuevos, y aquellos con más dinero tienen la habilidad de hacer cosas que incrementen sus riquezas aún más.
+Esto frecuentemente es parafraseado como ``los ricos se enriquecen más''. En estas situaciones, las ventajas se combinan o multiplican, de tal manera que aquellos con más amigos tienen acceso aún a más amigos nuevos, y aquellos con más dinero tienen la habilidad de hacer cosas que incrementen sus riquezas aún más.
 
-Conforme el curso avance veremos varios ejemplos de distribuciones de cola larga, y deberemos mantener en mente que muchas de las herramientas en estadística pueden fallar cuando nos enfrentamos con datos con cola larga. Como Nassim Nicholas Taleb señala en su libro ``The Black Swan,'' estas distribuciones de cola larga jugaron un papel crítico en la crisis financiera de 2008, porque muchos de los modelos financieros usados por los \emph{traders} (operadores de inversiones) asumieron que los sistemas financieros seguirían una distribución normal, que claramente no siguieron.
+Conforme el curso avance veremos varios ejemplos de distribuciones de cola larga, y deberemos mantener en mente que muchas de las herramientas en estadística pueden fallar cuando nos enfrentamos con datos con cola larga. Como Nassim Nicholas Taleb señala en su libro ``The Black Swan'', estas distribuciones de cola larga jugaron un papel crítico en la crisis financiera de 2008, porque muchos de los modelos financieros usados por los \emph{traders} (operadores de inversiones) asumieron que los sistemas financieros seguirían una distribución normal, que claramente no siguieron.
 
-\hypertarget{objetivos-de-aprendizaje}{%
-\section{Objetivos de aprendizaje}\label{objetivos-de-aprendizaje}}
+\hypertarget{objetivos-de-aprendizaje-2}{%
+\section{Objetivos de aprendizaje}\label{objetivos-de-aprendizaje-2}}
 
 Habiendo leído este capítulo, deberías ser capaz de:
 
@@ -799,8 +787,8 @@ Habiendo leído este capítulo, deberías ser capaz de:
   Describir la diferencia entre una distribución normal y una distribución con cola larga, y describir las situaciones que comúnmente dan lugar a cada tipo de distribución.
 \end{itemize}
 
-\hypertarget{lecturas-sugeridas}{%
-\section{Lecturas sugeridas}\label{lecturas-sugeridas}}
+\hypertarget{lecturas-sugeridas-2}{%
+\section{Lecturas sugeridas}\label{lecturas-sugeridas-2}}
 
 \begin{itemize}
 \tightlist
@@ -814,7 +802,7 @@ Habiendo leído este capítulo, deberías ser capaz de:
 El 28 de enero de 1986, el Space Shuttle Challenger explotó 73 segundos después del despegue, matando a lxs 7 astronautas a bordo. Así como cuando los desastres suceden, hubo una investigación oficial sobre lo que ocasionó el accidente. El cual encontró que un ``O-ring'' que conectaba dos secciones del sólido populsor de cohete se fugó, lo cual resultó en la falla de la unión y explosión del tanque propulsor (véase figura \ref{fig:srbLeak}).
 
 \begin{figure}
-\includegraphics[width=5in,height=0.2\textheight]{images/Booster_Rocket_Breach_-_GPN-2000-001425} \caption{Imagen del sólido propulsor de cohete fugando combustible, segundos antes de la explosión. By NASA (Great Images in NASA Description) [Public domain], via Wikimedia Commons}\label{fig:srbLeak}
+\includegraphics[height=0.2\textheight]{images/Booster_Rocket_Breach_-_GPN-2000-001425} \caption{Imagen del sólido propulsor de cohete fugando combustible, segundos antes de la explosión. By NASA (Great Images in NASA Description) [Public domain], via Wikimedia Commons}\label{fig:srbLeak}
 \end{figure}
 
 La investigación encontró que muchos aspectos del proceso de decisión de la NASA tenía errores, y estaban focalizados en una junta entre el personal de la NASA e ingenierxs de Morton Thiokol, un empresario que construía sólidos propulsores de cohete. Estxs ingenierxs estaban paricularmente preocupades por las temperaturas que habían sido pronosticadas para la mañana del lanzamiento, las cuales eran muy bajas. Ellos tenían datos de lanzamientos pasados donde el funcionamiento de los ``O-rings'' se comprometía a temperaturas bajas. En la junta previa al lanzamiento, lxs ingenierxs presentaron sus datos a lxs directivxs de la NASA, pero fueron incapaces de convencerles postponer el lanzamiento. Su evidencia fue una serie de notas escritas a mano mostrando números de los lanzamientos pasados.
@@ -948,7 +936,7 @@ En ocasiones es posible usar la visualización para distorsionar el mensaje de u
 \includegraphics[height=0.5\textheight]{StatsThinking21_files/figure-latex/crimePlotAxes-1} \caption{Datos de crimen de 1990 a 2014 graficados con el tiempo. Los paneles A y B muestran los mismos datos pero con diferentes rangos de eje. Datos obtenidos de https://www.ucrdatatool.gov/Search/Crime/State/RunCrimeStatebyState.cfm}\label{fig:crimePlotAxes}
 \end{figure}
 
-Una de las mayores controversias en la visualización de datos estadísticos es como elegir el eje Y, y en particular si se debe de incluir el cero. En su famoso libro ``Cómo mentir con estadística,'' Darrell Huff argumentó fuertemente que uno siempre debería de incluir el cero en el eje Y. Por otro lado, Edward Tufte ha argumentado en contra de esto:
+Una de las mayores controversias en la visualización de datos estadísticos es como elegir el eje Y, y en particular si se debe de incluir el cero. En su famoso libro ``Cómo mentir con estadística'', Darrell Huff argumentó fuertemente que uno siempre debería de incluir el cero en el eje Y. Por otro lado, Edward Tufte ha argumentado en contra de esto:
 
 \begin{quote}
 ``En general, en una serie de tiempo, usa una línea de base que muestre los datos y no el punto cero; no gastes mucho espacio vertical vacío tratando de llegar al punto cero a costa de ocultar lo que está sucediendo en la línea de datos en sí'' (de: \url{https://qz.com/418083/its-ok-not-to-start-your-y-axis-at-zero/}).
@@ -985,7 +973,7 @@ Una limitación perceptual importante que muchas personas (incluidas yo) sufren 
 Incluso para personas con visión perfecta, hay algunas limitantes perceptuales que pueden hacer algunas gráficas ineficaces. Esta es una razón por la cual les estadístiques \emph{nunca} usan gráficas circulares o de pastel: Puede ser muy difícil para humanos percibir correctamente las diferencias en el volumen de las formas. La gráfica de pastel en la Figura \ref{fig:pieChart} (presentando los mismos datos en afiliaciones religiosas que mostramos anteriormente) nos muestra que tan complicado puede ser esto.
 
 \begin{figure}
-\includegraphics[width=14.11in,height=0.5\textheight]{images/religion_piechart} \caption{Un ejemplo de una gráfica de pie, enfatizando la dificultad en comprendiendo el volumen relaticvo de las diferentes rebanadas de pie.}\label{fig:pieChart}
+\includegraphics[height=0.5\textheight]{images/religion_piechart} \caption{Un ejemplo de una gráfica de pie, enfatizando la dificultad en comprendiendo el volumen relaticvo de las diferentes rebanadas de pie.}\label{fig:pieChart}
 \end{figure}
 
 Esta gráfica es terrible por varias razones. Primero, requiere distinguir un gran número de colores de parches muy pequeños en la parte inferior de la figura. Segundo, la perspectiva visual distorsiona los números relativos, tal como la rebanada de pastel para Católica la cual aparece mucho más grande que la rebanada para Ninguna, cuando en realidad el número para Ninguna es ligeramente mayor (22.8 vs 20.8), como es evidente en la Figura \ref{fig:chartJunk}. Tercero, al separar la leyenda del gráfico, requiere que les lectores retengan información en su memoria de trabajo para poder mapear entre el gráfico y la leyenda y realizar muchas ``búsquedas de tablas'' para hacer coincidir continuamente las etiquetas de la leyenda con la visualización. Y, por último, utiliza texto que es demasiado pequeño, lo que hace que sea imposible leerlo sin hacer zoom.
@@ -1007,8 +995,8 @@ Comúnmente estamos interesades en graficar datos donde la variable de interés 
 \includegraphics[height=0.5\textheight]{StatsThinking21_files/figure-latex/gasPrices-1} \caption{El precio de la gasolina en Estados Unidos de 1930 a 2013 (obtained from http://www.thepeoplehistory.com/70yearsofpricechange.html) con o sin la corrección para inflación (based on Consumer Price Index).}\label{fig:gasPrices}
 \end{figure}
 
-\hypertarget{objetivos-de-aprendizaje}{%
-\section{Objetivos de aprendizaje}\label{objetivos-de-aprendizaje}}
+\hypertarget{objetivos-de-aprendizaje-3}{%
+\section{Objetivos de aprendizaje}\label{objetivos-de-aprendizaje-3}}
 
 Al leer este capítulo deberás de ser capaz de:
 
@@ -1049,7 +1037,7 @@ Una de las actividades fundamentales en estadística es crear modelos que puedan
 
 En el mundo físico, los ``modelos'' son generalmente simplificaciones de cosas del mundo real que, no obstante, transmiten la esencia de lo que se está modelando. El modelo de un edificio transmite la escencia de la estructura del edificio mientras es lo suficientemente pequeño y ligero como para que unx lo pueda sostener con las manos; un modelo de una célula de biología es mucho más grande que una célula real, no obstante, transmite la mayoría de las partes de la célula y las relaciones que tienen entre sí.
 
-En estadística, un modelo tiene el propósito de proveer una descripción similar condensada, pero para los datos, en lugar de una estructura física. Como los modelos físicos, un modelo estadístico es generalmente mucho más simple que los datos que están siendo descritos; tiene el propósito de capturar la estructura de los datos de la forma más simple posible. En ambos casos, podemos notar que el modelo es una ficción conveniente que necesariamente pasa por alto algunos detalles de lo que está tratando de representar. Como el estadístico George Box dijo: ``Todos los modelos son incorrectos, pero algunos son útiles.''
+En estadística, un modelo tiene el propósito de proveer una descripción similar condensada, pero para los datos, en lugar de una estructura física. Como los modelos físicos, un modelo estadístico es generalmente mucho más simple que los datos que están siendo descritos; tiene el propósito de capturar la estructura de los datos de la forma más simple posible. En ambos casos, podemos notar que el modelo es una ficción conveniente que necesariamente pasa por alto algunos detalles de lo que está tratando de representar. Como el estadístico George Box dijo: ``Todos los modelos son incorrectos, pero algunos son útiles''.
 
 La estructura básica de un modelo estadístico es:
 
@@ -1143,11 +1131,11 @@ Nuestro error es mucho más pequeño utilizando este modelo -- sólo 8.36 centí
 \end{figure}
 
 \hypertarget{quuxe9-hace-que-un-modelo-sea-bueno}{%
-\section{¿Qué hace que un modelo sea ``bueno?''}\label{quuxe9-hace-que-un-modelo-sea-bueno}}
+\section{¿Qué hace que un modelo sea ``bueno''?}\label{quuxe9-hace-que-un-modelo-sea-bueno}}
 
 Generalmente hay dos cosas diferentes que queremos de nuestro modelo estadístico. En primer lugar, queremos que describa nuestros datos correctamente; es decir, queremos que tenga el menor error posible cuando modelemos nuestros datos. En segundo lugar, queremos que se generalice bien a nuevas agrupaciones de datos; es decir, queremos que su error sea lo más bajo posible cuando lo apliquemos a una nueva agrupación de datos para poder hacer una predicción. Resulta ser que estas dos características se encuentran en conflicto constantemente.
 
-Para entender esto, pensemos de dónde viene el error. Puede ocurrir si nuestro modelo está mal, por ejemplo, si de manera incorrecta afirmáramos que la altura declina conforme unx va creciendo en edad, en lugar de decir que la altura crece conforme a unx va cumpliendo más años. En este caso, nuestro error será mucho mayor de lo que sería con el modelo correcto. Similarmente, si hay un factor importante que le hace falta a nuestro modelo, esto también aumentará nuestro error (como ocurrió cuando dejamos de lado la edad para el modelo que generamos para la altura). De cualquier forma, un error también puede ocurrir cuando el modelo es correcto, debido a una posible variación aleatoria en los datos, a la cual solemos referirnos como ``error de medición'' o ``ruido.'' A veces esto se debe a un error en nuestra medición -- por ejemplo, cuando la medición está bajo el cargo de unx humanx, al usar un cronómetro para medir tiempo transcurrido en una carrera a pie. En otros casos nuestra herramienta de medición puede ser muy exacta (como una escala digital para calcular el peso corporal), pero aquello que está siendo medido puede ser afectado por diversos factores que hacen que varíe. Si conociéramos todos estos factores, entonces podríamos generar un modelo más exacto, pero la realidad es que eso es raramente posible.
+Para entender esto, pensemos de dónde viene el error. Puede ocurrir si nuestro modelo está mal, por ejemplo, si de manera incorrecta afirmáramos que la altura declina conforme unx va creciendo en edad, en lugar de decir que la altura crece conforme a unx va cumpliendo más años. En este caso, nuestro error será mucho mayor de lo que sería con el modelo correcto. Similarmente, si hay un factor importante que le hace falta a nuestro modelo, esto también aumentará nuestro error (como ocurrió cuando dejamos de lado la edad para el modelo que generamos para la altura). De cualquier forma, un error también puede ocurrir cuando el modelo es correcto, debido a una posible variación aleatoria en los datos, a la cual solemos referirnos como ``error de medición'' o ``ruido''. A veces esto se debe a un error en nuestra medición -- por ejemplo, cuando la medición está bajo el cargo de unx humanx, al usar un cronómetro para medir tiempo transcurrido en una carrera a pie. En otros casos nuestra herramienta de medición puede ser muy exacta (como una escala digital para calcular el peso corporal), pero aquello que está siendo medido puede ser afectado por diversos factores que hacen que varíe. Si conociéramos todos estos factores, entonces podríamos generar un modelo más exacto, pero la realidad es que eso es raramente posible.
 
 Usemos un ejemplo para ilustrar esto. En lugar de utilizar datos reales, generaremos datos para este ejemplo utilizando una simulación por computadora (de la cual hablaremos más adelante en los siguientes capítulos). Digamos que queremos comprender la relación entre el contenido de alcohol en la sangre (``BAC'' por sus siglas en inglés: \emph{blood alcohol content}) y su tiempo de reacción en una prueba de conducir simulada. Podemos generar algunos datos simulados y graficar la relación (ver Panel A de la Figura \ref{fig:BACrt}).
 
@@ -1299,7 +1287,7 @@ A veces deseamos describir la tendencia central de un conjunto de datos que no e
 \hypertarget{variabilidad-quuxe9-tan-bien-se-ajusta-la-media-a-los-datos}{%
 \section{Variabilidad: ¿Qué tan bien se ajusta la media a los datos?}\label{variabilidad-quuxe9-tan-bien-se-ajusta-la-media-a-los-datos}}
 
-Una vez que hemos descrito la tendencia central de los datos, a menudo también vamos a querer describir qué tan variables son los datos -- a esto se le refiere también como ``dispersión,'' reflejando el hecho de que describe qué tan dispersos están los datos.
+Una vez que hemos descrito la tendencia central de los datos, a menudo también vamos a querer describir qué tan variables son los datos -- a esto se le refiere también como ``dispersión'', reflejando el hecho de que describe qué tan dispersos están los datos.
 
 Ya hemos encontrado la suma de errores cuadráticos arriba, lo cual es la base para las mediciones más comunmente usadas para la variablidad: la \emph{varianza} y la \emph{desviación estándar}. La varianza para una población (referida como \(\sigma^2\)) es simplemente la suma de los errores cuadráticos divididos entre el número de observaciones-- lo cual es exactamente lo mismo que el \emph{error cuadrático medio} del que hablamos hace poco:
 
@@ -1324,7 +1312,7 @@ Entonces, cuando decimos que hemos ``perdido'' un grado de libertad, quiere deci
 
 Soy un ávido creyente en el uso de simulaciones en computadora para comprender conceptos de estadística, y en capítulos futuros ahondaremos más en su uso. Aquí les presentaré la idea preguntándoles si podemos confirmar la necesidad de restar 1 del tamaño de la muestra al calcular la varianza de la muestra.
 
-Usemos la muestra completa de los datos de lxs niñxs de NHANES como nuestra ``población,'' y observemos qué tan bien los cálculos de la varianza de la muestra utilizando tanto \(n\) como \(n-1\) en el denominador estimará la varianza de esta población a lo largo de un gran número de muestras simuladas aleatorias obtenidas del conjunto de datos. Regresaremos a los detalles de cómo se hace esto en un capítulo próximo.
+Usemos la muestra completa de los datos de lxs niñxs de NHANES como nuestra ``población'', y observemos qué tan bien los cálculos de la varianza de la muestra utilizando tanto \(n\) como \(n-1\) en el denominador estimará la varianza de esta población a lo largo de un gran número de muestras simuladas aleatorias obtenidas del conjunto de datos. Regresaremos a los detalles de cómo se hace esto en un capítulo próximo.
 
 \begin{table}
 
@@ -1391,7 +1379,7 @@ Esto nos da una mirada un poco más interpretable de los datos. Por ejemplo, aho
 \hypertarget{interpretando-puntajes-z}{%
 \subsection{Interpretando Puntajes Z}\label{interpretando-puntajes-z}}
 
-La ``Z'' en un ``puntaje Z'' proviene del hecho de que la distribución estándar normal (la distribución normal con una media de cero y una desviación estándar de 1) es a menudo referida como la distribución ``Z.'' Podemos usar la distribución estándar normal para ayudarnos a comprender lo que los puntajes Z específicos nos dicen acerca de dónde se encuentra un punto de datos con respecto al resto de la distribución.
+La ``Z'' en un ``puntaje Z'' proviene del hecho de que la distribución estándar normal (la distribución normal con una media de cero y una desviación estándar de 1) es a menudo referida como la distribución ``Z''. Podemos usar la distribución estándar normal para ayudarnos a comprender lo que los puntajes Z específicos nos dicen acerca de dónde se encuentra un punto de datos con respecto al resto de la distribución.
 
 \begin{figure}
 \centering
@@ -1437,8 +1425,8 @@ Porque los puntajes Z son directamente comparables, también podemos calcular \e
 
 Vale la pena mencionar que los estados más pequeños parecen tener la diferencia más grande en ambas direcciones. Si bien puede ser tentador observar cada estado e intentar determinar por qué tiene una puntuación de diferencia alta o baja, esto probablemente refleja el hecho de que las estimaciones obtenidas de muestras más pequeñas necesariamente serán más variables, como discutiremos en un capítulo posterior sobre muestreo.
 
-\hypertarget{objetivos-de-aprendizaje}{%
-\section{Objetivos de aprendizaje}\label{objetivos-de-aprendizaje}}
+\hypertarget{objetivos-de-aprendizaje-4}{%
+\section{Objetivos de aprendizaje}\label{objetivos-de-aprendizaje-4}}
 
 Al leer este capítulo deberás de ser capaz de:
 
@@ -1452,11 +1440,12 @@ Al leer este capítulo deberás de ser capaz de:
   Calcular puntajes Z y describir por qué son útiles.
 \end{itemize}
 
-\hypertarget{apuxe9ndice}{%
-\section{Apéndice}\label{apuxe9ndice}}
+\hypertarget{apuxe9ndice-1}{%
+\section{Apéndice}\label{apuxe9ndice-1}}
 
-\begin{proof}[Proof that the sum of errors from the Mean is zero]
-\iffalse{} {Proof (Proof that the sum of errors from the Mean is zero). } \fi{}
+\hypertarget{proof-that-the-sum-of-errors-from-the-mean-is-zero}{%
+\subsection{Proof that the sum of errors from the Mean is zero''}\label{proof-that-the-sum-of-errors-from-the-mean-is-zero}}
+
 \[
 error = \sum_{i=1}^{n}(x_i - \bar{X}) = 0
 \]
@@ -1476,7 +1465,6 @@ error = \sum_{i=1}^{n}(x_i - \bar{X}) = 0
 \[
 \sum_{i=1}^{n}x_i = \sum_{i=1}^{n}x_i
 \]
-\end{proof}
 
 \hypertarget{probability}{%
 \chapter{Probabilidad}\label{probability}}
@@ -1594,7 +1582,7 @@ Para entender el error de de Méré, necesitamos presentar algunas de las reglas
 P(\neg A) = 1 - P(A)
 \]
 
-donde \(\neg A\) significa ``no A.'' Esta regla se deriva directamente de los axiomas que discutimos arriba; porque A y \(\neg A\) son los únicos posibles resultados, entonces su probabilidad total debe sumar 1. Por ejemplo, si la probabilidad de obtener un uno en un solo lanzamiento es \(\frac{1}{6}\), entonces la probabilidad de obtener cualquier otro número que no fuera uno es \(\frac{5}{6}\).
+donde \(\neg A\) significa ``no A''. Esta regla se deriva directamente de los axiomas que discutimos arriba; porque A y \(\neg A\) son los únicos posibles resultados, entonces su probabilidad total debe sumar 1. Por ejemplo, si la probabilidad de obtener un uno en un solo lanzamiento es \(\frac{1}{6}\), entonces la probabilidad de obtener cualquier otro número que no fuera uno es \(\frac{5}{6}\).
 
 Una segunda regla nos dice cómo calcular la probabilidad de un evento conjunto -- esto es, la probabilidad de que ambos eventos ocurran. Nos referimos a esto como una \emph{intersección}, que es representada por el símbolo \(\cap\); por lo tanto, \(P(A \cap B)\) significa la probabilidad de que ambos A y B sucedan.
 
@@ -1739,7 +1727,7 @@ P(A|B) = \frac{P(A \cap B)}{P(B)}
 Esto es, queremos saber la probabilidad de que ambas cosas sean ciertas, dado que aquella sobre la que está condicionada sea cierta.
 
 \begin{figure}
-\includegraphics[width=8in,height=0.5\textheight]{images/conditional_probability} \caption{Representación gráfica de la probabilidad condicional, mostrando cómo la probabilidad condicional limita nuestro análisis a un subconjunto de los datos.}\label{fig:conditionalProbability}
+\includegraphics[height=0.5\textheight]{images/conditional_probability} \caption{Representación gráfica de la probabilidad condicional, mostrando cómo la probabilidad condicional limita nuestro análisis a un subconjunto de los datos.}\label{fig:conditionalProbability}
 \end{figure}
 
 Puede ser útil pensar en esto gráficamente. La Figura \ref{fig:conditionalProbability} muestra un diagrama de flujo que representa cómo el total de la población de votantes se divide en Republicanos y Demócratas, y cómo la probabilidad condicional (condicinada sobre el partido) divide aún a los miembros de cada partido de acuerdo a su voto.
@@ -1912,12 +1900,12 @@ Esto nos dice que las posibilidades (odds) de tener cáncer se incrementan por 2
 
 Podría sorprenderte que es un poco extraño hablar acerca de la probabilidad de que una persona tenga cáncer dependiendo del resultado de una prueba; después de todo, la persona tiene o no tiene cáncer. Históricamente, han habido dos maneras diferentes en que se han interpretado las probabilidades. La primera (conocida como la interpretación \emph{frecuentista}) interpreta las probabilidades en términos de frecuencias a largo plazo. Por ejemplo, en el caso del lanzamiento de moneda, reflejaría las frecuencias relativas de obtener cara en el largo plazo después de un gran número de lanzamientos. Mientras que esta interpretación puede hacer sentido para eventos que pueden ser repetidos muchas veces como un lanzamiento de moneda, hace menos sentido para eventos que sólo sucederán una vez, como la vida de una persona o una elección presidencial en particular; y como dijo famosamente el economista John Maynard Keynes, ``En el largo plazo, todos estaremos muertos'' (``In the long run, we are all dead'').
 
-La otra interpretación de probabilidades (conocida como la interpretación \emph{Bayesiana}) es como un grado de creencia en una proposición particular. Si yo te preguntara ``¿Qué tan probable que los EUA regresarán a la Luna en 2026?'' tú podrías dar una respuesta a esta pregunta basada en tu conocimiento y en tus creencias, aunque no haya ninguna frecuencia relevante para calcular una probabilidad frecuentista. Una manera en que frecuentemente encuadramos las probabilidades subjetivas es en términos de la disposición a aceptar una apuesta en particular. Por ejemplo, si tu crees que la probabilidad de que EUA llegue a la Luna en 2026 es 0.1 (i.e.~posibilidades de 9 a 1), entonces eso significa que deberías estar dispuesto a aceptar una apuesta que pagara posibilidades de 9 a 1 o más si el evento sí ocurriera.
+La otra interpretación de probabilidades (conocida como la interpretación \emph{Bayesiana}) es como un grado de creencia en una proposición particular. Si yo te preguntara ``¿Qué tan probable que los EUA regresarán a la Luna en 2026?'', tú podrías dar una respuesta a esta pregunta basada en tu conocimiento y en tus creencias, aunque no haya ninguna frecuencia relevante para calcular una probabilidad frecuentista. Una manera en que frecuentemente encuadramos las probabilidades subjetivas es en términos de la disposición a aceptar una apuesta en particular. Por ejemplo, si tu crees que la probabilidad de que EUA llegue a la Luna en 2026 es 0.1 (i.e.~posibilidades de 9 a 1), entonces eso significa que deberías estar dispuesto a aceptar una apuesta que pagara posibilidades de 9 a 1 o más si el evento sí ocurriera.
 
 Como veremos, estas dos diferentes definiciones de probabilidad son muy relevantes para las dos maneras en que los estadísticos piensan sobre las pruebas de hipótesis estadísticas, que nos encontraremos en capítulos posteriores.
 
-\hypertarget{objetivos-de-aprendizaje}{%
-\section{Objetivos de Aprendizaje}\label{objetivos-de-aprendizaje}}
+\hypertarget{objetivos-de-aprendizaje-5}{%
+\section{Objetivos de Aprendizaje}\label{objetivos-de-aprendizaje-5}}
 
 Habiendo leído este capítulo, deberías ser capaz de:
 
@@ -1939,8 +1927,8 @@ Habiendo leído este capítulo, deberías ser capaz de:
   Usar el teorema de Bayes para calcular la probabilidad condicional inversa.
 \end{itemize}
 
-\hypertarget{lecturas-sugeridas}{%
-\section{Lecturas sugeridas}\label{lecturas-sugeridas}}
+\hypertarget{lecturas-sugeridas-3}{%
+\section{Lecturas sugeridas}\label{lecturas-sugeridas-3}}
 
 \begin{itemize}
 \tightlist
@@ -1948,11 +1936,12 @@ Habiendo leído este capítulo, deberías ser capaz de:
   \emph{The Drunkard's Walk: How Randomness Rules Our Lives}, by Leonard Mlodinow
 \end{itemize}
 
-\hypertarget{apuxe9ndice}{%
-\section{Apéndice}\label{apuxe9ndice}}
+\hypertarget{apuxe9ndice-2}{%
+\section{Apéndice}\label{apuxe9ndice-2}}
 
-\begin{proof}[Derivación de la regla de Bayes]
-\iffalse{} {Proof (Derivación de la regla de Bayes). } \fi{}
+\hypertarget{derivaciuxf3n-de-la-regla-de-bayes}{%
+\subsection{Derivación de la regla de Bayes}\label{derivaciuxf3n-de-la-regla-de-bayes}}
+
 Primero, recuerda la regla para calcular una probabilidad condicional:
 
 \[
@@ -1970,7 +1959,6 @@ Usando esto podemos calcular la probabilidad inversa:
 \[
 P(B|A) = \frac{P(A \cap B)}{P(A)} =   \frac{P(A|B)*P(B)}{P(A)}
 \]
-\end{proof}
 
 \hypertarget{sampling}{%
 \chapter{Muestreo}\label{sampling}}
@@ -2083,8 +2071,8 @@ Sample mean & SEM & Lower bound of CI & Upper bound of CI\\
 
 Los intervalos de confianza son notoriamente confusos, primeramente porque no significan lo que esperaríamos que significacen. Parece natural asumir que el 95\% intervalo de confianza nos dice que hay un 95\% de oportunidad de que la población esté dentro de ese intervalo. Sin embargo, como veremos a través del curso, los conceptos en estadística regularmente no significan lo que creemos que deberían significar. En el caso de los intervalos de confianza, no podemos interpretarlos en esta manera porque el parámetro poblacional tiene un valor fijo -- está o no está en el intervalo, por lo que no tiene sentido hablar de la probabilidad de que eso ocurra. La interpretación correcta del intervalo de confianza del 95\% es que es un intervalo que contendrá la media real de la población el 95\% del tiempo y, de hecho, podemos confirmarlo usando simulación. Aprenderemos más sobre los intervalos de confianza más adelante en el curso después de discutir la prueba de hipótesis.
 
-\hypertarget{objetivos-de-aprendizaje}{%
-\section{Objetivos de aprendizaje}\label{objetivos-de-aprendizaje}}
+\hypertarget{objetivos-de-aprendizaje-6}{%
+\section{Objetivos de aprendizaje}\label{objetivos-de-aprendizaje-6}}
 
 Al haber leído este capítulo, tu deberías de ser capaz de:
 
@@ -2102,8 +2090,8 @@ Al haber leído este capítulo, tu deberías de ser capaz de:
   Calcular un intervalo de confianza para la media basado en la distribución normal y describa su interpretación apropiada.
 \end{itemize}
 
-\hypertarget{lecturas-sugeridas}{%
-\section{Lecturas sugeridas}\label{lecturas-sugeridas}}
+\hypertarget{lecturas-sugeridas-4}{%
+\section{Lecturas sugeridas}\label{lecturas-sugeridas-4}}
 
 \begin{itemize}
 \tightlist
@@ -2114,7 +2102,7 @@ Al haber leído este capítulo, tu deberías de ser capaz de:
 \hypertarget{resampling-and-simulation}{%
 \chapter{Remuestreo y Simulación}\label{resampling-and-simulation}}
 
-El uso de las simulaciones a computadora se ha convertido en un aspecto esencial de la estadística moderna. Por ejemplo, uno de los libros más importantes en informática práctica se llama ``Recetas numéricas,'' y recita lo siguiente:
+El uso de las simulaciones a computadora se ha convertido en un aspecto esencial de la estadística moderna. Por ejemplo, uno de los libros más importantes en informática práctica se llama ``Recetas numéricas'', y recita lo siguiente:
 
 \begin{quote}
 ``Si nos ofrecieran la opción entre tener el dominio de una estantería de cinco pies llena de libros de estadística y una mediana capacidad para realizar simulaciones estadísticas a lo Monte Carlo, seguramente elegiríamos la segunda opción.''
@@ -2149,7 +2137,7 @@ Como un ejemplo, digamos que quiero descubrir cuánto tiempo debo dejar para un 
 
 El término ``aleatorio'' es usado coloquialmente para describir cosas que son bizarras o inesperadas, pero en estadística el término tiene un significado específico: Un proceso se considera \emph{aleatorio} si es impredecible. Por ejemplo, si lanzo una moneda 10 veces, el valor del resultado de una vez que la lances no va a predecir el resultado de la segunda vez que lo lances. Es importante destacar que el hecho de que algo es impredecible, no quiere decir que no es determinista. Por ejemplo, cuando lanzamos una moneda, el resultado de ésta está determinada por las leyes de la física; si supiéramos que todas las condiciones con suficiente detalle, podríamos predecir el resultado de cuando lancemos la moneda. De cualquier forma, son muchos factores los que se combinan para hacer el resultado del lanzamiento de la moneda impredecible en la práctica.
 
-Lxs psicólogxs han demostrado que lxs humanxs tienen un sentido algo ineficiente para la aleatoriedad. En primera instancia, tendemos a ver patrones en donde no existen. De forma extrema, esto nos lleva al fenómeno de la \emph{pareidolia}, en el cual las personas tienden a percibir objetos familiares en patrones aleatorios (como ver una nube con una rostro humano, o ver a la Vírgen María en un pedazo de pan tostado). En segunda instancia, lxs humanxs tienden a pensar en procesos aleatorios como una forma de auto-corrección, lo cual nos lleva a creer que vamos a ganar después de varias rondas de perder un juego de azar, es un fenómeno llamada ``la falacia del jugador.''
+Lxs psicólogxs han demostrado que lxs humanxs tienen un sentido algo ineficiente para la aleatoriedad. En primera instancia, tendemos a ver patrones en donde no existen. De forma extrema, esto nos lleva al fenómeno de la \emph{pareidolia}, en el cual las personas tienden a percibir objetos familiares en patrones aleatorios (como ver una nube con una rostro humano, o ver a la Vírgen María en un pedazo de pan tostado). En segunda instancia, lxs humanxs tienden a pensar en procesos aleatorios como una forma de auto-corrección, lo cual nos lleva a creer que vamos a ganar después de varias rondas de perder un juego de azar, es un fenómeno llamada ``la falacia del jugador''.
 
 \hypertarget{generando-nuxfameros-aleatorios}{%
 \section{Generando números aleatorios}\label{generando-nuxfameros-aleatorios}}
@@ -2222,8 +2210,8 @@ Bootstrap & 166 & 172\\
 
 Usualmente no utilizaríamos el bootstrap para calcular intervalos de confianza para la media (ya que, generalmente podemos asumir que la distribución normal es apropiada para la distribución muestral de la media, siempre y cuando nuestra muestra sea lo suficientemente grande), pero este ejemplo muestra que el método nos da un resultado aproximadamente igual al método estándar basado en distribución normal. El bootstrap es más comunmente utilizado para generar errores estándar para estimaciones de otras estadísticas, en donde sabemos o sospechamos que la distribución normal no es apropiada.
 
-\hypertarget{objetivos-de-aprendizaje}{%
-\section{Objetivos de aprendizaje}\label{objetivos-de-aprendizaje}}
+\hypertarget{objetivos-de-aprendizaje-7}{%
+\section{Objetivos de aprendizaje}\label{objetivos-de-aprendizaje-7}}
 
 Después de haber leído este capítulo, deberías ser capaz de:
 
@@ -2239,8 +2227,8 @@ Después de haber leído este capítulo, deberías ser capaz de:
   Describir el concepto de bootstrap.
 \end{itemize}
 
-\hypertarget{lecturas-sugeridas}{%
-\section{Lecturas sugeridas}\label{lecturas-sugeridas}}
+\hypertarget{lecturas-sugeridas-5}{%
+\section{Lecturas sugeridas}\label{lecturas-sugeridas-5}}
 
 \begin{itemize}
 \tightlist
@@ -2268,7 +2256,7 @@ En este capítulo presentaremos las ideas detrás del uso de la estadística par
 \hypertarget{prueba-estaduxedstica-de-hipuxf3tesis-nula-null-hypothesis-statistical-testing-nhst}{%
 \section{Prueba Estadística de Hipótesis Nula (Null Hypothesis Statistical Testing, NHST)}\label{prueba-estaduxedstica-de-hipuxf3tesis-nula-null-hypothesis-statistical-testing-nhst}}
 
-El tipo específico de prueba de hipótesis que discutiremos es conocido como (por razones que serán claras más adelante) \emph{prueba estadística de hipótesis nula} (\emph{null hypothesis statistical testing}, NHST). Si tomaras casi cualquier publicación científica o biomédica, verías la NHST siendo usada para probar hipótesis, y en su libro de texto de introducción a la psicología, Gerrig \& Zimbardo (2002) se refirieron a la NHST como el ``pilar de la investigación psicológica.'' Por lo tanto, aprender cómo usar e interpretar los resultados de la prueba de hipótesis es esencial para entender los resultados de muchos campos de investigación.
+El tipo específico de prueba de hipótesis que discutiremos es conocido como (por razones que serán claras más adelante) \emph{prueba estadística de hipótesis nula} (\emph{null hypothesis statistical testing}, NHST). Si tomaras casi cualquier publicación científica o biomédica, verías la NHST siendo usada para probar hipótesis, y en su libro de texto de introducción a la psicología, Gerrig \& Zimbardo (2002) se refirieron a la NHST como el ``pilar de la investigación psicológica''. Por lo tanto, aprender cómo usar e interpretar los resultados de la prueba de hipótesis es esencial para entender los resultados de muchos campos de investigación.
 
 También es importante que sepas, sin embargo, que la NHST tiene serias fallas, y muchos estadísticos e investigadores (incluyéndome) piensan que esto ha sido la causa de problemas serios en la ciencia, que discutiremos en el Capítulo \ref{doing-reproducible-research}. Por más de 50 años, ha habido llamados para abandonar la NHST en favor de otras aproximaciones (como aquellas que discutiremos en los siguientes capítulos):
 
@@ -2291,7 +2279,7 @@ Antes de que lleguemos a los resultados, preguntémonos cómo piensas que el an�
 
 Resulta que esta \emph{no} es la manera en que funciona la prueba de hipótesis nula. En su lugar, primero tomamos nuestra hipótesis de interés (i.e.~que las cámaras usadas en el cuerpo reducen el uso de la fuerza), y la volteamos de cabeza, creando una \emph{hipótesis nula} -- en este caso, la hipótesis nula sería que las cámaras no reducen el uso de la fuerza. De manera importante, luego de esto asumimos que la hipótesis nula es verdadera. Después miramos los datos, y determinamos qué tan probable serían estos datos si la hipótesis nula fuera cierta. Si los datos son los suficientemente improbables bajo la hipótesis nula, entonces podemos rechazar la nula en favor de la \emph{hipótesis alternativa} que es nuestra hipótesis de interés. Si no hay suficiente evidencia para rechazar la nula, entonces decimos que ``fallamos en rechazar'' la nula, y nos quedamos con nuestra suposición inicial de que la nula es cierta.
 
-El entender algunos de los conceptos de NHST, particularmente el notable ``valor p,'' es invariablemente desafiante la primera vez que uno se encuentra con ellos, porque son tan contra-intuitivos. Como veremos después, existen otras aproximaciones que proveen maneras más intuitivas para abordar la prueba de hipótesis (pero tienen sus propias complejidades). Sin embargo, antes de que lleguemos a esas, es importante que tengas una comprensión profunda de cómo funciona la prueba de hipótesis, porque claramente no se irá a ningún lado pronto.
+El entender algunos de los conceptos de NHST, particularmente el notable ``valor p'', es invariablemente desafiante la primera vez que uno se encuentra con ellos, porque son tan contra-intuitivos. Como veremos después, existen otras aproximaciones que proveen maneras más intuitivas para abordar la prueba de hipótesis (pero tienen sus propias complejidades). Sin embargo, antes de que lleguemos a esas, es importante que tengas una comprensión profunda de cómo funciona la prueba de hipótesis, porque claramente no se irá a ningún lado pronto.
 
 \hypertarget{el-proceso-de-la-prueba-de-hipuxf3tesis-nula}{%
 \section{El proceso de la prueba de hipótesis nula}\label{el-proceso-de-la-prueba-de-hipuxf3tesis-nula}}
@@ -2378,7 +2366,7 @@ Yes & 119 & 27 & 5.2\\
 
 Después queremos usar los datos para calcular un estadístico que ultimadamente nos permitirá decidir si la hipótesis nula es rechazada o no. Para hacer esot, el modelo necesita cuantificar la cantidad de evidencia en favor de la hipótesis alternativa, relativa a la variabilidad en los datos. Por lo que podemos pensar en el estadístico de prueba como el que provee una medida del tamaño del efecto comparado con la variabilidad en los datos. En general, este estadístico de prueba tendrá una distribución de probabilidad asociada con él, porque eso nos permitirá determinar qué tan probable es nuestro valor estadístico observado bajo la hipótesis nula.
 
-Para el ejemplo de IMC, necesitamos un estadístico de prueba que nos permita probar si hay una diferencia entre dos medias, puesto que las hipótesis están elaboradas en términos de la media de IMC en cada grupo. Un estadístico que es frecuentemente usado para comparar dos medias es el estadístico \emph{t}, desarrollado primero por el estadístico William Sealy Gossett, quien trabajó para la Guiness Brewery en Dublín y escribió bajo el pseudónimo ``Student'' - por eso, es frecuentemente llamada ``estadístico \emph{t} de Student.'' El estadístico \emph{t} es apropiado para comparar las medias de dos grupos cuando los tamaños de muestra son relativamente pequeños y la desviación estándar de la población es desconocida. El estadístico \emph{t} para comparar dos grupos independientes es calculado de la siguiente manera:
+Para el ejemplo de IMC, necesitamos un estadístico de prueba que nos permita probar si hay una diferencia entre dos medias, puesto que las hipótesis están elaboradas en términos de la media de IMC en cada grupo. Un estadístico que es frecuentemente usado para comparar dos medias es el estadístico \emph{t}, desarrollado primero por el estadístico William Sealy Gossett, quien trabajó para la Guiness Brewery en Dublín y escribió bajo el pseudónimo ``Student'' - por eso, es frecuentemente llamada ``estadístico \emph{t} de Student''. El estadístico \emph{t} es apropiado para comparar las medias de dos grupos cuando los tamaños de muestra son relativamente pequeños y la desviación estándar de la población es desconocida. El estadístico \emph{t} para comparar dos grupos independientes es calculado de la siguiente manera:
 
 \[
 t = \frac{\bar{X_1} - \bar{X_2}}{\sqrt{\frac{S_1^2}{n_1} + \frac{S_2^2}{n_2}}}
@@ -2508,7 +2496,7 @@ De la gráfica en la Figura \ref{fig:squatPlot} es claro que hay una gran difere
 
 \begin{verbatim}
 ## 
-## 	Two Sample t-test
+##  Two Sample t-test
 ## 
 ## data:  squat by group
 ## t = 8, df = 8, p-value = 2e-05
@@ -2544,7 +2532,7 @@ Sí tenemos que hacer una suposición principal cuando usamos la prueba de aleat
 \hypertarget{paso-6-evaluxfaa-la-significatividad-estaduxedstica-del-resultado}{%
 \subsection{Paso 6: Evalúa la ``significatividad estadística'' del resultado}\label{paso-6-evaluxfaa-la-significatividad-estaduxedstica-del-resultado}}
 
-El siguiente paso es determinar si el valor p que resultó del paso previo es suficientemente pequeño para que estemos dispuestos a rechazar la hipótesis nula y concluir en su lugar que la alternativa es correcta. ¿Qué tanta evidencia necesitamos? Este es una de las preguntas más controversiales en estadística, en parte porque requiere un juicio subjetivo -- no hay una respuesta ``correcta.''
+El siguiente paso es determinar si el valor p que resultó del paso previo es suficientemente pequeño para que estemos dispuestos a rechazar la hipótesis nula y concluir en su lugar que la alternativa es correcta. ¿Qué tanta evidencia necesitamos? Este es una de las preguntas más controversiales en estadística, en parte porque requiere un juicio subjetivo -- no hay una respuesta ``correcta''.
 
 Históricamente, la respuesta más común a esta pregunta ha sido que deberíamos rechazar la hipótesis nula si el valor p es menor a 0.05. Esto viene de los escritos de Ronald Fisher, quien ha sido referenciado como ``la figura individual más importante en la estadística del siglo 20'' (\protect\hyperlink{ref-efron1998}{Efron 1998}):
 
@@ -2653,8 +2641,8 @@ Esto muestra que cerca del 5\% de todas las pruebas fueron significativas en cad
 
 Una manera simple de controlar este error de familia es dividir el nivel alfa entre el número de pruebas; esto es conocido como la corrección \emph{Bonferroni}, llamda en honor al estadístico italiano Carlo Bonferroni. Usando los datos del ejemplo anterior, vemos en la Figura \ref{fig:nullSim}que sólo cerca del 5 por ciento de los estudios muestra algún resultado significativo usando el nivel de alfa corregido de 0.000005 en lugar del valor nominal de .05. Hemos controlado efectivamente el error de familia, de tal manera que la probabilidad de cometer \emph{cualquier} error en nuestro estudio está controlado justo alrededor de .05.
 
-\hypertarget{objetivos-de-aprendizaje}{%
-\section{Objetivos de aprendizaje}\label{objetivos-de-aprendizaje}}
+\hypertarget{objetivos-de-aprendizaje-8}{%
+\section{Objetivos de aprendizaje}\label{objetivos-de-aprendizaje-8}}
 
 \begin{itemize}
 \tightlist
@@ -2672,8 +2660,8 @@ Una manera simple de controlar este error de familia es dividir el nivel alfa en
   Describir las principales críticas a la prueba estadística de hipótesis nula.
 \end{itemize}
 
-\hypertarget{lecturas-sugeridas}{%
-\section{Lecturas sugeridas}\label{lecturas-sugeridas}}
+\hypertarget{lecturas-sugeridas-6}{%
+\section{Lecturas sugeridas}\label{lecturas-sugeridas-6}}
 
 \begin{itemize}
 \tightlist
@@ -2696,7 +2684,7 @@ Hasta ahora en el libro nos hemos enfocado en estimar el valor específico de un
 También recordarás que anteriormente introdujimos el concepto de \emph{intervalo de confianza}, que es una manera de describir nuestra incertidumbre acerca de un estimado estadístico. Recuerda que un intervalo de confianza describe un intervalo que contendrá, en promedio, un parámetro real de la población con una probabilidad dada; por ejemplo, el 95\% de intervalo de confianza es un intervalo que va a capturar el verdadero parámetro poblacional 95\% de las veces. Nótese que esto no es una afirmación acerca del parámetro poblacional. Como Jerzy Neyman, el inventor del intervalo de confianza, dijo:
 
 \begin{quote}
-``El parámetro es una constante desconocida y no se puede hacer ninguna declaración de probabilidad sobre su valor.'' (\protect\hyperlink{ref-Neyman37}{J. Neyman 1937})
+``El parámetro es una constante desconocida y no se puede hacer ninguna declaración de probabilidad sobre su valor''. (\protect\hyperlink{ref-Neyman37}{J. Neyman 1937})
 \end{quote}
 
 El intervalo de confianza para la media se calcula como:
@@ -2776,11 +2764,11 @@ Las cosas se complican si queremos comparar las medias de dos condiciones (\prot
 \section{Tamaño de efecto (effect sizes)}\label{tamauxf1o-de-efecto-effect-sizes}}
 
 \begin{quote}
-``La significatividad estadística es lo menos interesante de los resultados. Debe describir los resultados en términos de medidas de magnitud, no solo si un tratamiento afecta a las personas, sino cuánto las afecta.'' Gene Glass (REF)
+``La significatividad estadística es lo menos interesante de los resultados. Debe describir los resultados en términos de medidas de magnitud, no solo si un tratamiento afecta a las personas, sino cuánto las afecta''. Gene Glass (REF)
 \end{quote}
 
 En el capítulo anterior, discutimos la idea de que la significación estadística no necesariamente refleja la significación práctica. Para discutir la importancia práctica, necesitamos una forma estándar de describir el tamaño de un efecto en términos de los datos reales, a los que nos referimos como \emph{tamaño del efecto}. En esta sección presentaremos el concepto y discutiremos varias formas en que se pueden calcular los tamaños del efecto.
-El tamaño del efecto es una medida estandarizada que compara el tamaño de algún efecto estadístico con una cantidad de referencia, como la variabilidad de la estadística. En algunos campos de la ciencia y la ingeniería, esta idea se conoce como ``relación señal/ruido.'' Hay muchas formas diferentes de cuantificar el tamaño del efecto, que dependen de la naturaleza de los datos.
+El tamaño del efecto es una medida estandarizada que compara el tamaño de algún efecto estadístico con una cantidad de referencia, como la variabilidad de la estadística. En algunos campos de la ciencia y la ingeniería, esta idea se conoce como ``relación señal/ruido''. Hay muchas formas diferentes de cuantificar el tamaño del efecto, que dependen de la naturaleza de los datos.
 
 \hypertarget{d-de-cohen}{%
 \subsection{D de Cohen}\label{d-de-cohen}}
@@ -2869,7 +2857,7 @@ Podemos convertir estos números en razones de posibilidades (\emph{odds ratios}
 \hypertarget{statistical-power}{%
 \section{Poder estadístico}\label{statistical-power}}
 
-Recuerda del capítulo anterior que bajo el enfoque de prueba de hipótesis de Neyman-Pearson, tenemos que especificar nuestro nivel de tolerancia para dos tipos de errores: falsos positivos (que llamaron \emph{error tipo I}) y falsos negativos (que llamaron \emph{error tipo II}). La gente a menudo se enfoca mucho en el error de Tipo I, porque hacer una afirmación de falso positivo generalmente se ve como algo muy malo; por ejemplo, las afirmaciones ahora desacreditadas de \protect\hyperlink{ref-wake:1999}{Wakefield} (\protect\hyperlink{ref-wake:1999}{1999}) de que el autismo estaba asociado con la vacunación llevaron a un sentimiento antivacunas que ha resultado en un aumento sustancial de enfermedades infantiles como el sarampión. De manera similar, no queremos afirmar que un medicamento cura una enfermedad si realmente no lo hace. Es por eso que la tolerancia para los errores de Tipo I generalmente se establece bastante baja, generalmente en \(\alpha = 0.05\). Pero, ¿qué pasa con los errores de tipo II?
+Recuerda del capítulo anterior que bajo el enfoque de prueba de hipótesis de Neyman-Pearson, tenemos que especificar nuestro nivel de tolerancia para dos tipos de errores: falsos positivos (que llamaron \emph{error tipo I}) y falsos negativos (que llamaron \emph{error tipo II}). La gente a menudo se enfoca mucho en el error de Tipo I, porque hacer una afirmación de falso positivo generalmente se ve como algo muy malo; por ejemplo, las afirmaciones ahora desacreditadas de Wakefield (\protect\hyperlink{ref-wake:1999}{1999}) de que el autismo estaba asociado con la vacunación llevaron a un sentimiento antivacunas que ha resultado en un aumento sustancial de enfermedades infantiles como el sarampión. De manera similar, no queremos afirmar que un medicamento cura una enfermedad si realmente no lo hace. Es por eso que la tolerancia para los errores de Tipo I generalmente se establece bastante baja, generalmente en \(\alpha = 0.05\). Pero, ¿qué pasa con los errores de tipo II?
 
 El concepto de \emph{poder estadístico} es el complemento al tipo de error II -- que es la posibilidad de encontrar un resultado positivo, si es que este existe:
 
@@ -2940,8 +2928,8 @@ Puede que se le haya ocurrido que si el tamaño del efecto es lo suficientemente
 
 Sin embargo, es raro en la ciencia estar haciendo un experimento en el que esperamos encontrar un efecto tan grande, al igual que no necesitamos estadísticas para decirnos que los niños de 16 años son más altos que los de 6 años. Cuando ejecutamos un análisis de poder, necesitamos especificar un tamaño de efecto que sea plausible para nuestro estudio, que normalmente provendría de investigaciones previas. Sin embargo, en el Capítulo \ref{doing-reproducible-research} discutiremos un fenómeno conocido como la ``maldición del ganador'' que probablemente resulte en tamaños de efecto publicados mayores que el tamaño del efecto real, por lo que esto también debe tenerse en cuenta.
 
-\hypertarget{objetivos-de-aprendizaje}{%
-\section{Objetivos de aprendizaje}\label{objetivos-de-aprendizaje}}
+\hypertarget{objetivos-de-aprendizaje-9}{%
+\section{Objetivos de aprendizaje}\label{objetivos-de-aprendizaje-9}}
 
 Después de leer este capítulo, deberías poder:
 
@@ -2955,8 +2943,8 @@ Después de leer este capítulo, deberías poder:
   Describir el concepto de poder estadístico y por qué es importante para la investigación.
 \end{itemize}
 
-\hypertarget{lecturas-sugeridas}{%
-\section{Lecturas sugeridas}\label{lecturas-sugeridas}}
+\hypertarget{lecturas-sugeridas-7}{%
+\section{Lecturas sugeridas}\label{lecturas-sugeridas-7}}
 
 \begin{itemize}
 \tightlist
@@ -2968,7 +2956,7 @@ Después de leer este capítulo, deberías poder:
 \chapter{Estadística Bayesiana}\label{estaduxedstica-bayesiana}}
 
 En este capítulo estaremos trabajando desde el enfoque del modelado estadístico e inferencial que contrasta con el marco de prueba de hipótesis nula que vimos en el capítulo \ref{hypothesis-testing}.
-Esto se conoce como ``Estadística Bayesiana,'' en honor al reverendo Thomas Bayes, cuyo teorema ya has visto en el capítulo \ref{probability}. En este capítulo aprenderás cómo el teorema de Bayes proporciona una forma de entender los datos que resuelve muchos de los problemas conceptuales que discutimos con respecto a la prueba de hipótesis nula.
+Esto se conoce como ``Estadística Bayesiana'', en honor al reverendo Thomas Bayes, cuyo teorema ya has visto en el capítulo \ref{probability}. En este capítulo aprenderás cómo el teorema de Bayes proporciona una forma de entender los datos que resuelve muchos de los problemas conceptuales que discutimos con respecto a la prueba de hipótesis nula.
 
 \hypertarget{modelos-generativos}{%
 \section{Modelos Generativos}\label{modelos-generativos}}
@@ -3178,7 +3166,7 @@ Primero, generemos algunos datos y analicémoslos usando pruebas de hipótesis n
 
 \begin{verbatim}
 ## 
-## 	Welch Two Sample t-test
+##  Welch Two Sample t-test
 ## 
 ## data:  hbchange by group
 ## t = 2, df = 32, p-value = 0.02
@@ -3231,13 +3219,13 @@ Ahora vemos que el factor Bayes para un efecto positivo frente a un efecto negat
 
 \begin{longtable}[]{@{}ll@{}}
 \toprule
-BF & Strength of evidence\textbar{} \\ \addlinespace
+BF & Strength of evidence \\
 \midrule
 \endhead
-1 to 3 & not worth more than a bare mention \\ \addlinespace
-3 to 20 & positive \\ \addlinespace
-20 to 150 & strong \\ \addlinespace
-\textgreater150 & very strong \\ \addlinespace
+1 to 3 & not worth more than a bare mention \\
+3 to 20 & positive \\
+20 to 150 & strong \\
+\textgreater150 & very strong \\
 \bottomrule
 \end{longtable}
 
@@ -3248,8 +3236,8 @@ Con base en esto, aunque el resultado estadístico es significativo, la cantidad
 
 Debido a que el factor de Bayes está comparando evidencia para dos hipótesis, también nos permite evaluar si hay evidencia a favor de la hipótesis nula, lo cual no podríamos hacer con la prueba estándar de hipótesis nula (porque comienza con la suposición de que la nula es cierta). Esto puede ser muy útil para determinar si un resultado no significativo realmente proporciona pruebas sólidas de que no hay ningún efecto o, en cambio, solo refleja una evidencia débil en general.
 
-\hypertarget{objetivos-de-aprendizaje}{%
-\section{Objetivos de aprendizaje}\label{objetivos-de-aprendizaje}}
+\hypertarget{objetivos-de-aprendizaje-10}{%
+\section{Objetivos de aprendizaje}\label{objetivos-de-aprendizaje-10}}
 
 Después de leer este capítulo, debes ser capaz de:
 
@@ -3276,8 +3264,8 @@ Después de leer este capítulo, debes ser capaz de:
   \emph{Doing Bayesian Data Analysis: A Tutorial Introduction with R}, by John K. Kruschke
 \end{itemize}
 
-\hypertarget{apuxe9ndice}{%
-\section{Apéndice:}\label{apuxe9ndice}}
+\hypertarget{apuxe9ndice-3}{%
+\section{Apéndice:}\label{apuxe9ndice-3}}
 
 \hypertarget{muestreo-de-rechazo}{%
 \subsection{Muestreo de rechazo}\label{muestreo-de-rechazo}}
@@ -3400,12 +3388,12 @@ Esto es, la probabilidad conjunta bajo la hipótesis nula de independencia es si
 
 \begin{longtable}[]{@{}llll@{}}
 \toprule
-& Black & White & \\ \addlinespace
+& Black & White & \\
 \midrule
 \endhead
-Not searched & P(NS)*P(B) & P(NS)*P(W) & P(NS) \\ \addlinespace
-Searched & P(S)*P(B) & P(S)*P(W) & P(S) \\ \addlinespace
-& P(B) & P(W) & \\ \addlinespace
+Not searched & P(NS)*P(B) & P(NS)*P(W) & P(NS) \\
+Searched & P(S)*P(B) & P(S)*P(W) & P(S) \\
+& P(B) & P(W) & \\
 \bottomrule
 \end{longtable}
 
@@ -3435,7 +3423,7 @@ También podemos realizar esta prueba fácilmente usando software estadístico:
 
 \begin{verbatim}
 ## 
-## 	Pearson's Chi-squared test
+##  Pearson's Chi-squared test
 ## 
 ## data:  summaryDf2wayTable
 ## X-squared = 828, df = 1, p-value <2e-16
@@ -3517,7 +3505,7 @@ Esto nos muestra que la evidencia en favor de una relación entre la raza de los
 
 El análisis categórico también puede aplicarse a tablas de contingencia donde haya más de dos categorías para cada variables.
 
-Por ejemplo, veamos los datos de NHANES y comparemos la variable \emph{Depressed} que registra el ``número de días auto-reportado donde el participante se sintió bajo de ánimo, deprimido, o desesperanzado.'' Esta variable está codificada como \texttt{None}, \texttt{Several}, o \texttt{Most}. Hagamos la prueba de si esta variable está relacionada con la variable \emph{SleepTrouble} que registra si la persona ha reportado problemas de sueño a su doctor.
+Por ejemplo, veamos los datos de NHANES y comparemos la variable \emph{Depressed} que registra el ``número de días auto-reportado donde el participante se sintió bajo de ánimo, deprimido, o desesperanzado''. Esta variable está codificada como \texttt{None}, \texttt{Several}, o \texttt{Most}. Hagamos la prueba de si esta variable está relacionada con la variable \emph{SleepTrouble} que registra si la persona ha reportado problemas de sueño a su doctor.
 
 \begin{table}
 
@@ -3540,7 +3528,7 @@ Simplemente observando estos datos podemos decir que es probable que haya una re
 
 \begin{verbatim}
 ## 
-## 	Pearson's Chi-squared test
+##  Pearson's Chi-squared test
 ## 
 ## data:  depressedSleepTroubleTable
 ## X-squared = 191, df = 2, p-value <2e-16
@@ -3568,18 +3556,18 @@ Las tablas de contingencia anteriores representan resúmenes de números grandes
 
 \begin{longtable}[]{@{}lllllllll@{}}
 \toprule
-Player & 1995 & & 1996 & & 1997 & & Combined & \\ \addlinespace
+Player & 1995 & & 1996 & & 1997 & & Combined & \\
 \midrule
 \endhead
-Derek Jeter & 12/48 & .250 & 183/582 & .314 & 190/654 & .291 & 385/1284 & \textbf{.300} \\ \addlinespace
-David Justice & 104/411 & \textbf{.253} & 45/140 & \textbf{.321} & 163/495 & \textbf{.329} & 312/1046 & .298 \\ \addlinespace
+Derek Jeter & 12/48 & .250 & 183/582 & .314 & 190/654 & .291 & 385/1284 & \textbf{.300} \\
+David Justice & 104/411 & \textbf{.253} & 45/140 & \textbf{.321} & 163/495 & \textbf{.329} & 312/1046 & .298 \\
 \bottomrule
 \end{longtable}
 
 Si miras cuidadosamente, verás que algo raro está sucediendo: En cada año individual Justice tuvo un promedio de bateo mayor a Jeter, pero cuando combinamos los datos a lo largo de los tres años, ¡el promedio de Jeter es finalmente mayor que el de Justice! Esto es un ejemplo de un fenómeno conocido como la \emph{paradoja de Simpson}, en el cual un patrón que está presente en un conjunto combinado de datos puede no estar presente en cualquier de los subconjuntos de los mismos datos. Esto ocurre cuando hay otra variable que puede estar cambiando a través de los diferentes subconjuntos -- en este caso, el número de turnos al bate varía en los diferentes años, donde Justice tuvo muchos más turnos al bate en 1995 (cuando el promedio de hits era bastante bajo). Nos referimos a esto como una \emph{variable oculta} (\emph{lurking variable}), y es siempre importante estar atentos a tales variables cada vez que examinemos datos categóricos.
 
-\hypertarget{objetivos-de-aprendizaje}{%
-\section{Objetivos de aprendizaje}\label{objetivos-de-aprendizaje}}
+\hypertarget{objetivos-de-aprendizaje-11}{%
+\section{Objetivos de aprendizaje}\label{objetivos-de-aprendizaje-11}}
 
 \begin{itemize}
 \tightlist
@@ -3611,7 +3599,7 @@ La mayoría de las personas están familiarizadas con el concepto de \emph{corre
 En 2017, el sitio web Fivethirtyeight.com publicó una historia titulada \href{https://fivethirtyeight.com/features/higher-rates-of-hate-crimes-are-tied-to-income-inequality/}{\emph{Higher Rates Of Hate Crimes Are Tied To Income Inequality}} en la cual se discute la relación entre la prevalencia de los crímenes de odio y la inequidad de ingreso en el despertar de la elección presidencial de 2016. La historia reportó un análisis de datos del FBI acerca de crímenes de odio y de y del Centro de leyes Southern Poverty, sobre la base de lo que informan:
 
 \begin{quote}
-``Descubrimos que la desigualdad de ingresos era el determinante más significativo de los delitos de odio e incidentes de odio ajustados a la población en los Estados Unidos.''
+``Descubrimos que la desigualdad de ingresos era el determinante más significativo de los delitos de odio e incidentes de odio ajustados a la población en los Estados Unidos''.
 \end{quote}
 
 Los datos de este análisis están disponibles como parte del \texttt{fivethirtyeight}, un paquete para el software estadístico de R, el cual facilita nuestro acceso a él. El análisis reportado en la historia se focaliza en la relación entre la inequidad de ingreso (definida por una medida llamada \emph{índice Gini} --- véase Apéndice para más detalles) y la prevalencia de crímenes de odio de cada estado.
@@ -3683,7 +3671,7 @@ Bajo la hipótesis nula \(H_0:r=0\), este estadístico se distribuye como una di
 
 \begin{verbatim}
 ## 
-## 	Pearson's product-moment correlation
+##  Pearson's product-moment correlation
 ## 
 ## data:  hateCrimes$avg_hatecrimes_per_100k_fbi and hateCrimes$gini_index
 ## t = 3, df = 48, p-value = 0.002
@@ -3720,7 +3708,7 @@ Podemos calcular la correlación de rangos de los datos de crímenes de odio tam
 
 \begin{verbatim}
 ## 
-## 	Spearman's rank correlation rho
+##  Spearman's rank correlation rho
 ## 
 ## data:  hateCrimes$avg_hatecrimes_per_100k_fbi and hateCrimes$gini_index
 ## S = 20146, p-value = 0.8
@@ -3751,11 +3739,11 @@ Una forma útil de describir las relaciones causales entre variables es mediante
 Sin embargo, en realidad, los efectos sobre el tiempo de finalización y las calificaciones no se deben directamente a la cantidad de tiempo dedicado al estudio, sino más bien a la cantidad de conocimientos que adquiere el alumno al estudiar. Por lo general, diríamos que el conocimiento es una variable \emph{latente}, es decir, no podemos medirlo directamente, pero podemos verlo reflejado en variables que podemos medir (como calificaciones y tiempos de finalización). La Figura \ref{fig:latentCausalGraph} muestra esto.
 
 \begin{figure}
-\includegraphics[width=13.33in,height=0.5\textheight]{images/dag_example} \caption{A graph showing causal relationships between three variables: study time, exam grades, and exam finishing time.  A green arrow represents a positive relationship (i.e. more study time causes exam grades to increase), and a red arrow represents a negative relationship (i.e. more study time causes faster completion of the exam).}\label{fig:simpleCausalGraph}
+\includegraphics[height=0.5\textheight]{images/dag_example} \caption{A graph showing causal relationships between three variables: study time, exam grades, and exam finishing time.  A green arrow represents a positive relationship (i.e. more study time causes exam grades to increase), and a red arrow represents a negative relationship (i.e. more study time causes faster completion of the exam).}\label{fig:simpleCausalGraph}
 \end{figure}
 
 \begin{figure}
-\includegraphics[width=13.33in,height=0.5\textheight]{images/dag_latent_example} \caption{A graph showing the same causal relationships as above, but now also showing the latent variable (knowledge) using a square box.}\label{fig:latentCausalGraph}
+\includegraphics[height=0.5\textheight]{images/dag_latent_example} \caption{A graph showing the same causal relationships as above, but now also showing the latent variable (knowledge) using a square box.}\label{fig:latentCausalGraph}
 \end{figure}
 
 Aquí diríamos que el conocimiento \emph{media} la relación entre el tiempo de estudio y las calificaciones/tiempos de finalización. Eso significa que si pudiéramos mantener el conocimiento constante (por ejemplo, administrando un medicamento que causa el olvido inmediato), entonces la cantidad de tiempo de estudio ya no debería tener un efecto sobre las calificaciones y los tiempos de finalización.
@@ -3764,8 +3752,8 @@ Nota que si simplemente midiéramos las calificaciones de los exámenes y los ti
 
 En las áreas de la estadística y del aprendizaje automático (\emph{machine learning}), existe una comunidad de investigación muy activa que actualmente está estudiando la cuestión de cuándo y cómo podemos inferir relaciones causales a partir de datos no experimentales. Sin embargo, estos métodos a menudo requieren suposiciones sólidas y, en general, deben usarse con gran precaución.
 
-\hypertarget{objetivos-de-aprendizaje}{%
-\section{Objetivos de aprendizaje}\label{objetivos-de-aprendizaje}}
+\hypertarget{objetivos-de-aprendizaje-12}{%
+\section{Objetivos de aprendizaje}\label{objetivos-de-aprendizaje-12}}
 
 Después de leer este capítulo tú deberás ser capaz de:
 
@@ -3779,8 +3767,8 @@ Después de leer este capítulo tú deberás ser capaz de:
   Describir las posibles influencias causales que pueden dar lugar a una correlación observada.
 \end{itemize}
 
-\hypertarget{lecturas-sugeridas}{%
-\section{Lecturas sugeridas}\label{lecturas-sugeridas}}
+\hypertarget{lecturas-sugeridas-8}{%
+\section{Lecturas sugeridas}\label{lecturas-sugeridas-8}}
 
 \begin{itemize}
 \tightlist
@@ -3788,8 +3776,8 @@ Después de leer este capítulo tú deberás ser capaz de:
   \href{http://bayes.cs.ucla.edu/WHY/}{The Book of Why} por Judea Pearl - una excelente introducción a las ideas detrás de la inferencia causal.
 \end{itemize}
 
-\hypertarget{apuxe9ndice}{%
-\section{Apéndice:}\label{apuxe9ndice}}
+\hypertarget{apuxe9ndice-4}{%
+\section{Apéndice:}\label{apuxe9ndice-4}}
 
 \hypertarget{cuantificando-la-inequidad-el-uxedndice-gini}{%
 \subsection{Cuantificando la inequidad: El índice Gini}\label{cuantificando-la-inequidad-el-uxedndice-gini}}
@@ -3857,7 +3845,7 @@ En el capítulo anterior aprendimos cómo describir la relación entre dos varia
 
 \begin{verbatim}
 ## 
-## 	Pearson's product-moment correlation
+##  Pearson's product-moment correlation
 ## 
 ## data:  df$grade and df$studyTime
 ## t = 2, df = 6, p-value = 0.05
@@ -4005,7 +3993,7 @@ En general usaríamos un software estadístico para calcular estos valores en lu
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## Residual standard error: 6.4 on 6 degrees of freedom
-## Multiple R-squared:  0.403,	Adjusted R-squared:  0.304 
+## Multiple R-squared:  0.403,  Adjusted R-squared:  0.304 
 ## F-statistic: 4.05 on 1 and 6 DF,  p-value: 0.0907
 \end{verbatim}
 
@@ -4062,7 +4050,7 @@ Para modelar si cada persona había tomado un curso previo o no, usamos lo que s
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## Residual standard error: 4 on 5 degrees of freedom
-## Multiple R-squared:  0.803,	Adjusted R-squared:  0.724 
+## Multiple R-squared:  0.803,  Adjusted R-squared:  0.724 
 ## F-statistic: 10.2 on 2 and 5 DF,  p-value: 0.0173
 \end{verbatim}
 
@@ -4093,7 +4081,7 @@ Observando el panel A de la Figura \ref{fig:CaffeineAnxietyInteraction}, no pare
 ## caffeine       0.168      0.151    1.11     0.28
 ## 
 ## Residual standard error: 19 on 18 degrees of freedom
-## Multiple R-squared:  0.0642,	Adjusted R-squared:  0.0122 
+## Multiple R-squared:  0.0642, Adjusted R-squared:  0.0122 
 ## F-statistic: 1.23 on 1 and 18 DF,  p-value: 0.281
 \end{verbatim}
 
@@ -4117,7 +4105,7 @@ Como podemos ver en el panel B de la Figura \ref{fig:CaffeineAnxietyInteraction}
 ## anxietynotAnxious   14.233      8.232    1.73     0.10
 ## 
 ## Residual standard error: 18 on 17 degrees of freedom
-## Multiple R-squared:  0.204,	Adjusted R-squared:  0.11 
+## Multiple R-squared:  0.204,  Adjusted R-squared:  0.11 
 ## F-statistic: 2.18 on 2 and 17 DF,  p-value: 0.144
 \end{verbatim}
 
@@ -4143,7 +4131,7 @@ Aquí vemos que no hay efectos significativos de la cafeína ni de la ansiedad, 
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## Residual standard error: 8.1 on 16 degrees of freedom
-## Multiple R-squared:  0.852,	Adjusted R-squared:  0.825 
+## Multiple R-squared:  0.852,  Adjusted R-squared:  0.825 
 ## F-statistic: 30.8 on 3 and 16 DF,  p-value: 7.01e-07
 \end{verbatim}
 
@@ -4179,7 +4167,7 @@ Es importante hacer notar que a pesar del hecho de que se llame modelo \emph{lin
 
 El dicho ``si metes basura, sacas basura'' (``garbage in, garbage out'') es cierto para la estadística como en cualquier lugar. En el caso de modelos estadísticos, debemos asegurarnos de que nuestro modelo está especificado apropiadamente y que nuestros datos son apropiados para el modelo.
 
-Cuando decimos que el modelo está ``especificado apropiadamente,'' queremos decir que hemos incluido el conjunto apropiado de variables independientes en el modelo. Ya hemos visto ejemplos de modelos mal especificados, en la Figura \ref{fig:childHeightLine}. Recuerda que vimos varios casos donde el modelo falló en explicar apropiadamente los datos, como cuando no se incluyó el intercepto. Cuando construimos un modelo, debemos asegurarnos que incluye todas las variables apropiadas.
+Cuando decimos que el modelo está ``especificado apropiadamente'', queremos decir que hemos incluido el conjunto apropiado de variables independientes en el modelo. Ya hemos visto ejemplos de modelos mal especificados, en la Figura \ref{fig:childHeightLine}. Recuerda que vimos varios casos donde el modelo falló en explicar apropiadamente los datos, como cuando no se incluyó el intercepto. Cuando construimos un modelo, debemos asegurarnos que incluye todas las variables apropiadas.
 
 También debemos preocuparnos si nuestro modelo satisface las suposiciones de nuestros métodos estadísticos. Una de las suposiciones más importantes que hacemos cuando usamos el modelo lineal general es que los residuales (esto es, la diferencia entre las predicciones de nuestro modelo y los datos verdaderos) están normalmente distribuidas. Esto puede fallar en cumplirse por varias razones, puede ser porque el modelo no estaba apropiadamente especificado, o porque los datos que estamos modelando son inapropiados.
 
@@ -4211,9 +4199,9 @@ Podemos usar algo conocido como una gráfica \emph{Q-Q} (quantile-quantile, Q-Q 
 Herramientas para el diagnóstico de modelos serán exploradas en mayor detalle en el capítulo siguiente.
 
 \hypertarget{quuxe9-significa-realmente-predecir}{%
-\section{¿Qué significa realmente ``predecir?''}\label{quuxe9-significa-realmente-predecir}}
+\section{¿Qué significa realmente ``predecir''?}\label{quuxe9-significa-realmente-predecir}}
 
-Cuando hablamos de ``predicción'' en la vida diaria, generalmente nos referimos a la habilidad para estimar el valor de alguna variable antes de ver los datos. Sin embargo, el término frecuentemente es usado en el contexto de regresión lineal para referirse al ajuste de un modelo a los datos; los valores estimados (\(\hat{y}\)) en ocasiones son conocidos como ``predicciones'' y las variables independientes son conocidas como ``preditores.'' Esto tiene una connotación desafortunada, porque parece implicar que nuestro modelo debería ser capaz de predecir los valores de nuevos datos en el futuro. En realidad, el ajuste de un modelo al conjunto de datos usado para obtener sus parámetros casi siempre será mejor que el ajuste del mismo modelo a un nuevo conjunto de datos (\protect\hyperlink{ref-copa:1983}{Copas 1983}).
+Cuando hablamos de ``predicción'' en la vida diaria, generalmente nos referimos a la habilidad para estimar el valor de alguna variable antes de ver los datos. Sin embargo, el término frecuentemente es usado en el contexto de regresión lineal para referirse al ajuste de un modelo a los datos; los valores estimados (\(\hat{y}\)) en ocasiones son conocidos como ``predicciones'' y las variables independientes son conocidas como ``preditores''. Esto tiene una connotación desafortunada, porque parece implicar que nuestro modelo debería ser capaz de predecir los valores de nuevos datos en el futuro. En realidad, el ajuste de un modelo al conjunto de datos usado para obtener sus parámetros casi siempre será mejor que el ajuste del mismo modelo a un nuevo conjunto de datos (\protect\hyperlink{ref-copa:1983}{Copas 1983}).
 
 Como ejemplo, tomemos una muestra de 48 niñxs de la base de datos NHANES y ajustemos un modelo de regresión para los datos de peso que incluya varios regresores (edad, altura, horas que pasan viendo TV y usando la computadora, e ingreso económico del hogar) junto con sus interacciones.
 
@@ -4242,7 +4230,7 @@ Otra manera de ver los efectos del sobreajuste es el observar qué sucede si reo
 Un método que ha sido desarrollado para ayudar a resolver el problema del sobreajuste es conocido como \emph{validación cruzada} (\emph{cross-validation}). Esta técnica es comúnmente usada en el campo del aprendizaje máquina (\emph{machine learning}), que está enfocado en construir modelos que puedan generalizarse bien a nuevos datos, incluso cuando no tenemos un nuevo conjunto de datos con el cual probar el modelo. La idea detrás de la validación cruzada es que ajustemos nuestro modelo repetidamente, cada vez dejando fuera un subconjunto de los datos, y luego probar la habilidad de nuestro modelo de predecir los valores en cada subconjunto de datos que se dejó fuera.
 
 \begin{figure}
-\includegraphics[width=45.74in,height=0.3\textheight]{images/crossvalidation} \caption{A schematic of the  cross-validation procedure.}\label{fig:crossvalidation}
+\includegraphics[height=0.3\textheight]{images/crossvalidation} \caption{A schematic of the  cross-validation procedure.}\label{fig:crossvalidation}
 \end{figure}
 
 Veamos cómo funcionaría en nuestro ejemplo de predicción de pesos. En este caso realizaremos una validación cruzada con 12 subconjuntos (en inglés: \emph{12-fold cross-validation}), lo que significa que dividiremos nuestros datos en 12 subconjuntos, y luego ajustaremos el modelo 12 veces, en cada caso dejando fuera uno de los subconjuntos y luego probando la habilidad del modelo de poder predecir el valor de la variable dependiente para cada uno de los datos que se dejaron fuera. La mayoría de los softwares estadísticos provee herramientas para aplicar validación cruzada. Usando esta función podemos realizar una validación cruzada en 100 muestras de nuestros datos de NHANES, y calcular el RMSE para la validación cruzada, junto con el RMSE para los datos originales y para un nuevo conjunto de datos, como lo hicimos arriba.
@@ -4278,8 +4266,8 @@ Nota que el usar la validación cruzada apropiadamente es complicado, y es recom
   Deberías de ver de manera muy escéptica afirmaciones acerca de la precisión de predicciones, a menos que hayan sido realizadas usando los métodos apropiados.
 \end{itemize}
 
-\hypertarget{objetivos-de-aprendizaje}{%
-\section{Objetivos de aprendizaje}\label{objetivos-de-aprendizaje}}
+\hypertarget{objetivos-de-aprendizaje-13}{%
+\section{Objetivos de aprendizaje}\label{objetivos-de-aprendizaje-13}}
 
 Habiendo leído este capítulo, deberías ser capaz de:
 
@@ -4293,8 +4281,8 @@ Habiendo leído este capítulo, deberías ser capaz de:
   Describir cómo se utiliza la validación cruzada (\emph{cross-validation}) para estimar el rendimiento predictivo de un modelo sobre nuevos datos.
 \end{itemize}
 
-\hypertarget{lecturas-sugeridas}{%
-\section{Lecturas sugeridas}\label{lecturas-sugeridas}}
+\hypertarget{lecturas-sugeridas-9}{%
+\section{Lecturas sugeridas}\label{lecturas-sugeridas-9}}
 
 \begin{itemize}
 \tightlist
@@ -4302,8 +4290,8 @@ Habiendo leído este capítulo, deberías ser capaz de:
   \href{https://web.stanford.edu/~hastie/Papers/ESLII.pdf}{The Elements of Statistical Learning: Data Mining, Inference, and Prediction (2nd Edition)} - The ``bible'' of machine learning methods, available freely online.
 \end{itemize}
 
-\hypertarget{apuxe9ndice}{%
-\section{Apéndice}\label{apuxe9ndice}}
+\hypertarget{apuxe9ndice-5}{%
+\section{Apéndice}\label{apuxe9ndice-5}}
 
 \hypertarget{estimar-paruxe1metros-de-una-regresiuxf3n-lineal}{%
 \subsection{Estimar parámetros de una regresión lineal}\label{estimar-paruxe1metros-de-una-regresiuxf3n-lineal}}
@@ -4343,7 +4331,9 @@ Esto se parece mucho a la ecuación que usamos anteriormente, a excepción de qu
 Sabemos que los datos de las calificaciones van en la matriz \(Y\), pero ¿qué va en la matriz \(X\)? Recuerda de nuestra discusión inicial sobre la regresión lineal que necesitamos añadir una constante además de nuestra variable independiente de interés, por lo que nuestra matriz \(X\) (que llamamos \emph{matriz de diseño}, o \emph{design matrix}) necesita incluir dos columnas: una representando la variable tiempo de estudio, y una columna con el mismo valor para cada persona (que generalmente llenamos con números uno). Podemos ver la matriz de diseño resultante de manera gráfica (ve la Figura \ref{fig:GLMmatrix}).
 
 \begin{figure}
-\includegraphics[width=16.67in]{images/glm_matrix} \caption{A depiction of the linear model for the study time data in terms of matrix algebra.}\label{fig:GLMmatrix}
+\centering
+\includegraphics{images/glm_matrix.png}
+\caption{\label{fig:GLMmatrix}A depiction of the linear model for the study time data in terms of matrix algebra.}
 \end{figure}
 
 Las reglas de multiplicación de matrices nos dicen que las dimensiones de las matrices deben coincidir unas con otras; en este caso, la matriz de diseño tiene dimensiones de 8 (filas) X 2 (columnas) y la variable \(Y\) tiene dimensiones de 8 X 1. Entonces, la matriz \(\beta\) necesita tener dimensiones 2 X 1, porque una matriz 8 X 2 multiplicada por una matriz 2 X 1 resulta en una matriz 8 X 1 (pues las dimensiones de en medio que coinciden terminan desapareciendo). La interpretación de los dos valores en la matriz \(\beta\) es que son los valores por los cuales multiplicar el tiempo de estudio y el valor de 1 respectivamente para obtener la estimación de calificación para cada persona en la muestra. También podemos ver el modelo lineal como un conjunto de ecuaciones individuales para cada persona:
@@ -4407,7 +4397,7 @@ Una manera sencilla de probar esta diferencia es usando una prueba llamada la \e
 
 \begin{verbatim}
 ## 
-## 	Exact binomial test
+##  Exact binomial test
 ## 
 ## data:  npos and nrow(NHANES_sample)
 ## number of successes = 38, number of trials = 200, p-value = 1
@@ -4438,7 +4428,7 @@ Podemos calcular esto para la base de datos NHANES en nuestro software estadíst
 
 \begin{verbatim}
 ## 
-## 	One Sample t-test
+##  One Sample t-test
 ## 
 ## data:  NHANES_adult$BPDiaAve
 ## t = -55, df = 4593, p-value = 1
@@ -4493,7 +4483,7 @@ donde \(\bar{X}_1\) y \(\bar{X}_2\) son las medias de los dos grupos, \(S^2_1\) 
 
 \begin{verbatim}
 ## 
-## 	Two Sample t-test
+##  Two Sample t-test
 ## 
 ## data:  TVHrsNum by RegularMarij
 ## t = -3, df = 198, p-value = 4e-04
@@ -4534,7 +4524,7 @@ Como el fumar es una variable binaria, la tratamos como una \emph{variable ficti
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## Residual standard error: 1.4 on 198 degrees of freedom
-## Multiple R-squared:  0.0546,	Adjusted R-squared:  0.0498 
+## Multiple R-squared:  0.0546, Adjusted R-squared:  0.0498 
 ## F-statistic: 11.4 on 1 and 198 DF,  p-value: 0.000872
 \end{verbatim}
 
@@ -4586,7 +4576,7 @@ Vemos que no parece haber mucha diferencia en la media de presión sanguínea (c
 
 \begin{verbatim}
 ## 
-## 	Two Sample t-test
+##  Two Sample t-test
 ## 
 ## data:  BPsys by timepoint
 ## t = 0.6, df = 398, p-value = 0.5
@@ -4613,7 +4603,7 @@ Una manera simple de probar las diferencias es usando la \emph{prueba de los sig
 
 \begin{verbatim}
 ## 
-## 	Exact binomial test
+##  Exact binomial test
 ## 
 ## data:  npos and nrow(NHANES_sample)
 ## number of successes = 96, number of trials = 200, p-value = 0.6
@@ -4634,7 +4624,7 @@ Una estrategia más común es usar una \emph{prueba t para muestras relacionadas
 
 \begin{verbatim}
 ## 
-## 	Paired t-test
+##  Paired t-test
 ## 
 ## data:  BPsys by timepoint
 ## t = 3, df = 199, p-value = 0.007
@@ -4713,7 +4703,7 @@ Para crear un modelo ANOVA, extendemos la idea de la \emph{codificación fictici
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## Residual standard error: 9.9 on 105 degrees of freedom
-## Multiple R-squared:  0.169,	Adjusted R-squared:  0.154 
+## Multiple R-squared:  0.169,  Adjusted R-squared:  0.154 
 ## F-statistic: 10.7 on 2 and 105 DF,  p-value: 5.83e-05
 \end{verbatim}
 
@@ -4721,8 +4711,8 @@ La salida de este comando nos provee de dos cosas. Primero, nos muestra el resul
 
 Recuerda que la hipótesis que inicialmente queríamos probar era si había alguna diferencia entre cualquiera de las condiciones; llamamos a esto una prueba de hipótesis \emph{omnibus}, y es la prueba a la que se refiere el estadístico F. El estadístico F básicamente nos dice si nuestro modelo es mejor que un modelo simple que sólo incluye el intercepto. En este caso vemos que la prueba F es altamente significativa, consistente con nuestra impresión de que parece haber diferencias entre los grupos (que de hecho sabemos que sí las hay, porque nosotros creamos los datos).
 
-\hypertarget{objetivos-de-aprendizaje}{%
-\section{Objetivos de aprendizaje}\label{objetivos-de-aprendizaje}}
+\hypertarget{objetivos-de-aprendizaje-14}{%
+\section{Objetivos de aprendizaje}\label{objetivos-de-aprendizaje-14}}
 
 Después de leer este capítulo, deberías ser capaz de:
 
@@ -4738,8 +4728,8 @@ Después de leer este capítulo, deberías ser capaz de:
   Describir cómo se puede usar el análisis de varianza para probar diferencias entre más de dos medias.
 \end{itemize}
 
-\hypertarget{apuxe9ndice}{%
-\section{Apéndice}\label{apuxe9ndice}}
+\hypertarget{apuxe9ndice-6}{%
+\section{Apéndice}\label{apuxe9ndice-6}}
 
 \hypertarget{la-prueba-t-de-muestras-relacionadas-como-un-modelo-lineal}{%
 \subsection{La prueba t de muestras relacionadas como un modelo lineal}\label{la-prueba-t-de-muestras-relacionadas-como-un-modelo-lineal}}
@@ -4913,7 +4903,7 @@ La mayoría del software estadístico (incluyendo R) automáticamente creará un
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## Residual standard error: 2.2 on 307 degrees of freedom
-## Multiple R-squared:  0.0338,	Adjusted R-squared:  0.0243 
+## Multiple R-squared:  0.0338, Adjusted R-squared:  0.0243 
 ## F-statistic: 3.58 on 3 and 307 DF,  p-value: 0.0143
 \end{verbatim}
 
@@ -5023,7 +5013,7 @@ Primero calculemos el estadístico, usando una función de la prueba ji-cuadrada
 
 \begin{verbatim}
 ## 
-## 	Pearson's Chi-squared test
+##  Pearson's Chi-squared test
 ## 
 ## data:  contTable
 ## X-squared = 4, df = 3, p-value = 0.3
@@ -5100,13 +5090,13 @@ Digamos que estamos interesados en un proyecto de investigación sobre cómo los
 \hypertarget{cuxf3mo-realmente-funciona-la-ciencia-a-veces}{%
 \section{Cómo realmente funciona la ciencia (a veces)}\label{cuxf3mo-realmente-funciona-la-ciencia-a-veces}}
 
-Brian Wansink es muy reconocido por sus libros sobre ``Mindless Eating,'' y sus honorarios por dar charlas corporativas están en las decenas de miles de dólares. En 2017, un grupo de investigadores comenzó a examinar algunos de sus investigaciones publicadas, comenzando por un conjunto de artículos acerca de cuánta pizza come la gente en un buffet. Los investigadores pidieron a Wansink que compartiera sus datos de esos estudios pero él se rehusó, por lo que excavaron en sus artículos publicados y encontraron un gran número de inconsistencias y problemas estadísticos. La publicidad alrededor de este análisis llevó a un número de otros investigadores a examinar el pasado de Wansink, incluyendo el obtener emails entre Wansink y sus colaboradores. Como \href{https://www.buzzfeednews.com/article/stephaniemlee/brian-wansink-cornell-p-hacking}{reportó Stephani Lee en Buzzfeed}, estos emails mostraron justo qué tan lejos estaban las prácticas reales de investigación de Wansink del modelo ingenuo de hacer ciencia:
+Brian Wansink es muy reconocido por sus libros sobre ``Mindless Eating'', y sus honorarios por dar charlas corporativas están en las decenas de miles de dólares. En 2017, un grupo de investigadores comenzó a examinar algunos de sus investigaciones publicadas, comenzando por un conjunto de artículos acerca de cuánta pizza come la gente en un buffet. Los investigadores pidieron a Wansink que compartiera sus datos de esos estudios pero él se rehusó, por lo que excavaron en sus artículos publicados y encontraron un gran número de inconsistencias y problemas estadísticos. La publicidad alrededor de este análisis llevó a un número de otros investigadores a examinar el pasado de Wansink, incluyendo el obtener emails entre Wansink y sus colaboradores. Como \href{https://www.buzzfeednews.com/article/stephaniemlee/brian-wansink-cornell-p-hacking}{reportó Stephani Lee en Buzzfeed}, estos emails mostraron justo qué tan lejos estaban las prácticas reales de investigación de Wansink del modelo ingenuo de hacer ciencia:
 
 \begin{quote}
 \ldots en septiembre de 2008, cuando Payne estaba revisando los datos después de haber sido recolectados, él no encontró una fuerte relación entre manzanas-y-Elmo - al menos aún no. \ldots{}
-``He adjuntado en este mensaje unos resultados iniciales del estudio de niños para tu reporte,'' escribió Payne a sus colaboradores. ``No se desanimen. Parece que las etiquetas en las frutas podrían funcionar (con un poco más de magia).'' \ldots{}
-Wansink también reconoció que el artículo era débil mientras lo preparaba para enviar a las revistas. El valor p era de 0.06, sólo un poco por arriba del estándar de oro del punto de corte de 0.05. Era un ``escollo,'' como lo mencionó en un email el 7 de enero de 2012. \ldots{}
-``Me parece que debería ser más bajo,'' escribió, adjuntando un borrador. ``Quieren darle un vistazo y ver qué piensan. Si pueden tener los datos, y necesitan algunos ajustes, sería bueno lograr que ese valor sea menor que .05.'' \ldots{}
+``He adjuntado en este mensaje unos resultados iniciales del estudio de niños para tu reporte'', escribió Payne a sus colaboradores. ``No se desanimen. Parece que las etiquetas en las frutas podrían funcionar (con un poco más de magia).'' \ldots{}
+Wansink también reconoció que el artículo era débil mientras lo preparaba para enviar a las revistas. El valor p era de 0.06, sólo un poco por arriba del estándar de oro del punto de corte de 0.05. Era un ``escollo'', como lo mencionó en un email el 7 de enero de 2012. \ldots{}
+``Me parece que debería ser más bajo'', escribió, adjuntando un borrador. ``Quieren darle un vistazo y ver qué piensan. Si pueden tener los datos, y necesitan algunos ajustes, sería bueno lograr que ese valor sea menor que .05''. \ldots{}
 Después, en 2012, el estudio apareció en la prestigiosa JAMA Pediatrics, con el valor p de 0.06 intacto. Pero en septiembre de 2017, fue retractado y reemplazado con una versión que reporta un valor p de 0.02. Y un mes después, fue retractado de nuevo por una razón completamente diferente: Wansink admitió que el experimento no había sido realizado con niños de 8 a 11 años, como originalmente habían reportado, sino con preescolares.
 \end{quote}
 
@@ -5185,7 +5175,7 @@ Podemos revisar una sola simulación para poder ver por qué sucede esto. En el 
 \hypertarget{pruxe1cticas-cuestionables-de-investigaciuxf3n}{%
 \section{Prácticas cuestionables de investigación}\label{pruxe1cticas-cuestionables-de-investigaciuxf3n}}
 
-Un libro popular titulado ``The Compleat Academic: A Career Guide,'' publicado por la American Psychological Association (\protect\hyperlink{ref-darl:zann:roed:2004}{Darley, Zanna, and Roediger 2004}), busca proveer a los aspirantes a investigadores con una guía sobre cómo construir una carrera. En un capítulo escrito por un reconocido psicólogo social, Daryl Bem, titulado ``Writing the Empirical Journal Article,'' Bem provee de sugerencias sobre cómo escribir un artículo de investigación. Desafortunadamente, las prácticas que él sugiere son profundamente problemáticas, y se han convertido en lo que conocemos como \emph{prácticas cuestionables de investigación} (\emph{questionable research practices}, QRPs).
+Un libro popular titulado ``The Compleat Academic: A Career Guide'', publicado por la American Psychological Association (\protect\hyperlink{ref-darl:zann:roed:2004}{Darley, Zanna, and Roediger 2004}), busca proveer a los aspirantes a investigadores con una guía sobre cómo construir una carrera. En un capítulo escrito por un reconocido psicólogo social, Daryl Bem, titulado ``Writing the Empirical Journal Article'', Bem provee de sugerencias sobre cómo escribir un artículo de investigación. Desafortunadamente, las prácticas que él sugiere son profundamente problemáticas, y se han convertido en lo que conocemos como \emph{prácticas cuestionables de investigación} (\emph{questionable research practices}, QRPs).
 
 \begin{quote}
 \textbf{¿Cuál artículo deberías escribir?} Existen dos posibles artículos que puedes escribir: (1) el artículo que planeaste escribir cuando diseñaste tu estudio, o (2) el artículo que hace más sentido ahora que has visto tus resultados. Raramente son los mismos, y la respuesta correcta es el (2).
@@ -5197,7 +5187,7 @@ Lo que Bem sugiere aquí es conocido como \emph{HARKing} (del inglés \emph{Hypo
 \textbf{Analizar datos} Examínalos desde todos los ángulos. Analiza los sexos de manera separada. Elabora nuevos índices compuestos. Si un dato sugiere una nueva hipótesis, trata de encontrar evidencia adicional en algún otro lado entre los datos. Si ves trazos débiles de patrones interesantes, trata de reorganizar los datos para que tengan un relieve más marcado. Si hay participantes que no te gusten, o ensayos, observadores, o entrevistadores que te hayan dado resultados anómalos, descártalos (temporalmente). Lánzate a una expedición de pesca para algo - cualquier cosa - interesante. No, esto no es inmoral.
 \end{quote}
 
-Lo que Bem sugiere es conocido como \emph{p-hacking}, que se refiere a intentar muchos diferentes análisis hasta que uno encuentre uno con un resultado significativo. Bem está en lo correcto de que si uno reporta todos los análisis realizados en los datos entonces esta estrategia no sería ``inmoral.'' Sin embargo, es raro ver un artículo discutir todos los análisis que fueron realizados en los datos; en su lugar, los artículos frecuentemente sólo presentan los análisis que \emph{funcionaron} - lo que usualmente significa que encontraron un resultado estadísticamente significativo. Hay muchas maneras en que uno podría hacer p-hacking:
+Lo que Bem sugiere es conocido como \emph{p-hacking}, que se refiere a intentar muchos diferentes análisis hasta que uno encuentre uno con un resultado significativo. Bem está en lo correcto de que si uno reporta todos los análisis realizados en los datos entonces esta estrategia no sería ``inmoral''. Sin embargo, es raro ver un artículo discutir todos los análisis que fueron realizados en los datos; en su lugar, los artículos frecuentemente sólo presentan los análisis que \emph{funcionaron} - lo que usualmente significa que encontraron un resultado estadísticamente significativo. Hay muchas maneras en que uno podría hacer p-hacking:
 
 \begin{itemize}
 \tightlist
@@ -5213,7 +5203,7 @@ Lo que Bem sugiere es conocido como \emph{p-hacking}, que se refiere a intentar 
   Transformar los datos para obtener p\textless.05.
 \end{itemize}
 
-Un artículo muy conocido escrito por \protect\hyperlink{ref-simm:nels:simo:2011}{Simmons, Nelson, and Simonsohn} (\protect\hyperlink{ref-simm:nels:simo:2011}{2011}) mostró que el uso de este tipo de estrategias de p-hacking puede incrementar en gran medida la tasa real de falsos positivos, resultando en un mayor número de resultados positivos falsos.
+Un artículo muy conocido escrito por Simmons, Nelson, and Simonsohn (\protect\hyperlink{ref-simm:nels:simo:2011}{2011}) mostró que el uso de este tipo de estrategias de p-hacking puede incrementar en gran medida la tasa real de falsos positivos, resultando en un mayor número de resultados positivos falsos.
 
 \hypertarget{esp-o-qrp}{%
 \subsection{¿ESP o QRP?}\label{esp-o-qrp}}
@@ -5252,12 +5242,12 @@ En los años que han pasado desde que surgió la crisis de reproducibilidad, ha 
 
 Una de las ideas que ha ganado mayor apoyo es el \emph{pre-registro}, en el cual uno envía una descripción detallada de un estudio (incluyendo todos los análisis de datos) a un repositorio confiable (como el del \href{http://osf.io}{Open Science Framework} o \href{http://aspredicted.org}{AsPredicted.org}). Al especificar los propios planes en detalle antes de analizar los datos, el pre-registro provee mayor confianza de que los análisis no sufrieron de p-hacking o de otras prácticas cuestionables de investigación.
 
-Los efectos del pre-registro en los ensayos clínicos en medicina han sido impactantes. En el 2000, el National Heart, Lung, and Blood Institute (NHLBI) comenzó requiriendo que todos los ensayos clínicos fueran pre-registrados usando el sistema en \href{http://clinicaltrials.gov}{ClinicalTrials.gov}. Esto provee de un experimento natural para observar los efectos del pre-registro de estudios. Cuando \protect\hyperlink{ref-kapl:irvi:2015}{Kaplan and Irvin} (\protect\hyperlink{ref-kapl:irvi:2015}{2015}) examinaron resultados de ensayos clínicos a lo largo del tiempo, encontraron que el número de resultados positivos en los ensayos clínicos se redujo grandemente después del año 2000 comparado con estudios de años previos. Aunque hay muchas posibles causas, parece probable que, previo al requisito de pre-registrar, los investigadores podían cambiar sus métodos o hipótesis para poder obtener un resultado positivo, lo que se volvió más difícil de hacer después de que el pre-registrar fuera requerido.
+Los efectos del pre-registro en los ensayos clínicos en medicina han sido impactantes. En el 2000, el National Heart, Lung, and Blood Institute (NHLBI) comenzó requiriendo que todos los ensayos clínicos fueran pre-registrados usando el sistema en \href{http://clinicaltrials.gov}{ClinicalTrials.gov}. Esto provee de un experimento natural para observar los efectos del pre-registro de estudios. Cuando Kaplan and Irvin (\protect\hyperlink{ref-kapl:irvi:2015}{2015}) examinaron resultados de ensayos clínicos a lo largo del tiempo, encontraron que el número de resultados positivos en los ensayos clínicos se redujo grandemente después del año 2000 comparado con estudios de años previos. Aunque hay muchas posibles causas, parece probable que, previo al requisito de pre-registrar, los investigadores podían cambiar sus métodos o hipótesis para poder obtener un resultado positivo, lo que se volvió más difícil de hacer después de que el pre-registrar fuera requerido.
 
 \hypertarget{pruxe1cticas-reproducibles}{%
 \subsection{Prácticas reproducibles}\label{pruxe1cticas-reproducibles}}
 
-El artículo de \protect\hyperlink{ref-simm:nels:simo:2011}{Simmons, Nelson, and Simonsohn} (\protect\hyperlink{ref-simm:nels:simo:2011}{2011}) presentó un conjunto de prácticas sugeridas para hacer la investigación más reproducible, todas ellas deberían convertirse en un estándar para los investigadores:
+El artículo de Simmons, Nelson, and Simonsohn (\protect\hyperlink{ref-simm:nels:simo:2011}{2011}) presentó un conjunto de prácticas sugeridas para hacer la investigación más reproducible, todas ellas deberían convertirse en un estándar para los investigadores:
 
 \begin{quote}
 \begin{itemize}
@@ -5291,7 +5281,7 @@ Segundo, recuerda que el valor p no nos provee de una medida de la probabilidad 
 
 Hasta el momento nos hemos enfocado en la habilidad de replicar los hallazgos de otros investigadores en nuevos experimentos, pero otro aspecto importante de la reproducibilidad es el ser capaces de reproducir el análisis de alguien en sus propios datos, a lo que llamamos \emph{reproducibilidad computacional} (\emph{computational reproducibility}). Esto requiere que los investigadores compartan tanto sus datos como su código de análisis, para que otros investigadores puedan tratar de reproducir los resultados así como potencialmente probar diferentes métodos de análisis sobre los mismos datos. Hay un movimiento creciente en psicología hacia compartir código y datos abiertamente (open sharing); por ejemplo, la revista \emph{Psychological Science} ahora provee de insignias a los artículos que comparten materiales, datos, y código de la investigación, así como también para los que realizan el pre-registro.
 
-La habilidad para reproducir análisis es una razón por la que promovemos fuertemente el uso de análisis en código (como al usar R) en lugar de usar software gráfico, de ``apuntar-y-dar-click.'' También es una razón por la que promovemos el uso de software libre y de fuente abierta (open-source, como R) en oposición a software comercial, que requeriría que lo demás compraran el software para poder reproducir cualquier análisis.
+La habilidad para reproducir análisis es una razón por la que promovemos fuertemente el uso de análisis en código (como al usar R) en lugar de usar software gráfico, de ``apuntar-y-dar-click''. También es una razón por la que promovemos el uso de software libre y de fuente abierta (open-source, como R) en oposición a software comercial, que requeriría que lo demás compraran el software para poder reproducir cualquier análisis.
 
 Existen muchas maneras de compartir tanto el código como los datos. Una manera común de compartir código es a través de sitios web que apoyen \emph{control de versiones} en software, como lo hace \href{http://github.com}{Github}. Pequeñas bases de datos también se pueden compartir a través de este mismo tipo de sitios; bases de datos más grandes pueden ser compartidas a través de portales para compartir datos como \href{https://zenodo.org/}{Zenodo}, o a través de portales especializados para tipos específicos de datos (como \href{http://openneuro.org}{OpenNeuro} para datos de neuroimagen).
 
@@ -5300,8 +5290,8 @@ Existen muchas maneras de compartir tanto el código como los datos. Una manera 
 
 Es responsabilidad de cada científico el mejorar sus prácticas de investigación para poder incrementar la reproducibilidad de su investigación. Es esencial recordar que la meta de la investigación no es encontrar un resultado significativo; sino hacerse y responderse preguntas acerca de la naturaleza en la manera más honesta posible. La mayoría de nuestras hipótesis estarán equivocadas, y debemos estar cómodos con eso, para que cuando encontremos una que esté en lo correcto, estemos aún más seguros de su verdad.
 
-\hypertarget{objetivos-de-aprendizaje}{%
-\section{Objetivos de aprendizaje}\label{objetivos-de-aprendizaje}}
+\hypertarget{objetivos-de-aprendizaje-15}{%
+\section{Objetivos de aprendizaje}\label{objetivos-de-aprendizaje-15}}
 
 \begin{itemize}
 \tightlist
@@ -5313,8 +5303,8 @@ Es responsabilidad de cada científico el mejorar sus prácticas de investigaci�
   Describir el concepto de pre-registro y cómo puede ayudar a proteger en contra de las prácticas cuestionables de investigación.
 \end{itemize}
 
-\hypertarget{lecturas-sugeridas}{%
-\section{Lecturas sugeridas}\label{lecturas-sugeridas}}
+\hypertarget{lecturas-sugeridas-10}{%
+\section{Lecturas sugeridas}\label{lecturas-sugeridas-10}}
 
 \begin{itemize}
 \tightlist
@@ -5327,90 +5317,89 @@ Es responsabilidad de cada científico el mejorar sus prácticas de investigaci�
 \newpage
 
 \hypertarget{referencias}{%
-\chapter*{Referencias}\label{referencias}}
-\addcontentsline{toc}{chapter}{Referencias}
+\chapter{Referencias}\label{referencias}}
 
 \hypertarget{refs}{}
 \begin{CSLReferences}{1}{0}
-\leavevmode\hypertarget{ref-bake:2017}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-bake:2017}{}}%
 Baker, Monya. 2017. {``Reproducibility: Check Your Chemistry.''} \emph{Nature} 548 (7668): 485--88. \url{https://doi.org/10.1038/548485a}.
 
-\leavevmode\hypertarget{ref-bem:2011}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-bem:2011}{}}%
 Bem, Daryl J. 2011. {``Feeling the Future: Experimental Evidence for Anomalous Retroactive Influences on Cognition and Affect.''} \emph{J Pers Soc Psychol} 100 (3): 407--25. \url{https://doi.org/10.1037/a0021524}.
 
-\leavevmode\hypertarget{ref-Camerer2018EvaluatingTR}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-Camerer2018EvaluatingTR}{}}%
 Camerer, Colin F., Anna Dreber, Felix Holzmeister, Teck-Hua Ho, Jürgen Huber, Magnus Johannesson, Michael Kirchler, et al. 2018. {``Evaluating the Replicability of Social Science Experiments in Nature and Science Between 2010 and 2015.''} \emph{Nature Human Behaviour} 2: 637--44.
 
-\leavevmode\hypertarget{ref-NBERw22989}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-NBERw22989}{}}%
 Christensen, Garret S, and Edward Miguel. 2016. {``Transparency, Reproducibility, and the Credibility of Economics Research.''} Working Paper 22989. Working Paper Series. National Bureau of Economic Research. \url{https://doi.org/10.3386/w22989}.
 
-\leavevmode\hypertarget{ref-copa:1983}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-copa:1983}{}}%
 Copas, J. B. 1983. {``Regression, Prediction and Shrinkage (with Discussion).''} \emph{Journal of the Royal Statistical Society, Series B: Methodological} 45: 311--54.
 
-\leavevmode\hypertarget{ref-darl:zann:roed:2004}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-darl:zann:roed:2004}{}}%
 Darley, John M, Mark P Zanna, and Henry L Roediger. 2004. \emph{The Compleat Academic: A Career Guide}. 2nd ed. Washington, DC: American Psychological Association. \url{http://www.loc.gov/catdir/toc/fy037/2003041830.html}.
 
-\leavevmode\hypertarget{ref-dehg:ment:zhan:2017}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-dehg:ment:zhan:2017}{}}%
 Dehghan, Mahshid, Andrew Mente, Xiaohe Zhang, Sumathi Swaminathan, Wei Li, Viswanathan Mohan, Romaina Iqbal, et al. 2017. {``Associations of Fats and Carbohydrate Intake with Cardiovascular Disease and Mortality in 18 Countries from Five Continents (PURE): A Prospective Cohort Study.''} \emph{Lancet} 390 (10107): 2050--62. \url{https://doi.org/10.1016/S0140-6736(17)32252-3}.
 
-\leavevmode\hypertarget{ref-efron1998}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-efron1998}{}}%
 Efron, Bradley. 1998. {``R. A. Fisher in the 21st Century (Invited Paper Presented at the 1996 r. A. Fisher Lecture).''} \emph{Statist. Sci.} 13 (2): 95--122. \url{https://doi.org/10.1214/ss/1028905930}.
 
-\leavevmode\hypertarget{ref-erri:iorn:gunn:2014}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-erri:iorn:gunn:2014}{}}%
 Errington, Timothy M, Elizabeth Iorns, William Gunn, Fraser Elisabeth Tan, Joelle Lomax, and Brian A Nosek. 2014. {``An Open Investigation of the Reproducibility of Cancer Biology Research.''} \emph{Elife} 3 (December). \url{https://doi.org/10.7554/eLife.04333}.
 
-\leavevmode\hypertarget{ref-fisher1925statistical}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-fisher1925statistical}{}}%
 Fisher, R. A. 1925. \emph{Statistical Methods for Research Workers}. Edinburgh Oliver \& Boyd.
 
-\leavevmode\hypertarget{ref-fish:1956}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-fish:1956}{}}%
 Fisher, Ronald Aylmer. 1956. \emph{Statistical Methods and Scientific Inference}. New York: Hafner Pub. Co.
 
-\leavevmode\hypertarget{ref-gala:lebo:nels:2012}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-gala:lebo:nels:2012}{}}%
 Galak, Jeff, Robyn A LeBoeuf, Leif D Nelson, and Joseph P Simmons. 2012. {``Correcting the Past: Failures to Replicate Psi.''} \emph{J Pers Soc Psychol} 103 (6): 933--48. \url{https://doi.org/10.1037/a0029709}.
 
-\leavevmode\hypertarget{ref-gard:kiaz:alha:2007}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-gard:kiaz:alha:2007}{}}%
 Gardner, Christopher D, Alexandre Kiazand, Sofiya Alhassan, Soowon Kim, Randall S Stafford, Raymond R Balise, Helena C Kraemer, and Abby C King. 2007. {``Comparison of the Atkins, Zone, Ornish, and LEARN Diets for Change in Weight and Related Risk Factors Among Overweight Premenopausal Women: The a TO z Weight Loss Study: A Randomized Trial.''} \emph{JAMA} 297 (9): 969--77. \url{https://doi.org/10.1001/jama.297.9.969}.
 
-\leavevmode\hypertarget{ref-ioan:2005}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-ioan:2005}{}}%
 Ioannidis, John P A. 2005. {``Why Most Published Research Findings Are False.''} \emph{PLoS Med} 2 (8): e124. \url{https://doi.org/10.1371/journal.pmed.0020124}.
 
-\leavevmode\hypertarget{ref-kapl:irvi:2015}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-kapl:irvi:2015}{}}%
 Kaplan, Robert M, and Veronica L Irvin. 2015. {``Likelihood of Null Effects of Large NHLBI Clinical Trials Has Increased over Time.''} \emph{PLoS One} 10 (8): e0132382. \url{https://doi.org/10.1371/journal.pone.0132382}.
 
-\leavevmode\hypertarget{ref-kerr:1998}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-kerr:1998}{}}%
 Kerr, N L. 1998. {``HARKing: Hypothesizing After the Results Are Known.''} \emph{Pers Soc Psychol Rev} 2 (3): 196--217. \url{https://doi.org/10.1207/s15327957pspr0203_4}.
 
-\leavevmode\hypertarget{ref-Neyman37}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-Neyman37}{}}%
 Neyman, J. 1937. {``Outline of a Theory of Statistical Estimation Based on the Classical Theory of Probability.''} \emph{Philosophical Transactions of the Royal Society of London A: Mathematical, Physical and Engineering Sciences} 236 (767): 333--80. \url{https://doi.org/10.1098/rsta.1937.0005}.
 
-\leavevmode\hypertarget{ref-Neyman289}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-Neyman289}{}}%
 Neyman, J., and K. Pearson. 1933. {``On the Problem of the Most Efficient Tests of Statistical Hypotheses.''} \emph{Philosophical Transactions of the Royal Society of London A: Mathematical, Physical and Engineering Sciences} 231 (694-706): 289--337. \url{https://doi.org/10.1098/rsta.1933.0009}.
 
-\leavevmode\hypertarget{ref-open:2015}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-open:2015}{}}%
 Open Science Collaboration. 2015. {``PSYCHOLOGY. Estimating the Reproducibility of Psychological Science.''} \emph{Science} 349 (6251): aac4716. \url{https://doi.org/10.1126/science.aac4716}.
 
-\leavevmode\hypertarget{ref-pesc:kend:gust:2012}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-pesc:kend:gust:2012}{}}%
 Pesch, Beate, Benjamin Kendzia, Per Gustavsson, Karl-Heinz Jöckel, Georg Johnen, Hermann Pohlabeln, Ann Olsson, et al. 2012. {``Cigarette Smoking and Lung Cancer--Relative Risk Estimates for the Major Histological Types from a Pooled Analysis of Case-Control Studies.''} \emph{Int J Cancer} 131 (5): 1210--19. \url{https://doi.org/10.1002/ijc.27339}.
 
-\leavevmode\hypertarget{ref-sche:gent:2001}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-sche:gent:2001}{}}%
 Schenker, Nathaniel, and Jane F. Gentleman. 2001. {``On Judging the Significance of Differences by Examining the Overlap Between Confidence Intervals.''} \emph{The American Statistician} 55 (3): 182--86. \url{http://www.jstor.org/stable/2685796}.
 
-\leavevmode\hypertarget{ref-simm:nels:simo:2011}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-simm:nels:simo:2011}{}}%
 Simmons, Joseph P, Leif D Nelson, and Uri Simonsohn. 2011. {``False-Positive Psychology: Undisclosed Flexibility in Data Collection and Analysis Allows Presenting Anything as Significant.''} \emph{Psychol Sci} 22 (11): 1359--66. \url{https://doi.org/10.1177/0956797611417632}.
 
-\leavevmode\hypertarget{ref-smal:mcel:2016}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-smal:mcel:2016}{}}%
 Smaldino, Paul E, and Richard McElreath. 2016. {``The Natural Selection of Bad Science.''} \emph{R Soc Open Sci} 3 (9): 160384. \url{https://doi.org/10.1098/rsos.160384}.
 
-\leavevmode\hypertarget{ref-stig}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-stig}{}}%
 Stigler, Stephen M. 2016. \emph{The Seven Pillars of Statistical Wisdom}. Harvard University Press.
 
-\leavevmode\hypertarget{ref-teic:2014}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-teic:2014}{}}%
 Teicholz, Nina. 2014. \emph{The Big Fat Surprise}. Simon \& Schuster.
 
-\leavevmode\hypertarget{ref-wake:1999}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-wake:1999}{}}%
 Wakefield, A J. 1999. {``MMR Vaccination and Autism.''} \emph{Lancet} 354 (9182): 949--50. \url{https://doi.org/10.1016/S0140-6736(05)75696-8}.
 
-\leavevmode\hypertarget{ref-wans:just:payn:2012}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-wans:just:payn:2012}{}}%
 Wansink, Brian, David R Just, and Collin R Payne. 2012. {``Can Branding Improve School Lunches?''} \emph{Arch Pediatr Adolesc Med} 166 (10): 1--2. \url{https://doi.org/10.1001/archpediatrics.2012.999}.
 
 \end{CSLReferences}

@@ -718,8 +718,8 @@ Habiendo leído este capítulo, deberías ser capaz de:
 <!-- # First, remember the rule for computing a conditional probability: -->
 <!-- # We can rearrange this to get the formula to compute the joint probability using the conditional: -->
 <!-- Using this we can compute the inverse probability: -->
-```{proof, BayesRule, name="Derivación de la regla de Bayes"}
 
+### Derivación de la regla de Bayes
 Primero, recuerda la regla para calcular una probabilidad condicional:
 
 $$
@@ -738,4 +738,3 @@ $$
 P(B|A) = \frac{P(A \cap B)}{P(A)} =   \frac{P(A|B)*P(B)}{P(A)}
 $$
 
-```

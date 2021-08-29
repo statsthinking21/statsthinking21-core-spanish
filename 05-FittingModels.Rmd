@@ -1206,7 +1206,7 @@ Al leer este capítulo deberás de ser capaz de:
 ## Apéndice
 
 
-```{proof, zeroMeanErrors, name="Proof that the sum of errors from the Mean is zero"}
+### Proof that the sum of errors from the Mean is zero"
 
 $$
 error = \sum_{i=1}^{n}(x_i - \bar{X}) = 0
@@ -1228,5 +1228,4 @@ $$
 $$
 \sum_{i=1}^{n}x_i = \sum_{i=1}^{n}x_i
 $$
-```
 
