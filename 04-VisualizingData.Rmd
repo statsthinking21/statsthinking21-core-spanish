@@ -34,11 +34,10 @@ cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2",
 
 ```
 <!-- On January 28, 1986, the Space Shuttle Challenger exploded 73 seconds after takeoff, killing all 7 of the astronauts on board.  As when any such disaster occurs, there was an official investigation into the cause of the accident, which found that an O-ring connecting two sections of the solid rocket booster leaked, resulting in failure of the joint and explosion of the large liquid fuel tank (see figure \@ref(fig:srbLeak)).-->
-
 El 28 de enero de 1986, el Space Shuttle Challenger explotó 73 segundos después del despegue, matando a lxs 7 astronautas a bordo. Así como cuando los desastres suceden, hubo una investigación oficial sobre lo que ocasionó el accidente. El cual encontró que un "O-ring" que conectaba dos secciones del sólido populsor de cohete se fugó, lo cual resultó en la falla de la unión y explosión del tanque propulsor (véase figura \@ref(fig:srbLeak)).
 
 
-```{r srbLeak, echo=FALSE,fig.cap="Imagen del sólido propulsor de cohete fugando combustible, segundos antes de la explosión. By NASA (Great Images in NASA Description) [Public domain], via Wikimedia Commons",fig.height=3,out.height='20%'}
+```{r srbLeak, echo=FALSE,fig.cap="Imagen del sólido propulsor de cohete fugando combustible, segundos antes de la explosión. La pequeña flama visible al costado del cohete es el sitio de la falla del "O-ring". By NASA (Great Images in NASA Description) [Public domain], via Wikimedia Commons",fig.height=3,out.height='20%'}
 knitr::include_graphics("images/Booster_Rocket_Breach_-_GPN-2000-001425.jpg")
 ```
 
@@ -244,10 +243,10 @@ knitr::include_graphics('images/excel_chartjunk.png')
 ### Evita distorsionar los datos
 
 <!--It's often possible to use visualization to distort the message of a dataset.  A very common one is use of different axis scaling to either exaggerate or hide a pattern of data.  For example, let's say that we are interested in seeing whether rates of violent crime have changed in the US.  In Figure \@ref(fig:crimePlotAxes), we can see these data plotted in ways that either make it look like crime has remained constant, or that it has plummeted.  The same data can tell two very different stories!-->
-
 En ocasiones es posible usar la visualización para distorsionar el mensaje de un conjunto de datos. Algo muy común es el uso de diferentes escalas de eje para exagerar u ocultar un patrón de datos. Por ejemplo, digamos que estamos interesades en ver si los índices de crímenes violentos han cambiado en Estados Unidos. En la Figura \@ref(fig:crimePlotAxes), podemos ver los datos graficados de manera que parece ser que el crimen ha permanecido constante, o que se ha desplomado.¡Los mismos datos pueden contar dos historias muy diferentes!
 
-```{r crimePlotAxes,echo=FALSE,fig.cap="Datos de crimen de 1990 a 2014 graficados con el tiempo. Los paneles A y B muestran los mismos datos pero con diferentes rangos de eje. Datos obtenidos de https://www.ucrdatatool.gov/Search/Crime/State/RunCrimeStatebyState.cfm",fig.width=8,fig.height=4,out.height='50%'}
+<!-- Crime data from 1990 to 2014 plotted over time. Panels A and B show the same data, but with different ranges of values along the Y axis. Data obtained from https://www.ucrdatatool.gov/Search/Crime/State/RunCrimeStatebyState.cfm -->
+```{r crimePlotAxes,echo=FALSE,fig.cap="Datos de crímenes de 1990 a 2014 graficados con el tiempo. Los paneles A y B muestran los mismos datos pero con diferentes rangos de valores a lo largo del eje Y. Datos obtenidos de https://www.ucrdatatool.gov/Search/Crime/State/RunCrimeStatebyState.cfm",fig.width=8,fig.height=4,out.height='50%'}
 
 
 crimeData=read.table('data/CrimeStatebyState.csv',sep=',',header=TRUE) %>%
@@ -326,9 +325,10 @@ Les humanes tienen limitaciones perceptuales y cognitivas que pueden hacer ciert
 <!--### Perceptual limitations-->
 ### Limitaciones perceptuales 
 
-<!--One important perceptual limitation that many people (including myself) suffer from is color blindness.  This can make it very difficult to perceive the information in a figure (like the one in Figure \@ref(fig:badColors)) where there is only color contrast between the elements but no brightness contrast. It is always helpful to use graph elements that differ substantially in brightness and/or texture, in addition to color.  There are also ["colorblind-friendly" palettes](http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/#a-colorblind-friendly-palette) available for use in R.-->
-Una limitación perceptual importante que muchas personas (incluidas yo) sufren es daltonismo. Esto puede hacer muy difícil la percepción de la información en una figura (como la de la Figura \@ref(fig:badColors)) donde hay únicamente contraste de color entre los elementos pero no contraste de brillo. Siempre es útil utilizar elementos gráficos que difieran substancialmente en brillo y/o textura en complemento al color.  Existen también [paletas de color amigables con daltónicxs](http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/#a-colorblind-friendly-palette) disponibles para el uso en R. 
+<!--One important perceptual limitation that many people (including myself) suffer from is color blindness.  This can make it very difficult to perceive the information in a figure (like the one in Figure \@ref(fig:badColors)) where there is only color contrast between the elements but no brightness contrast. It is always helpful to use graph elements that differ substantially in brightness and/or texture, in addition to color.  There are also ["colorblind-friendly" palettes](http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/#a-colorblind-friendly-palette) available for use with many visualization tools.-->
+Una limitación perceptual importante que muchas personas (incluidas yo) sufren es daltonismo. Esto puede hacer muy difícil la percepción de la información en una figura (como la de la Figura \@ref(fig:badColors)) donde hay únicamente contraste de color entre los elementos pero no contraste de brillo. Siempre es útil utilizar elementos gráficos que difieran substancialmente en brillo y/o textura en complemento al color.  Existen también [paletas de color amigables con daltónicxs](http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/#a-colorblind-friendly-palette) disponibles para usarlas en muchas herramientas de visualización. 
 
+<!-- Example of a bad figure that relies solely on color contrast. -->
 ```{r badColors,echo=FALSE,fig.cap="Ejemplo de una mala figura que depende únicamente en el contraste de color.",fig.width=8,fig.height=4,out.height='50%'}
 exampleDf = data.frame(value=c(3,5,4,6,2,5,8,8),
                        v1=as.factor(c(1,1,2,2,3,3,4,4)),
