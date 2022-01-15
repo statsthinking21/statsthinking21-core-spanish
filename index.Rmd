@@ -27,7 +27,7 @@ output:
   bookdown::gitbook:
     lib_dir: "book_assets"
     config:
-      edit: https://github.com/statsthinking21/statsthinking21-core/edit/master/%s
+      edit: https://github.com/statsthinking21/statsthinking21-core-spanish/edit/main/%s
     includes:
       in_header:
         - google_analytics.html
