@@ -7,8 +7,8 @@ output:
       in_header: google_analytics.html
   html_document: default
 ---
-<!-- # Summarizing data -->
-# Resumir datos
+<!-- # Summarizing data {#summarizing-data} -->
+# Resumir datos {#summarizing-data}
 
 <!-- I mentioned in the Introduction that one of the big discoveries of statistics is the idea that we can better understand the world by throwing away information, and that's exactly what we are doing when we summarize a dataset. -->
 Mencioné en la Introducción que uno de los grandes descubrimientos de la estadística es la idea de que podemos entender mejor el mundo si nos deshacemos de información, y eso es justo lo que hacemos cuando resumimos un cojunto de datos.
