@@ -15,7 +15,7 @@ biblio-style: "apalike"
 documentclass: book
 link-citations: yes
 github-repo: poldrack/psych10-book
-description: "A book about statistics."
+description: "Un libro sobre estadistica."
 always_allow_html: yes
 fontsize: 12pt
 monofont: "Source Code Pro"
@@ -89,8 +89,8 @@ Este libro tiene dos acompañantes en línea que pueden ayudar al lector a comen
 <!-- ## An open source book -->
 ## Un libro de código abierto (open source) 
 
-<!-- This book is meant to be a living document, which is why its source is available online at [https://github.com/poldrack/psych10-book](https://github.com/poldrack/psych10-book).  If you find any errors in the book or want to make a suggestion for how to improve it, please open an issue on the Github site. Even better, submit a pull request with your suggested change. -->  
-Este libro pretende ser un documento vivo, razón por la cual su código está disponible en línea en [https://github.com/poldrack/psych10-book](https://github.com/poldrack/psych10-book). Si encuentra cualquier error en este libro o quieres hacer una sugerencia de cómo mejorarlo, por favor abre un *issue* en el sitio de Github. Incluso mejor, envía un *pull request* con tu cambio sugerido.
+<!-- This book is meant to be a living document, which is why its source is available online at [https://github.com/statsthinking21/statsthinking21-core](https://github.com/statsthinking21/statsthinking21-core).  If you find any errors in the book or want to make a suggestion for how to improve it, please open an issue on the Github site. Even better, submit a pull request with your suggested change. -->  
+Este libro pretende ser un documento vivo, razón por la cual su código está disponible en línea en [https://github.com/statsthinking21/statsthinking21-core-spanish](https://github.com/statsthinking21/statsthinking21-core-spanish). Si encuentra cualquier error en este libro o quieres hacer una sugerencia de cómo mejorarlo, por favor abre un *issue* en el sitio de Github. Incluso mejor, envía un *pull request* con tu cambio sugerido.
 
 <!-- The book is licensed according to the [Creative Commons Attribution-NonCommercial 2.0 Generic (CC BY-NC 2.0) License](https://creativecommons.org/licenses/by-nc/2.0/).  Please see the terms of that license for more details. -->
 Este libro se publica usando la licencia de [Creative Commons Attribution-NonCommercial 2.0 Generic (CC BY-NC 2.0) License](https://creativecommons.org/licenses/by-nc/2.0/). Por favor, ve los términos de esa licencia para más detalles.
