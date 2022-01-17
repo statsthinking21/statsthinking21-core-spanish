@@ -34,23 +34,14 @@ Los datos se componen de *variables*, en donde una variable refleja una medida o
 <!-- More commonly in statistics we will work with *quantitative* data, meaning data that are numerical.  For example, here Table \@ref(tab:WhyTakingClass) shows the results from another question that I ask in my introductory class, which is "Why are you taking this class?"-->
 Más comunmente en estadística trabajaremos con datos *cuantitativos*, lo cual significa que los datos son numéricos. Por ejemplo, aquí en la Tabla \@ref(tab:WhyTakingClass) muestra los resultados de otra de las preguntas que realizo en mi clase introductoria, la cual es "¿Por qué estás tomando esta clase?"
 
-<!--
-```{r WhyTakingClass,echo=FALSE}
-# create table showing frequency of responses to question about why students
-# are taking statistics class
 
-classData=data.frame(why=c("It fulfills a degree plan requirement",
-                           "It fulfills a General Education Breadth Requirement",
-                           "It is not required but I am interested in the topic",
-                           "Other"),
-                     nResponses=c(105,32,11,4))
-
-knitr::kable(
-  classData, booktabs = TRUE,
-  caption = 'Counts of the prevalence of different responses to the question "Why are you taking this class?"',
-  col.names=c('Why are you taking this class?',"Number of students")
-)
-```
+<!-- 
+It fulfills a degree plan requirement
+It fulfills a General Education Breadth Requirement
+It is not required but I am interested in the topic
+Other
+Counts of the prevalence of different responses to the question "Why are you taking this class?"
+col.names=c('Why are you taking this class?',"Number of students")
 -->
 ```{r WhyTakingClass,echo=FALSE}
 # create table showing frequency of responses to question about why students

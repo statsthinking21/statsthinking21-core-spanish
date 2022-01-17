@@ -38,7 +38,7 @@ cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2",
 El 28 de enero de 1986, el Space Shuttle Challenger explotó 73 segundos después del despegue, matando a lxs 7 astronautas a bordo. Así como cuando los desastres suceden, hubo una investigación oficial sobre lo que ocasionó el accidente. El cual encontró que un "O-ring" (junta tórica) que conectaba dos secciones del sólido populsor de cohete goteó, lo cual resultó en la falla de la unión y explosión del tanque propulsor (véase figura \@ref(fig:srbLeak)).
 
 
-```{r srbLeak, echo=FALSE,fig.cap="Imagen del sólido propulsor de cohete derramando combustible, segundos antes de la explosión. La pequeña flama visible al costado del cohete es el sitio de la falla del "O-ring". By NASA (Great Images in NASA Description) [Public domain], via Wikimedia Commons",fig.height=3,out.height='20%'}
+```{r srbLeak, echo=FALSE,fig.cap="Imagen del sólido propulsor de cohete derramando combustible, segundos antes de la explosión. La pequeña flama visible al costado del cohete es el sitio de la falla del O-ring (junta tórica). By NASA (Great Images in NASA Description) [Public domain], via Wikimedia Commons",fig.height=3,out.height='20%'}
 knitr::include_graphics("images/Booster_Rocket_Breach_-_GPN-2000-001425.jpg")
 ```
 
