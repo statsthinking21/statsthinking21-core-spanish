@@ -71,9 +71,10 @@ Esto es, el error en cualquier observación es la diferencia entre el valor obse
 ## Modelado estadístico: Un ejemplo 
 
 <!--Let's look at an example of building a model for data, using the data from NHANES.  In particular, we will try to build a model of the height of children in the NHANES sample. First let's load the data and plot them (see Figure \@ref(fig:childHeight)).-->
-Observemos un ejemplo de construir un modelo para un conjunto de datos, utilizando los datos de NHANES. En particular, trataremos de construir un modelo de la altura de lxs niñxs en la muestra de NHANES. Primero vamos a cargar los datos y los graficaremos (ve la Figura \@ref(fig:childHeight)).. 
+Observemos un ejemplo de construir un modelo para un conjunto de datos, utilizando los datos de NHANES. En particular, trataremos de construir un modelo de la altura de lxs niñxs en la muestra de NHANES. Primero vamos a cargar los datos y los graficaremos (ve la Figura \@ref(fig:childHeight)).
 
-```{r childHeight,echo=FALSE,fig.cap="Histogram of height of children in NHANES.",fig.width=4,fig.height=4,out.height='50%'}
+<-- fig.cap="Histogram of height of children in NHANES." -->
+```{r childHeight,echo=FALSE,fig.cap="Histograma de la altura de lxs niñxs en NHANES.",fig.width=4,fig.height=4,out.height='50%'}
 
 # drop duplicated IDs within the NHANES dataset
 NHANES <- 
@@ -96,14 +97,14 @@ NHANES_child %>%
 Recuerda que queremos describir los datos de la forma más simple posible mientras que al mismo tiempo capturamos sus características más importantes. El modelo más simple que podemos imaginar involucraría un solo número; esto es, el modelo predeciría el mismo valor para cada observación, sin importar qué más cosas podamos saber acerca de estas observaciones.  Generalmente describimos un modelo en términos de sus *parámetros*, que son valores que podemos cambiar para modificar las predicciones del modelo.  A lo largo de este libro, nos referiremos a estos parámetros usando la letra griega beta ($\beta$); cuando el modelo tiene más de un parámetro, usamos números en subíndices para denotar diferentes betas (por ejemplo, $\beta_1$).  La costumbre también es referirnos a los valores de los datos usando la letra $y$, y usar los subíndices $y_i$ para referirnos a las observaciones individuales.
 
 <!-- We generally don't know the true values of the parameters, so we have to estimate them from the data.  For this reason, we will generally put a "hat" over the $\beta$ symbol to denote that we are using an estimate of the parameter value rather than its true value (which we generally don't know). Thus, our simple model for height using a single parameter would be: -->
-Generalmente no sabemos los verdaderos valores de los parámetros, por lo que tenemos que estimarlos a partir de los datos. Por esta razón, generalmente le pondremos un "sombrero" sobre los símbolos de los $\beta$ para denotar que estamos usando una estimación del valor del parámetro en lugar de su valor verdadero (el cual generalmente no lo sabemos). Por lo tanto, el modelo más simple para los datos de la altura usando un solo parámetro sería:
+Generalmente no sabemos los verdaderos valores de los parámetros, por lo que tenemos que estimarlos a partir de los datos. Por esta razón, generalmente le pondremos un "sombrero" sobre los símbolos de los $\beta$ para denotar que estamos usando una estimación del valor del parámetro en lugar de su valor verdadero (el cual generalmente no sabemos). Por lo tanto, el modelo más simple para los datos de la altura usando un solo parámetro sería:
 
 $$
 y_i = \hat{\beta} + \epsilon
 $$
 
 <!-- The subscript $i$ doesn't appear on the right side of the equation, which means that the prediction of the model doesn't depend on which observation we are looking at --- it's the same for all of them.  The question then becomes: how do we estimate the best values of the parameter(s) in the model? In this particular case, what single value is the best estimate for $\beta$?  And, more importantly, how do we even define *best*? -->
-El subíndice $i$ no aparece en el lado derecho de la ecuación, lo que significa que la predicción del modelo no depende de cuál observación estamos revisando --- es la misma predicción para todas las observaciones.  La pregunta entonces se convierte en: ¿Cómo podemos estimar de los mejores valores de los parámetros en el modelo?  En este caso en particular, ¿cuál valor individual es la mejor estimación de $\beta$?  Y de manera aún más importante, ¿cómo definimos lo que es *mejor*?
+El subíndice $i$ no aparece en el lado derecho de la ecuación, lo que significa que la predicción del modelo no depende de cuál observación estamos revisando --- es la misma predicción para todas las observaciones.  La pregunta entonces se convierte en: ¿Cómo podemos estimar los mejores valores de los parámetros del modelo?  En este caso en particular, ¿cuál valor individual es la mejor estimación de $\beta$?  Y de manera aún más importante, ¿cómo definimos lo que es *mejor*?
 
 ```{r echo=FALSE}
 # create function to compute mode and apply to child height data from NHANES
@@ -149,7 +150,8 @@ $$
 <!--It turns out that if we use the arithmetic mean as our estimator then the average error will indeed be zero (see the simple proof at the end of the chapter if you are interested). Even though the average of errors from the mean is zero, we can see from the histogram in Figure \@ref(fig:meanError) that each individual still has some degree of error; some are positive and some are negative, and those cancel each other out to give an average error of zero. -->
 Resulta que si usamos la media aritmética como nuestro estimador, entonces el promedio de error efectivamente será cero (mira la prueba al final de este capítulo si estás interesadx).  Aunque el promedio de error sobre la media es cero, podemos observar en el histograma en la Figura \@ref(fig:meanError) que cada persona aún tiene algún grado de error; algunos errores son positivos y otros son negativos, por lo que se terminan cancelando entre sí dando un promedio de error igual a cero.
 
-```{r meanError, echo=FALSE,fig.cap="Distribution of errors from the mean.",fig.width=4,fig.height=4,out.height='50%'}
+<!-- fig.cap="Distribution of errors from the mean." -->
+```{r meanError, echo=FALSE,fig.cap="Distribución de errores a partir de la media.",fig.width=4,fig.height=4,out.height='50%'}
 # compute error compared to the mean and plot histogram
 
 error_mean <- NHANES_child$Height - mean(NHANES_child$Height)
@@ -186,7 +188,8 @@ La media contiene una cantidad sustancial de error -- cualquier punto individual
 <!--Can we imagine a better model? Remember that these data are from all children in the NHANES sample, who vary from `r I(min(NHANES_child$Age))` to `r I(max(NHANES_child$Age))` years of age.  Given this wide age range, we might expect that our model of height should also include age. Let's plot the data for height against age, to see if this relationship really exists.-->
 ¿Podemos imaginar un mejor modelo? Recuerda que estos datos son de todxs lxs niñxs en la muestra NHANES, quienes varían de `r I(min(NHANES_child$Age))` a `r I(max(NHANES_child$Age))` años de edad. Dado este amplio rango de edades, esperaríamos que nuestro modelo de estatura también incluyera edad. Grafiquemos los datos de estatura frente a la edad, para ver si realmente existe relación.  
 
-```{r childHeightLine,echo=FALSE, message=FALSE, fig.cap="Height of children in NHANES, plotted without a model (A), with a linear model including only age (B) or age and a constant (C), and with a linear model that fits separate effects of age for males and females (D)."}
+<!-- fig.cap="Height of children in NHANES, plotted without a model (A), with a linear model including only age (B) or age and a constant (C), and with a linear model that fits separate effects of age for males and females (D)." -->
+```{r childHeightLine,echo=FALSE, message=FALSE, fig.cap="Altura de lxs niñxs en NHANES, graficada sin un modelo (A), con un modelo lineal que incluye sólo edad (B) o edad y una constante (C), y con un modelo lineal que ajusta efectos separados de la edad para niños y niñas (D)."}
 
 
 p1 <- NHANES_child %>% 
@@ -242,21 +245,32 @@ donde \hat{$\beta$} es nuestra estimación del *parámetro* que multiplicamos po
 <!--You may remember from algebra that a line is defined as follows:-->
 Puede que recuerdes de álgebra que una línea se define de la siguiente manera:
 
+<!-- 
 $$
 y = slope*x + intercept
 $$
+-->
+$$
+y = pendiente*x + constante
+$$
 
 <!--If age is the $X$ variable, then that means that our prediction of height from age will be a line with a slope of $\beta$ and an intercept of zero - to see this, let's plot the best fitting line in blue on top of the data (Panel B in Figure \@ref(fig:childHeightLine)). Something is clearly wrong with this model, as the line doesn't seem to follow the data very well.  In fact, the RMSE for this model (`r I(rmse_heightOnly)`) is actually higher than the model that only includes the mean! The problem comes from the fact that our model only includes age, which means that the predicted value of height from the model must take on a value of zero when age is zero.  Even though the data do not include any children with an age of zero, the line is mathematically required to have a y-value of zero when x is zero, which explains why the line is pulled down below the younger datapoints.  We can fix this by including n intercept in our model, which basically represents the estimated height when age is equal to zero; even though an age of zero is not plausible in this dataset, this is a mathematical trick that will allow the model to account for the overall magnitude of the data.  The model is:-->
-Si la edad es la variable $X$, eso quiere decir que nuestra predicción de la altura conforme a la edad será una línea con una pendiente de $\beta$ y una intercepción de cero. Para observar esto, tracemos una línea azul que mejor se acomode sobre los datos (Panel B en Figura \@ref(fig:childHeightLine)). Algo está claramente mal con este modelo, ya que, la linea no parece seguir los datos muy bien. De hecho, ¡el RMSE para este modelo (`r I(rmse_heightOnly)`) es más alto que el modelo que solamente incluye la media! El problema radica en el hecho de que nuestro modelo solamente incluye la edad, lo cual significa que el valor de la altura predicho por el modelo debe tomar un valor de cero cuando la edad es cero. Aunque los datos no incluyen niñxs con edad de cero, la línea requiere matemáticamente tener un valor "y" de cero cuando "X" es cero, lo cual explica por qué la línea es jalada por debajo de los puntos de datos más bajos (o jóvenes). Podemos arreglar esto al incluir una constante (*intercept*) en nuestro modelo, lo cual básicamente representa una altura estimada cuando la edad es igual a cero; aunque una edad de cero no es plausible en este conjunto de datos, este es un truco matemático que permitirá que el modelo tenga en cuenta la magnitud general de los datos.  
+Si la edad es la variable $X$, eso quiere decir que nuestra predicción de la altura conforme a la edad será una línea con una pendiente de $\beta$ y una constante de cero. Para observar esto, tracemos una línea azul que mejor se acomode sobre los datos (Panel B en Figura \@ref(fig:childHeightLine)). Algo está claramente mal con este modelo, ya que, la linea no parece seguir los datos muy bien. De hecho, ¡el RMSE para este modelo (`r I(rmse_heightOnly)`) es más alto que el modelo que solamente incluye la media! El problema radica en el hecho de que nuestro modelo solamente incluye la edad, lo cual significa que el valor de la altura predicho por el modelo debe tomar un valor de cero cuando la edad es cero. Aunque los datos no incluyen niñxs con edad de cero, la línea requiere matemáticamente tener un valor "y" de cero cuando "X" es cero, lo cual explica por qué la línea es jalada por debajo de los puntos de datos más bajos (o jóvenes). Podemos arreglar esto al incluir una constante (*intercept*) en nuestro modelo, lo cual básicamente representa una altura estimada cuando la edad es igual a cero; aunque una edad de cero no es plausible en este conjunto de datos, este es un truco matemático que permitirá que el modelo tenga en cuenta la magnitud general de los datos.  
 
+<!-- 
 $$
 \widehat{y_i} = \hat{\beta_0} + \hat{\beta_1} * age_i
 $$
+-->
+$$
+\widehat{y_i} = \hat{\beta_0} + \hat{\beta_1} * edad_i
+$$
 
 <!--where $\hat{\beta_0}$ is our estimate for the *intercept*, which is a constant value added to the prediction for each individual; we call it the intercept because it maps onto the intercept in the equation for a straight line.  We will learn later how it is that we actually estimate these parameter values for a particular dataset; for now, we will use our statistical software to estimate the parameter values that give us the smallest error for these particular data. Panel C in Figure \@ref(fig:childHeightLine) shows this model applied to the NHANES data, where we see that the line matches the data much better than the one without a constant.-->
-donde $\hat{\beta_0}$ es nuestra estimación para la *constante* (*intercept*), el cual es un valor constante agregado a la predicción para cada persona; lo llamamos constante porque se mapea en la constante en la ecuación de la línea recta (la altura en $y$ por la que cruza la línea cuando x es igual a cero). Más adelante aprenderemos cómo es que realmente estimamos estos valores de parámetros para un conjunto de datos en particular; por ahora, usaremos nuestro software estadístico para estimar los valores de los parámetros que nos den el error más pequeño para este conjunto de datos en particular. El Panel C en la Figura \@ref(fig:childHeightLine) muestra este modelo aplicado a los datos de NHANES, en donde podemos observar que la línea coincide mucho mejor con los datos que la que no tiene constante. 
+donde $\hat{\beta_0}$ es nuestra estimación para la *constante* (*intercept*), el cual es un valor constante agregado a la predicción para cada persona; lo llamamos constante porque se mapea en la constante (o *intercept*) en la ecuación de la línea recta (la altura en $y$ por la que cruza la línea cuando x es igual a cero). Más adelante aprenderemos cómo es que realmente estimamos estos valores de parámetros para un conjunto de datos en particular; por ahora, usaremos nuestro software estadístico para estimar los valores de los parámetros que nos den el error más pequeño para este conjunto de datos en particular. El Panel C en la Figura \@ref(fig:childHeightLine) muestra este modelo aplicado a los datos de NHANES, en donde podemos observar que la línea coincide mucho mejor con los datos que la que no tiene constante. 
 
-```{r ageHeightError,echo=FALSE,fig.cap="Distribution of errors from model including constant and age.",fig.width=4,fig.height=4,out.height='50%'}
+<!-- fig.cap="Distribution of errors from model including constant and age." -->
+```{r ageHeightError,echo=FALSE,fig.cap="Distribución de los errores del modelo que incluye una constante y la edad.",fig.width=4,fig.height=4,out.height='50%'}
 # find the best fitting model to predict height given age
 model_age <- lm(Height ~ Age, data = NHANES_child)
 
@@ -296,7 +310,8 @@ rmse_age_gender <-
 <!--Our error is much smaller using this model -- only `r I(rmse_age)` centimeters on average.  Can you think of other variables that might also be related to height? What about gender?  In Panel D of Figure \@ref(fig:childHeightLine) we plot the data with lines fitted separately for males and females. From the plot, it seems that there is a difference between males and females, but it is relatively small and only emerges after the age of puberty.  In Figure \@ref(fig:msePlot) we plot the root mean squared error values across the different models, including one with an additional parameter that models the effect of gender. From this we see that the model got a little bit better going from mode to mean, much better going from mean to mean + age, and only very slightly better by including gender as well.-->
 Nuestro error es mucho más pequeño utilizando este modelo -- sólo `r I(rmse_age)` centímetros en promedio. ¿Puedes pensar en otras variables que también se relacionen con la estatura? ¿Qué hay del género? En el Panel D de la Figura \@ref(fig:childHeightLine) graficamos los datos con líneas distintas para género masculino y femenino. Observando sólo la gráfica, parece ser que existe una diferencia entre género masculino y femenino, pero es relativamente pequeño y solamente comienza después de la etapa de la pubertad. En la Figura \@ref(fig:msePlot) trazamos los valores de la raíz del error cuadrático medio a través de los diferentes modelos, incluyendo un modelo más que tiene un parámetro adicional que modela el efecto del género. Aquí podemos ver que el modelo mejoró un poco al pasar de moda a media, posteriormente mejora más al pasar de media a media + edad, y mejora sólo un poco más al incluir el género también. 
 
-```{r msePlot,echo=FALSE, fig.cap="Mean squared error plotted for each of the models tested above.",fig.width=4,fig.height=4,out.height='50%'}
+<!-- fig.cap="Mean squared error plotted for each of the models tested above." -->
+```{r msePlot,echo=FALSE, fig.cap="Error cuadrático medio graficado para cada uno de los modelos probados arriba.",fig.width=4,fig.height=4,out.height='50%'}
 error_df <- #build a dataframe using the function tribble()
   tribble(
     ~model, ~error,
@@ -332,7 +347,8 @@ Para entender esto, pensemos de dónde viene el error. Puede ocurrir si nuestro 
 <!--Let's use an example to show this.  Rather than using real data, we will generate some data for the example using a computer simulation (about which we will have more to say in a few chapters).  Let's say that we want to understand the relationship between a person's blood alcohol content (BAC) and their reaction time on a simulated driving test.  We can generate some simulated data and plot the relationship (see Panel A of Figure \@ref(fig:BACrt)).-->
 Usemos un ejemplo para ilustrar esto. En lugar de utilizar datos reales, generaremos datos para este ejemplo utilizando una simulación por computadora (de la cual hablaremos más adelante en los siguientes capítulos). Digamos que queremos comprender la relación entre el contenido de alcohol en la sangre ("BAC" por sus siglas en inglés: *blood alcohol content*) y su tiempo de reacción en una prueba de conducir simulada. Podemos generar algunos datos simulados y graficar la relación (ver Panel A de la Figura \@ref(fig:BACrt)).
 
-```{r, BACrt,echo=FALSE,message=FALSE, fig.cap="Simulated relationship between blood alcohol content and reaction time on a driving test, with best-fitting linear model represented by the line. A: linear relationship with low measurement error.  B: linear relationship with higher measurement error.  C: Nonlinear relationship with low measurement error and (incorrect) linear model"}
+<!-- fig.cap="Simulated relationship between blood alcohol content and reaction time on a driving test, with best-fitting linear model represented by the line. A: linear relationship with low measurement error.  B: linear relationship with higher measurement error.  C: Nonlinear relationship with low measurement error and (incorrect) linear model" -->
+```{r, BACrt,echo=FALSE,message=FALSE, fig.cap="Relación simulada entre contenido de alcohol en la sangre y tiempo de reacción en una prueba de manejo, con el mejor modelo lineal ajustado representado por la línea. A: relación lineal con bajo error de medición. B: relación lineal con alto error de medición. C: relación no-lineal con bajo error de medición y un modelo lineal ajustado (incorrectamente)."}
 dataDf <-  
   tibble(
     BAC = runif(100) * 0.3,
@@ -390,12 +406,13 @@ Estos fueron dos ejemplos en donde la relación entre las dos variables parece s
 ## ¿Un modelo puede ser demasiado bueno? {#overfitting}
 
 <!--Error sounds like a bad thing, and usually we will prefer a model that has lower error over one that has higher error. However, we mentioned above that there is a tension between the ability of a model to accurately fit the current dataset and its ability to generalize to new datasets, and it turns out that the model with the lowest error often is much worse at generalizing to new datasets!-->
-Un error suena como algo malo, y usualmente vamos a preferir un modelo que tenga menor error a uno que tenga mayor error. No obstante, ya mencionamos que existe tensión entre la habilidad de un modelo para ajustarse correctamente a un conjunto de datos en particular y su habilidad para generalizarse a nuevos conjuntos de datos... ¡Y resulta ser que el modelo con el menor error es a menudo peor para generalizarse a nuevos conjuntos de datos!
+Un error suena como algo malo, y usualmente vamos a preferir un modelo que tenga menor error a uno que tenga mayor error. No obstante, ya mencionamos que existe tensión entre la habilidad de un modelo para ajustarse correctamente a un conjunto de datos en particular y su habilidad para generalizarse a nuevos conjuntos de datos, ¡y resulta ser que el modelo con el menor error es a menudo peor para generalizarse a nuevos conjuntos de datos!
 
 <!--To see this, let's once again generate some data so that we know the true relation between the variables.  We will create two simulated datasets, which are generated in exactly the same way -- they just have different random noise added to them.  That is, the equation for both of them is $y = \beta * X + \epsilon$; the only difference is that different random noise was used for $\epsilon$ in each case. -->
 Para ver esto, hay que generar de nuevo un conjunto de datos para que podamos conocer la verdadera relación entre las variables. Crearemos dos conjuntos de datos simulados, los cuales se generarán de la misma manera exacta -- solamente que van a tener diferente ruido aleatorio añadido a ellos.  Esto es, la ecuación para ambos conjuntos de datos es $y = \beta * X + \epsilon$; la única diferencia está en que se usó diferente ruido aleatorio para $\epsilon$ en cada caso.
 
-```{r Overfitting,echo=FALSE,message=FALSE,warning=FALSE, fig.cap='An example of overfitting. Both datasets were generated using the same model, with different random noise added to generate each set.  The left panel shows the data used to fit the model, with a simple linear fit in blue and a complex (8th order polynomial) fit in red.  The root mean square error (RMSE) values for each model are shown in the figure; in this case, the complex model has a lower RMSE than the simple model.  The right panel shows the second dataset, with the same model overlaid on it and the RMSE values computed using the model obtained from the first dataset.  Here we see that the simpler model actually fits the new dataset better than the more complex model, which was overfitted to the first dataset.',fig.width=8,fig.height=4,out.height='50%'}
+<!-- fig.cap='An example of overfitting. Both datasets were generated using the same model, with different random noise added to generate each set.  The left panel shows the data used to fit the model, with a simple linear fit in blue and a complex (8th order polynomial) fit in red.  The root mean square error (RMSE) values for each model are shown in the figure; in this case, the complex model has a lower RMSE than the simple model.  The right panel shows the second dataset, with the same model overlaid on it and the RMSE values computed using the model obtained from the first dataset.  Here we see that the simpler model actually fits the new dataset better than the more complex model, which was overfitted to the first dataset.' -->
+```{r Overfitting,echo=FALSE,message=FALSE,warning=FALSE, fig.cap='Un ejemplo de sobreajuste (overfitting). Ambos conjuntos de datos fueron generados usando el mismo modelo, con diferente ruido aleatorio añadido al generar cada conjunto. El panel izquierdo muestra los datos usados para ajustar el modelo, con un modelo lineal simple en azul y un modelo complejo (polinomial de 8vo orden) en rojo. Los valores de la raíz cuadrada del error cuadrático medio (RMSE, root mean square error) de cada modelo se muestran en la figura; en este caso, el modelo complejo tiene menor RMSE que el modelo simple. El panel de la derecha muestra el segundo conjunto de datos, con el mismo modelo sobrepuesto y los valores RMSE calculados usando usando el modelo obtenido del primer conjunto de datos. Aquí vemos que el modelo más simple ajustar mejor a los nuevos datos que el modelo más complejo, el cual había sido sobreajustado (overfitted) al primer conjunto de datos.',fig.width=8,fig.height=4,out.height='50%'}
 
 #parameters for simulation
 set.seed(1122)
@@ -501,23 +518,23 @@ plot_grid(plot_original_data, plot_new_data)
 ```
 
 <!--The left panel in Figure \@ref(fig:Overfitting) shows that the more complex model (in red) fits the data better than the simpler model (in blue).  However, we see the opposite when the same model is applied to a new dataset generated in the same way -- here we see that the simpler model fits the new data better than the more complex model.  Intuitively, we can see that the more complex model is influenced heavily by the specific data points in the first dataset; since the exact position of these data points was driven by random noise, this leads the more complex model to fit badly on the new dataset. This is a phenomenon that we call *overfitting*. For now it's important to keep in mind that our model fit needs to be good, but not too good. As Albert Einstein (1933) said: "It can scarcely be denied that the supreme goal of all theory is to make the irreducible basic elements as simple and as few as possible without having to surrender the adequate representation of a single datum of experience." Which is often paraphrased as: "Everything should be as simple as it can be, but not simpler."-->
-El panel de la izquierda en la Figura \@ref(fig:Overfitting) muestra que el modelo más complejo (en rojo) se ajusta a los datos mejor que el modelo simple (en azul) generado en la misma manera-- aquí podemos observar que el modelo más simple se ajusta mejor al nuevo conjunto de datos que el modelo complejo. Intuitivamente podemos observar que el modelo complejo está influenciado por los puntos specíficos de los datos en el primer conjunto de datos; dado que la posición exacta de estos puntos de datos fue impulsada por ruido aleatorio, esto lleva al modelo complejo a ajustarse mal en el nuevo conjunto de datos. A este fenómeno lo llamamos *sobreajuste* (*overfitting* en inglés). Por ahora es importante que mantengamos en mente que nuestro modelo debe ajustarse bien, pero no demasiado bien. Como lo dijo alguna vez Albert Einstein (1933): "Difícilmente se puede negar que el fin supremo de toda teoría es hacer que los elementos básicos irreductibles sean lo más simples y pocos posibles sin tener que renunciar a la representación adecuada de un solo dato de experiencia." Lo cual frecuentemente se parafrasea como: "Todo debe de ser tan simple como pueda ser, pero no más simple."
+El panel de la izquierda en la Figura \@ref(fig:Overfitting) muestra que el modelo más complejo (en rojo) se ajusta a los datos mejor que el modelo simple (en azul) generado en la misma manera-- aquí podemos observar que el modelo más simple se ajusta mejor al nuevo conjunto de datos que el modelo complejo. Intuitivamente podemos observar que el modelo complejo está influenciado por los puntos specíficos de los datos en el primer conjunto de datos; dado que la posición exacta de estos puntos de datos fue influida por ruido aleatorio, esto lleva al modelo complejo a ajustarse mal en el nuevo conjunto de datos. A este fenómeno lo llamamos *sobreajuste* (*overfitting* en inglés). Por ahora es importante que mantengamos en mente que nuestro modelo debe ajustarse bien, pero no demasiado bien. Como lo dijo alguna vez Albert Einstein (1933): "Difícilmente se puede negar que el fin supremo de toda teoría es hacer que los elementos básicos irreductibles sean lo más simples y pocos posibles sin tener que renunciar a la representación adecuada de un solo dato de experiencia." Lo cual frecuentemente se parafrasea como: "Todo debe de ser tan simple como pueda ser, pero no más simple."
 
 <!--## Summarizing data using the mean-->
 ## Resumir datos usando la media
 
 <!--We have already encountered the mean (or average) above, and in fact most people know about the average even if they have never taken a statistics class. It is commonly used to describe what we call the "central tendency" of a dataset -- that is, what value are the data centered around?  Most people don't think of computing a mean as fitting a model to data.  However, that's exactly what we are doing when we compute the mean.-->  
-Ya nos hemos encontrado con la media (o promedio) más arriba, y de hecho, la mayoría de las personas conoce qué es un promedio, incluso si nunca han tomado una clase de estadística. Es más comunmente usado para describir lo que llamamos la "tendencia central" del conjunto de datos -- ¿cuál es el valor en el que se centran los datos? La mayoría de las personas no piensa que calcular una media es ajustar un modelo a los datos. Sin embargo, eso es exactamente lo que estamos haciendo cuando calculamos la media.   
+Ya nos hemos encontrado con la media (o promedio) más arriba, y de hecho, la mayoría de las personas conoce qué es un promedio, incluso aunque nunca haya tomado una clase de estadística. Es más comunmente usada para describir lo que llamamos la "tendencia central" del conjunto de datos -- ¿cuál es el valor en el que se centran los datos? La mayoría de las personas no piensa que calcular una media es ajustar un modelo a los datos. Sin embargo, eso es exactamente lo que estamos haciendo cuando calculamos la media.   
 
 <!--We have already seen the formula for computing the mean of a sample of data:-->
-Ya hemos revisado la formula para calcular la media de una muestra de datos:
+Ya hemos revisado la fórmula para calcular la media de una muestra de datos:
 
 $$
 \bar{X} = \frac{\sum_{i=1}^{n}x_i}{n}
 $$
 
 <!--Note that I said that this formula was specifically for a *sample* of data, which is a set of data points selected from a larger population. Using a sample, we wish to characterize a larger population -- the full set of individuals that we are interested in. For example, if we are a political pollster our population of interest might be all registered voters, whereas our sample might just include a few thousand people sampled from this population.  In Chapter 7 we will talk in more detail about sampling, but for now the important point is that statisticians generally like to use different symbols to differentiate *statistics* that describe values for a sample from *parameters* that describe the true values for a population; in this case, the formula for the population mean (denoted as $\mu$) is:-->
-Nota que dije que esta fórmula es específica para una *muestra* de datos, lo cual es un grupo de datos seleccionados de una población más grande. Usando una muestra, deseamos caracterizar una población más grande -- el conjunto total de individuos en lxs que estamos interesadxs. Por ejemplo, si fuéramos unx encuestadxr político nuestra población de interés tal vez serían todxs lxs votantes registradxs, mientras que nuestra muestra podría incluir solo unos pocos miles de personas de esta población. En el capítulo 7 estaremos hablando con más detalle sobre el muestreo, pero por ahora el punto importante es que a lxs estadísticxs generalmente les gusta usar diferentes símbolos para diferenciar *estadísticas* que describen valores para una muestra de *parámetros* que describen los valores verdaderos para una población; en este caso la fórmula para la media (denotada como $\mu$) de la población es:  
+Nota que dije que esta fórmula es específica para una *muestra* de datos, lo cual es un grupo de datos seleccionados de una población más grande. Usando una muestra, deseamos caracterizar una población más grande -- el conjunto total de individuos en lxs que estamos interesadxs. Por ejemplo, si fuéramos unx encuestadxr político nuestra población de interés tal vez serían todxs lxs votantes registradxs, mientras que nuestra muestra podría incluir solo unos pocos miles de personas de esta población. En el capítulo 7 estaremos hablando con más detalle sobre el muestreo, pero por ahora el punto importante es que a lxs estadísticxs generalmente les gusta usar diferentes símbolos para diferenciar *estadísticas* que describen valores para una muestra, de *parámetros* que describen los valores verdaderos para una población; en este caso la fórmula para la media (denotada como $\mu$) de la población es:  
 
 $$
 \mu = \frac{\sum_{i=1}^{N}x_i}{N}
@@ -530,7 +547,6 @@ donde N es el tamaño de la población completa.
 Ya hemos visto que la media es el estimador que nos garantiza darnos un error promedio de cero, pero también aprendimos que el error promedio no es el mejor criterio; en su lugar, queremos un estimador que nos brinde la suma de errores cuadráticos (SSE, *sum of squared errors*) más baja, que también obtenemos usando la media.  Podemos probar esto usando cálculo, pero en su lugar vamos a demostrarlo gráficamente en la Figura \@ref(fig:MinSSE).
 
 <!--fig.cap="A demonstration of the mean as the statistic that minimizes the sum of squared errors.  Using the NHANES child height data, we compute the mean (denoted by the blue bar). Then, we test a range of possible parameter estimates, and for each one we compute the sum of squared errors for each data point from that value, which are denoted by the black curve.  We see that the mean falls at the minimum of the squared error plot." -->
-
 ```{r MinSSE, echo=FALSE,fig.cap="Una demostración de la media como la estadística que minimiza la suma de los errores cuadráticos. Utilizando los datos de la altura del NHANES, calculamos la media (la barra azul). Luego, probamos un rango de posibles estimaciones de parámetros, y por cada uno calculamos la suma de errores cuadráticos por cada dato de ese valor, el cual se indica por la curva negra. Vemos que la media cae al mínimo en la gráfica del error cuadrático.",fig.width=4,fig.height=4,out.height='50%'} 
 df_error <- 
   tibble(
@@ -562,7 +578,7 @@ df_error %>%
 ```
 
 <!--This minimization of SSE is a good feature, and it's why the mean is the most commonly used statistic to summarize data.  However, the mean also has a dark side.  Let's say that five people are in a bar, and we examine each person's  income:-->
-El minimizar la suma de los errores cuadráticos (SSE) es una buena característica, y es la razón por la que la media es el estadístico más comunmente usado para resumir datos. No obstante, la media también tiene su lado oscuro. Digamos que hay cinco personas en un bar, y examinamos el ingreso económico de cada unx (Tabla \@ref(tab:income1)):  
+El minimizar la suma de los errores cuadráticos (SSE) es una buena característica, y es la razón por la que la media es el estadístico más comúnmente usado para resumir datos. No obstante, la media también tiene su lado oscuro. Digamos que hay cinco personas en un bar, y examinamos el ingreso económico de cada unx (Tabla \@ref(tab:income1)):  
 
 ```{r echo=FALSE}
 # create income data frame
@@ -575,8 +591,9 @@ incomeDf <-
 
 ```
 
+<!-- caption='Income for our five bar patrons' -->
 ```{r income1, echo=FALSE}
-kable(incomeDf, caption='Income for our five bar patrons')
+kable(incomeDf, caption='Ingreso de nuestros cinco clientes en el bar.')
 ```
 
 <!--The mean (`r I(sprintf("%0.2f", mean(incomeDf$income)))`) seems to be a pretty good summary of the income of those five people.  Now let's look at what happens if Beyoncé Knowles walks into the bar:-->
@@ -592,8 +609,9 @@ incomeDf <-
 
 ```
 
+<!-- caption='Income for our five bar patrons plus Beyoncé Knowles. -->
 ```{r income2, echo=FALSE}
-kable(incomeDf %>% mutate(income=format(income, scientific=FALSE)), caption='Income for our five bar patrons plus Beyoncé Knowles.')
+kable(incomeDf %>% mutate(income=format(income, scientific=FALSE)), caption='Ingreso de nuestros cinco clientes en el bar más Beyoncé Knowles.')
 
 ```
 
@@ -604,7 +622,7 @@ La media es ahora casi 10 millones de dólares, lo cual no es verdaderamente rep
 ## Resumir datos robústamente usando la mediana
 
 <!--If we want to summarize the data in a way that is less sensitive to outliers, we can use another statistic called the *median*.  If we were to sort all of the values in order of their magnitude, then the median is the value in the middle.  If there is an even number of values then there will be two values tied for the middle place, in which case we take the mean (i.e. the halfway point) of those two numbers.-->
-Si queremos resumir los datos en una forma que sea menos sensible a valores atípicos, podemos utilizar otra herramienta estadística llamada la *mediana*. Si nuestro propósito fuera acomodar todos los valores en orden de su magnitud, entonces la mediana es el valor que queda en medio. Si hay un número par de valores, entonces habrá dos valores empatados para el lugar medio, en cuyo caso tomamos la media (es decir, el punto medio) de esos dos números.
+Si queremos resumir los datos en una forma que sea menos sensible a valores atípicos, podemos utilizar otra herramienta estadística llamada la *mediana*. Si acomodáramos todos los valores en orden de su magnitud, entonces la mediana es el valor que queda en medio. Si hay un número par de valores, entonces habrá dos valores empatados para el lugar medio, en cuyo caso tomamos la media (es decir, el punto medio) de esos dos números.
 
 <!--Let's look at an example.  Say we want to summarize the following values:-->
 Veamos un ejemplo: Digamos que queremos resumir los siguientes valores:
@@ -622,7 +640,7 @@ Si ordenamos dichos valores:
 ```
 
 <!--Then the median is the middle value -- in this case, the 5th of the 9 values.-->
-Entonces la mediana es el valor de en medio -- en este caso, el quinto de los nueve valores. 
+Entonces la mediana es el valor de en medio -- en este caso, el quinto de los nueve valores; es decir, el valor de la mediana sería igual a 7. 
 
 <!--Whereas the mean minimizes the sum of squared errors, the median minimizes a slighty different quantity: The sum of the *absolute value* of errors.  This explains why it is less sensitive to outliers -- squaring is going to exacerbate the effect of large errors compared to taking the absolute value.  We can see this in the case of the income example: The median income (\$65,000) is much more representative of the group as a whole than the mean (\$9,051,333), and less sensitive to the one large outlier.-->
 Mientras que la media minimiza la suma de los errores cuadráticos, la mediana minimiza una cantidad ligeramente distinta: la suma de los errores en *valores absolutos* (*absolute value of errors*). Esto explica por qué es menos sensible a valores atípicos -- elevar al cuadrado va a exacerbar el efecto de errores grandes en comparación con tomar el valor absoluto. Podemos ver esto en el caso del ingreso económico: la mediana de ingreso (\$65,000) es mucho más representativa de todo el grupo que la media (\$9,051,333), y menos sensible al valor atípico tan grande.  
@@ -657,7 +675,7 @@ meanPhoneNumber <-
 ```
 
 <!--Sometimes we wish to describe the central tendency of a dataset that is not numeric.  For example, let's say that we want to know which models of iPhone are most commonly used.  To test this, we could ask a large group of iPhone users which model each person owns. If we were to take the average of these values, we might see that the mean iPhone model is `r I(meanPhoneNumber)`, which is clearly nonsensical, since the iPhone model numbers are not meant to be quantitative measurements. In this case, a more appropriate measure of central tendency is the mode, which is the most common value in the dataset, as we discussed above.-->
-A veces deseamos describir la tendencia central de un conjunto de datos que no es numérico. Por ejemplo, digamos que queremos saber cuáles modelos de iPhones son más comunmente usados. Para probar esto, podemos preguntarle a un grupo grande de usuarios de iPhone cuál modelo es el que cada unx tiene. Si sacáramos el promedio de esos valores posiblemente veamos que la media del modelo de iPhone sería `r I(meanPhoneNumber)`, lo cual no tiene sentido, ya que, el número de modelo de iPhone no están diseñados para ser mediciones cuantitativas. En este caso, una medición de tendencia central más apropiada es la moda, cuál es el valor más común en el conjunto de datos. 
+A veces deseamos describir la tendencia central de un conjunto de datos que no es numérico. Por ejemplo, digamos que queremos saber cuáles modelos de iPhones son más comunmente usados. Para probar esto, podemos preguntarle a un grupo grande de usuarios de iPhone cuál modelo es el que cada unx tiene. Si sacáramos el promedio de esos valores posiblemente veamos que la media del modelo de iPhone sería `r I(meanPhoneNumber)`, lo cual no tiene sentido, ya que, el número de modelo de iPhone no están diseñados para ser mediciones cuantitativas. En este caso, una medición de tendencia central más apropiada es la moda, que sería el valor más común en el conjunto de datos. 
 
 <!--## Variability: How well does the mean fit the data?-->
 ## Variabilidad: ¿Qué tan bien se ajusta la media a los datos?
@@ -764,7 +782,8 @@ caCrimeData <-
 Habiendo caracterizado una distribución en términos de su tendencia central y su variabilidad, a menudo es útil expresar los puntajes individuales en términos de en dónde se ubican con respecto a la distribución total. Digamos que estamos interesadxs en determinar si California es un lugar particularmente peligroso. Podemos responder a esta pregunta utilizando datos del 2014 del [FBI's Uniform Crime Reporting Site] (https://www.ucrdatatool.gov/Search/Crime/State/RunCrimeOneYearofData.cfm).  El panel de la izquierda de la Figura \@ref(fig:crimeHist) muestra un histograma del número de crímenes violentos por estado, resaltando el valor de California. Observando estos datos, parece que California es terriblemente peligroso, con `r I(caCrimeData$Violent.crime.total)` crímenes en ese año.  Podemos visualizar estos datos al generar un mapa mostrando una distribución de la variable a lo largo de los estados, el cual se presenta en el panel de la derecha de la Figura \@ref(fig:crimeHist). 
 
 
-```{r crimeHist,echo=FALSE,fig.cap="Left: Histogram of the number of violent crimes.  The value for CA is plotted in blue. Right: A map of the same data, with number of crimes (in thousands) plotted for each state in color.", fig.width=8,fig.height=4,out.height='50%'}
+<!-- fig.cap="Left: Histogram of the number of violent crimes.  The value for CA is plotted in blue. Right: A map of the same data, with number of crimes (in thousands) plotted for each state in color." -->
+```{r crimeHist,echo=FALSE,fig.cap="Izquierda: Histograma del número de crímenes violentos. El valor para CA está graficado en azul. Derecha: Un mapa de los mismos datos, con el número de crímenes (en miles) graficado para cada estado en color.", fig.width=8,fig.height=4,out.height='50%'}
 p1 <- crimeData %>% 
   ggplot(aes(Violent.crime.total)) +
   geom_histogram(bins = 25) + 
@@ -808,7 +827,8 @@ plot_grid(p1,p2)
 <!--It may have occurred to you, however, that CA also has the largest population of any state in the US, so it's reasonable that it will also have a larger number of crimes.  If we plot the number of crimes against one the population of each state (see left panel of Figure \@ref(fig:popVsCrime)), we see that there is a direct relationship between two variables.-->
 Tal vez hayas notado que California también tiene la población más grande de cualquier estado en Estados Unidos, por lo que es razonable que también tenga un gran número de crímenes. Si graficamos los números de crímenes junto con la población de cada estado (ve el panel izquierdo de la Figura \@ref(fig:popVsCrime)), vemos que hay una relación directa entre las dos variables. 
 
-```{r popVsCrime,echo=FALSE,fig.cap="Left: A plot of number of violent crimes versus population by state. Right: A histogram of per capita violent crime rates, expressed as crimes per 100,000 people.",fig.width=8,fig.height=4,out.height='50%'}
+<!-- fig.cap="Left: A plot of number of violent crimes versus population by state. Right: A histogram of per capita violent crime rates, expressed as crimes per 100,000 people." -->
+```{r popVsCrime,echo=FALSE,fig.cap="Izquierda: Una gráfica del número de crímenes violentos versus la población de cada estado. Derecha: Un histograma de la tasa de crímenes violentos per cápita, expresada en cantidad de crímenes por 100,000 habitantes.",fig.width=8,fig.height=4,out.height='50%'}
 p1 <- crimeData %>%
   ggplot(aes(Population, Violent.crime.total)) +
   geom_point() +
@@ -847,10 +867,10 @@ plot_grid(p1,p2)
 ```
 
 <!--Instead of using the raw numbers of crimes, we should instead use the violent crime *rate* per capita, which we obtain by dividing the number of crimes per state by the population of each state.  The dataset from the FBI already includes this value (expressed as rate per 100,000 people). Looking at the right panel of Figure \@ref(fig:popVsCrime), we see that California is not so dangerous after all -- its crime rate of `r I(sprintf("%.2f", caCrimeData$Violent.Crime.rate))` per 100,000 people is a bit above the mean across states of `r I(sprintf("%.2f", mean(crimeData$Violent.Crime.rate)))`, but well within the range of many other states. But what if we want to get a clearer view of how far it is from the rest of the distribution?--> 
-En lugar de utilizar los números en bruto (o crudos) para los crímenes, debemos usar la *tasa* de crímenes violentos per cápita, el cual obtenemos al dividir el número de crímenes por estado entre la población de cada estado. El conjunto de datos del FBI ya incluye este valor (expresado como tasa por 100,000 habitantes). Observando el panel de la derecha de la Figura \@ref(fig:popVsCrime), podemos ver que California no es tan peligrosa después después de todo -- su tasa de crímenes es `r I(sprintf("%.2f", caCrimeData$Violent.Crime.rate))` por cada 100,000 habitantes está un poco por arriba de la media de los estados de `r I(sprintf("%.2f", mean(crimeData$Violent.Crime.rate)))`, pero está dentro del rango de muchos otros estados. ¿Pero qué pasa si queremos obtener una vista más clara de qué tanto se aleja California del resto de la distribución?
+En lugar de utilizar los números en bruto (o crudos) para los crímenes, debemos usar la *tasa* de crímenes violentos per cápita, el cual obtenemos al dividir el número de crímenes por estado entre la población de cada estado. El conjunto de datos del FBI ya incluye este valor (expresado como tasa por 100,000 habitantes). Observando el panel de la derecha de la Figura \@ref(fig:popVsCrime), podemos ver que California no es tan peligrosa después de todo -- su tasa de crímenes de `r I(sprintf("%.2f", caCrimeData$Violent.Crime.rate))` por cada 100,000 habitantes está un poco por arriba de la media de los estados de `r I(sprintf("%.2f", mean(crimeData$Violent.Crime.rate)))`, pero está dentro del rango de muchos otros estados. ¿Pero qué pasa si queremos obtener una vista más clara de qué tanto se aleja California del resto de la distribución?
 
 <!--The *Z-score* allows us to express data in a way that provides more insight into each data point's relationship to the overall distribution.  The formula to compute a Z-score for an individual data point given that we know the value of the population mean $\mu$ and standard deviation $\sigma$ is:-->
-El *puntaje Z* (*Z-score*) nos permite expresar datos en una forma que proporciona más información sobre cada punto de datos y su relación con el total de la distribución. La fórmula que calcula el puntaje Z para un dato invididual, dado que ya conocemos el valor de la media de la población $\mu$ y su desviación estándar $\sigma$ es:
+El *puntaje Z* (*Z-score*) nos permite expresar datos en una forma que proporciona más información sobre cada punto de datos y su relación con el total de la distribución. La fórmula para calcular el puntaje Z para un dato invididual dado que ya conozcamos el valor de la media de la población $\mu$ y su desviación estándar $\sigma$ es:
 
 $$
 Z(x) = \frac{x - \mu}{\sigma}
@@ -859,7 +879,8 @@ $$
 <!--Intuitively, you can think of a Z-score as telling you how far away any data point is from the mean, in units of standard deviation.  We can compute this for the crime rate data, as shown in Figure \@ref(fig:crimeZplot), which plots the Z-scores against the original scores.-->
 Intuitivamente, podemos pensar en un puntaje Z como un indicador que nos dice qué tan lejos está cada punto o dato individual en referencia con la media, en unidades de la desviación estándar. Podemos calcular esto para los datos de la tasa de crímenes, como se muestra en la Figura \@ref(fig:crimeZplot), la cual grafica los puntajes Z contra los puntajes originales.
 
-```{r crimeZplot,echo=FALSE,fig.cap="Scatterplot of original crime rate data against Z-scored data.",fig.width=4,fig.height=4,out.height='50%'}
+<!-- fig.cap="Scatterplot of original crime rate data against Z-scored data." -->
+```{r crimeZplot,echo=FALSE,fig.cap="Gráfica de dispersión (scatterplot) de los datos originales de tasa de crímenes contra los datos en puntajes Z (Z-scores).",fig.width=4,fig.height=4,out.height='50%'}
 crimeData <- 
   crimeData %>%
   mutate(
@@ -882,10 +903,10 @@ crimeData %>%
 ```
 
 <!--The scatterplot shows us that the process of Z-scoring doesn't change the relative distribution of the data points (visible in the fact that the orginal data and Z-scored data fall on a straight line when plotted against each other) -- it just shifts them to have a mean of zero and a standard deviation of one. Figure \@ref(fig:crimeZmap) shows the Z-scored crime data using the geographical view.-->
-El diagrama de dispersión nos muestra que el proceso de sacar el puntaje Z no cambia la distribución relativa de los datos (esto es visible en el hecho de que los datos originales y el puntaje Z de los datos caen en una línea recta cuando se grafican una contra la otra).
-Sólo las acomoda para que tengan una media de cero y una desviación estándar de uno. En la figura \@ref(fig:crimeZmap) se muestran geográficamente los datos de crimen utilizando valores Z
+El diagrama de dispersión nos muestra que el proceso de sacar el puntaje Z no cambia la distribución relativa de los datos (esto es visible en el hecho de que los datos originales y el puntaje Z de los datos caen en una línea recta cuando se grafican una contra la otra).  Sólo las acomoda para que tengan una media de cero y una desviación estándar de uno. En la figura \@ref(fig:crimeZmap) se muestran geográficamente los datos de crimen utilizando valores Z.
 
-```{r crimeZmap,echo=FALSE,fig.cap="Crime data rendered onto a US map, presented as Z-scores."}
+<!-- fig.cap="Crime data rendered onto a US map, presented as Z-scores. -->
+```{r crimeZmap,echo=FALSE,fig.cap="Datos de crímenes graficados sobre un mapa de Estados Unidos, presentados en puntajes Z (Z-scores)."}
 plot_map_z <- 
   ggplot(crimeData, aes(map_id = StateLower)) + 
   # map points to the fifty_states shape data
@@ -914,7 +935,8 @@ Esto nos da una mirada un poco más interpretable de los datos. Por ejemplo, aho
 <!--The "Z" in "Z-score" comes from the fact that the standard normal distribution (that is, a normal distribution with a mean of zero and a standard deviation of 1) is often referred to as the "Z" distribution.  We can use the standard normal distribution to help us understand what specific Z scores tell us about where a data point sits with respect to the rest of the distribution.-->
 La "Z" en un "puntaje Z" proviene del hecho de que la distribución estándar normal (la distribución normal con una media de cero y una desviación estándar de 1) es a menudo referida como la distribución "Z". Podemos usar la distribución estándar normal para ayudarnos a comprender lo que los puntajes Z específicos nos dicen acerca de dónde se encuentra un punto de datos con respecto al resto de la distribución.
 
-```{r zDensityCDF,echo=FALSE,fig.cap="Density (top) and cumulative distribution (bottom) of a standard normal distribution, with cutoffs at one standard deviation above/below the mean."}
+<!-- fig.cap="Density (top) and cumulative distribution (bottom) of a standard normal distribution, with cutoffs at one standard deviation above/below the mean." -->
+```{r zDensityCDF,echo=FALSE,fig.cap="Distribución de densidad (arriba) y acumulada (abajo) de una distribución normal estándar, con puntos de corte (cutoffs) marcados a una desviación estándar arriba/abajo de la media."}
 # First, create a function to generate plots of the density and CDF
 dnormfun <- function(x) {
   return(dnorm(x, 248))
@@ -1037,20 +1059,22 @@ plot_density_and_cdf(1)
 <!--The upper panel in Figure \@ref(fig:zDensityCDF) shows that we expect about 16% of values to fall in $Z\ge 1$, and the same proportion to fall in $Z\le -1$.-->
 El panel de arriba en la Figura \@ref(fig:zDensityCDF) muestra que esperamos que el 16% de los valores caigan en $Z\ge 1$, y que la misma proporción caiga en $Z\le -1$.
 
-```{r zDensity2SD,echo=FALSE,fig.cap="Density (top) and cumulative distribution (bottom) of a standard normal distribution, with cutoffs at two standard deviations above/below the mean"}
+<!-- fig.cap="Density (top) and cumulative distribution (bottom) of a standard normal distribution, with cutoffs at two standard deviations above/below the mean" -->
+```{r zDensity2SD,echo=FALSE,fig.cap="Distribución de densidad (arriba) y acumulada (abajo) de una distribución normal estándar, con puntos de corte (cutoffs) marcados a dos desviaciones estándar arriba/abajo de la media."}
 plot_density_and_cdf(2)
 ```
 
 <!--Figure \@ref(fig:zDensity2SD) shows the same plot for two standard deviations. Here we see that only about 2.3% of values fall in $Z \le -2$ and the same in $Z \ge 2$.  Thus, if we know the Z-score for a particular data point, we can estimate how likely or unlikely we would be to find a value at least as extreme as that value, which lets us put values into better context.  In the case of crime rates, we see that California has a Z-score of 0.38 for its violent crime rate per capita, showing that it is quite near the mean of other states, with about 35% of states having higher rates and 65% of states having lower rates.-->
-En la Figura \@ref(fig:zDensity2SD) se muestra la misma gráfica para dos desviaciones estándar. Aquí podemos ver que solamente el 2.3% de los valores caen en $Z \le -2$ y lo mismo en $Z \ge 2$. Por lo que, si conocemos el puntaje Z para un punto en particular de los datos podemos estimar qué tan probable o improbable sería encontrar un valor al menos tan extremo como ese valor, lo que nos permite poner los valores en un mejor contexto.
+En la Figura \@ref(fig:zDensity2SD) se muestra la misma gráfica para dos desviaciones estándar. Aquí podemos ver que solamente el 2.3% de los valores caen en $Z \le -2$ y lo mismo en $Z \ge 2$. Por lo que, si conocemos el puntaje Z para un punto en particular de los datos podemos estimar qué tan probable o improbable sería encontrar un valor al menos tan extremo como ese valor, lo que nos permite poner los valores en un mejor contexto. En el caso de las tasas de crímenes, vemos que California tiene un puntaje Z de 0.38 por su tasa de crímenes violentos per cápita, mostrando que está muy cerca de la media de otros estados, cerca del 35% de los estados tienen mayores tasas y 65% de los estados tienen menores tasas.
 
 <!--### Standardized scores-->
 ### Puntajes Estandarizados
 
 <!--Let's say that instead of Z-scores, we wanted to generate standardized crime scores with a mean of 100 and standard deviation of 10.  This is similar to the standardization that is done with scores from intelligence tests to generate the intelligence quotient (IQ).  We can do this by simply multiplying the Z-scores by 10 and then adding 100.-->
-Digamos que en lugar de puntajes Z, queremos generar puntajes estandarizados de crimen con una media de 100 y una desviación estándar de 10. Esto es similar a la estandarización que se hace con puntajes de tests de inteligencia para generar un cociente inteligelectual (IQ, *Intelligence quotient*). Podemos hacer esto al multiplicar los puntajes Z por 10 y luego sumando 100. 
+Digamos que en lugar de puntajes Z, queremos generar puntajes estandarizados de crimen con una media de 100 y una desviación estándar de 10. Esto es similar a la estandarización que se hace con puntajes de tests de inteligencia para generar un cociente intelectual (CI, en inglés IQ, *Intelligence quotient*). Podemos hacer esto al multiplicar los puntajes Z por 10 y luego sumar 100. 
 
-```{r stdScores,echo=FALSE,fig.cap="Crime data presented as standardized scores with mean of  100 and standard deviation of 10.",fig.width=4,fig.height=4,out.height='50%'}
+<!-- fig.cap="Crime data presented as standardized scores with mean of  100 and standard deviation of 10." -->
+```{r stdScores,echo=FALSE,fig.cap="Datos de crímenes presentados como puntajes estandarizados con una media de 100 y una desviación estándar de 10.",fig.width=4,fig.height=4,out.height='50%'}
 crimeData <-
   crimeData %>% 
   mutate(
@@ -1080,12 +1104,13 @@ crimeData %>%
 
 
 <!--#### Using Z-scores to compare distributions-->
-#### Usando puntajes Z para comparar distribuciones
+#### Usar puntajes Z para comparar distribuciones
 
 <!--One useful application of Z-scores is to compare distributions of different variables.  Let's say that we want to compare the distributions of violent crimes and property crimes across states.  In the left panel of  Figure \@ref(fig:crimeTypePlot) we plot those against one another, with CA plotted in blue. As you can see, the raw rates of property crimes are far higher than the raw rates of violent crimes, so we can't just compare the numbers directly.  However, we can plot the Z-scores for these data against one another (right panel of Figure \@ref(fig:crimeTypePlot))-- here again we see that the distribution of the data does not change.  Having put the data into Z-scores for each variable makes them comparable, and lets us see that California is actually right in the middle of the distribution in terms of both violent crime and property crime.-->
-Un uso útil de los puntajes Z es para comparar distribuciones de diferentes variables. Digamos que queremos comparar las distribuciones de crímenes violentos y crímenes en propiedades privadas entre estados. En el panel de la izquierda de la Figura \@ref(fig:crimeTypePlot) graficamos ambos, uno contra el otro, con California representada en azul. Como puedes ver, las tasas brutas de delitos contra la propiedad son mucho más altos que las tasas brutas de crímenes violentos, por lo que no podemos solamente comparar los números directamente. Sin embargo, podemos graficar los puntajes Z para estos datos, uno contra otro (panel de la derecha de la Figura \@ref(fig:crimeTypePlot)) -- Aquí de nuevo podemos ver que la distribución de los datos no cambia. Al haber puesto los datos en puntajes Z para cada variable los hace comparables, y podemos ver ahora que California está justo en el medio de la distribución en términos de crímenes violentos y crímenes de propiedad privada.  
+Un uso útil de los puntajes Z es para comparar distribuciones de diferentes variables. Digamos que queremos comparar las distribuciones de crímenes violentos y crímenes en propiedades privadas entre estados. En el panel de la izquierda de la Figura \@ref(fig:crimeTypePlot) graficamos ambos, uno contra el otro, con California representada en azul. Como puedes ver, las tasas brutas de delitos contra la propiedad son mucho más altos que las tasas brutas de crímenes violentos, por lo que no podemos solamente comparar los números directamente. Sin embargo, podemos graficar los puntajes Z para estos datos, uno contra otro (panel de la derecha de la Figura \@ref(fig:crimeTypePlot)) -- Aquí de nuevo podemos ver que la distribución de los datos no cambia. Al haber puesto los datos en puntajes Z para cada variable los hace comparables, y podemos ver ahora que California está justo en el medio de la distribución en términos de crímenes violentos y de crímenes de propiedad privada.  
 
-```{r crimeTypePlot,echo=FALSE,fig.cap="Plot of violent vs. property crime rates (left) and Z-scored rates (right).",fig.width=8,fig.height=4,out.height='50%'}
+<!-- fig.cap="Plot of violent vs. property crime rates (left) and Z-scored rates (right). -->
+```{r crimeTypePlot,echo=FALSE,fig.cap="Gráfica de tasas de crímenes violentos vs. crímenes contra propiedad (izquierda) y tasas en puntajes Z (derecha).",fig.width=8,fig.height=4,out.height='50%'}
 
 p1 <- crimeData %>% 
   ggplot(aes(Violent.Crime.rate, Property.crime.rate)) +
@@ -1158,7 +1183,8 @@ plot_grid(p1,p2)
 <!--Let's add one more factor to the plot: Population.  In the left panel of Figure \@ref(fig:crimeTypePopPlot) we show this using the size of the plotting symbol, which is often a useful way to add information to a plot.-->
 Vamos a añadir otro factor a la gráfica: Población. En el panel izquierdo de la Figura \@ref(fig:crimeTypePopPlot), mostramos esto utilizando el tamaño del símbolo para graficar, el cual es comúnmente una forma útil de añadir información a la gráfica. 
 
-```{r crimeTypePopPlot,echo=FALSE,fig.cap="Left: Plot of violent vs. property crime rates, with population size presented through the size of the plotting symbol; California is presented in blue. Right: Difference scores for violent vs. property crime, plotted against population. ",fig.width=8,fig.height=4,out.height='50%'}
+<!-- fig.cap="Left: Plot of violent vs. property crime rates, with population size presented through the size of the plotting symbol; California is presented in blue. Right: Difference scores for violent vs. property crime, plotted against population. " -->
+```{r crimeTypePopPlot,echo=FALSE,fig.cap="Izquierda: Gráfica de tasas de crímenes violentos vs. crímenes contra propiedad, con el tamaño de la población representado por el tamaño del símbolo graficado; California se presenta en azul. Derecha: Puntajes de la diferencia entre crímenes violentos vs. crímenes contra propiedad, graficados contra el tamaño de la población.",fig.width=8,fig.height=4,out.height='50%'}
 
 p1 <- crimeData %>% 
   ggplot(aes(ViolentCrimeRateZscore, PropertyCrimeRateZscore)) +
@@ -1190,10 +1216,10 @@ plot_grid(p1,p2)
 ```
 
 <!--Because Z-scores are directly comparable, we can also compute a *difference score* that expresses the relative rate of violent to non-violent (property) crimes across states. We can then plot those scores against population (see right panel of Figure \@ref(fig:crimeTypePopPlot)). This shows how we can use Z-scores to bring different variables together on a common scale.-->
-Porque los puntajes Z son directamente comparables, también podemos calcular *puntuaciones diferenciales* (*difference scores*), que expresen la tasa relativa de delitos violentos y no violentos (contra la propiedad) en todos los estados. Luego podemos graficar esos puntajes en comparación con la población (mira el Panel derecho de la Figura \@ref(fig:crimeTypePopPlot)). Esto muestra cómo podemos usar los puntajes Z para unir diferentes variables en una escala común.
+Porque los puntajes Z son directamente comparables, también podemos calcular *puntuaciones diferenciales* (*difference scores*) que expresan la tasa relativa de delitos violentos y no violentos (contra la propiedad) en cada estado. Luego podemos graficar esos puntajes en comparación con la población (mira el Panel derecho de la Figura \@ref(fig:crimeTypePopPlot)). Esto muestra cómo podemos usar los puntajes Z para unir diferentes variables en una escala común.
 
 <!--It is worth noting that the smallest states appear to have the largest differences in both directions. While it might be tempting to look at each state and try to determine why it has a high or low difference score, this probably  reflects the fact that the estimates obtained from smaller samples are necessarily going to be more variable, as we will discuss in Chapter 7.-->
-Vale la pena mencionar que los estados más pequeños parecen tener la diferencia más grande en ambas direcciones. Si bien puede ser tentador observar cada estado e intentar determinar por qué tiene una puntuación de diferencia alta o baja, esto probablemente refleja el hecho de que las estimaciones obtenidas de muestras más pequeñas necesariamente serán más variables, como discutiremos en un capítulo posterior sobre muestreo.
+Vale la pena mencionar que los estados más pequeños parecen tener la diferencia más grande en ambas direcciones. Si bien puede ser tentador observar cada estado e intentar determinar porqué tienen una puntuación de diferencia alta o baja, esto probablemente refleja el hecho de que las estimaciones obtenidas de muestras más pequeñas necesariamente serán más variables, como discutiremos en el capítulo 7.
 
 <!--## Learning objectives-->
 ## Objetivos de aprendizaje
