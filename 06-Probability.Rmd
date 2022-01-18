@@ -542,7 +542,7 @@ NHANES_adult <-
 
 NHANES_mentalhealth_by_physactive_counts <- NHANES_adult %>% tabyl(PhysActive, badMentalHealth) %>% adorn_totals(c("row", "col"))
 
-<!-- Summary of absolute frequency data for mental health and physical activity. -->
+# Summary of absolute frequency data for mental health and physical activity. 
 kable(NHANES_mentalhealth_by_physactive_counts, caption='Resumen de frecuencias absolutas de los datos de salud mental y actividad física.')
 ```
 
@@ -555,7 +555,7 @@ NHANES_mentalhealth_by_physactive_p <- NHANES_mentalhealth_by_physactive_p %>%
   mutate(PhysActive=NHANES_mentalhealth_by_physactive_counts[,1])
 NHANES_mentalhealth_by_physactive_p <- NHANES_mentalhealth_by_physactive_p[, c('PhysActive', "Bad Mental Health", "Good Mental Health", "Total" )]
 
-<!-- Summary of relative frequency data for mental health and physical activity. -->
+# Summary of relative frequency data for mental health and physical activity. 
 kable(NHANES_mentalhealth_by_physactive_p, caption='Resumen de frecuencias relativas de los datos de salud mental y actividad física.')
 ```
 
@@ -571,12 +571,12 @@ for (i in 1:3){
   NHANES_mentalhealth_by_physactive_condp[i, 2:4] <- NHANES_mentalhealth_by_physactive_condp[i, 2:4] / NHANES_mentalhealth_by_physactive_condp[i, 4]
 }
 
-<!-- Summary of conditional probabilities for mental health given physical activity. -->
+# Summary of conditional probabilities for mental health given physical activity. 
 kable(NHANES_mentalhealth_by_physactive_condp, caption='Resumen de probabilidades condicionales de salud mental dada actividad física.')
 ```
 
 
-<!-- The overall probability of bad mental health $P(\text{bad mental health})$ is `r I(NHANES_MentalHealth_summary$badMentalHealth)` while the conditional probability $P(\text{bad mental health|physically active})$ is `r I(NHANES_MentalHealth_by_PhysActive$badMentalHealth[2])`.  Thus, it seems that the conditional probability is somewhat smaller than the overall probability, suggesting that they are not independent, though we can't know for sure just by looking at the numbers, since these numbers might be different due to random variability in our sample. Later in the book we will discuss statistical tools that will let us directly test whether two variables are independent. -->
+<!-- The overall probability of bad mental health $P(\text{bad mental health})$ is `r I(NHANES_mentalhealth_by_physactive_condp[3, 2])` while the conditional probability $P(\text{bad mental health|physically active})$ is `r I(NHANES_mentalhealth_by_physactive_condp[2, 2])`.  Thus, it seems that the conditional probability is somewhat smaller than the overall probability, suggesting that they are not independent, though we can't know for sure just by looking at the numbers, since these numbers might be different due to random variability in our sample. Later in the book we will discuss statistical tools that will let us directly test whether two variables are independent. -->
 La probabilidad general de mala salud mental $P(\text{bad mental health})$ es `r I(NHANES_mentalhealth_by_physactive_condp[3, 2])` mientras que la probabilidad condicional $P(\text{bad mental health|physically active})$ es `r I(NHANES_mentalhealth_by_physactive_condp[2, 2])`. Por lo tanto, parece ser que la probabilidad condicional es un poco menor que la probabilidad general, sugiriendo que no son independientes, aunque no podemos saber con certeza sólo observando estos números, porque estos números podrían ser diferentes debido a variabilidad aleatoria en nuestra muestra. Más tarde en el libro revisaremos herramientas estadísticas que nos permitirán probar de manera directa si estas variables son independientes.
 
 <!-- ## Reversing a conditional probability: Bayes' rule {#bayestheorem} -->
