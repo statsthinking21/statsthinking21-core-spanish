@@ -31,7 +31,7 @@ La teoría de probabilidad es la rama de las matemáticas que trata con el azar 
 ## ¿Qué es la probabilidad?
 
 <!-- Informally, we usually think of probability as a number that describes the likelihood of some event occurring, which ranges from zero (impossibility) to one (certainty).  Sometimes probabilities will instead be expressed in percentages, which range from zero to one hundred, as when the weather forecast predicts a twenty percent chance of rain today.  In each case, these numbers are expressing how likely that particular event is, ranging from absolutely impossible to absolutely certain. -->
-De manera informal, usualmente pensamos a la probabilidad (probability) como el número que describe la probabilidad (likelihood) de que un evento ocurra, que va de un rango desde cero (imposibilidad) a uno (certeza). A veces las probabilidades se expresarán en porcentajes, que van de un rango de cero a cien, como cuando en el pronóstico del tiempo se predice que hay un veinte por ciento de probabilidad de lluvia para hoy. En cada caso, estos números expresan qué tan probable es que suceda un evento en particular, desde la absoluta imposibilidad hasta la absoluta certeza.
+De manera informal, usualmente pensamos a la probabilidad (*probability*) como el número que describe la probabilidad (*likelihood*) de que un evento ocurra, que va de un rango desde cero (imposibilidad) a uno (certeza). A veces las probabilidades se expresarán en porcentajes, que van de un rango de cero a cien, como cuando en el pronóstico del tiempo se predice que hay un veinte por ciento de probabilidad de lluvia para hoy. En cada caso, estos números expresan qué tan probable es que suceda un evento en particular, desde la absoluta imposibilidad hasta la absoluta certeza.
 
 <!-- To formalize probability theory, we first need to define a few terms: -->
 Para formalizar la teoría de probabilidad, primero necesitamos definar algunos términos:
@@ -74,7 +74,7 @@ Digamos que te pregunto, ¿cuál hubiera sido la probabilidad de que Bernie Sand
 ### Frecuencia empírica {#empirical-frequency}
 
 <!-- Another way to determine the probability of an event is to do the experiment many times and count how often each event happens.  From the relative frequency of the different outcomes, we can compute the probability of each outcome.  For example, let's say that we are interested in knowing the probability of rain in San Francisco.  We first have to define the experiment --- let's say that we will look at the National Weather Service data for each day in 2017 and determine whether there was any rain at the downtown San Francisco weather station. According to these data, in 2017 there were 73 rainy days. To compute the probability of rain in San Francisco, we simply divide the number of rainy days by the number of days counted (365), giving P(rain in SF in 2017) = 0.2. -->
-Otra manera de determinar la probabilidad de un evento es el hacer un experimento muchas veces y contar cuántas veces sucedió cada evento. Podemos calcular la probabilidad de cada resultado a partir de la frecuencia relativa de los diferentes resultados. Por ejemplo, digamos que estás interesado en saber la probabilidad de lluvia en San Francisco. Primero debemos definir nuestro experimento --- digamos que miraremos los datos del *National Weather Service* para cada día en 2017 y determinaremos si hubo lluvia en la estación del clima del centro de San Francisco. De acuerdo con estos datos, en 2017 hubo 73 días lluviosos. Para calcular la probabilidad de lluvia en San Francisco, simplemente dividimos el número de días lluviosos entre el número de días contados (365), dando $P(lluvia en SF en 2017) = 0.2$.
+Otra manera de determinar la probabilidad de un evento es el hacer un experimento muchas veces y contar cuántas veces sucedió cada evento. Podemos calcular la probabilidad de cada resultado a partir de la frecuencia relativa de los diferentes resultados. Por ejemplo, digamos que estás interesade en saber la probabilidad de lluvia en San Francisco. Primero debemos definir nuestro experimento --- digamos que miraremos los datos del *National Weather Service* para cada día en 2017 y determinaremos si hubo lluvia en la estación del clima del centro de San Francisco. De acuerdo con estos datos, en 2017 hubo 73 días lluviosos. Para calcular la probabilidad de lluvia en San Francisco, simplemente dividimos el número de días lluviosos entre el número de días contados (365), dando $P(lluvia en SF en 2017) = 0.2$.
 
 ```{r RainInSF,echo=FALSE,warning=FALSE,message=FALSE}
 # load data on rain in San Francisco and compute probability
@@ -99,7 +99,7 @@ names(SFrain_summary) <- c('Number of rainy days','Number of days measured', 'P(
 
 
 <!-- How do we know that empirical probability gives us the right number? The answer to this question comes from the *law of large numbers*, which shows that the empirical probability will approach the true probability as the sample size increases.  We can see this by simulating a large number of coin flips, and looking at our estimate of the probability of heads after each flip.  We will spend more time discussing simulation in a later chapter; for now, just assume that we have a computational way to generate a random outcome for each coin flip. -->
-¿Cómo sabemos que la probabilidad empírica nos dará el número correcto? La respuesta a esta pregunta viene de la *ley de números grandes*, que muestra que la probabilidad empírica se aproximará a la verdadera probabilidad conforme el tamaño de la muestra se incrementa. Podemos ver esto simulando un gran número de lanzamientos de moneda, y observando nuestra estimación de la probabilidad de que caiga cara después de cada lanzamiento. Pasaremos más tiempo discutiendo simulaciones en un capítulo posterior; por ahora, sólo asumamos que tenemos una manera computacional de generar un resultado aleatorio para cada lanzamiento de moneda.
+¿Cómo sabemos que la probabilidad empírica nos dará el número correcto? La respuesta a esta pregunta viene de la *ley de números grandes*, que muestra que la probabilidad empírica se aproximará a la probabilidad verdadera conforme el tamaño de la muestra se incrementa. Podemos ver esto simulando un gran número de lanzamientos de moneda, y observando nuestra estimación de la probabilidad de que caiga cara después de cada lanzamiento. Pasaremos más tiempo discutiendo simulaciones en un capítulo posterior; por ahora, sólo asumamos que tenemos una manera computacional de generar un resultado aleatorio para cada lanzamiento de moneda.
 
 ```{r FlipSim,echo=FALSE}
 
@@ -151,7 +151,7 @@ plot_grid(p1, p2)
 ```
 
 <!-- These two examples show that while large samples will ultimately converge on the true probability, the results with small samples can be far off.  Unfortunately, many people forget this and overinterpret results from small samples.  This was referred to as the *law of small numbers* by the psychologists Danny Kahneman and Amos Tversky, who showed that people (even trained researchers) often behave as if the law of large numbers applies even to small samples, giving too much credence to results based on small datasets.  We will see examples throughout the course of just how unstable statistical results can be when they are generated on the basis of small samples. -->
-Estos dos ejemplos muestran que mientras las muestras grandes últimamente convergen en la probabilidad verdadera, los resultados de muestras pequeñas pueden estar muy equivocados. Desafortunadamente, muchas personas olvidan esto y sobreinterpretan resultados de muestras pequeñas. Esto ha sido referido como la *ley de números pequeños* por los psicólogos Danny Kahneman y Amos Tversky, quienes mostraron que la gente (incluso investigadores entrenados) frecuentemente se comportan como si la ley de los números grandes aplicara también en las muestras pequeñas, dando demasiada credibilidad a resultados a partir de bases de datos pequeñas. A lo largo del curso veremos ejemplos de qué tan inestables pueden ser los resultados estadísticos cuando son generados en base a muestras pequeñas.
+Estos dos ejemplos muestran que mientras las muestras grandes ultimadamente convergen en la probabilidad verdadera, los resultados de muestras pequeñas pueden estar muy equivocados. Desafortunadamente, muchas personas olvidan esto y sobreinterpretan resultados de muestras pequeñas. Esto ha sido referido como la *ley de números pequeños* por los psicólogos Danny Kahneman y Amos Tversky, quienes mostraron que la gente (incluso investigadores entrenados) frecuentemente se comportan como si la ley de los números grandes aplicara también en las muestras pequeñas, dando demasiada credibilidad a resultados a partir de bases de datos pequeñas. A lo largo del curso veremos ejemplos de qué tan inestables pueden ser los resultados estadísticos cuando son generados con base en muestras pequeñas.
 
 <!-- ### Classical probability -->
 ### Probabilidad clásica
@@ -170,7 +170,7 @@ P(resultados_i) = \frac{1}{\text{número de resultados posibles}}
 $$
 
 <!-- For the six-sided die, the probability of each individual outcome is 1/6.  -->
-Para el dado de seis lados, la probabilidad de cada resultados individual es 1/6.
+Para el dado de seis lados, la probabilidad de cada resultado individual es 1/6.
 
 <!-- This is nice, but de Méré was interested in more complex events, like what happens on multiple dice throws.  How do we compute the probability of a complex event (which is a *union* of single events), like rolling a six on the first *or* the second throw?  We represent the union of events mathematically using the $\cup$ symbol: for example, if the probability of rolling a six on the first throw is referred to as $P(Roll6_{throw1})$ and the probability of rolling a six on the second throw is $P(Roll6_{throw2})$, then the union is referred to as $P(Roll6_{throw1} \cup Roll6_{throw2})$.  -->
 Esto está bien, pero de Méré estaba interesado en eventos más complejos, como lo que sucede en múltiples lanzamientos de dados. ¿Cómo calculamos la probabilidad de un evento complejo (el cual es la *unión* de eventos simples), como obtener un seis en el primer *o* el segundo lanzamiento?  La unión de eventos la representamos matemáticamente usando el símbolo $\cup$: por ejemplo, si la probabilidad de obtener un seis en el primer lanzamiento es referido como $P(Roll6_{throw1})$ y la probabilidad de obtener un seis en el segundo lanzamiento es $P(Roll6_{throw2})$, entonces la unión es referida como $P(Roll6_{throw1} \cup Roll6_{throw2})$.
@@ -210,7 +210,7 @@ Una segunda regla nos dice cómo calcular la probabilidad de un evento conjunto 
 
 <!-- P(A \cap B) = P(A) * P(B)\ \text{if and only if A and B are independent} -->
 $$
-P(A \cap B) = P(A) * P(B)\ \text{si y sólo si A y B con independientes}
+P(A \cap B) = P(A) * P(B)\ \text{si y sólo si A y B son independientes}
 $$
 <!-- Thus, the probability of throwing a six on both of two rolls is $\frac{1}{6}*\frac{1}{6}=\frac{1}{36}$. -->
 Por lo tanto, la probabilidad de obtener un seis en ambos lanzamientos de dados es $\frac{1}{6}*\frac{1}{6}=\frac{1}{36}$.
@@ -288,7 +288,7 @@ Usemos una representación gráfica para obtener una diferente vista de esta reg
 ### Resolviendo el problema de de Méré
 
 <!-- Blaise Pascal used the rules of probability to come up with a solution to de Méré's problem.  First, he realized that computing the probability of at least one event out of a combination was tricky, whereas computing the probability that something does not occur across several events is relatively easy -- it's just the product of the probabilities of the individual events.  Thus, rather than computing the probability of at least one six in four rolls, he instead computed the probability of no sixes across all rolls: -->
-Blaise Pascal usó la reglas de la probabilidad para idear una solución al problema de de Méré. Primero, se dio cuenta que calcular la probabilidad de al menos un evento de una combinación era complicado, mientras que calcular la probabilidad de que algo no ocurra a lo largo de varios eventos es relativamente fácil -- es sólo el producto de las probabilidades de los eventos individuales. Por lo tanto, en lugar de calcular la probabilidad de al menos un seis en cuatro lanzamientos, calculó la probabilidad de ningún seis a lo largo de todos los lanzamientos:
+Blaise Pascal usó las reglas de la probabilidad para idear una solución al problema de de Méré. Primero, se dio cuenta que calcular la probabilidad de al menos un evento de una combinación era complicado, mientras que calcular la probabilidad de que algo no ocurra a lo largo de varios eventos es relativamente fácil -- es sólo el producto de las probabilidades de los eventos individuales. Por lo tanto, en lugar de calcular la probabilidad de al menos un seis en cuatro lanzamientos, calculó la probabilidad de ningún seis a lo largo de todos los lanzamientos:
 
 <!-- P(\text{no sixes in four rolls}) -->
 $$
@@ -426,7 +426,7 @@ Puede ser útil pensar en esto gráficamente. La Figura \@ref(fig:conditionalPro
 ## Calcular probabilidades condicionales a partir de los datos
 
 <!-- We can also compute conditional probabilities directly from data. Let's say that we are interested in the following question: What is the probability that someone has diabetes, given that they are not physically active? -- that is, $P(diabetes|inactive)$. The NHANES dataset includes two variables that address the two parts of this question.  The first (```Diabetes```) asks whether the person has ever been told that they have diabetes, and the second (```PhysActive```) records whether the person engages in sports, fitness, or recreational activities that are at least of moderate intensity.  Let's first compute the simple probabilities, which are shown in Table \@ref(tab:simpleProb). The table shows that the probability that someone in the NHANES dataset has diabetes is .1, and the probability that someone is inactive is .45. -->
-También podemos calcular probabilidades condicionales desde los datos. Digamos que estamos interesados en la siguiente pregunta: ¿Cuál es la probabilidad de que alguien tenga diabetes, dado que no sea una persona físicamente activa? -- esto es, $P(diabetes|inactive)$. La base de datos NHANES incluye dos variables que abordan las dos partes de esta pregunta. La primera (```Diabetes```) pregunta si una persona ha sido enterada de que tenga diabetes, y la segunda (```PhysActive```) registra si una persona se involucra en deportes, fitness, o actividades recreativas que sean de al menos intensidad moderada. Primero calculemos las probabilidades simples, las cuales se muestran en la Tabla \@ref(tab:simpleProb).  La tabla muestra que la probabilidad de que una persona en la base de datos NHANES tenga diabetes es .1, y la probabilidad de que una persona sea inactivx es .45.
+También podemos calcular probabilidades condicionales desde los datos. Digamos que estamos interesades en la siguiente pregunta: ¿Cuál es la probabilidad de que alguien tenga diabetes, dado que no sea una persona físicamente activa? -- esto es, $P(diabetes|inactive)$. La base de datos NHANES incluye dos variables que abordan las dos partes de esta pregunta. La primera (```Diabetes```) pregunta si una persona ha sido enterada de que tenga diabetes, y la segunda (```PhysActive```) registra si una persona se involucra en deportes, fitness, o actividades recreativas que sean de al menos intensidad moderada. Primero calculemos las probabilidades simples, las cuales se muestran en la Tabla \@ref(tab:simpleProb).  La tabla muestra que la probabilidad de que una persona en la base de datos NHANES tenga diabetes es .1, y la probabilidad de que una persona sea inactivx es .45.
 
 ```{r echo=FALSE}
 # Summarize NHANES data for diabetes and physical activity
@@ -541,7 +541,9 @@ NHANES_adult <-
     )) 
 
 NHANES_mentalhealth_by_physactive_counts <- NHANES_adult %>% tabyl(PhysActive, badMentalHealth) %>% adorn_totals(c("row", "col"))
-kable(NHANES_mentalhealth_by_physactive_counts)
+
+<!-- Summary of absolute frequency data for mental health and physical activity. -->
+kable(NHANES_mentalhealth_by_physactive_counts, caption='Resumen de frecuencias absolutas de los datos de salud mental y actividad física.')
 ```
 
 
@@ -552,7 +554,9 @@ NHANES_mentalhealth_by_physactive_p <- NHANES_mentalhealth_by_physactive_counts[
 NHANES_mentalhealth_by_physactive_p <- NHANES_mentalhealth_by_physactive_p %>%
   mutate(PhysActive=NHANES_mentalhealth_by_physactive_counts[,1])
 NHANES_mentalhealth_by_physactive_p <- NHANES_mentalhealth_by_physactive_p[, c('PhysActive', "Bad Mental Health", "Good Mental Health", "Total" )]
-kable(NHANES_mentalhealth_by_physactive_p)
+
+<!-- Summary of relative frequency data for mental health and physical activity. -->
+kable(NHANES_mentalhealth_by_physactive_p, caption='Resumen de frecuencias relativas de los datos de salud mental y actividad física.')
 ```
 
 <!-- This shows us the proportion of all observations that fall into each cell. However, what we want to know here is the conditional probability of bad mental health, depending on whether one is physically active or not. To compute this, we divide each physical activity group by its total number of observations, so that each row now sums to one (shown in Table \@ref(tab:condProb)). Here we see the conditional probabilities of bad or good mental health for each physical activity group (in the top two rows) along with the overall probability of good or bad mental health in the third row. To determine whether mental health and physical activity are independent, we would compare the simple probability of bad mental health (in the third row) to the conditional probability of bad mental health given that one is physically active (in the second row). -->
@@ -567,7 +571,8 @@ for (i in 1:3){
   NHANES_mentalhealth_by_physactive_condp[i, 2:4] <- NHANES_mentalhealth_by_physactive_condp[i, 2:4] / NHANES_mentalhealth_by_physactive_condp[i, 4]
 }
 
-kable(NHANES_mentalhealth_by_physactive_condp)
+<!-- Summary of conditional probabilities for mental health given physical activity. -->
+kable(NHANES_mentalhealth_by_physactive_condp, caption='Resumen de probabilidades condicionales de salud mental dada actividad física.')
 ```
 
 
@@ -578,7 +583,7 @@ La probabilidad general de mala salud mental $P(\text{bad mental health})$ es `r
 ## Invertir una probabilidad condicional: regla de Bayes {#bayestheorem}
 
 <!-- In many cases, we know $P(A|B)$ but we really want to know $P(B|A)$. This commonly occurs in medical screening, where we know $P(\text{positive test result| disease})$ but what we want to know is $P(\text{disease|positive test result})$.  For example, some doctors recommend that men over the age of 50 undergo screening using a test called prostate specific antigen (PSA) to screen for possible prostate cancer.  Before a test is approved for use in medical practice, the manufacturer needs to test two aspects of the test's performance. First, they need to show how *sensitive* it is -- that is, how likely is it to find the disease when it is present: $\text{sensitivity} = P(\text{positive test| disease})$.  They also need to show how *specific* it is: that is, how likely is it to give a negative result when there is no disease present: $\text{specificity} = P(\text{negative test|no disease})$.  For the PSA test, we know that sensitivity is about 80% and specificity is about 70%.  However, these don't answer the question that the physician wants to answer for any particular patient: what is the likelihood that they actually have cancer, given that the test comes back positive? This requires that we reverse the conditional probability that defines sensitivity: instead of  $P(positive\ test| disease)$ we want to know $P(disease|positive\ test)$. -->
-En muchos casos, conocemos $P(A|B)$ pero lo que realmente queremos conocer es $P(B|A)$. Esto comúnmente ocurre en tamizajes (screenings) médicos, donde conocemos $P(\text{resultado positivo en un test| enfermedad})$ pero lo que queremos conocer es $P(\text{enfermedad|resultado positivo en un test})$. Por ejemplo, algunos doctores recomiendan que los hombres mayores a 50 años se sometan a un screening usando una prueba llamada antígeno prostático específico (APE) para detectar posible cáncer prostático. Antes de que una prueba sea aprobada para su uso la práctica médica, el fabricante debe probar dos aspectos del rendimiento de la prueba. Primero, deben mostrar qué tan *sensible* es -- esto es, qué tan probable es que encuentre la enfermedad cuando está presente: $\text{sensibilidad} = P(\text{prueba positiva| enfermedad})$. También deben mostrar qué tan *específica* es: esto es, qué tan probable es que dé un resultado negativo cuando no hay enfermedad presente: $\text{especificidad} = P(\text{prueba negativa|no enfermedad})$. Para la prueba APE, sabemos que la sensibilidad es cercana al 80% y la especificidad es alrededor de 70%. Sin embargo, estos números no responden a la pregunta que el médico quiere responder acerca de un paciente en particular: ¿cuál es la probabilidad de que el paciente tenga cáncer realmente, dado que la prueba haya salido positiva? Esto requiere que se invierta la probabilidad condicional que define a la sensibilidad: en lugar de $P(prueba\ positiva| enfermedad)$ nosotros queremos saber $P(enfermedad|prueba\ positiva)$.
+En muchos casos, conocemos $P(A|B)$ pero lo que realmente queremos conocer es $P(B|A)$. Esto comúnmente ocurre en tamizajes (*screenings*) médicos, donde conocemos $P(\text{resultado positivo en un test| enfermedad})$ pero lo que queremos conocer es $P(\text{enfermedad|resultado positivo en un test})$. Por ejemplo, algunos doctores recomiendan que los hombres mayores a 50 años se sometan a un screening usando una prueba llamada antígeno prostático específico (APE) para detectar posible cáncer prostático. Antes de que una prueba sea aprobada para su uso la práctica médica, el fabricante debe probar dos aspectos del rendimiento de la prueba. Primero, deben mostrar qué tan *sensible* es -- esto es, qué tan probable es que encuentre la enfermedad cuando está presente: $\text{sensibilidad} = P(\text{prueba positiva| enfermedad})$. También deben mostrar qué tan *específica* es: esto es, qué tan probable es que dé un resultado negativo cuando no hay enfermedad presente: $\text{especificidad} = P(\text{prueba negativa|no enfermedad})$. Para la prueba APE, sabemos que la sensibilidad es cercana al 80% y la especificidad es alrededor de 70%. Sin embargo, estos números no responden a la pregunta que el médico quiere responder acerca de un paciente en particular: ¿cuál es la probabilidad de que el paciente tenga cáncer realmente, dado que la prueba haya salido positiva? Esto requiere que se invierta la probabilidad condicional que define a la sensibilidad: en lugar de $P(prueba\ positiva| enfermedad)$ nosotros queremos saber $P(enfermedad|prueba\ positiva)$.
 
 <!-- In order to reverse a conditional probability, we can use *Bayes' rule*: -->
 Para poder invertir la probabilidad condicional, podemos usar la *regla de Bayes*:
@@ -651,14 +656,14 @@ $$
 $$
 
 <!-- In our PSA example, the odds of having cancer (given the positive test) are: -->
-En nuestro ejemplo de APE, las posibilidades (odds) de tener cáncer (dada la prueba positiva) son:
+En nuestro ejemplo de APE, las posibilidades (*odds*) de tener cáncer (dada la prueba positiva) son:
 
 $$
 \text{odds of cancer} = \frac{P(\text{cancer})}{P(\neg \text{cancer})} =\frac{0.14}{1 - 0.14} = 0.16
 $$
 
 <!-- This tells us that the that the odds are fairly low of having cancer, even though the test was positive.  For comparison, the odds of rolling a 6 in a single dice throw are: -->
-Esto nos dice que las posibilidades (odds) de tener cáncer son bastante bajas, aún incluso de que la prueba salió positiva. Para comparar, las posibilidades de obtener un 6 en un dado sencillo son:
+Esto nos dice que las posibilidades (*odds*) de tener cáncer son bastante bajas, aún incluso de que la prueba salió positiva. Para comparar, las posibilidades de obtener un 6 en un dado sencillo son:
 
 $$
 \text{odds of 6} = \frac{1}{5} = 0.2
@@ -668,7 +673,7 @@ $$
 Como punto aparte, esta es la razón por la que muchos investigadores médicos se han vuelto crecientemente preocupados por el uso generalizado de pruebas de tamizaje para condiciones relativamente poco comunes; la mayoría de los resultados positivos terminarán siendo falsos positivos, resultando en pruebas de seguimiento innecesarias con posibles complicaciones, sin mencionar el estrés añadido al paciente.
 
 <!-- We can also use odds to compare different probabilities, by computing what is called an *odds ratio* - which is exactly what it sounds like.  For example, let's say that we want to know how much the positive test increases the individual's odds of having cancer. We can first compute the *prior odds* -- that is, the odds before we knew that the person had tested positively.  These are computed using the base rate: -->
-También podemos usar posibilidades (odds) para comparar diferentes probabilidades, al calcular lo que es conocido como una *razón de posibilidades* (*odds ratio*) - que significa justamente eso. Por ejemplo, digamos que queremos saber qué tanto el resultado positivo en la prueba incrementa las posibilidades (odds) de un individuo de tener cáncer. Primero calculamos las *posibilidades previas* (*prior odds*) -- esto es, las posibilidades antes de saber que la persona salió con un resultado positivo en la prueba. Estas son calculadas usando la tasa base (base rate):
+También podemos usar posibilidades (*odds*) para comparar diferentes probabilidades, al calcular lo que es conocido como una *razón de posibilidades* (*odds ratio*) - que significa justamente eso. Por ejemplo, digamos que queremos saber qué tanto el resultado positivo en la prueba incrementa las posibilidades (*odds*) de un individuo de tener cáncer. Primero calculamos las *posibilidades previas* (*prior odds*) -- esto es, las posibilidades antes de saber que la persona salió con un resultado positivo en la prueba. Estas son calculadas usando la tasa base (*base rate*):
 
 $$
 \text{prior odds} = \frac{P(\text{cancer})}{P(\neg \text{cancer})} =\frac{0.058}{1 - 0.058} = 0.061
@@ -682,9 +687,9 @@ $$
 $$
 
 <!-- This tells us that the odds of having cancer are increased by 2.62 times given the positive test result.  An odds ratio is an example of what we will later call an *effect size*, which is a way of quantifying how relatively large any particular statistical effect is. -->
-Esto nos dice que las posibilidades (odds) de tener cáncer se incrementan por 2.62 veces dado el resultado positivo en la prueba. Una razón de posibilidades (odds ratio) es un ejemplo de lo que después llamaremos un *tamaño del efecto*, que es una manera de cuantificar qué tan relativamente grande es un efecto estadístico en particular.
+Esto nos dice que las posibilidades (*odds*) de tener cáncer se incrementan por 2.62 veces dado el resultado positivo en la prueba. Una razón de posibilidades (*odds ratio*) es un ejemplo de lo que después llamaremos un *tamaño del efecto*, que es una manera de cuantificar qué tan relativamente grande es un efecto estadístico en particular.
 
-*Nota de traducción*: los *odds ratio* tienen muchas traducciones diferentes al español, lo que hace complicado explicarlos con un término que se use de manera generalizada en español. En México ha sido muy común llamarles *razón de momios*, pero *momio* es un término de lugares de apuestas que prácticamente sólo se usa en México. En esta traducción usamos la sugerencia de Tapia y Nieto (1993) en su artículo "Razón de posibilidades: una propuesta de traducción de la expresión *odds ratio*" publicado en la revista Salud Pública en México, y tradujimos *odds* como *posibilidades* y *odds ratio* como *razón de posibilidades*.
+*Nota de traducción*: los *odds ratio* tienen muchas traducciones diferentes al español, lo que hace complicado explicarlos con un término que se use de manera generalizada en español. En México ha sido muy común llamarles *razón de momios*, pero *momio* es un término de lugares de apuestas que prácticamente sólo se usa en México. En esta traducción usamos la sugerencia de Tapia y Nieto (1993) en su artículo "Razón de posibilidades: una propuesta de traducción de la expresión *odds ratio*" publicado en la revista Salud Pública en México.  Por lo que aquí tradujimos *odds* como *posibilidades* y *odds ratio* como *razón de posibilidades*.
 
 <!-- ## What do probabilities mean? -->
 ## ¿Qué significan las probabilidades?
