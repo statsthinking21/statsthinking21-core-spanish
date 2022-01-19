@@ -77,7 +77,7 @@ candyDf <- candyDf %>%
          `squared difference`=(count - nullExpectation)**2)
 
 # Observed counts, expectations under the null hypothesis, and squared differences in the candy data
-kable(candyDf, digits=2, caption='Conteos observados, conteos esperados bajo la hipótesis nula, y las diferencias al cuadrado, en nuestros datos de los dulces.')
+kable(candyDf, digits=3, caption='Conteos observados, conteos esperados bajo la hipótesis nula, y las diferencias al cuadrado, en nuestros datos de los dulces.')
 
 chisqVal <- 
   sum(
@@ -168,10 +168,10 @@ stopData <-
   rename(searched = search_conducted)
 ```
 
-<!-- The standard way to represent data from a categorical analysis is through a *contingency table*, which presents the number or proportion of observations falling into each possible combination of values for each of the variables. The table below shows the contingency table for the police search data.  It can also be useful to look at the contingency table using proportions rather than raw numbers, since they are easier to compare visually, so we include both absolute and relative numbers here. -->
-La manera estándar de representar datos de un análisis categórico es a través de una *tabla de contingencia*, que representa el número o la proporción de observaciones que cayeron en cada posible combinación de valores de cada una de las variables. La tabla abajo muestra la tabla de contingencia para los datos de las revisiones policíacas. También puede ser útil armar la tabla de contingencia usando proporciones en lugar de números crudos, porque son más fáciles de comparar visualmente, así que incluimos ambos números absolutos y relativos aquí.
+<!-- The standard way to represent data from a categorical analysis is through a *contingency table*, which presents the number or proportion of observations falling into each possible combination of values for each of the variables. Table \@ref(tab:policeCT) below shows the contingency table for the police search data.  It can also be useful to look at the contingency table using proportions rather than raw numbers, since they are easier to compare visually, so we include both absolute and relative numbers here. -->
+La manera estándar de representar datos de un análisis categórico es a través de una *tabla de contingencia*, que representa el número o la proporción de observaciones que cayeron en cada posible combinación de valores de cada una de las variables. La Tabla \@ref(tab:policeCT) muestra la tabla de contingencia para los datos de las revisiones policíacas. También puede ser útil armar la tabla de contingencia usando proporciones en lugar de números crudos, porque son más fáciles de comparar visualmente, así que incluimos ambos números absolutos y relativos aquí.
 
-```{r echo=FALSE}
+```{r policeCT, echo=FALSE}
 # compute and print two-way contingency table
 summaryDf2way <-
   stopData %>%
@@ -291,8 +291,8 @@ chisqTestResult
 <!-- ## Standardized residuals -->
 ## Residuales estandarizados
 
-<!-- When we find a significant effect with the chi-squared test, this tells us that the data are unlikely under the null hypothesis, but it doesn't tell us *how* the data differ.  To get a deeper insight into how the data differ from what we would expect under the null hypothesis, we can examine the residuals from the model, which reflects the deviation of the data (i.e., the observed frequencies) from the model (i.e., the expected frequencies) in each cell. Rather than looking at the raw residuals (which will vary simply depending on the number of observations in the data), it's more common to look at the *standardized residuals*, which are computed as: -->
-Cuando encontramos un efecto significativo con la prueba ji-cuadrada, esto nos dice que los datos son improbables bajo la hipótesis nula, pero no nos dice *cómo* difieren los datos. Para obtener un insight más profundo sobre cómo los datos difieren de lo que esperaríamos bajo la hipótesis nula, podemos examinar los residuales del modelo, que reflejan la desviación que tuvieron los datos (i.e., las frecuencias observadas) del modelo (i.e., las frecuencias esperadas) en cada celda. En lugar de ver los residuales crudos (que variarán simplemente dependiendo del número de observaciones en los datos), es más común observar los *residuales estandarizados*, que se calculan como sigue:
+<!-- When we find a significant effect with the chi-squared test, this tells us that the data are unlikely under the null hypothesis, but it doesn't tell us *how* the data differ.  To get a deeper insight into how the data differ from what we would expect under the null hypothesis, we can examine the residuals from the model, which reflects the deviation of the data (i.e., the observed frequencies) from the model (i.e., the expected frequencies) in each cell. Rather than looking at the raw residuals (which will vary simply depending on the number of observations in the data), it's more common to look at the *standardized residuals* (sometimes called *Pearson residuals*), which are computed as: -->
+Cuando encontramos un efecto significativo con la prueba ji-cuadrada, esto nos dice que los datos son improbables bajo la hipótesis nula, pero no nos dice *cómo* difieren los datos. Para obtener un insight más profundo sobre cómo los datos difieren de lo que esperaríamos bajo la hipótesis nula, podemos examinar los residuales del modelo, que reflejan la desviación que tuvieron los datos (i.e., las frecuencias observadas) del modelo (i.e., las frecuencias esperadas) en cada celda. En lugar de ver los residuales crudos (que variarán simplemente dependiendo del número de observaciones en los datos), es más común observar los *residuales estandarizados* (a veces llamados *residuales de Pearson*), que se calculan como sigue:
 
 $$
 residuales\ estandarizados_{ij} = \frac{observados_{ij} - esperados_{ij}}{\sqrt{esperados_{ij}}}
@@ -300,10 +300,10 @@ $$
 <!-- where $i$ and $j$ are the indices for the rows and columns respectively.   -->
 donde $i$ y $j$ son los índices de los renglones y las columnas, respectivamente.
 
-<!-- The table shows these for the police stop data.  These standardized residuals can be interpreted as Z scores -- in this case, we see that the number of searches for Black individuals are substantially higher than expected based on independence, and the number of searches for white individuals are substantially lower than expected. This provides us with the context that we need to interpret the signficant chi-squared result. -->
-La tabla muestra estos valores para los datos de las revisiones policíacas. Estos residuales estandarizados pueden interpretarse como valores Z -- en este caso, vemos que el número de revisiones para las personas negras son sustancialmente mayores que los esperados basados en independencia, y el número de revisiones para las personas blancas son sustancialmente menores que las esperadas. Esto nos provee del contexto que necesitamos para interpretar el resultado significativo de la ji-cuadrada.
+<!-- Table \@ref(tab:stdRes) shows these for the police stop data.  These standardized residuals can be interpreted as Z scores -- in this case, we see that the number of searches for Black individuals are substantially higher than expected based on independence, and the number of searches for white individuals are substantially lower than expected. This provides us with the context that we need to interpret the signficant chi-squared result. -->
+La Tabla \@ref(tab:stdRes) muestra estos valores para los datos de las revisiones policíacas. Estos residuales estandarizados pueden interpretarse como valores Z -- en este caso, vemos que el número de revisiones para las personas negras son sustancialmente mayores que los esperados basados en independencia, y el número de revisiones para las personas blancas son sustancialmente menores que las esperadas. Esto nos provee del contexto que necesitamos para interpretar el resultado significativo de la ji-cuadrada.
 
-```{r echo=FALSE}
+```{r stdRes, echo=FALSE}
 # compute standardized residuals
 summaryDfResids <- 
   summaryDf2way %>% 
@@ -343,8 +343,8 @@ Discutimos los factores de Bayes en el capítulo anterior sobre estadística Bay
 $$ 
 K = \frac{P(data|H_A)}{P(data|H_0)} = \frac{P(H_A|data)*P(H_A)}{P(H_0|data)*P(H_0)}
 $$
-<!-- We can compute the Bayes factor for the police search data using a special package for the R statistical software: -->
-Podemos calcular el factor de Bayes para los datos de las revisiones policiacas usando un paquete especial para el software estadístico R:
+<!-- We can compute the Bayes factor for the police search data using our statistical software: -->
+Podemos calcular el factor de Bayes para los datos de las revisiones policiacas usando nuestro software estadístico:
 
 ```{r echo=FALSE}
 # compute Bayes factor 
@@ -360,8 +360,8 @@ bf
 
 ```
 
-<!-- This shows that the evidence in favor of a relationship between driver race and police searches in this dataset is exceedingly strong. -->
-Esto nos muestra que la evidencia en favor de una relación entre la raza de los conductores y las revisiones policíacas en este conjunto de datos es extremadamente fuerte.
+<!-- This shows that the evidence in favor of a relationship between driver race and police searches in this dataset is exceedingly strong --- $1.8 * 10^{142}$ is about as close to infinity as we can imagine getting in statistics. -->
+Esto nos muestra que la evidencia en favor de una relación entre la raza de los conductores y las revisiones policíacas en este conjunto de datos es extremadamente fuerte --- $1.8 * 10^{142}$ es tan cercano a infinito como podemos imaginarnos llegar a obtener en estadística.
 
 <!-- ## Categorical analysis beyond the 2 X 2 table -->
 ## Análisis categórico más allá de la tabla 2 X 2
@@ -418,8 +418,8 @@ bf <-
 bf
 ```
 
-<!-- Here we see that the Bayes factor is very large, showing that the evidence in favor of a relation between depression and sleep problems is very strong. -->
-Aquí podemos ver que el factor de Bayes es muy grande, mostrando que la evidencia a favor de la relación entre depresión y problemas de sueño es muy fuerte.
+<!-- Here we see that the Bayes factor is very large ($1.8 * 10^{35}$), showing that the evidence in favor of a relation between depression and sleep problems is very strong. -->
+Aquí podemos ver que el factor de Bayes es muy grande ($1.8 * 10^{35}$), mostrando que la evidencia a favor de la relación entre depresión y problemas de sueño es muy fuerte.
 
 <!-- ## Beware of Simpson's paradox -->
 ## Cuídate de la paradoja de Simpson
