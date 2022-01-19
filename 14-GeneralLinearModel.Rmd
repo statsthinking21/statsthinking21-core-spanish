@@ -14,7 +14,6 @@ output:
 library(tidyverse)
 library(ggplot2)
 library(fivethirtyeight)
-#library(BayesMed)
 library(caret)
 library(MASS)
 library(cowplot)
@@ -44,8 +43,9 @@ NHANES_adult <-
 <!-- Remember that early in the book we described the basic model of statistics: -->
 Recuerda que previamente en este libro describimos el modelo básico en estadística:
 
+<!-- data = model + error -->
 $$
-outcome = model + error
+datos = modelo + error
 $$
 <!-- where our general goal is to find the model that minimizes the error, subject to some other constraints (such as keeping the model relatively simple so that we can generalize beyond our specific dataset). In this chapter we will focus on a particular implementation of this approach, which is known as the *general linear model* (or GLM).   You have already seen the general linear model in the earlier chapter on Fitting Models to Data, where we modeled height in the NHANES dataset as a function of age; here we will provide a more general introduction to the concept of the GLM and its many uses.  Nearly every model used in statistics can be framed in terms of the general linear model or an extension of it. -->
 donde nuestro objetivo principal es encontrar el modelo que minimice el error, sujeto a otras restricciones (como el mantener el modelo relativamente simple para que podamos generalizar más allá de nuestros datos específicos). En este capítulo nos enfocaremos en una implementación particular de esta aproximación, que es conocido como el *modelo lineal general* (*general linear model*, o GLM).    Ya has visto el modelo lineal general en el capítulo de Ajustar Modelos a los Datos, donde modelamos la altura de los datos de la base NHANES como una función de la edad; aquí proveeremos una introducción más general al concepto del GLM y de sus múltiples usos. Casi todos los modelos usados en estadística pueden ser planteados en términos del modelo lineal general o como una extensión de éste.
@@ -106,23 +106,23 @@ Como ejemplo, generemos unos datos simulados de la relación entre tiempo de est
 - *Decidir*: ¿Hay una relación estadísticamente significativa entre calificación y tiempo de estudio?
 - *Predecir*: Dado un tiempo particular de estudio, ¿qué calificación esperaríamos?
 
-<!-- In the previous chapter we learned how to describe the relationship between two variables using the correlation coefficient.  Let's use our statistical software to compute that relationship for these data and test whether the correlation is statistically significant: -->
-En el capítulo anterior aprendimos cómo describir la relación entre dos variables usando el coeficiente de correlación. Usemos nuestro software estadístico para calcular esa relación para estos datos y hacer la prueba de si esa correlación es estadísticamente significativa:
+<!-- In the previous chapter we learned how to describe the relationship between two variables using the correlation coefficient.  Let's use our statistical software to compute that relationship for these data and test whether the correlation is significantly different from zero: -->
+En el capítulo anterior aprendimos cómo describir la relación entre dos variables usando el coeficiente de correlación. Usemos nuestro software estadístico para calcular esa relación para estos datos y hacer la prueba de si esa correlación es significativamente diferente de cero:
 
 ```{r echo=FALSE}
 # compute correlation between grades and study time
-corTestResult <- cor.test(df$grade, df$studyTime, alternative = "greater")
+corTestResult <- cor.test(df$grade, df$studyTime)
 corTestResult
 ```
 
-<!-- The correlation is quite high, but just barely reaches statistical significance because the sample size is so small and thus our statistical power is very low.   -->
-Esta correlación es bastante alta, pero apenas alcanza significatividad estadística porque el tamaño de la muestra es tan pequeño, por lo tanto, nuestro poder estadístico es muy bajo.
+<!-- The correlation is quite high, but notice that the confidence interval around the estimate is very wide, spanning nearly the entire range from zero to one, which is due in part to the small sample size.   -->
+Esta correlación es bastante alta, pero nota que el intervalo de confianza alrededor de nuestra estimación es bastante amplio, cubriendo casi todo el rango de valores desde cero a uno, que en parte se debe a que nuestro tamaño de muestra es pequeño.
 
 <!-- ## Linear regression {#linear-regression} -->
 ## Regresión lineal {#linear-regression}
 
-<!-- We can use the general linear model to describe the relation between two variables and to decide whether that relationship is statistically significant; in addition, the model allows us to predict the value of the dependent variable given some new value(s) of the independent variable(s).  Most importantly, the general linear model will allow us to build models that incorporate multiple independent variables, whereas correlation can only tell us about the relationship between two individual variables. -->
-Podemos usar el modelo lineal general para describir la relación entre dos variables y para decidir si la relación es estadísticamente significativa; además, el modelo nos permite predecir el valor de la variable dependiente dado algún o algunos valores nuevos de la(s) variable(s) independiente(s). Aún más importante, el modelo lineal general nos permite construir modelos que incorporen múltiples variables independientes, mientras que la correlación sólo nos permite decir algo acerca de la relación entre dos variables individuales.
+<!-- We can use the general linear model to describe the relation between two variables and to decide whether that relationship is statistically significant; in addition, the model allows us to predict the value of the dependent variable given some new value(s) of the independent variable(s).  Most importantly, the general linear model will allow us to build models that incorporate multiple independent variables, whereas the correlation coefficient can only describe the relationship between two individual variables. -->
+Podemos usar el modelo lineal general para describir la relación entre dos variables y para decidir si la relación es estadísticamente significativa; además, el modelo nos permite predecir el valor de la variable dependiente dado algún o algunos valores nuevos de la(s) variable(s) independiente(s). Aún más importante, el modelo lineal general nos permite construir modelos que incorporen múltiples variables independientes, mientras que el coeficiente de correlación sólo puede describir la relación entre dos variables individuales.
 
 <!-- The specific version of the GLM that we use for this is referred to as as *linear regression*.  The term *regression* was coined by Francis Galton, who had noted that when he compared parents and their children on some feature (such as height), the children of extreme parents (i.e. the very tall or very short parents) generally fell closer to the mean than did their parents.  This is an extremely important point that we return to below. -->
 La versión específica del GLM que usamos para esto es conocida como *regresión lineal* (*linear regression*). El término *regresión* fue acuñado por Francis Galton, quien notó que cuando él comparó padres y madres con sus hijxs en algunas características (como altura), lxs hijxs de padres y madres con valores extremos (i.e. lxs padres y madres muy altxs, o muy bajxs de estatura) generalmente caían más cerca de la media que de los valores de sus padres y madres. Este es un punto extremadamente importante al que regresaremos más abajo.
@@ -133,14 +133,14 @@ La versión más simple del modelo de regresión lineal (con una sola variable i
 $$
 y = x * \beta_x + \beta_0 + \epsilon
 $$
-<!-- The $\beta_x$ value tells us how much we would expect y to change given a one-unit change in x.  The intercept $\beta_0$ is an overall offset, which tells us what value we would expect y to have when $x=0$; you may remember from our early modeling discussion that this is important to model the overall magnitude of the data, even if $x$ never actually attains a value of zero. The error term $\epsilon$ refers to whatever is left over once the model has been fit; we often refer to these as the *residuals* from the model. If we want to know how to predict y (which we call $\hat{y}$), then we can drop the error term: -->
-El valor $\beta_x$  nos dice cuánto esperaríamos que $y$ cambiara dado un cambio de una sola unidad en $x$. El intercepto $\beta_0$ es un offset general (una compensación general), que nos dice cuál valor esperaríamos de $y$ cuando $x=0$; recordarás de nuestra discusión previa sobre modelos que esto es importante para poder modelar la magnitud general de los datos, aún cuando $x$ nunca tenga realmente un valor de cero. El término del error $\epsilon$ se refiere al error que queda después de que el modelo ha sido ajustado a los datos; frecuentemente nos referimos a este error como los *residuales* del modelo. Si queremos saber cómo predecir $y$ (que llamamos $\hat{y}$), entonces podemos ignorar el término del error por el momento:
+<!-- The $\beta_x$ value tells us how much we would expect y to change given a one-unit change in $x$.  The intercept $\beta_0$ is an overall offset, which tells us what value we would expect y to have when $x=0$; you may remember from our early modeling discussion that this is important to model the overall magnitude of the data, even if $x$ never actually attains a value of zero. The error term $\epsilon$ refers to whatever is left over once the model has been fit; we often refer to these as the *residuals* from the model. If we want to know how to predict y (which we call $\hat{y}$) after we estimate the $\beta$ values, then we can drop the error term: -->
+El valor $\beta_x$  nos dice cuánto esperaríamos que $y$ cambiara dado un cambio de una sola unidad en $x$. El intercepto $\beta_0$ es un offset general (una compensación general), que nos dice cuál valor esperaríamos de $y$ cuando $x=0$; recordarás de nuestra discusión previa sobre modelos que esto es importante para poder modelar la magnitud general de los datos, aún cuando $x$ nunca tenga realmente un valor de cero. El término del error $\epsilon$ se refiere al error que queda después de que el modelo ha sido ajustado a los datos; frecuentemente nos referimos a este error como los *residuales* del modelo. Si queremos saber cómo predecir $y$ (que llamamos $\hat{y}$) después de estimar los valores $\beta$, entonces podemos ignorar el término del error por el momento:
 
 $$
-\hat{y} = x * \beta_x + \beta_0 
+\hat{y} = x * \hat{\beta_x} + \hat{\beta_0} 
 $$
-<!-- Note that this is simply the equation for a line, where $\beta_x$ is the slope and $\beta_0$ is the intercept. Figure  \@ref(fig:LinearRegression) shows an example of this model applied to the study time data. -->
-Nota que esto es simplemente la ecuación de una línea, donde $\beta_x$ es la pendiente y $\beta_0$ es el intercepto. La Figura \@ref(fig:LinearRegression) muestra un ejemplo de este modelo aplicado a los datos de tiempo de estudio.
+<!-- Note that this is simply the equation for a line, where $\hat{\beta_x}$ is our estimate of the slope and $\beta_0$ is the intercept. Figure  \@ref(fig:LinearRegression) shows an example of this model applied to the study time data. -->
+Nota que esto es simplemente la ecuación de una línea, donde $\hat{\beta_x}$ es nuestra estimación de la pendiente y $\hat{\beta_0}$ es la constante. La Figura \@ref(fig:LinearRegression) muestra un ejemplo de este modelo aplicado a los datos de tiempo de estudio.
 
 ```{r LinearRegression,echo=FALSE,fig.cap="The linear regression solution for the study time data is shown in the solid line The value of the intercept is equivalent to the predicted value of the y variable when the x variable is equal to zero; this is shown with a dotted line.  The value of beta is equal to the slope of the line -- that is, how much y changes for a unit change in x.  This is shown schematically in the dashed lines, which show the degree of increase in grade for a single unit increase in study time.",fig.width=4,fig.height=4,out.height='50%'}
 
@@ -170,10 +170,10 @@ No entraremos en detalles sobre cómo se calcula la pendiente y el intercepto qu
 <!-- ### Regression to the mean {#regression-to-the-mean} -->
 ### Regresión a la media {#regression-to-the-mean}
 
-<!-- The concept of *regression to the mean* was one of Galton's essential contributions to science, and it remains a critical point to understand when we interpret the results of experimental data analyses.  Let's say that we want to study the effects of a reading intervention on the performance of poor readers.  To test our hypothesis, we might go into a school and recruit those individuals in the bottom 25% of the distribution on some reading test, administer the intervention, and then examine their performance on the test after the intervention.  Let's say that the intervention actually has no effect, such that reading scores for each individual are simply independent samples from a normal distribution.  We can simulate this: -->
-El concepto de *regresión a la media* fue una de las contribuciones esenciales de Galton a la ciencia, y aún se mantiene como un punto crítico a entender cuando interpretamos los resultados de análisis de datos experimentales. Digamos que queremos estudiar los efectos de una intervención de lectura para el rendimiento de lectores de baja habilidad de lectura ("lectores pobres"). Para probar nuestra hipótesis, podríamos ir a una escuela y reclutar a aquellas personas en el 25% más bajo de la distribución en una prueba de lectura, administrar la intervención, y luego examinar su rendimiento en la prueba después de la intervención. Digamos que la intervención realmente no tiene efecto, de manera que los puntajes de lectura de cada persona son simplemente muestras independientes de una distribución normal. Podemos hacer una simulación de esto:
+<!-- The concept of *regression to the mean* was one of Galton's essential contributions to science, and it remains a critical point to understand when we interpret the results of experimental data analyses.  Let's say that we want to study the effects of a reading intervention on the performance of poor readers.  To test our hypothesis, we might go into a school and recruit those individuals in the bottom 25% of the distribution on some reading test, administer the intervention, and then examine their performance on the test after the intervention.  Let's say that the intervention actually has no effect, such that reading scores for each individual are simply independent samples from a normal distribution.  Results from a computer simulation of this hypothetic experiment are presented in \@ref(tab:readingTable). -->
+El concepto de *regresión a la media* fue una de las contribuciones esenciales de Galton a la ciencia, y aún se mantiene como un punto crítico a entender cuando interpretamos los resultados de análisis de datos experimentales. Digamos que queremos estudiar los efectos de una intervención de lectura para el rendimiento de lectores de baja habilidad de lectura ("lectores pobres"). Para probar nuestra hipótesis, podríamos ir a una escuela y reclutar a aquellas personas en el 25% más bajo de la distribución en una prueba de lectura, administrar la intervención, y luego examinar su rendimiento en la prueba después de la intervención. Digamos que la intervención realmente no tiene efecto, de manera que los puntajes de lectura de cada persona son simplemente muestras independientes de una distribución normal. Los resultados de una simulación por computadora de este experimento hipotético se presentan en la Tabla \@ref(tab:readingTable).
 
-```{r echo=FALSE}
+```{r readingTable, echo=FALSE}
 # create simulated data for regression to the mean example
 
 nstudents <- 100 
@@ -197,11 +197,12 @@ readingScores <-
     `Test 2` = mean(test2)
   )
 readingScores = as.data.frame(t(readingScores)) %>% rename(Score = V1)
-kable(readingScores, caption='Reading scores for Test 1 (which is lower, because it was the basis for selecting the students) and Test 2 (which is higher because it was not related to Test 1).')
+# Reading scores for Test 1 (which is lower, because it was the basis for selecting the students) and Test 2 (which is higher because it was not related to Test 1).
+kable(readingScores, caption='Puntajes de Lectura del Test 1 (que son menores, porque fueron la base para seleccionar a lxs estudiantes) y del Test 2 (que son mayores, porque no se relacionaban con el Test 1).')
 ```
 
-<!-- If we look at the difference between the mean test performance at the first and second test, it appears that the intervention has helped these students substantially, as their scores have gone up by more than ten points on the test!  However, we know that in fact the students didn't improve at all, since in both cases the scores were simply selected from a random normal distribution. What has happened is that some students scored badly on the first test simply due to random chance. If we select just those subjects on the basis of their first test scores, they are guaranteed to move back towards the mean of the entire group on the second test, even if there is no effect of training. This is the reason that we always need an untreated *control group* in order to interpret any changes in performance due to an intervention; otherwise we are likely to be tricked by regression to the mean. -->
-Si observamos la diferencia entre el rendimiento promedio en el primer y en el segundo test, pareciera que la intervención ha ayudado a estos estudiantes sustancialmente, ¡pues sus puntajes han incrementado en más de diez puntos en la prueba! Sin embargo, sabemos de cierto que estos estudiantes no mejoraron para nada, pues en ambos casos los puntajes simplemente fueron seleccionados de una distribución normal aleatoria. Lo que ha sucedido es que algunos estudiantes obtuvieron puntajes bajos en el primer test simplemente debido al azar. Si seleccionamos justo esos estudiantes con base en su puntaje del primer test, está garantizado que sus puntajes promedio se moverán hacia la media del grupo completo en su segundo test, aún cuando no hay ningún efecto del entrenamiento. Esta es una de las razones por las que siempre necesitamos un *grupo control* al que no se haya aplicado la intervención, para poder estar en posición de interpretar cualquier cambio en rendimiento como un cambio debido a la intervención; de otra manera probablemente seremos engañados por este truco de regresión a la media.
+<!-- If we look at the difference between the mean test performance at the first and second test, it appears that the intervention has helped these students substantially, as their scores have gone up by more than ten points on the test!  However, we know that in fact the students didn't improve at all, since in both cases the scores were simply selected from a random normal distribution. What has happened is that some students scored badly on the first test simply due to random chance. If we select just those subjects on the basis of their first test scores, they are guaranteed to move back towards the mean of the entire group on the second test, even if there is no effect of training. This is the reason that we always need an untreated *control group* in order to interpret any changes in performance due to an intervention; otherwise we are likely to be tricked by regression to the mean.  In addition, the participants need to be randomly assigned to the control or treatment group, so that there won't be any systematic differences between the groups (on average). -->
+Si observamos la diferencia entre el rendimiento promedio en el primer y en el segundo test, pareciera que la intervención ha ayudado a estos estudiantes sustancialmente, ¡pues sus puntajes han incrementado en más de diez puntos en la prueba! Sin embargo, sabemos de cierto que estos estudiantes no mejoraron para nada, pues en ambos casos los puntajes simplemente fueron seleccionados de una distribución normal aleatoria. Lo que ha sucedido es que algunos estudiantes obtuvieron puntajes bajos en el primer test simplemente debido al azar. Si seleccionamos justo esos estudiantes con base en su puntaje del primer test, está garantizado que sus puntajes promedio se moverán hacia la media del grupo completo en su segundo test, aún cuando no hay ningún efecto del entrenamiento. Esta es una de las razones por las que siempre necesitamos un *grupo control* al que no se haya aplicado la intervención, para poder estar en posición de interpretar cualquier cambio en rendimiento como un cambio debido a la intervención; de otra manera probablemente seremos engañados por este truco de regresión a la media.  Además, los participantes deben ser asignados aleatoriamente al grupo control o al experimental, para que no haya ninguna diferencia sistemática entre los grupos (en promedio).
 
 <!-- ### The relation between correlation and regression -->
 ### La relación entre correlación y regresión
@@ -288,8 +289,8 @@ En general usaríamos un software estadístico para calcular estos valores en lu
 summary(lmResult)
 ```
 
-<!-- In this case we see that the intercept is significantly different from zero (which is not very interesting) and that the effect of studyTime on grades is marginally significant (p = .09). -->
-En este caso podemos ver que el intercepto es significativamente diferente de cero (lo cual no es muy interesante) y que el efecto de studyTime sobre las calificaciones es marginalmente significativo (p = .09).
+<!-- In this case we see that the intercept is significantly different from zero (which is not very interesting) and that the effect of studyTime on grades is marginally significant (p = .09)  -- the same p-value as the correlation test that we performed earlier. -->
+En este caso podemos ver que la constante es significativamente diferente de cero (lo cual no es muy interesante) y que el efecto de studyTime sobre las calificaciones es marginalmente significativo (p = .09) -- el mismo valor p que el de la prueba de correlación que realizamos anteriormente.
 
 <!-- ### Quantifying goodness of fit of the model -->
 ### Cuantificar la bondad de adjuste del modelo
@@ -437,8 +438,8 @@ lmResultCafAnx <- lm(speaking ~ caffeine + anxiety, data = df)
 summary(lmResultCafAnx)
 ```
 
-<!-- Here we see there are no significant effects of either caffeine or anxiety, which might seem a bit confusing.  The problem is that this model is trying to fit the same line relating speaking to caffeine for both groups. If we want to fit them using separate lines, we need to include an *interaction* in the model, which is equivalent to fitting different lines for each of the two groups; this is often denoted by using the $*$ symbol in the model. -->
-Aquí vemos que no hay efectos significativos de la cafeína ni de la ansiedad, lo que podría parecer un poco confuso. El problema es que este modelo está tratando de ajustar la misma línea relacionando el hablar en público con la cafeína para ambos grupos. Si queremos ajustar los datos usando líneas separadas, necesitamos incluir una *interacción* en el modelo, lo que es equivalente a ajustar diferentes líneas para cada uno de los dos grupos; esto es frecuentemente denotado usando el símbolo $*$ en el modelo.
+<!-- Here we see there are no significant effects of either caffeine or anxiety, which might seem a bit confusing.  The problem is that this model is trying to use the same slope relating speaking to caffeine for both groups. If we want to fit them using lines with separate slopes, we need to include an *interaction* in the model, which is equivalent to fitting different lines for each of the two groups; this is often denoted by using the $*$ symbol in the model. -->
+Aquí vemos que no hay efectos significativos de la cafeína ni de la ansiedad, lo que podría parecer un poco confuso. El problema es que este modelo está tratando de usar la misma pendiente al relacionar el hablar en público con la cafeína para ambos grupos. Si queremos ajustar los datos usando líneas con pendientes separadas, necesitamos incluir una *interacción* en el modelo, lo que es equivalente a ajustar diferentes líneas para cada uno de los dos grupos; esto es frecuentemente denotado usando el símbolo $*$ en el modelo.
 
 ```{r echo=FALSE}
 # compute linear regression including caffeine X anxiety interaction
@@ -483,6 +484,8 @@ p3 <- ggplot(df,aes(caffeine,speaking,shape=anxiety)) +
 plot_grid(p1, p2, p3, labels='AUTO')
 ```
 
+<!-- One important point to note is that we have to be very careful about interpreting a significant main effect if a significant interaction is also present, since the interaction suggests that the main effect differs according to the values of another variable, and thus is not easily interpretable. -->
+Un punto importante por resaltar es que debemos ser muy cuidadosxs al interpretar un efecto principal significativo si también está presente una interacción significativa, porque la interacción sugiere que el efecto principal difiere de acuerdo con los valores de otra variable, por lo que no es fácilmente interpretable.
 
 <!-- Sometimes we want to compare the relative fit of two different models, in order to determine which is a better model; we refer to this as *model comparison*.  For the models above, we can compare the goodness of fit of the model with and without the interaction, using what is called an *analysis of variance*: -->
 Algunas veces queremos comparar el ajuste relativo de dos modelos diferentes, para poder determinar cuál modelo es mejor; llamamos a esto *comparación de modelos* (o *model comparison*). Para los modelos anteriores, podemos comparar la bondad de ajuste (*goodness of fit*) del modelo sin y con interacción, usando lo que se conoce como *análisis de varianza* (*analysis of variance*):
@@ -491,8 +494,8 @@ Algunas veces queremos comparar el ajuste relativo de dos modelos diferentes, pa
 anova(lmResultCafAnx, lmResultInteraction)
 ```
 
-<!-- This tells us that there is good evidence to prefer the model with the interaction over the one without an interaction.  Model comparison is relatively simple in this case because the two models are *nested* -- one of the models is a simplified version of the other model.  Model comparison with non-nested models can get much more complicated. -->
-Esto nos indica que hay buena evidencia para preferir el modelo que incluye la interacción sobre el modelo que no la incluye. La comparación de modelos es relativamente simple en este caso porque los dos modelos están *anidados* (del inglés: *nested*) -- uno de los modelos es una versión simplificada del otro modelo. La comparación de modelos no-anidados puede volver mucho más complicada.
+<!-- This tells us that there is good evidence to prefer the model with the interaction over the one without an interaction.  Model comparison is relatively simple in this case because the two models are *nested* -- one of the models is a simplified version of the other model, such that all of the variable in the simpler model are contained in the more complex model.  Model comparison with non-nested models can get much more complicated. -->
+Esto nos indica que hay buena evidencia para preferir el modelo que incluye la interacción sobre el modelo que no la incluye. La comparación de modelos es relativamente simple en este caso porque los dos modelos están *anidados* (del inglés: *nested*) -- uno de los modelos es una versión simplificada del otro modelo, de manera tal que todas las variables en el modelo simple están contenidas en el modelo más complejo. La comparación de modelos no-anidados se puede volver mucho más complicada.
 
 <!-- ## Beyond linear predictors and outcomes -->
 ## Más allá de predictores y resultados lineales
