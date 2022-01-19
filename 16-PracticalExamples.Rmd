@@ -15,7 +15,6 @@ library(tidyverse)
 library(ggplot2)
 library(BayesFactor)
 library(emmeans)
-#library(brms)
 library(cowplot)
 library(knitr)
 library(ggfortify)
@@ -200,8 +199,8 @@ lmResult <- lm(BMIChange12Months ~ diet, data = dietDf)
 summary(lmResult)
 ```
 
-<!-- Note that the software automatically generated dummy variables that correspond to three of the four diets, leaving the Atkins diet without a dummy variable. This means that the intercept models the Atkins diet, and the other three variables model the difference between each of those diets and the Atkins diet. Atkins was chosen as the unmodeled baseline variable simply because it is first in alphabetical order. -->
-Nota que el software estadístico automáticamente generó las variables ficticias (dummy) que corresponden a tres de las cuatro dietas, dejando la dieta Atkins sin una variable ficticia (dummy). Esto significa que el intercepto modela la dieta Atkins, y las otras tres variables modelan la diferencia entre cada una de ellas y la dieta Atkins. Atkins fue elegida como la variable de línea base sin modelar simplemente porque es la primera en orden alfabético.
+<!-- Note that the software automatically generated dummy variables that correspond to three of the four diets, leaving the Atkins diet without a dummy variable. This means that the intercept represents the mean of the Atkins diet group, and the other three variables model the difference between each of those diets and the Atkins diet. Atkins was chosen as the unmodeled baseline variable simply because it is first in alphabetical order. -->
+Nota que el software estadístico automáticamente generó las variables ficticias (*dummy variable*) que corresponden a tres de las cuatro dietas, dejando la dieta Atkins sin una variable ficticia (*dummy variable*). Esto significa que la constante representa la media del grupo de la dieta Atkins, y las otras tres variables modelan la diferencia entre las medias de cada una de las dietas y la media de la dieta Atkins. Atkins fue elegida como la variable de línea base sin modelar simplemente porque es la primera en orden alfabético.
 
 <!-- ### 6. Criticize the model to make sure it fits properly -->
 ### 6: Criticar el modelo para asegurarnos que se ajusta apropiadamente.
@@ -219,8 +218,8 @@ ggplot(dietDf, aes(x=lmResid, group=diet, color=diet)) +
   xlab('Residuals')
 ```
 
-<!-- Another important assumption of the statistical tests that we apply to linear models is that the residuals from the model are normally distributed. The right panel of Figure \@ref(fig:diagnosticQQPlot) shows a Q-Q (quantile-quantile) plot, which plots the residuals against their expected values based on their quantiles in the normal distribution. If the residuals are normally distributed then the data points should fall along the dashed line --- in this case it looks pretty good, except for a couple of outliers that are apparent here.  Because this model is also relatively robust to violations of normality, and these are fairly small, we will go ahead and use the results. -->
-Otra suposición importante de las pruebas estadísticas que aplicamos a modelos lineales es que los residuales del modelo están normalmente distribuidos. El panel derecho de la Figura \@ref(fig:diagnosticQQPlot) muestra una gráfica Q-Q (*quantile-quantile*, cuantil-cuantil) que grafica los residuales contra su valor esperado basado en sus cuantiles en la distribución normal. Si los residuales están normalmente distribuidos entonces los datos caerían a lo largo de la línea punteada --- en este caso se ven bastante bien, excepto por un par de outliers (valores atípicos) que son aparentes aquí. Debido a que este modelo es también relativamente robusto a desviaciones de la normalidad, y a que éstas son relativamente pequeñas, seguiremos adelante y usaremos estos resultados.
+<!-- Another important assumption of the statistical tests that we apply to linear models is that the residuals from the model are normally distributed.  It is a common misconception that linear models require that the *data* are normally distributed, but this is not the case; the only requirement for the statistics to be correct is that the residual errors are normally distributed.  The right panel of Figure \@ref(fig:diagnosticQQPlot) shows a Q-Q (quantile-quantile) plot, which plots the residuals against their expected values based on their quantiles in the normal distribution. If the residuals are normally distributed then the data points should fall along the dashed line --- in this case it looks pretty good, except for a couple of outliers that are apparent at the very bottom.  Because this model is also relatively robust to violations of normality, and these are fairly small, we will go ahead and use the results. -->
+Otra suposición importante de las pruebas estadísticas que aplicamos a modelos lineales es que los residuales del modelo estén normalmente distribuidos.  Es una idea equivocada común pensar que los modelos lineales requieren que los *datos* estén distribuidos de manera normal, pero esto no es correcto; el único requisito para que las estadísticas estén correctas es que los errores residuales estén normalmente distribuidos.   El panel derecho de la Figura \@ref(fig:diagnosticQQPlot) muestra una gráfica Q-Q (*quantile-quantile*, cuantil-cuantil) que grafica los residuales contra su valor esperado basado en sus cuantiles en la distribución normal. Si los residuales están normalmente distribuidos entonces los datos caerían a lo largo de la línea punteada --- en este caso se ven bastante bien, excepto por un par de valores atípicos (*outliers*) que son evidentes hasta abajo. Debido a que este modelo es también relativamente robusto a desviaciones de la normalidad, y a que éstas son relativamente pequeñas, seguiremos adelante y usaremos estos resultados.
 
 
 <!-- Q-Q plot of actual residual values against theoretical residual values -->
@@ -253,39 +252,18 @@ multcomp::cld(leastsquare$emmeans,
 
 ```
 
-<!-- The letters in the rightmost column show us which of the groups differ from one another, using a method that adjusts for the number of comparisons being performed.  This shows that Atkins and LEARN diets don't differ from one another (since they share the letter a), and the LEARN, Ornish, and Zone diets don't differ from one another (since they share the letter b), but the Atkins diet differs from the Ornish and Zone diets (since they share no letters). -->
-Las letras en la columna hasta la derecha nos muestra cuáles de los grupos difieren de los otros, usando un método que ajusta por el número de comparaciones siendo realizadas. Esto nos muestra que las dietas Atkins y LEARN no difieren entre sí (porque comparten la letra a), y las dietas LEARN, Ornish, y Zone no difieren entre sí (porque comparten la letra b), pero la dieta Atkins difiere de las dietas Ornish y Zone (porque no comparten letras).
+<!-- The letters in the rightmost column show us which of the groups differ from one another, using a method that adjusts for the number of comparisons being performed; conditions that share a letter are not significantly different from one another.  This shows that Atkins and LEARN diets don't differ from one another (since they share the letter a), and the LEARN, Ornish, and Zone diets don't differ from one another (since they share the letter b), but the Atkins diet differs from the Ornish and Zone diets (since they share no letters). -->
+Las letras en la columna hasta la derecha nos muestra cuáles de los grupos difieren de los otros, usando un método que ajusta por el número de comparaciones siendo realizadas; las condiciones que comparten una letra no son significativamente diferentes entre ellas. Esto nos muestra que las dietas Atkins y LEARN no difieren entre sí (porque comparten la letra a), y las dietas LEARN, Ornish, y Zone no difieren entre sí (porque comparten la letra b), pero la dieta Atkins difiere de las dietas Ornish y Zone (porque no comparten letras).
 
-<!-- #### Bayes factor -->
-#### Factor de Bayes
 
-<!-- Let's say that we want to have a better way to describe the amount of evidence provided by the data.  One way we can do this is to compute a Bayes factor, which we can do by fitting the full model (including diet) and the reduced model (without diet) and then comparing their fit. For the reduced model, we only include an intercept. Note that Bayesian analysis can take substantially more time to run, since it requires the use of sampling techniques related to the Monte Carlo simulations that we discussed in Chapter 11. -->
-Digamos que queremos tener una mejor manera de describir la cantidad de evidencia provista por los datos. Una manera de hacer esto es calculando el factor de Bayes, que podemos realizar ajustando el modelo completo (incluyendo dieta) y el modelo reducido (sin incluir dieta) y luego comparando sus ajustes. Para el modelo reducido, sólo incluimos un intercepto. Nota que el análisis Bayesiano puede tomar un tiempo sustancialmente mayor para completarse, porque requiere el uso de técnicas de muestreo relacionadas con simulaciones Monte Carlo que discutimos en el Capítulo 11.
-
-```{r echo=FALSE, results='hide',message=FALSE}
-#brmFullModel <- brm(BMIChange12Months ~ diet, data = dietDf,
-#                    save_all_pars = TRUE)
-
-#brmReducedModel <- brm(BMIChange12Months ~ 1, data = dietDf,
-#                      save_all_pars = TRUE)
-```
-
-```{r echo=FALSE, results='hide',message=FALSE}
-#bayes_factor(brmFullModel,brmReducedModel)
-```
-
-[Aquí iría el resultado del análisis Bayesiano mencionado usando la función $brm()$ en el software estadístico R, pero el paquete no está actualizado para la versión 4 de R, por lo que se tuvo que dejar fuera el cálculo.]
-
-<!-- This shows us that there is very strong evidence (Bayes factor of nearly 100) for differences between the diets. -->
-Esto nos muestra que hay evidencia muy fuerte (factor de Bayes cercano a 100) de que existen diferencias entre las dietas.
 
 <!-- ### What about possible confounds? -->
 ### ¿Qué pasa con los posibles factores de confusión (confounds)?
 
-<!-- If we look more closely at the Garder paper, we will see that they also report statistics on how many individuals in each group had been diagnosed with *metabolic syndrome*, which is a syndrome characterized by high blood pressure, high blood glucose, excess body fat around the waist, and abnormal cholesterol levels and is associated with increased risk for cardiovascular problems. Here are the data from the Gardner paper: -->
-Si vemos más de cerca el artículo de Gardner, veremos que también reportaron estadísticas sobre cuántas personas en cada grupo habían sido diagnosticadas con *síndrome metabólico*, que es un síndrome caracterizado por presión sanguínea alta, alta glucosa en sangre, exceso de grasa corporal alrededor de la cintura, y niveles de colesterol anormales; este síndrome está asociado con mayor riesgo de problemas cardiovasculares. En la tabla \@ref(tab:metabolicSyndrome) están los datos del artículo de Gardner.
+<!-- If we look more closely at the Garder paper, we will see that they also report statistics on how many individuals in each group had been diagnosed with *metabolic syndrome*, which is a syndrome characterized by high blood pressure, high blood glucose, excess body fat around the waist, and abnormal cholesterol levels and is associated with increased risk for cardiovascular problems. The data from the Gardner paper are presented in Table \@ref(tab:metsymData). -->
+Si vemos más de cerca el artículo de Gardner, veremos que también reportaron estadísticas sobre cuántas personas en cada grupo habían sido diagnosticadas con *síndrome metabólico*, que es un síndrome caracterizado por presión sanguínea alta, alta glucosa en sangre, exceso de grasa corporal alrededor de la cintura, y niveles de colesterol anormales; este síndrome está asociado con mayor riesgo de problemas cardiovasculares. Los datos del artículo de Gardner se presentan en la Tabla \@ref(tab:metsymData).
 
-```{r metabolicSyndrome, echo=FALSE}
+```{r metsymData, echo=FALSE}
 summaryDf <- 
   summaryDf %>% 
   mutate(
