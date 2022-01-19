@@ -8,7 +8,7 @@ output:
       in_header: google_analytics.html
 ---
 <!-- # Comparing means -->
-# Comparar medias
+# Comparar medias {#comparing-means}
 
 ```{r echo=FALSE,warning=FALSE,message=FALSE}
 library(tidyverse)

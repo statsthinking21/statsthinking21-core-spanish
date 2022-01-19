@@ -8,7 +8,7 @@ output:
   html_document: default
 ---
 <!-- # The General Linear Model -->
-# El Modelo Lineal General
+# El Modelo Lineal General {#the-general-lineal-model}
 
 ```{r echo=FALSE,warning=FALSE,message=FALSE}
 library(tidyverse)
