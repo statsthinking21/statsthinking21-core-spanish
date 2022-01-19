@@ -17,9 +17,8 @@ La mayoría de las personas están familiarizadas con el concepto de *correlaci�
 library(tidyverse)
 library(ggplot2)
 library(fivethirtyeight)
-#library(BayesMed)
-# library(MCMCpack) # Used by jzs function in BayesMed
-# library(R2jags) # Used by jzs function in BayesMed
+library(BayesFactor)
+library(bayestestR)
 library(cowplot)
 library(knitr)
 library(DiagrammeR)
@@ -100,10 +99,10 @@ $$
 covariance = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{N - 1}
 $$
 
-<!--This value will be far from zero when individual data points deviate by similar amounts from their respective means; if they are deviant in the same direction then the covariance is positive, whereas if they are deviant in opposite directions the covariance is negative.  Let's look at a toy example first.  The data are shown in the table, along with their individual deviations from the mean and their crossproducts.-->
-Este valor estará lejos de cero cuando los puntos individuales de los datos se desvíen en cantidades similares de sus respectivos medias; si se desvían en la misma dirección, la covarianza es positiva, mientras que si se desvían en direcciones opuestas, la covarianza es negativa. Veamos primero un ejemplo de juguete. Los datos se muestran en la tabla, junto con sus desviaciones individuales de la media y sus productos cruzados.
+<!--This value will be far from zero when individual data points deviate by similar amounts from their respective means; if they are deviant in the same direction then the covariance is positive, whereas if they are deviant in opposite directions the covariance is negative.  Let's look at a toy example first.  The data are shown in Table \@ref(tab:covTable), along with their individual deviations from the mean and their crossproducts.-->
+Este valor estará lejos de cero cuando los puntos individuales de los datos se desvíen en cantidades similares de sus respectivos medias; si se desvían en la misma dirección, la covarianza es positiva, mientras que si se desvían en direcciones opuestas, la covarianza es negativa. Veamos primero un ejemplo de juguete. Los datos se muestran en la Tabla \@ref(tab:covTable), junto con sus desviaciones individuales de la media y sus productos cruzados.
 
-```{r echo=FALSE}
+```{r covTable, echo=FALSE}
 # create data for toy example of covariance
 df <-
   tibble(x = c(3, 5, 8, 10, 12)) %>%
@@ -158,10 +157,10 @@ cor.test(
 )
 ```
 
-<!--This test shows that the likelihood of an r value this extreme or more is quite low, so we would reject the null hypothesis of $r=0$.  Note that this test assumes that both variables are normally distributed.-->
-Este test nos muestra que la probabilidad de un valor r así o más extremo es realmente baja, así que rechazaríamos la hipótesis nula de $r=0$. Nota que este test asume que ambas variables están normalmente distribuidas. 
+<!--This test shows that the likelihood of an r value this extreme or more is quite low under the null hypothesis, so we would reject the null hypothesis of $r=0$.  Note that this test assumes that both variables are normally distributed.-->
+Este test nos muestra que la probabilidad de un valor r así o más extremo es realmente baja bajo la hipótesis nula, así que rechazaríamos la hipótesis nula de $r=0$. Nota que este test asume que ambas variables están normalmente distribuidas. 
 
-<!--We could also test this by randomization, in which we repeatedly shuffle the values of one of the variables and compute the correlation, and then compare our observed correlation value to this null distribution to determine how likely our observed value would be under the null hypothesis. The results are shown in Figure \@ref(fig:shuffleCorr).  The p-value computed using randomization is reasonably similar to the answer give by the t-test.-->
+<!--We could also test this by randomization, in which we repeatedly shuffle the values of one of the variables and compute the correlation, and then compare our observed correlation value to this null distribution to determine how likely our observed value would be under the null hypothesis. The results are shown in Figure \@ref(fig:shuffleCorr).  The p-value computed using randomization is reasonably similar to the answer given by the t-test.-->
 También podríamos probar esto por aleatorización, en la que mezclamos (reordenamos) los valores de una de las variables y calculamos la correlación, repetidamente, luego comparamos el valor observado de nuestra correlación con esta distribución nula para determinar qué tan probable sería nuestro valor observado bajo la hipótesis nula. Los resultados se muestran en la Figura \@ref(fig:shuffleCorr). El valor p calculado usando la aleatorización es razonablemente similar a la respuesta dada por la prueba t.
 
 ```{r echo=FALSE}
@@ -447,18 +446,20 @@ La Figura \@ref(fig:gini0) muestra las curvas de Lorenz para varias distribucion
 <!--### Bayesian correlation analysis-->
 ### Análisis de correlación bayesiana
 
-<!--We can also analyze the FiveThirtyEight data using Bayesian analysis, which has two advantages.  First, it provides us with a posterior probability -- in this case, the probability that the correlation value exceeds zero.  Second, the Bayesian estimate combines the observed evidence with a *prior*, which has the effect of *regularizing* the correlation estimate, effectively pulling it towards zero.  Here we can compute it using the `jzs_cor` function from the BayesMed package.-->
-También podemos analizar los datos de *FiveThirtyEight* utilizando el análisis bayesiano, que tiene dos ventajas. Primero, nos proporciona una probabilidad posterior, en este caso, la probabilidad de que el valor de correlación sea superior a cero. En segundo lugar, la estimación bayesiana combina la evidencia observada con una *probabilidad previa*, que tiene el efecto de *regularizar* la correlación estimada, efectivamente llevándola hacia cero. Aquí podemos calcularlo usando la función `jzs_cor` del paquete BayesMed.
+<!--We can also analyze the FiveThirtyEight data using Bayesian analysis, which has two advantages.  First, it provides us with a posterior probability -- in this case, the probability that the correlation value exceeds zero.  Second, the Bayesian estimate combines the observed evidence with a *prior*, which has the effect of *regularizing* the correlation estimate, effectively pulling it towards zero.  Here we can compute it using *BayesFactor* package in R. -->
+También podemos analizar los datos de *FiveThirtyEight* utilizando el análisis bayesiano, que tiene dos ventajas. Primero, nos proporciona una probabilidad posterior, en este caso, la probabilidad de que el valor de correlación sea superior a cero. En segundo lugar, la estimación bayesiana combina la evidencia observada con una *probabilidad previa*, que tiene el efecto de *regularizar* la correlación estimada, efectivamente llevándola hacia cero. Aquí podemos calcularlo usando el paquete *BayesFactor* en R.
 
 ```{r echo=FALSE}
-# bayesCor <- jzs_cor(
-#   hateCrimes$avg_hatecrimes_per_100k_fbi,
-#   hateCrimes$gini_index
-# )
-# bayesCor
+bayesCor <- correlationBF(
+  hateCrimes$avg_hatecrimes_per_100k_fbi,
+  hateCrimes$gini_index
+)
+print(bayesCor)
+bayesCorPosterior <- describe_posterior(bayesCor)
+print(bayesCorPosterior)
 
 ```
 
-<!--Notice that the correlation estimated using the Bayesian method is slightly smaller than the one estimated using the standard correlation coefficient, which is due to the fact that the estimate is based on a combination of the evidence and the prior, which effectively shrinks the estimate toward zero. However, notice that the Bayesian analysis is not robust to the outlier, and it still says that there is fairly strong evidence that the correlation is greater than zero.-->
-Nótese que la correlación estimada usando el método bayesiano es ligeramente menor que la estimada usando el coeficiente de correlación estándar, lo cual se debe al hecho de que la estimación se basa en una combinación de la evidencia y la probabilidad previa, lo que efectivamente reduce la estimación hacia cero. Sin embargo, observe que el análisis bayesiano no es robusto para el valor atípico, y todavía dice que hay evidencia bastante fuerte de que la correlación es mayor que cero.
+<!--Notice that the correlation estimated using the Bayesian method (`r I(bayesCorPosterior$Median)`) is slightly smaller than the one estimated using the standard correlation coefficient (`r I(corGiniHC)`), which is due to the fact that the estimate is based on a combination of the evidence and the prior, which effectively shrinks the estimate toward zero. However, notice that the Bayesian analysis is not robust to the outlier, and it still says that there is fairly strong evidence that the correlation is greater than zero (with a Bayes factor of more than 20).-->
+Nótese que la correlación estimada usando el método bayesiano (`r I(bayesCorPosterior$Median)`) es ligeramente menor que la estimada usando el coeficiente de correlación estándar (`r I(corGiniHC)`), lo cual se debe al hecho de que la estimación se basa en una combinación de la evidencia y la probabilidad previa, lo que efectivamente reduce la estimación hacia cero. Sin embargo, observe que el análisis bayesiano no es robusto para el valor atípico, y todavía dice que hay evidencia bastante fuerte de que la correlación es mayor que cero (con un factor de Bayes mayor a 20).
 
