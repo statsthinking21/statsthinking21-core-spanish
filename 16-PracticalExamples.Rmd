@@ -36,7 +36,7 @@ NHANES_adult <-
 ```
 
 <!-- In this chapter we will bring together everything that we have learned, by applying our knowledge to a practical example.  In 2007, Christopher Gardner and colleagues from Stanford published a study in the *Journal of the American Medical Association* titled "Comparison of the Atkins, Zone, Ornish, and LEARN Diets for Change in Weight and Related Risk Factors Among Overweight Premenopausal Women -- The A TO Z Weight Loss Study: A Randomized Trial" [@gard:kiaz:alha:2007]. We will use this study to show how one would go about analyzing an experimental dataset from start to finish. -->
-En este capítulo reuniremos todo lo que hemos aprendido, aplicando nuestro conocimiento a un ejemplo práctico. En 2007, Christopher Gardner y colegas de Stanford publicaron un estudio en el *Journal of the American Medical Association* titulado "Comparison of the Atkins, Zone, Ornish, and LEARN Diets for Change in Weight and Related Risk Factors Among Overweight Premenopausal Women -- The A TO Z Weight Loss Study: A Randomized Trial" [@gard:kiaz:alha:2007]. Usaremos este estudio para mostrar cómo haría uno para analizar un conjunto de datos experimental de inicio a fin.
+En este capítulo reuniremos todo lo que hemos aprendido, aplicando nuestro conocimiento a un ejemplo práctico. En 2007, Christopher Gardner y colegas de Stanford publicaron un estudio en el *Journal of the American Medical Association* titulado "Comparison of the Atkins, Zone, Ornish, and LEARN Diets for Change in Weight and Related Risk Factors Among Overweight Premenopausal Women -- The A TO Z Weight Loss Study: A Randomized Trial" [@gard:kiaz:alha:2007]. Usaremos este estudio para mostrar cómo analizaríamos un conjunto de datos experimental de inicio a fin.
 
 <!-- ## The process of statistical modeling -->
 ## El proceso de modelación estadística
@@ -72,7 +72,7 @@ De acuerdo a los autores, el objetivo de su estudio fue:
 ### 2: Identificar o recolectar los datos apropiados.
 
 <!-- To answer their question, the investigators randomly assigned each of 311 overweight/obese women to one of four different diets (Atkins, Zone, Ornish, or LEARN), and measured their weight along with many other measures of health over time.  The authors recorded a large number of variables, but for the main question of interest let's focus on a single variable: Body Mass Index (BMI).  Further, since our goal is to measure lasting changes in BMI, we will only look at the measurement taken at 12 months after onset of the diet. -->
-Para responder la pregunta, los investigadores asignaron aleatoriamente a 311 mujeres con sobrepeso u obesidad a una de cuatro diferentes dietas (Atkins, Zone, Ornish, or LEARN), y midieron su peso junto con otras variables de salud a lo largo del tiempo. Los autores registraron un gran número de variables, pero para la pregunta principal de interés nos enfocaremos en una variable sencilla: Índice de Masa Corporal (IMC; Body Mass Index, BMI). Además, como nuestra meta es medir cambios perdurables en IMC, revisaremos únicamente la medición tomada 12 meses después del inicio de la dieta.
+Para responder la pregunta, los investigadores asignaron aleatoriamente a 311 mujeres con sobrepeso u obesidad a una de cuatro diferentes dietas (Atkins, Zone, Ornish, o LEARN), y midieron su peso junto con otras variables de salud a lo largo del tiempo. Los autores registraron un gran número de variables, pero para la pregunta principal de interés nos enfocaremos en una variable sencilla: Índice de Masa Corporal (IMC; *Body Mass Index*, BMI). Además, como nuestra meta es medir cambios perdurables en IMC, revisaremos únicamente la medición tomada 12 meses después del inicio de la dieta.
 
 <!-- ### 3: Prepare the data for analysis -->
 ### 3: Preparar los datos para el análisis.
@@ -166,7 +166,7 @@ Hay varias preguntas que necesitamos hacer para poder determinar el modelo estad
 * ¿Qué tipo de variable dependiente?
     * IMC: continua, aproximadamente distribuida de manera normal.
 * ¿Qué estamos comparando?
-    * Media de IMC entre cuatro grupos de dieta.
+    * Media de IMC de cuatro grupos de dieta.
     * ANOVA es apropiado.
 * ¿Las observaciones son independientes?
     * La asignación aleatoria debería asegurar que la suposición de independencia es apropiada.
@@ -219,7 +219,7 @@ ggplot(dietDf, aes(x=lmResid, group=diet, color=diet)) +
 ```
 
 <!-- Another important assumption of the statistical tests that we apply to linear models is that the residuals from the model are normally distributed.  It is a common misconception that linear models require that the *data* are normally distributed, but this is not the case; the only requirement for the statistics to be correct is that the residual errors are normally distributed.  The right panel of Figure \@ref(fig:diagnosticQQPlot) shows a Q-Q (quantile-quantile) plot, which plots the residuals against their expected values based on their quantiles in the normal distribution. If the residuals are normally distributed then the data points should fall along the dashed line --- in this case it looks pretty good, except for a couple of outliers that are apparent at the very bottom.  Because this model is also relatively robust to violations of normality, and these are fairly small, we will go ahead and use the results. -->
-Otra suposición importante de las pruebas estadísticas que aplicamos a modelos lineales es que los residuales del modelo estén normalmente distribuidos.  Es una idea equivocada común pensar que los modelos lineales requieren que los *datos* estén distribuidos de manera normal, pero esto no es correcto; el único requisito para que las estadísticas estén correctas es que los errores residuales estén normalmente distribuidos.   El panel derecho de la Figura \@ref(fig:diagnosticQQPlot) muestra una gráfica Q-Q (*quantile-quantile*, cuantil-cuantil) que grafica los residuales contra su valor esperado basado en sus cuantiles en la distribución normal. Si los residuales están normalmente distribuidos entonces los datos caerían a lo largo de la línea punteada --- en este caso se ven bastante bien, excepto por un par de valores atípicos (*outliers*) que son evidentes hasta abajo. Debido a que este modelo es también relativamente robusto a desviaciones de la normalidad, y a que éstas son relativamente pequeñas, seguiremos adelante y usaremos estos resultados.
+Otra suposición importante de las pruebas estadísticas que aplicamos a modelos lineales es que los residuales del modelo estén normalmente distribuidos.  Es una idea equivocada algo común pensar que los modelos lineales requieren que los *datos* estén distribuidos de manera normal, pero esto no es correcto; el único requisito para que las estadísticas estén correctas es que los errores residuales estén normalmente distribuidos.   El panel derecho de la Figura \@ref(fig:diagnosticQQPlot) muestra una gráfica Q-Q (*quantile-quantile*, cuantil-cuantil) que grafica los residuales contra su valor esperado basado en sus cuantiles en la distribución normal. Si los residuales están normalmente distribuidos entonces los datos caerían a lo largo de la línea punteada --- en este caso se ven bastante bien, excepto por un par de valores atípicos (*outliers*) que son evidentes hasta abajo. Debido a que este modelo es también relativamente robusto a desviaciones de la normalidad, y a que éstas son relativamente pequeñas, seguiremos adelante y usaremos estos resultados.
 
 
 <!-- Q-Q plot of actual residual values against theoretical residual values -->
@@ -233,10 +233,10 @@ ggplot(dietDf, aes(sample = lmResid)) +
 ### 7: Probar hipótesis y cuantificar el tamaño del efecto.
 
 <!-- First let's look back at the summary of results from the ANOVA, shown in Step 5 above. The significant F test shows us that there is a significant difference between diets, but we should also note that the model doesn't actually account for much variance in the data; the R-squared value is only 0.03, showing that the model is only accounting for a few percent of the variance in weight loss.  Thus, we would not want to overinterpret this result. -->
-Primero, veamos de nuevo el resumen de resultados del ANOVA, mostrado en el Paso 5 arriba. La prueba F significativa nos muestra que existe una diferencia significativa entre las dietas, pero deberíamos notar también que el modelo realmente no explica mucha varianza en los datos; el valor de R-cuadrada (R-squared) es sólo 0.03, mostrando que el modelo sólo explica muy poco porcentaje de la varianza en la pérdida de peso. Por lo tanto, no querremos sobre-interpretar este resultado.
+Primero, veamos de nuevo el resumen de resultados del ANOVA, mostrado en el Paso 5 arriba. La prueba F significativa nos muestra que existe una diferencia significativa entre las dietas, pero deberíamos notar también que el modelo realmente no explica mucha varianza en los datos; el valor de R-cuadrada (*R-squared*) es sólo 0.03, mostrando que el modelo sólo explica muy poco porcentaje de la varianza en la pérdida de peso. Por lo tanto, no querremos sobre-interpretar este resultado.
 
 <!-- The significant result in the omnibus F test also doesn't tell us which diets differ from which others. We can find out more by comparing means across conditions.  Because we are doing several comparisons, we need to correct for those comparisons, which is accomplished using a procedure known as the Tukey method, which is implemented by our statistical software: -->
-El resultado significativo en la prueba F omnibus tampoco nos dice cuáles dietas difieren de cuáles otras. Podemos averiguar más si comparamos las medias entre condiciones. Como estaríamos haciendo varias comparaciones, necesitamos corregir por eso, esto se puede lograr usando un procedimiento conocido como método Tukey, que se puede calcular con nuestro software estadístico:
+El resultado significativo en la prueba F omnibus tampoco nos dice cuáles dietas difieren de cuáles otras. Podemos averiguar más si comparamos las medias entre condiciones. Como estaríamos haciendo varias comparaciones, necesitamos aplicar una corrección por esas comparaciones múltiples, esto se puede lograr usando un procedimiento conocido como método Tukey, que se puede calcular con nuestro software estadístico:
 
 ```{r echo=FALSE}
 # compute the differences between each of the means
@@ -253,7 +253,7 @@ multcomp::cld(leastsquare$emmeans,
 ```
 
 <!-- The letters in the rightmost column show us which of the groups differ from one another, using a method that adjusts for the number of comparisons being performed; conditions that share a letter are not significantly different from one another.  This shows that Atkins and LEARN diets don't differ from one another (since they share the letter a), and the LEARN, Ornish, and Zone diets don't differ from one another (since they share the letter b), but the Atkins diet differs from the Ornish and Zone diets (since they share no letters). -->
-Las letras en la columna hasta la derecha nos muestra cuáles de los grupos difieren de los otros, usando un método que ajusta por el número de comparaciones siendo realizadas; las condiciones que comparten una letra no son significativamente diferentes entre ellas. Esto nos muestra que las dietas Atkins y LEARN no difieren entre sí (porque comparten la letra a), y las dietas LEARN, Ornish, y Zone no difieren entre sí (porque comparten la letra b), pero la dieta Atkins difiere de las dietas Ornish y Zone (porque no comparten letras).
+Las letras en la columna hasta la derecha nos muestran cuáles de los grupos difieren de los otros, usando un método que ajusta por el número de comparaciones siendo realizadas; las condiciones que comparten una letra no son significativamente diferentes entre ellas. Esto nos muestra que las dietas Atkins y LEARN no difieren entre sí (porque comparten la letra a), y las dietas LEARN, Ornish, y Zone no difieren entre sí (porque comparten la letra b), pero la dieta Atkins difiere de las dietas Ornish y Zone (porque no comparten letras).
 
 
 
@@ -283,7 +283,7 @@ kable(displayDf, caption="Presencia de síndrome metabólico en cada grupo del e
 ```
 
 <!-- Looking at the data it seems that the rates are slightly different across groups, with more metabolic syndrome cases in the Ornish and Zone diets -- which were exactly the diets with poorer outcomes.  Let's say that we are interested in testing whether the rate of metabolic syndrome was significantly different between the groups, since this might make us concerned that these differences could have affected the results of the diet outcomes.  -->
-Mirando estos datos parece que las proporciones son ligeramente distintas entre los grupos, con más casos de síndrome metabólico en las dietas Ornish y Zone -- que fueron justamente las dietas con peores resultados. Digamos que estamos interesados en probar si la proporción de personas con síndrome metabólico fue significativamente diferente entre los grupos, porque esto nos podría preocupar que estas diferencias hayan podido afectar los resultados de las dietas.
+Mirando estos datos parece que las proporciones son ligeramente distintas entre los grupos, con más casos de síndrome metabólico en las dietas Ornish y Zone -- que fueron justamente las dietas con peores resultados. Digamos que estamos interesados en probar si la proporción de personas con síndrome metabólico fue significativamente diferente entre los grupos, porque esto nos podría llevar a preocuparnos de que estas diferencias hayan podido haber afectado los resultados de las dietas.
 
 <!-- #### Determine the appropriate model -->
 #### Determinar el modelo apropiado 
@@ -296,8 +296,8 @@ Mirando estos datos parece que las proporciones son ligeramente distintas entre 
 * ¿Qué tipo de variable dependiente?
 	* proporciones
 * ¿Qué estamos comparando?
-	* proporción con síndrome metabólico entre los cuatro grupos de dieta
-	* prueba ji-cuadrada de bondad de ajuste (goodness of fit) es apropiada contra la hipótesis nula de no diferencia
+	* proporción de síndrome metabólico en los cuatro grupos de dieta
+	* prueba ji-cuadrada de bondad de ajuste (*goodness of fit*) es apropiada contra la hipótesis nula de no diferencia
 
 <!-- Let's first compute that statistic, using the chi-squared test function in our statistical software: -->
 Primero calculemos el estadístico, usando una función de la prueba ji-cuadrada en nuestro software estadístico:
@@ -328,7 +328,7 @@ Esto nos muestra que la hipótesis alternativa es 0.058 veces más probable que 
 ## Obtener ayuda
 
 <!-- Whenever one is analyzing real data, it's useful to check your analysis plan with a trained statistician, as there are many potential problems that could arise in real data.  In fact, it's best to speak to a statistician before you even start the project, as their advice regarding the design or implementation of the study could save you major headaches down the road.  Most universities have statistical consulting offices that offer free assistance to members of the university community.  Understanding the content of this book won't prevent you from needing their help at some point, but it will help you have a more informed conversation with them and better understand the advice that they offer. -->
-Siempre que uno analiza datos reales, es útil verificar nuestro plan de análisis con un estadístico capacitado, porque hay muchos problemas potenciales que podrían surgir en datos reales. De hecho, es mucho mejor hablar con un estadístico antes de siquiera comenzar el proyecto, pues su asesoría acerca del diseño o implementación del estudio podrían salvarte de grandes dolores de cabeza posteriormente. La mayoría de las universidades tienen oficinas o departamentos de consultoría estadística que ofrecen asistencia gratuita a los miembros de la comunidad universitaria. Entender el contenido de este libro no evitará que necesites su ayuda en algún punto, pero sí te ayudará a tener una conversación más informada con ese departamento y a entender mejor la asesoría que puedan ofrecerte.
+Siempre que uno analiza datos reales, es útil verificar nuestro plan de análisis con una persona entrenada en estadística, porque hay muchos problemas potenciales que podrían surgir en datos reales. De hecho, es mucho mejor hablar con un estadísticx antes de siquiera comenzar el proyecto, pues su asesoría acerca del diseño o implementación del estudio podrían salvarte de grandes dolores de cabeza posteriormente. La mayoría de las universidades tienen oficinas o departamentos de consultoría estadística que ofrecen asistencia gratuita a los miembros de la comunidad universitaria. Entender el contenido de este libro no evitará que necesites su ayuda en algún punto, pero sí te ayudará a tener una conversación más informada con ese departamento y a entender mejor la asesoría que puedan ofrecerte.
 
 
 
