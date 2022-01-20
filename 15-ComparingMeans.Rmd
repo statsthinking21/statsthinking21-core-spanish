@@ -61,7 +61,7 @@ NHANES_sample <-
 
 
 <!-- One simple way to test for this difference is using a test called the *sign test*, which asks whether the proportion of positive differences between the actual value and the hypothesized value is different than what we would expect by chance.  To do this, we take the differences between each data point and the hypothesized mean value and compute their sign.  If the data are normally distributed and the actual mean is equal to the hypothesized mean, then the proportion of values above the hypothesized mean (or below it) should be 0.5, such that the proportion of positive differences should also be 0.5.  In our sample, we see that `r I(sprintf('%0.1f',mean(NHANES_sample$Hypertensive)*100))` percent of individuals have a diastolic blood pressure above 80.  We can then use a binomial test to ask whether this proportion of positive differences is greater than 0.5, using the binomial testing function in our statistical software: -->
-Una manera sencilla de probar esta diferencia es usando una prueba llamada la *prueba de los signos*, que se pregunta si la proporción de diferencias positivas entre el valor real y el valor hipotetizado es diferente que el que se esperaría por azar. Para hacer esto, tomamos las diferencias entre cada dato y el valor de la media hipotetizada y calculamos su signo. Si los datos están normalmente distribuidos y la media real es igual a la media hipotetizada, entonces la proporción de valores arriba de la media hipotetizada (o por debajo) debería ser 0.5, de tal manera que la proporción de diferencias positivas también debería ser de 0.5. En nuestra muestra, vemos que el `r I(sprintf('%0.1f',mean(NHANES_sample$Hypertensive)*100))` por ciento de las personas tienen una presión sanguínea diastólica arriba de 80. Luego podemos usar una prueba binomial para preguntarnos si la proporción de diferencias positivas es mayor a 0.5, usando la función de prueba binomial en nuestro software estadístico:
+Una manera sencilla de probar esta diferencia es usando una prueba llamada *prueba de los signos* (*sign test*), que pregunta si la proporción de diferencias positivas entre el valor real y el valor hipotetizado es diferente que el que se esperaría por azar. Para hacer esto, tomamos las diferencias entre cada dato y el valor de la media hipotetizada y calculamos su signo. Si los datos están normalmente distribuidos y la media real es igual a la media hipotetizada, entonces la proporción de valores arriba de la media hipotetizada (o por debajo) debería ser 0.5, de tal manera que la proporción de diferencias positivas también debería ser de 0.5. En nuestra muestra, vemos que el `r I(sprintf('%0.1f',mean(NHANES_sample$Hypertensive)*100))` por ciento de las personas tienen una presión sanguínea diastólica arriba de 80. Luego podemos usar una prueba binomial para preguntarnos si la proporción de diferencias positivas es mayor a 0.5, usando la función de la prueba binomial en nuestro software estadístico:
 
 ```{r echo=FALSE}
 # compute sign test for differences between first and second measurement
@@ -80,7 +80,7 @@ $$
 t = \frac{\bar{X} - \mu}{SEM}
 $$
 <!-- where SEM (as you may remember from the chapter on sampling) is defined as: -->
-donde SEM (*standard error of the mean*, o *error estándar de la media*, como podrás recordar del capítulo sobre muestreo) es definida por:
+donde SEM (*standard error of the mean*, o *error estándar de la media*, como podrás recordar del capítulo sobre muestreo) es definido por:
 
 $$
 SEM = \frac{\hat{\sigma}}{\sqrt{n}}
@@ -99,7 +99,7 @@ tt
 ```
 
 <!-- This shows us that the mean diastolic blood pressure in the dataset (`r I(sprintf('%0.1f', tt$estimate))`) is actually much lower than 80, so our test for whether it is above 80 is very far from significance. -->
-Esto nos muestra que la media de presión sanguínea diastólica en la base de datos (`r I(sprintf('%0.1f', tt$estimate))`) es realmente mucho menor que 80, por lo que nuestra prueba sobre si la media es superior a 80 está muy lejos de significatividad.
+Esto nos muestra que la media de presión sanguínea diastólica en la base de datos (`r I(sprintf('%0.1f', tt$estimate))`) es realmente mucho menor que 80, por lo que nuestra prueba sobre si la media es superior a 80 está muy lejos de resultar significativa.
 
 <!-- Remember that a large p-value doesn't provide us with evidence in favor of the null hypothesis, since we had already assumed that the null hypothesis is true to start with. However, as we discussed in the chapter on Bayesian analysis, we can use the Bayes factor to quantify evidence for or against the null hypothesis: -->
 Recuerda que un valor p grande no nos provee de evidencia en favor de la hipótesis nula, porque hemos asumido desde el inicio que la hipótesis nula es verdadera. Sin embargo, como discutimos en el capítulo sobre análisis Bayesiano, podemos usar el factor de Bayes para cuantificar la evidencia a favor o en contra de la hipótesis nula:
@@ -115,10 +115,10 @@ El primer factor de Bayes enlistado aquí ($2.73 * 10^{16}$) denota el hecho de 
 ## Comparar dos medias {#comparing-two-means}
 
 <!-- A more common question that often arises in statistics is whether there is a difference between the means of two different groups.  Let's say that we would like to know whether regular marijuana smokers watch more television, which we can also ask using the NHANES dataset. We take a sample of 200 individuals from the dataset and test whether the number of hours of television watching per day is related to regular marijuana use.  The left panel of Figure \@ref(fig:PotTVViolin) shows these data using a violin plot. -->
-Una pregunta común que frecuentemente surge en estadística es si existe una diferencia entre las medias de dos grupos diferentes. Digamos que quisiéramos saber si fumadores regulares de marihuana miran más televisión, que también podemos preguntarnos usando la base de datos NHANES. Tomamos una muestra de 200 personas de la base de datos y probamos si el número de horas de ver televisión por día está relacionado con el uso regular de marihuana. El panel izquierdo de la Figura \@ref(fig:PotTVViolin) muestra estos datos usando una gráfica de violín.
+Una pregunta más común que frecuentemente surge en estadística es si existe una diferencia entre las medias de dos grupos diferentes. Digamos que quisiéramos saber si fumadores regulares de marihuana miran más televisión, que también podemos preguntarnos usando la base de datos NHANES. Tomamos una muestra de 200 personas de la base de datos y probamos si el número de horas de ver televisión por día está relacionado con el uso regular de marihuana. El panel izquierdo de la Figura \@ref(fig:PotTVViolin) muestra estos datos usando una gráfica de violín.
 
 <!-- Left: Violin plot showing distributions of TV watching separated by regular marijuana use. Right: Violin plots showing data for each group, with a dotted line connecting the predicted values for each group, computed on the basis of the results of the linear model.. -->
-```{r PotTVViolin,echo=FALSE,fig.cap='Izquierda: Gráfica de violín mostrando distribuciones de horas de ver TV por día separados por el uso regular de marihuana. Derecha: Gráficas de violín mostrando los datos para cada grupo, con una línea punteada conectando los valores predichos para cada grupo, calculado en base a los resultados del modelo lineal.',fig.width=8,fig.height=4,out.height='50%'}
+```{r PotTVViolin,echo=FALSE,fig.cap='Izquierda: Gráfica de violín mostrando distribuciones de horas de ver TV por día separados por el uso regular de marihuana. Derecha: Gráficas de violín mostrando los datos para cada grupo, con una línea punteada conectando los valores predichos para cada grupo, calculado con base en los resultados del modelo lineal.',fig.width=8,fig.height=4,out.height='50%'}
 
 # create sample with tv watching and marijuana use
 NHANES_sample <-
@@ -183,7 +183,7 @@ ttresult
 ```
 
 <!-- In this case we see that there is a statistically significant difference between groups, in the expected direction - regular pot smokers watch more TV. -->
-En este caso vemos que existe una diferencia estadísticamente significativa entre los grupos, en la dirección esperada - fumadores regulares de marihuana ven más TV.
+En este caso vemos que existe una diferencia estadísticamente significativa entre los grupos, en la dirección esperada - los fumadores regulares de marihuana ven más TV.
 
 <!-- ## The t-test as a linear model {#ttest-linear-model} -->
 ## La prueba t como un modelo lineal {#ttest-linear-model}
@@ -192,7 +192,7 @@ En este caso vemos que existe una diferencia estadísticamente significativa ent
 La prueba t es frecuentemente presentada como una herramienta especializada para comparar medias, pero también se puede ver como una aplicación del modelo lineal general. En este caso, el modelo se vería como esto:
 
 $$
-\hat{TV} = \hat{\beta_1}*Marijuana + \hat{\beta_0}
+\hat{TV} = \hat{\beta_1}*Marihuana + \hat{\beta_0}
 $$
 <!-- Since smoking is a binary variable, we treat it as a *dummy variable* like we discussed in the previous chapter, setting it to a value of 1 for smokers and zero for nonsmokers.  In that case, $\hat{\beta_1}$ is simply the difference in means between the two groups, and $\hat{\beta_0}$ is the mean for the group that was coded as zero.  We can fit this model using the general linear model function in our statistical software, and see that it gives the same t statistic as the t-test above, except that it's positive in this case because of the way that our software arranges the groups: -->
 Como el fumar es una variable binaria, la tratamos como una *variable ficticia* (*dummy variable*) como discutimos en el capítulo anterior, fijándola en un valor de 1 para fumadores o de cero para no fumadores. En este caso, $\hat{\beta_1}$ es simplemente la diferencia de las medias entre los dos grupos, y $\hat{\beta_0}$ es la media para el grupo que fue codificado con cero. Podemos ajustar este modelo usando la función del modelo lineal general en nuestro software estadístico, y ver que nos da el mismo estadístico t como la prueba t de arriba, excepto que fue positiva en este caso por la manera en que nuestro software ordena los grupos:
@@ -221,7 +221,7 @@ $$
 Podemos obtener estos valores de la salida del análisis arriba, dándonos una d = `r I(sprintf('%0.2f', lm_summary$coefficients[2,1]/lm_summary$sigma))`, que generalmente interpretaríamos como un tamaño de efecto medio.
 
 <!-- We can also compute $R^2$ for this analysis, which tells us how what proportion of the variance in TV watching is accounted for by marijuana smoking.  This value (which is reported at the bottom of the summary of the linear model analysis above) is `r I(sprintf('%0.2f',lm_summary$r.squared))`, which tells us that while the effect may be statistically significant, it accounts for relatively little of the variance in TV watching. -->
-También podemos calcular $R^2$ para este análisis, que nos dice qué proporción de la varianza en el tiempo de ver TV es explicada por el fumar marihuana. Este valor (que es reportado hasta abajo del resumen del análisis de modelo lineal) es `r I(sprintf('%0.2f',lm_summary$r.squared))`, que nos dice que mientras que el efecto podrá ser estadísticamente significativo, explica relativamente poco de la varianza en tiempo de ver TV.
+También podemos calcular $R^2$ para este análisis, que nos dice qué proporción de la varianza en el tiempo de ver TV es explicada por el fumar marihuana. Este valor (que es reportado hasta abajo del resumen del análisis del modelo lineal) es `r I(sprintf('%0.2f',lm_summary$r.squared))`, que nos dice que mientras que el efecto podrá ser estadísticamente significativo, explica relativamente poco de la varianza en tiempo de ver TV.
 
 <!-- ## Bayes factor for mean differences -->
 ## Factores de Bayes para diferencias entre medias
@@ -284,7 +284,7 @@ plot_grid(p1, p2)
 ```
 
 <!-- We see that there does not seem to be much of a difference in mean blood pressure (about one point) between the first and second measurement. First let's test for a difference using an independent samples t-test, which ignores the fact that pairs of data points come from the the same individuals.    -->
-Vemos que no parece haber mucha diferencia en la media de presión sanguínea (cerca de un punto) entre la primera y la segunda medición. Primero probemos si hay una diferencia usando un prueba t para muestras independientes, la cual ignora el hecho que pares de datos vienen de la misma persona.
+Vemos que no parece haber mucha diferencia en la media de presión sanguínea (cerca de un punto) entre la primera y la segunda medición. Primero probemos si hay una diferencia usando un prueba t para muestras independientes, la cual ignora el hecho que los pares de datos vienen de una misma persona.
 
 ```{r echo=FALSE}
 t.test(
@@ -296,7 +296,7 @@ t.test(
 ```
 
 <!-- This analysis shows no significant difference. However, this analysis is inappropriate since it assumes that the two samples are independent, when in fact they are not, since the data come from the same individuals.  We can plot the data with a line for each individual to show this (see the right panel in Figure \@ref(fig:BPfig)). -->
-Este análisis muestra que no hay una diferencia estadísicamente significativa. Sin embargo, este análisis es inapropiado porque asume que las dos muestras son independientes, cuando de hecho no lo son, ya que los datos vienen de las mismas personas. Podemos graficar los datos con una línea para cada individuo para mostrar esto (ve el panel derecho de la Figura \@ref(fig:BPfig)).
+Este análisis muestra que no hay una diferencia estadísticamente significativa. Sin embargo, este análisis es inapropiado porque asume que las dos muestras son independientes, cuando de hecho no lo son, ya que los datos vienen de las mismas personas. Podemos graficar los datos con una línea para cada individuo para mostrar esto (ve el panel derecho de la Figura \@ref(fig:BPfig)).
 
 <!-- In this analysis, what we really care about is whether the blood pressure for each person changed in a systematic way between the two measurements, so another way to represent the data is to compute the difference between the two timepoints for each individual, and then analyze these difference scores rather than analyzing the individual measurements. In Figure \@ref(fig:BPDiffHist), we show a histogram of these difference scores, with a blue line denoting the mean difference. -->
 En este análisis, lo que realmente nos importa es saber si la presión sanguínea de cada persona cambia de una manera sistemática entre las dos mediciones, así que otra manera de representar estos datos es calculando la diferencia entre dos puntos en el tiempo para cada persona, y luego analizar estas diferencias en lugar de analizar las mediciones individuales. En la Figura \@ref(fig:BPDiffHist) vemos un histograma de estas puntuaciones de diferencias, con una línea azul denotando la media de las diferencias.
@@ -314,7 +314,7 @@ ggplot(NHANES_sample,aes(diff)) +
 ### Prueba de los signos
 
 <!-- One simple way to test for differences is using the *sign test*. To do this, we take the differences and compute their sign, and then we use a binomial test to ask whether the proportion of positive signs differs from 0.5. -->
-Una manera simple de probar las diferencias es usando la *prueba de los signos*. Para hacer esto, tomamos las diferencias y calculamos su signo, y luego usamos la prueba binomial para preguntarnos si la proporción de signos positivos difiere de 0.5.
+Una manera simple de probar las diferencias es usando la *prueba de los signos* (*sign test*). Para hacer esto, tomamos las diferencias y calculamos su signo, y luego usamos la prueba binomial para preguntarnos si la proporción de signos positivos difiere de 0.5.
 
 ```{r echo=FALSE}
 # compute sign test for differences between first and second measurement
@@ -382,16 +382,16 @@ ggplot(df,aes(group,sysBP)) + geom_boxplot()
 ```
 
 <!-- ### Analysis of variance {#ANOVA} -->
-### Análisis de varianza {#ANOVA}
+### Análisis de varianza (analysis of variance, ANOVA) {#ANOVA}
 
 <!-- We would first like to test the null hypothesis that the means of all of the groups are equal -- that is, neither of the treatments had any effect compared to placebo. We can do this using a method called *analysis of variance* (ANOVA). This is one of the most commonly used methods in psychological statistics, and we will only scratch the surface here.  The basic idea behind ANOVA is one that we already discussed in the chapter on the general linear model, and in fact ANOVA is just a name for a specific version of such a model. -->
-Primero querríamos probar la hipótesis nula de que las medias de todos los grupos son iguales -- esto es, ninguno de los tratamientos tuvo ningún efecto comparado con el placebo. Podemos hacer esto usando un método llamado *análisis de varianza* (*analysis of variance*, ANOVA). Este es uno de los métodos más comúnmente usados en estadística en psicología, aquí sólo lo revisaremos superficialmente. La idea básica detrás de ANOVA es una que ya discutimos en el capítulo sobre el modelo lineal general, y de hecho el ANOVA es sólo un nombre para una versión específica de ese modelo.
+Primero querríamos probar la hipótesis nula de que las medias de todos los grupos son iguales -- esto es, que ninguno de los tratamientos tenga ningún efecto comparado con el placebo. Podemos hacer esto usando un método llamado *análisis de varianza* (*analysis of variance*, ANOVA). Este es uno de los métodos más comúnmente usados en estadística en psicología, aquí sólo lo revisaremos superficialmente. La idea básica detrás de ANOVA es una que ya discutimos en el capítulo sobre el modelo lineal general, y de hecho el ANOVA es sólo un nombre para una versión específica de ese modelo.
 
 <!-- Remember from the last chapter that we can partition the total variance in the data ($SS_{total}$) into the variance that is explained by the model ($SS_{model}$) and the variance that is not ($SS_{error}$).  We can then compute a *mean square* for each of these by dividing them by their degrees of freedom; for the error this is $N - p$ (where $p$ is the number of means that we have computed), and for the model this is $p - 1$: -->
-Recordarás del capítulo anterior que podemos dividir la varianza total de los datos ($SS_{total}$) en la varianza que es explicada por el modelo ($SS_{model}$) y la varianza que no es explicada por el modelo ($SS_{error}$). Entonces podemos calcular la *media cuadrática* (*mean square*) para cada una de éstas al dividirlas entre sus grados de libertad; para el error, los grados de libertad son $N - p$ (donde $p$ es el número de medias que calculamos), y para el modelo son $p - 1$:
+Recordarás del capítulo anterior que podemos dividir la varianza total de los datos ($SS_{total}$, donde $SS$ es por *sum of squares*) en la varianza que es explicada por el modelo ($SS_{modelo}$) y la varianza que no es explicada por el modelo ($SS_{error}$). Entonces podemos calcular la *media cuadrática* (*mean square*, $MS$) para cada una de éstas al dividirlas entre sus grados de libertad; para el error, los grados de libertad son $N - p$ (donde $p$ es el número de medias que calculamos), y para el modelo, son $p - 1$:
 
 $$
-MS_{model} =\frac{SS_{model}}{df_{model}}= \frac{SS_{model}}{p-1}
+MS_{modelo} =\frac{SS_{modelo}}{df_{modelo}}= \frac{SS_{modelo}}{p-1}
 $$
 
 $$
@@ -422,7 +422,7 @@ ggplot(fdata,aes(x,f_1_1)) +
 
 
 <!-- To create an ANOVA model, we extend the idea of *dummy coding* that you encountered in the last chapter. Remember that for the t-test comparing two means, we created a single dummy variable that took the value of 1 for one of the conditions and zero for the others.  Here we extend that idea by creating two dummy variables, one that codes for the Drug 1 condition and the other that codes for the Drug 2 condition.  Just as in the t-test, we will have one condition (in this case, placebo) that doesn't have a dummy variable, and thus represents the baseline against which the others are compared; its mean defines the intercept of the model. Using dummy coding for drugs 1 and 2, we can fit a model using the same approach that we used in the previous chapter: -->
-Para crear un modelo ANOVA, extendemos la idea de la *codificación ficticia* (*dummy coding*) que presentamos en el capítulo anterior. Recuerda que para la prueba t comparando dos medias, creamos una sola variable ficticia (dummy) que tomó el valor de 1 para una condición y cero para la otra. Aquí extendemos esa idea creando dos variables ficticias (dummy), una que codifica para la condición del Medicamento 1 y la otra que codifica para la condición del Medicamento 2. Justo como en la prueba t, tendremos una condición (en este caso, placebo) que no tiene una variable ficticia (dummy), y por lo tanto representa la línea base contra la cual las otras condiciones son comparadas; su media define el intercepto (origen) del modelo. Usando variables ficticias (dummy) para los medicamentos 1 y 2, podemos ajustar un modelo usando la misma aproximación que usamos en el capítulo anterior:
+Para crear un modelo ANOVA, extendemos la idea de la *codificación ficticia* (*dummy coding*) que presentamos en el capítulo anterior. Recuerda que para la prueba t comparando dos medias, creamos una sola variable ficticia (dummy) que tomó el valor de 1 para una condición y cero para la otra. Aquí extendemos esa idea creando dos variables ficticias (dummy), una que codifica para la condición del Medicamento 1 y la otra que codifica para la condición del Medicamento 2. Justo como en la prueba t, tendremos una condición (en este caso, placebo) que no tiene una variable ficticia (dummy), y por lo tanto representa la línea base contra la cual las otras condiciones son comparadas; su media define la constante (origen) del modelo. Usando variables ficticias (dummy) para los medicamentos 1 y 2, podemos ajustar un modelo usando la misma aproximación que usamos en el capítulo anterior:
 
 ```{r echo=FALSE}
 # create dummy variables for drug1 and drug2
@@ -448,7 +448,7 @@ summary(lmResultANOVA)
 La salida de este comando nos provee de dos cosas. Primero, nos muestra el resultado de una prueba t para cada una de las variables ficticias (dummy), que básicamente nos dice si cada una de las condiciones separadas difiere del placebo; parece que el Medicamento 1 lo hace, pero el Medicamento 2 no. Sin embargo, ten en cueta que si quisiéramos interpretar estas pruebas, necesitaríamos corregir los valores p para tomar en cuenta el hecho de que hemos realizado múltiples pruebas de hipótesis; veremos un ejemplo de cómo hacer esto en el siguiente capítulo.
 
 <!-- Remember that the hypothesis that we started out wanting to test was whether there was any difference between any of the conditions; we refer to this as an *omnibus* hypothesis test, and it is the test that is provided by the F statistic. The F statistic basically tells us whether our model is better than a simple model that just includes an intercept.  In this case we see that the F test is highly significant, consistent with our impression that there did seem to be differences between the groups (which in fact we know there were, because we created the data). -->
-Recuerda que la hipótesis que inicialmente queríamos probar era si había alguna diferencia entre cualquiera de las condiciones; llamamos a esto una prueba de hipótesis *omnibus*, y es la prueba a la que se refiere el estadístico F. El estadístico F básicamente nos dice si nuestro modelo es mejor que un modelo simple que sólo incluye el intercepto. En este caso vemos que la prueba F es altamente significativa, consistente con nuestra impresión de que parece haber diferencias entre los grupos (que de hecho sabemos que sí las hay, porque nosotros creamos los datos).
+Recuerda que la hipótesis que inicialmente queríamos probar era si había alguna diferencia entre cualquiera de las condiciones; llamamos a esto una prueba de hipótesis *ómnibus*, y es la prueba a la que se refiere el estadístico F. El estadístico F básicamente nos dice si nuestro modelo es mejor que un modelo simple que sólo incluye la constante. En este caso vemos que la prueba F es altamente significativa, consistente con nuestra impresión de que parece haber diferencias entre los grupos (que de hecho sabemos que sí las hay, porque nosotros creamos los datos).
 
 ```{r echo=FALSE}
 # Add section on post-hoc tests using emmeans
@@ -478,7 +478,7 @@ Después de leer este capítulo, deberías ser capaz de:
 ### La prueba t de muestras relacionadas como un modelo lineal
 
 <!-- We can also define the paired t-test in terms of a general linear model.  To do this, we include all of the measurements for each subject as data points (within a tidy data frame).  We then include in the model a variable that codes for the identity of each individual (in this case, the ID variable that contains a subject ID for each person). This is known as a *mixed model*, since it includes effects of independent variables as well as effects of individuals.  The standard model fitting procedure ```lm()``` can't do this, but we can do it using the ```lmer()``` function from a popular R package called *lme4*, which is specialized for estimating mixed models.  The ```(1|ID)``` in the formula tells `lmer()` to estimate a separate intercept (which is what the ```1``` refers to) for each value of the ```ID``` variable (i.e. for each individual in the dataset), and then estimate a common slope relating timepoint to BP. -->
-También podemos definir la prueba t para muestra relacionadas en términos del modelo lineal general. Para hacer esto, incluimos todas las mediciones para cada participante como el conjunto de datos (dentro de un dataframe ordenado). Luego incluimos una variable en el modelo que codifique la identidad de cada persona (en este caso, la variable ID que contiene un ID para cada persona). Esto es conocido como un *modelo mixto*, porque incluye efectos de variables independientes así como efectos de individuos. El procedimiento para ajustar el modelo estándar ```lm()``` no puede hacer esto, pero podemos realizarlo usando la función ```lmer()``` del popular paquete *lme4* en R, que se especializa en estimar modelos mixtos. La parte ```(1|ID)``` en la fórmula le dice a la función `lmer()` que estime un intercepto separado (que es a lo que se refiere el ```1```) para cada valor de la variable ```ID``` (i.e. para cada persona en el conjunto de datos), y luego que estime una pendiente común relacionando el punto en el tiempo con presión sanguínea (BP, blood pressure).
+También podemos definir la prueba t para muestras relacionadas en términos del modelo lineal general. Para hacer esto, incluimos todas las mediciones para cada participante como el conjunto de datos (dentro de un *dataframe* ordenado). Luego incluimos una variable en el modelo que codifique la identidad de cada persona (en este caso, la variable ID que contiene un ID para cada persona). Esto es conocido como un *modelo mixto*, porque incluye efectos de variables independientes así como efectos de individuos. El procedimiento para ajustar el modelo estándar ```lm()``` no puede hacer esto, pero podemos realizarlo usando la función ```lmer()``` del popular paquete *lme4* en R, que se especializa en estimar modelos mixtos. La parte ```(1|ID)``` en la fórmula le dice a la función `lmer()` que estime una constante separada (que es a lo que se refiere el ```1```) para cada valor de la variable ```ID``` (i.e. para cada persona en el conjunto de datos), y luego que estime una pendiente común que relacione el momento en el tiempo con la presión sanguínea (BP, *blood pressure*).
 
 ```{r,messages=FALSE}
 # compute mixed model for paired test
