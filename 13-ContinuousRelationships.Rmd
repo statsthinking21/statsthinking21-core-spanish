@@ -301,7 +301,7 @@ digraph boxes_and_circles {
 }
 "
 
-<!--  Changed way of saving image files from DiagrammeR graphs, taken from: https://github.com/rich-iannone/DiagrammeR/issues/70 -->
+#  Changed way of saving image files from DiagrammeR graphs, taken from: https://github.com/rich-iannone/DiagrammeR/issues/70 -->
 #foo <- html_print(add_mathjax(grViz(graph))) %>%
 #  webshot(file = 'images/dag_example.png', delay = 10,
 #          selector = '.html-widget-static-bound')
