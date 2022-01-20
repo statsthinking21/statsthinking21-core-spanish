@@ -25,6 +25,10 @@ library(DiagrammeR)
 library(htmltools)
 library(webshot)
 
+library(DiagrammeRsvg)
+#library(magrittr)
+library(rsvg)
+
 set.seed(123456) # set random seed to exactly replicate results
 
 # load the NHANES data library
@@ -297,9 +301,11 @@ digraph boxes_and_circles {
 }
 "
 
-foo <- html_print(add_mathjax(grViz(graph))) %>%
-  webshot(file = 'images/dag_example.png', delay = 10,
-          selector = '.html-widget-static-bound')
+<!--  Changed way of saving image files from DiagrammeR graphs, taken from: https://github.com/rich-iannone/DiagrammeR/issues/70 -->
+#foo <- html_print(add_mathjax(grViz(graph))) %>%
+#  webshot(file = 'images/dag_example.png', delay = 10,
+#          selector = '.html-widget-static-bound')
+grViz(graph) %>% export_svg %>% charToRaw %>% rsvg_png("images/dag_example.png", width = 500)
 
 latent_graph = "
 digraph boxes_and_circles {
@@ -327,9 +333,10 @@ digraph boxes_and_circles {
   Knowledge->FinishTime [color=red]
 }
 "
-foo <- html_print(add_mathjax(grViz(latent_graph))) %>%
-  webshot(file = 'images/dag_latent_example.png', delay = 10,
-          selector = '.html-widget-static-bound')
+#foo <- html_print(add_mathjax(grViz(latent_graph))) %>%
+#  webshot(file = 'images/dag_latent_example.png', delay = 10,
+#          selector = '.html-widget-static-bound')
+grViz(latent_graph) %>% export_svg %>% charToRaw %>% rsvg_png("images/dag_latent_example.png", width = 500)
 
 ```
 
