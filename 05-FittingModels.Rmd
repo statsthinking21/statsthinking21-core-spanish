@@ -239,8 +239,8 @@ $$
 \hat{y_i} =  \hat{\beta} * age_i
 $$
 
-<!-- where \hat{$\beta$} is our estimate of the *parameter* that we multiply by age to generate the model prediction.   -->
-donde \hat{$\beta$} es nuestra estimación del *parámetro* que multiplicamos por edad para generar la predicción del modelo.
+<!-- where $\hat{\beta}$ is our estimate of the *parameter* that we multiply by age to generate the model prediction.   -->
+donde $\hat{\beta}$ es nuestra estimación del *parámetro* que multiplicamos por edad para generar la predicción del modelo.
 
 <!--You may remember from algebra that a line is defined as follows:-->
 Puede que recuerdes de álgebra que una línea se define de la siguiente manera:
@@ -798,7 +798,7 @@ data("fifty_states") # this line is optional due to lazy data loading
 crimeData <- 
   crimeData %>%
   mutate(StateLower = tolower(State),
-  Violent.crime.thousands=Violent.crime.total/1000))
+  Violent.crime.thousands=Violent.crime.total/1000)
 
 # map_id creates the aesthetic mapping to the state name column in your data
 plot_map <- 

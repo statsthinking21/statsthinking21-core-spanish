@@ -213,18 +213,17 @@ plot_grid(p1,p2)
 El teorema de límite central es importante para la estadística porque nos permite asumir con seguridad que la distribución de muestreo de la media va a ser normal en la mayoría de los casos. Esto significa que podemos tomar ventaja de las técnicas estadísticas que asumen una distribución normal, como veremos en la próxima sección. Es también importante porque nos dice por qué las distribuciones normales son tan comunes en el mundo real; siempre que combinamos factores diferentes en un solo número, el resultado muy probablemente será una distribución normal. Por ejemplo, la altura de cualquier adulto depende en una compleja mezcla de su genética y experiencia; incluso si las contribuciones individuales pueden no estar normalmente distribuidas, cuando las combinemos el resultado es una distribución normal. 
 
 
-<!---
-<!--## Confidence intervals {#confidence-intervals}-->
-## Intervalos de confianza {#confidence-intervals}
 
-<!--Most people are familiar with the idea of a "margin of error" for political polls. These polls usually try to provide an answer that is accurate within +/- 3 percent. For example, when a candidate is estimated to win an election by 9 percentage points with a margin of error of 3, the percentage by which they will win is estimated to fall within 6-12 percentage points. In statistics we refer to this range of values as the *confidence interval*, which provides a measure of our degree of uncertainty about our estimate of the population parameter: The larger the confidence interval, the greater our uncertainty.-->
-La mayoría de las personas están familiarizadas con la idea de un "margen de error" en encuestas políticas. Estas encuestas usualmente intentan proveer una respuesta que es más o menos 3% precisa. Por ejemplo cuando un candidato es estimado a ganar la elección por 9% de los puntos con un margen de error de 3, el porcentaje por el cual va a ganar es estimado a caer dentro del 6-12 porciento de puntos. En estadística nos referimos a este rango de valores como el *intervalo de confianza*, el cual provee de una medida de nuestro grado de incertidumbre acerca de nuestra estimación del parámetro poblacional: Entre más grande sea el intervalo de confianza, mayor es la incertidumbre.  
+<!--## Confidence intervals {#confidence-intervals}-->
+<!-- ## Intervalos de confianza {#confidence-intervals} -->
+<!-- This entire section was deleted from original book. -->
 
 <!--We saw in the previous section that with sufficient sample size, the sampling distribution of the mean is normally distributed, and that the standard error describes the standard deviation of this sampling distribution.  Using this knowledge, we can ask: What is the range of values within which we would expect to capture 95% of all estimates of the mean?  To answer this, we can use the normal distribution, for which we know the values between which we expect 95% of all sample means to fall; in statistical software, we generally refer to these as *quantiles*. Specifically, we need to determine the 2.5% and 97.5% quantiles of the of the distribution.  We choose these points because we want to find the 95% of values in the center of the distribution, so we need to cut off 2.5% on each end in order to end up with 95% in the middle.  Figure \@ref(fig:normalCutoffs) shows that this occurs for $Z \pm 1.96$.-->
-Vimos en la sección previa que con una muestra suficiente en tamaño, la distribución de la media de muestreo está normalmente distribuida, y que el error estándar describe la desviación estándar  de esta distribución de muestreo. Usando este conocimiento, podemos preguntarnos: ¿Cuál es el rango de valores con el cual podemos esperar capturar el 95% de todos los estimados de la media? Para contestar esto, podemos usar la distribución normal, por la cual sabemos que los valores entre los cuales esperamos que caiga el 95% de todas las medias muestrales; en software estadístico, nos referimos generalmente a estos como *cuantiles*. Específicamente, necesitamos determinar los cuantiles 2.5% y 9.7% de la distribución. Elegimos estos puntos porque queremos encontrar el 95% de los valores en el centro de la distribución, así que necesitamos cortar 2.5% en cada extremo para así poder terminar con 95% en el medio. La Figura \@ref(fig:normalCutoffs) muestra que esto ocurre para $Z \pm 1.96$. 
+<!-- Vimos en la sección previa que con una muestra suficiente en tamaño, la distribución de la media de muestreo está normalmente distribuida, y que el error estándar describe la desviación estándar  de esta distribución de muestreo. Usando este conocimiento, podemos preguntarnos: ¿Cuál es el rango de valores con el cual podemos esperar capturar el 95% de todos los estimados de la media? Para contestar esto, podemos usar la distribución normal, por la cual sabemos que los valores entre los cuales esperamos que caiga el 95% de todas las medias muestrales; en software estadístico, nos referimos generalmente a estos como *cuantiles*. Específicamente, necesitamos determinar los cuantiles 2.5% y 9.7% de la distribución. Elegimos estos puntos porque queremos encontrar el 95% de los valores en el centro de la distribución, así que necesitamos cortar 2.5% en cada extremo para así poder terminar con 95% en el medio. La Figura \@ref(fig:normalCutoffs) muestra que esto ocurre para $Z \pm 1.96$.  -->
 
 ```{r normalCutoffs, echo=FALSE, fig.cap="Distribución normal, con la sección anaranjada en el centro denotando el rango en el cual se espera el 95% de todos los valores. La sección verde muestra las porciones de la distribución que están más al extremo, las cuales esperaríamos que ocurrieran menos de 5% del tiempo.",fig.width=4,fig.height=4,out.height='50%'}
 
+if(FALSE){
 # create utility functions
 
 dnormfun <- function(x){
@@ -266,20 +265,25 @@ plot_CI_cutoffs <- function(pct,zmin=-4,zmax=4,zmean=0,zsd=1) {
 }
 
 zcut <- plot_CI_cutoffs(0.95)
-
+}
 ```
 
 <!--Using these cutoffs, we can create a confidence interval for the estimate of the mean: -->
-Usando estos puntos de corte, podemos crear un intervalo de confianza para el estimado de la media:
+<!--Usando estos puntos de corte, podemos crear un intervalo de confianza para el estimado de la media:-->
+
+<!-- 
 $$
 CI_{95\%} = \bar{X} \pm 1.96*SEM
-$$
+$$ 
+-->
 
 <!-- Let's compute the confidence interval for the NHANES height data.-->
-Calculemos el intervalo de confianza para los datos de altura de NHANES. 
+<!-- Calculemos el intervalo de confianza para los datos de altura de NHANES. -->
 
 
 ```{r echo=FALSE}
+if(FALSE){
+
 # compute confidence intervals
 
 NHANES_sample <- sample_n(NHANES_adult,250)
@@ -291,10 +295,12 @@ sample_summary <- NHANES_sample %>%
            CI_upper=mean+1.96*sem)
 names(sample_summary) = c('Sample mean', 'SEM', 'Lower bound of CI', 'Upper bound of CI')
 kable(sample_summary)
-
+}
 ```
 
 ```{r echo=FALSE}
+if(FALSE){
+
 # compute how often the confidence interval contains the true population mean
 nsamples <- 2500
 sampSize <- 100
@@ -317,13 +323,11 @@ for (i in 1:nsamples) {
     (sample_summary$CI_upper > mean(NHANES_adult$Height)) & 
     (sample_summary$CI_lower < mean(NHANES_adult$Height))
 }
-
+}
 
 ```
 
-<!--Confidence intervals are notoriously confusing, primarily because they don't mean what we would hope they mean. It seems natural to think that the 95% confidence interval tells us that there is a 95% chance that the population mean falls within the interval.  However, as we will see throughout the course, concepts in statistics often don't mean what we think they should mean.  In the case of confidence intervals, we can't interpret them in this way because the population parameter has a fixed value -- it either is or isn't in the interval, so it doesn't make sense to talk about the probability of that occurring.  The proper interpretation of the 95% confidence interval is that it is an interval that will contain the true population mean 95% of the time, and in fact we can confirm that using simulation. We will learn more about confidence intervals later in the course after we discuss hypothesis testing.-->
-Los intervalos de confianza son notoriamente confusos, primeramente porque no significan lo que esperaríamos que significacen. Parece natural asumir que el 95% intervalo de confianza nos dice que hay un 95% de probabilidad de que la media de la población esté dentro de ese intervalo. Sin embargo, como veremos a través del curso, los conceptos en estadística regularmente no significan lo que creemos que deberían significar. En el caso de los intervalos de confianza, no podemos interpretarlos en esta manera porque el parámetro poblacional tiene un valor fijo -- está o no está en el intervalo, por lo que no tiene sentido hablar de la probabilidad de que eso ocurra. La interpretación correcta del intervalo de confianza del 95% es que es un intervalo que contendrá la media real de la población el 95% del tiempo y, de hecho, podemos confirmarlo usando simulación. Aprenderemos más sobre los intervalos de confianza más adelante en el curso después de discutir la prueba de hipótesis.
---->
+
 
 
 <!--## Learning objectives-->

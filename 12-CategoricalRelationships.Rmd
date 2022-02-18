@@ -8,7 +8,7 @@ output:
   html_document: default
 ---
 <!-- # Modeling categorical relationships -->
-# Modelar relaciones categóricas 
+# Modelar relaciones categóricas {#modeling-categorical-relationships}
 
 <!-- So far we have discussed the general concepts of statistical modeling and hypothesis testing, and applied them to some simple analyses; now we will will turn to the question of how to model particular kinds of relationships in our data. In this chapter we will focus on the modeling of *categorical* relationships, by which we mean relationships between variables that are measured qualitatively.  These data are usually expressed in terms of counts; that is, for each value of the variable (or combination of values of multiple variables), how many observations take that value?  For example, when we count how many people from each major are in our class, we are fitting a categorical model to the data. -->
 Hasta ahora hemos discutido los conceptos generales de la modelación estadística y de la prueba de hipótesis, y los hemos aplicado a algunos análisis simples; ahora nos enfocaremos a la pregunta de cómo modelar tipos particulares de relaciones en nuestros datos. En este capítulo nos enfocaremos en la modelación de relaciones *categóricas*, con lo cual queremos decir relaciones entre variables que son medidas de manera cualitativa. Estos datos son usualmente expresados en términos de conteos; esto es, para cada valor de la variable (o combinación de valores de múltiples variables), ¿cuántas observaciones toman ese valor? Por ejemplo, cuando contamos cuántas personas de cada licenciatura hay en nuestra clase, estamos ajustando un modelo categórico a nuestros datos.
@@ -41,7 +41,7 @@ NHANES_adult <-
 ```
 
 <!-- ## Example: Candy colors -->
-## Ejemplo: Colores de dulces
+## Ejemplo: Dulces de colores
 
 ```{r echo=FALSE}
 candyDf <-
@@ -54,20 +54,21 @@ candyDf <-
 ```
 
 <!-- Let's say that I have purchased a bag of 100 candies, which are labeled as having 1/3 chocolates, 1/3 licorices, and 1/3 gumballs.  When I count the candies in the bag, we get the following numbers: 30 chocolates, 33 licorices, and 37 gumballs. Because I like chocolate much more than licorice or gumballs, I feel slightly ripped off and I'd like to know if this was just a random accident.  To answer that question, I need to know: What is the likelihood that the count would come out this way if the true probability of each candy type is the averaged proportion of 1/3 each? -->
-Digamos que compré una bolsa con 100 dulces, que está etiquetada diciendo que tiene 1/3 de chocolates, 1/3 de regaliz (licorice), y 1/3 de chicles. Cuando cuento los dulces en la bolsa, tengo los siguientes números: 30 chocolates, 33 de regaliz, y 37 chicles. Como me gusta el chocolate mucho más que el regaliz y los chicles, me siento ligeramente estafado y quisiera saber si esto fue sólo un accidente azaroso. Para responder esta pregunta, necesito saber: ¿Cuál es la probabilidad de que el conteo hubiera salido como salió si la verdadera probabilidad de cada tipo de dulce es realmente el promedio de una proporción de 1/3 de cada uno?
+Digamos que compré una bolsa con 100 dulces, que está etiquetada diciendo que tiene 1/3 de chocolates, 1/3 de regaliz (*licorice*), y 1/3 de chicles. Cuando cuento los dulces en la bolsa, tengo los siguientes números: 30 chocolates, 33 de regaliz, y 37 chicles. Como me gusta el chocolate mucho más que el regaliz y los chicles, me siento ligeramente estafado y quisiera saber si esto fue sólo un accidente azaroso. Para responder esta pregunta, necesito saber: ¿Cuál es la probabilidad de que el conteo hubiera salido como salió si la verdadera probabilidad de cada tipo de dulce es realmente el promedio de una proporción de 1/3 de cada uno?
 
 <!-- ## Pearson's chi-squared test {#chi-squared-test} -->
 ## Prueba Ji-cuadrada de Pearson  {#chi-squared-test}
 
 <!-- The Pearson chi-squared test provides us with a way to test whether a set of observed counts differs from some specific expected values that define the null hypothesis: -->
-La prueba Ji-cuadrada de Pearson (también conocida como *chi-cuadrada*) nos provee de una manera de probar si el conjunto de conteos observados difiere de algunos valores esperados en específico definidios por la hipótesis nula: 
+La prueba Ji-cuadrada de Pearson (también conocida como *chi-cuadrada*, del inglés *chi-squared*) nos provee de una manera de probar si el conjunto de conteos observados difiere de algunos valores esperados en específico definidos por la hipótesis nula: 
 
+<!-- \chi^2 = \sum_i\frac{(observed_i - expected_i)^2}{expected_i} -->
 $$
-\chi^2 = \sum_i\frac{(observed_i - expected_i)^2}{expected_i}
+\chi^2 = \sum_i\frac{(observado_i - esperado_i)^2}{esperado_i}
 $$
 
 <!-- In the case of our candy example, the null hypothesis is that the proportion of each type of candy is equal.  To compute the chi-squared statistic, we first need to come up with our expected counts under the null hypothesis: since the null is that they are all the same, then this is just the total count split across the three categories (as shown in Table \@ref(tab:candyDf)).  We then take the difference between each count and its expectation under the null hypothesis, square them, divide them by the null expectation, and add them up to obtain the chi-squared statistic. -->
-En el caso de nuestro ejemplo de los dulces, la hipótesis nula es que la proporción de cada tipo de dulce es igual. Para calcular el estadístico Ji-cuadrada, primero necesitamos proponer nuestros conteos esperados bajo la hipótesis nula: como la nula es que todos los conteos sean iguales, entonces estos valores esperados serán sólo el conteo total dividido entre las tres categorías (como se muestra en la Tabla \@ref(tab:candyDf)). Luego tomamos la diferencia entre cada conteo y lo esperado bajo la hipótesis nula, lo elevamos al cuadrado, dividimos entre lo esperado por la nula, y los sumamos para obtener el estadístico Ji-cuadrada.
+En el caso de nuestro ejemplo de los dulces, la hipótesis nula es que la proporción de cada tipo de dulce es igual. Para calcular el estadístico Ji-cuadrada, primero necesitamos proponer nuestros conteos esperados bajo la hipótesis nula: como la nula es que todos los conteos sean iguales, entonces estos valores esperados serán sólo el conteo total dividido entre las tres categorías (como se muestra en la Tabla \@ref(tab:candyDf)). Luego tomamos la diferencia entre cada conteo observado y lo esperado bajo la hipótesis nula, lo elevamos al cuadrado, dividimos entre lo esperado por la nula, y los sumamos para obtener el estadístico Ji-cuadrada.
 
 ```{r candyDf, echo=FALSE}
 # compute chi-squared statistic
@@ -77,7 +78,7 @@ candyDf <- candyDf %>%
          `squared difference`=(count - nullExpectation)**2)
 
 # Observed counts, expectations under the null hypothesis, and squared differences in the candy data
-kable(candyDf, digits=2, caption='Conteos observados, conteos esperados bajo la hipótesis nula, y las diferencias al cuadrado, en nuestros datos de los dulces.')
+kable(candyDf, digits=3, caption='Conteos observados, conteos esperados bajo la hipótesis nula, y las diferencias al cuadrado, en nuestros datos de los dulces.')
 
 chisqVal <- 
   sum(
@@ -150,7 +151,7 @@ plot_grid(p1, p2)
 ```
 
 <!-- Let's verify that the chi-squared distribution accurately describes the sum of squares of a set of standard normal random variables, using simulation. To do this, we repeatedly draw sets of 8 random numbers, and add up each set after squaring each value.  The right panel of Figure \@ref(fig:chisqDist) shows that the theoretical distribution matches closely with the results of a simulation that repeatedly added together the squares of a set of random normal variables.  -->
-Verifiquemos que la distribución ji-cuadrada describe con exactitud la suma de cuadrados de un conjunto de variables aleatorias normales estándares, usando una simulación. Para hacer esto, repetidamente tomamos un conjunto de 8 números aleatorios, y sumamos cada conjunto después de haberlos elevado al cuadrado. El panel derecho de la Figura \@ref(fig:chisqDist) muestra que la distribución teórica coincide cercanamente con los resultados de la simulación que repetidamente suma juntos los cuadrados de un conjunto de variables normales aleatorias.
+Verifiquemos que la distribución ji-cuadrada describe con exactitud la suma de cuadrados de un conjunto de variables aleatorias normales estándares, usando una simulación. Para hacer esto, repetidamente tomamos un conjunto de 8 números aleatorios, y sumamos cada conjunto después de haberlos elevado al cuadrado. El panel derecho de la Figura \@ref(fig:chisqDist) muestra que la distribución teórica coincide cercanamente con los resultados de la simulación que repetidamente suma los cuadrados de un conjunto de variables normales aleatorias.
 
 <!-- For the candy example, we can compute the likelihood of our observed chi-squared value of `r I(chisqVal)` under the null hypothesis of equal frequency across all candies. We use a chi-squared distribution with degrees of freedom equal to k - 1 (where k = the number of categories) since we lost one degree of freedom when we computed the mean in order to generate the expected values.  The resulting p-value (`r I(sprintf('P(Chi-squared) > %0.2f = %0.3f',chisqVal,pval))`) shows that the observed counts of candies are not particularly surprising based on the proportions printed on the bag of candy, and we would not reject the null hypothesis of equal proportions. -->
 Para el ejemplo de los dulces, podemos calcular la probabilidad de nuestro valor ji-cuadrada observado de `r I(chisqVal)` bajo la hipótesis nula de que la frecuencia de los diferentes tipos de dulces sería igual. Usamos una distribución ji-cuadrada con grados de libertad igual a k - 1 (donde k = número de categorías) porque perdimos un grado de libertad cuando calculamos la media para generar los valores esperados. El valor p resultante (`r I(sprintf('P(Chi-squared) > %0.2f = %0.3f',chisqVal,pval))`) muestra que los conteos observados de dulces no son particularmente sorprendentes basados en las proporciones que menciona la etiqueta de la bolsa de dulces, y no rechazaríamos la hipótesis nula de proporciones iguales.
@@ -168,10 +169,10 @@ stopData <-
   rename(searched = search_conducted)
 ```
 
-<!-- The standard way to represent data from a categorical analysis is through a *contingency table*, which presents the number or proportion of observations falling into each possible combination of values for each of the variables. The table below shows the contingency table for the police search data.  It can also be useful to look at the contingency table using proportions rather than raw numbers, since they are easier to compare visually, so we include both absolute and relative numbers here. -->
-La manera estándar de representar datos de un análisis categórico es a través de una *tabla de contingencia*, que representa el número o la proporción de observaciones que cayeron en cada posible combinación de valores de cada una de las variables. La tabla abajo muestra la tabla de contingencia para los datos de las revisiones policíacas. También puede ser útil armar la tabla de contingencia usando proporciones en lugar de números crudos, porque son más fáciles de comparar visualmente, así que incluimos ambos números absolutos y relativos aquí.
+<!-- The standard way to represent data from a categorical analysis is through a *contingency table*, which presents the number or proportion of observations falling into each possible combination of values for each of the variables. Table \@ref(tab:policeCT) below shows the contingency table for the police search data.  It can also be useful to look at the contingency table using proportions rather than raw numbers, since they are easier to compare visually, so we include both absolute and relative numbers here. -->
+La manera estándar de representar datos de un análisis categórico es a través de una *tabla de contingencia*, que representa el número o la proporción de observaciones que cayeron en cada posible combinación de valores de cada una de las variables. La Tabla \@ref(tab:policeCT) muestra la tabla de contingencia para los datos de las revisiones policíacas. También puede ser útil armar la tabla de contingencia usando proporciones en lugar de números crudos, porque son más fáciles de comparar visualmente, así que incluimos ambos números absolutos y relativos aquí.
 
-```{r echo=FALSE}
+```{r policeCT, echo=FALSE}
 # compute and print two-way contingency table
 summaryDf2way <-
   stopData %>%
@@ -196,14 +197,15 @@ kable(summaryContingencyTable, caption='Tabla de contingencia para los datos de 
 ```
 
 <!-- The Pearson chi-squared test allows us to test whether observed frequencies are different from expected frequencies, so we need to determine what frequencies we would expect in each cell if searches and race were unrelated -- which we can define as being *independent.*  Remember from the chapter on probability that if X and Y are independent, then: -->
-La prueba ji-cuadrada de Pearson nos permite probar si las frecuencias observadas son diferentes de las frecuencias esperadas, por lo que necesitamos determinar cuáles frecuencias se esperarían en cada celda si las revisiones y la raza no estuvieran relacionadas -- que podemos definir como que sean *independientes*. Recuerda del capítulo de probabilidad que si X y Y son independientes, entonces:
+La prueba ji-cuadrada de Pearson nos permite probar si las frecuencias observadas son diferentes de las frecuencias esperadas, por lo que necesitamos determinar cuáles frecuencias se esperarían en cada celda si las revisiones y la raza no estuvieran relacionadas -- es decir, si fueran *independientes*. Recuerda del capítulo de probabilidad que si X y Y son independientes, entonces:
 
 $$
 P(X \cap Y) = P(X) * P(Y)
 $$
 <!-- That is, the joint probability under the null hypothesis of independence is simply the product of the *marginal* probabilities of each individual variable. The marginal probabilities are simply the probabilities of each event occuring regardless of other events. We can compute those marginal probabilities, and then multiply them together to get the expected proportions under independence. -->
-Esto es, la probabilidad conjunta bajo la hipótesis nula de independencia es simplemente la multiplicación de las probabilidades *marginales* de cada variable individual. Las probabilidades marginales son simplemente las probabilidades de cada evento ocurriendo sin importar los otros eventos. Podemos calcular estas probabilidades marginales, y luego multiplicarlas juntas para obtener las proporciones bajo independencia. 
+Esto es, la probabilidad conjunta bajo la hipótesis nula de independencia es simplemente la multiplicación de las probabilidades *marginales* de cada variable individual. Las probabilidades marginales son simplemente las probabilidades de que ocurra cada evento sin importar los otros eventos. Podemos calcular estas probabilidades marginales, y luego multiplicarlas juntas para obtener las proporciones esperadas bajo la hipótesis de independencia. 
 
+<!-- PENDIENTE TRADUCIR -->
 
 |              | Black      | White      |       |
 |--------------|------------|------------|-------|
@@ -271,10 +273,10 @@ kable(summaryDf2way, digits=2,caption='Resumen de la tabla de contingencia de 2 
 <!-- We then compute the chi-squared statistic, which comes out to `r I(chisq)`. -->
 Luego calculamos el estadístico ji-cuadrada, que resulta igual a `r I(chisq)`.
 <!-- To compute a p-value, we need to compare it to the null chi-squared distribution in order to determine how extreme our chi-squared value is compared to our expectation under the null hypothesis.  The degrees of freedom for this distribution are $df = (nRows - 1) * (nColumns - 1)$ - thus, for a 2X2 table like the one here, $df = (2-1)*(2-1)=1$.  The intuition here is that computing the expected frequencies requires us to use three values: the total number of observations and the marginal probability for each of the two variables.  Thus, once those values are computed, there is only one number that is free to vary, and thus there is one degree of freedom.  Given this, we can compute the p-value for the chi-squared statistic, which is about as close to zero as one can get: $3.79 \times 10^{-182}$.  This shows that the observed data would be highly unlikely if there was truly no relationship between race and police searches, and thus we should reject the null hypothesis of independence. -->
-Para calcular el valor p, necesitamos comparar este valor con la distribución ji-cuadrada nula para poder determinar qué tan extremo es nuestro valor ji-cuadrada comparado con nuestras expectativas bajo la hipótesis nula. Los grados de libertad para esta distribución son $df = (nRows - 1) * (nColumns - 1)$ - por lo que, para una tabla 2X2 como la que tenemos aquí, $df = (2-1)*(2-1)=1$. La intuición aquí es que el calcular las frecuencias esperadas requiere que usemos tres valores: el número total de observaciones y la probabilidad marginal para cada una de las dos variables. Por lo que, una vez que esos valores con calculados, sólo hay un número que es libre de variar, por lo que sólo hay un grado de libertad. Dado esto, podemos calcular el valor p para el estadístico ji-cuadrada, el cual termina siendo tan cercano a cero como se podría obtener: $3.79 \times 10^{-182}$. Esto muestra que los datos observados serían altamente improbables si no hubiera realmente una relación entre raza y revisiones policíacas, y por lo tanto debemos rechazar la hipótesis nula de independiencia.
+Para calcular el valor p, necesitamos comparar este valor con la distribución ji-cuadrada nula para poder determinar qué tan extremo es nuestro valor ji-cuadrada comparado con nuestras expectativas bajo la hipótesis nula. Los grados de libertad para esta distribución son $gl = (nFilas - 1) * (nColumnas - 1)$ (en inglés: $df = (nRows - 1) * (nColumns - 1)$, nota que $df$ = $gl$) - por lo que, para una tabla 2X2 como la que tenemos aquí, $gl = (2-1)*(2-1)=1$. La intuición aquí es que el calcular las frecuencias esperadas requiere que usemos tres valores: el número total de observaciones y la probabilidad marginal para cada una de las dos variables. Por lo que, una vez que esos valores con calculados, sólo hay un número que es libre de variar, por lo que sólo hay un grado de libertad. Dado esto, podemos calcular el valor p para el estadístico ji-cuadrada, el cual termina siendo tan cercano a cero como se podría obtener: $3.79 \times 10^{-182}$. Esto muestra que los datos observados serían altamente improbables si no hubiera realmente una relación entre raza y revisiones policíacas, y por lo tanto debemos rechazar la hipótesis nula de independencia.
 
 <!-- We can also perform this test easily using our statistical software: -->
-También podemos realizar esta prueba fácilmente usando software estadístico:
+También podemos realizar esta prueba fácilmente usando nuestro software estadístico:
 
 ```{r echo=FALSE}
 # first need to rearrange the data into a 2x2 table
@@ -289,21 +291,21 @@ chisqTestResult
 ```
 
 <!-- ## Standardized residuals -->
-## Residuales estandarizados
+## Residuales estandarizados (standardized residuales)
 
-<!-- When we find a significant effect with the chi-squared test, this tells us that the data are unlikely under the null hypothesis, but it doesn't tell us *how* the data differ.  To get a deeper insight into how the data differ from what we would expect under the null hypothesis, we can examine the residuals from the model, which reflects the deviation of the data (i.e., the observed frequencies) from the model (i.e., the expected frequencies) in each cell. Rather than looking at the raw residuals (which will vary simply depending on the number of observations in the data), it's more common to look at the *standardized residuals*, which are computed as: -->
-Cuando encontramos un efecto significativo con la prueba ji-cuadrada, esto nos dice que los datos son improbables bajo la hipótesis nula, pero no nos dice *cómo* difieren los datos. Para obtener un insight más profundo sobre cómo los datos difieren de lo que esperaríamos bajo la hipótesis nula, podemos examinar los residuales del modelo, que reflejan la desviación que tuvieron los datos (i.e., las frecuencias observadas) del modelo (i.e., las frecuencias esperadas) en cada celda. En lugar de ver los residuales crudos (que variarán simplemente dependiendo del número de observaciones en los datos), es más común observar los *residuales estandarizados*, que se calculan como sigue:
+<!-- When we find a significant effect with the chi-squared test, this tells us that the data are unlikely under the null hypothesis, but it doesn't tell us *how* the data differ.  To get a deeper insight into how the data differ from what we would expect under the null hypothesis, we can examine the residuals from the model, which reflects the deviation of the data (i.e., the observed frequencies) from the model (i.e., the expected frequencies) in each cell. Rather than looking at the raw residuals (which will vary simply depending on the number of observations in the data), it's more common to look at the *standardized residuals* (sometimes called *Pearson residuals*), which are computed as: -->
+Cuando encontramos un efecto significativo con la prueba ji-cuadrada, esto nos dice que los datos son improbables bajo la hipótesis nula, pero no nos dice *cómo* difieren los datos. Para obtener un insight más profundo sobre cómo los datos difieren de lo que esperaríamos bajo la hipótesis nula, podemos examinar los residuales del modelo, que reflejan la desviación que tuvieron los datos (i.e., las frecuencias observadas) del modelo (i.e., las frecuencias esperadas) en cada celda. En lugar de ver los residuales crudos (que variarán simplemente dependiendo del número de observaciones en los datos), es más común observar los *residuales estandarizados* (a veces llamados *residuales de Pearson*), que se calculan como sigue:
 
 $$
 residuales\ estandarizados_{ij} = \frac{observados_{ij} - esperados_{ij}}{\sqrt{esperados_{ij}}}
 $$
 <!-- where $i$ and $j$ are the indices for the rows and columns respectively.   -->
-donde $i$ y $j$ son los índices de los renglones y las columnas, respectivamente.
+donde $i$ y $j$ son los índices de los renglones/filas y las columnas, respectivamente.
 
-<!-- The table shows these for the police stop data.  These standardized residuals can be interpreted as Z scores -- in this case, we see that the number of searches for Black individuals are substantially higher than expected based on independence, and the number of searches for white individuals are substantially lower than expected. This provides us with the context that we need to interpret the signficant chi-squared result. -->
-La tabla muestra estos valores para los datos de las revisiones policíacas. Estos residuales estandarizados pueden interpretarse como valores Z -- en este caso, vemos que el número de revisiones para las personas negras son sustancialmente mayores que los esperados basados en independencia, y el número de revisiones para las personas blancas son sustancialmente menores que las esperadas. Esto nos provee del contexto que necesitamos para interpretar el resultado significativo de la ji-cuadrada.
+<!-- Table \@ref(tab:stdRes) shows these for the police stop data.  These standardized residuals can be interpreted as Z scores -- in this case, we see that the number of searches for Black individuals are substantially higher than expected based on independence, and the number of searches for white individuals are substantially lower than expected. This provides us with the context that we need to interpret the signficant chi-squared result. -->
+La Tabla \@ref(tab:stdRes) muestra estos valores para los datos de las revisiones policíacas. Estos residuales estandarizados pueden interpretarse como valores Z -- en este caso, vemos que el número de revisiones para las personas negras son sustancialmente mayores que los esperados basados en independencia, y el número de revisiones para las personas blancas son sustancialmente menores que las esperadas. Esto nos provee del contexto que necesitamos para interpretar el resultado significativo de la ji-cuadrada.
 
-```{r echo=FALSE}
+```{r stdRes, echo=FALSE}
 # compute standardized residuals
 summaryDfResids <- 
   summaryDf2way %>% 
@@ -319,7 +321,9 @@ kable(summaryDfResids, caption="Resumen de los residuales estandarizados de los 
 ## Razones de posibilidades (odds ratios)
 
 <!-- We can also represent the relative likelihood of different outcomes in the contingency table using the odds ratio that we introduced earlier, in order to better understand the magnitude of the effect.  First, we represent the odds of being stopped for each race, then we compute their ratio: -->
-También podemos representar la probabilidad relativa de los diferentes resultados en la tabla de contingencia usando las razones de posibilidades (odds ratios) que presentamos en capítulos anteriores, para poder entender mejor la magnitud del efecto. Primero, representamos las posibilidades (odds) de ser revisado de cada raza, luego calculamos su razón:
+También podemos representar la probabilidad relativa de los diferentes resultados en la tabla de contingencia usando las razones de posibilidades (*odds ratios*) que presentamos en capítulos anteriores, para poder entender mejor la magnitud del efecto. Primero, representamos las posibilidades (*odds*) de ser revisado de cada raza, luego calculamos su razón:
+
+<!-- PENDIENTE TRADUCIR -->
 
 $$
 odds_{searched|black} = \frac{N_{searched\cap black}}{N_{not\ searched\cap black}} = \frac{1219}{36244} = 0.034
@@ -340,11 +344,13 @@ La razón de posibilidades muestra que las posibilidades de ser revisado son 2.5
 
 <!-- We discussed Bayes factors in the earlier chapter on Bayesian statistics -- you may remember that it represents the ratio of the likelihood of the data under each of the two hypotheses: -->
 Discutimos los factores de Bayes en el capítulo anterior sobre estadística Bayesiana -- podrás recordar que representan la razón de las probabilidades (*likelihood*) de los datos bajo cada una de las dos hipótesis:
+
+<!-- PENDIENTE TRADUCIR -->
 $$ 
 K = \frac{P(data|H_A)}{P(data|H_0)} = \frac{P(H_A|data)*P(H_A)}{P(H_0|data)*P(H_0)}
 $$
-<!-- We can compute the Bayes factor for the police search data using a special package for the R statistical software: -->
-Podemos calcular el factor de Bayes para los datos de las revisiones policiacas usando un paquete especial para el software estadístico R:
+<!-- We can compute the Bayes factor for the police search data using our statistical software: -->
+Podemos calcular el factor de Bayes para los datos de las revisiones policiacas usando nuestro software estadístico:
 
 ```{r echo=FALSE}
 # compute Bayes factor 
@@ -360,11 +366,11 @@ bf
 
 ```
 
-<!-- This shows that the evidence in favor of a relationship between driver race and police searches in this dataset is exceedingly strong. -->
-Esto nos muestra que la evidencia en favor de una relación entre la raza de los conductores y las revisiones policíacas en este conjunto de datos es extremadamente fuerte.
+<!-- This shows that the evidence in favor of a relationship between driver race and police searches in this dataset is exceedingly strong --- $1.8 * 10^{142}$ is about as close to infinity as we can imagine getting in statistics. -->
+Esto nos muestra que la evidencia en favor de una relación entre la raza de los conductores y las revisiones policíacas en este conjunto de datos es extremadamente fuerte --- $1.8 * 10^{142}$ es tan cercano a infinito como podemos imaginarnos llegar a obtener en estadística.
 
 <!-- ## Categorical analysis beyond the 2 X 2 table -->
-## Análisis categórico más allá de la tabla 2 X 2
+## Análisis categóricos más allá de la tabla 2 X 2
 
 <!-- Categorical analysis can also be applied to contingency tables where there are more than two categories for each variable. -->
 El análisis categórico también puede aplicarse a tablas de contingencia donde haya más de dos categorías para cada variables.
@@ -418,8 +424,8 @@ bf <-
 bf
 ```
 
-<!-- Here we see that the Bayes factor is very large, showing that the evidence in favor of a relation between depression and sleep problems is very strong. -->
-Aquí podemos ver que el factor de Bayes es muy grande, mostrando que la evidencia a favor de la relación entre depresión y problemas de sueño es muy fuerte.
+<!-- Here we see that the Bayes factor is very large ($1.8 * 10^{35}$), showing that the evidence in favor of a relation between depression and sleep problems is very strong. -->
+Aquí podemos ver que el factor de Bayes es muy grande ($1.8 * 10^{35}$), mostrando que la evidencia a favor de la relación entre depresión y problemas de sueño es muy fuerte.
 
 <!-- ## Beware of Simpson's paradox -->
 ## Cuídate de la paradoja de Simpson
@@ -427,13 +433,15 @@ Aquí podemos ver que el factor de Bayes es muy grande, mostrando que la evidenc
 <!-- The contingency tables presented above represent summaries of large numbers of observations, but summaries can sometimes be misleading.  Let's take an example from baseball.  The table below shows the batting data (hits/at bats and batting average) for Derek Jeter and David Justice over the years 1995-1997: -->
 Las tablas de contingencia anteriores representan resúmenes de números grandes de observaciones, pero los resúmenes pueden ser engañosos. Veamos un ejemplo de baseball. La tabla debajo muestra los datos de bateo (hits/turnos al bate y bateo promedio) para Derek Jeter y David Justice sobre los años 1995-1997:
 
+<!-- PENDIENTE TRADUCIR -->
+
 | Player  | 1995    |      | 1996    |      | 1997    |      | Combined |      |
 |---------|---------|------|---------|------|---------|------|----------|------|
 | Derek Jeter  | 12/48   | .250 | 183/582 | .314 | 190/654 | .291 | 385/1284 | __.300__ |
 | David Justice | 104/411 | __.253__ | 45/140  | __.321__ | 163/495 | __.329__ | 312/1046 | .298 |
 
 <!-- If you look closely, you will see that something odd is going on: In each individual year Justice had a higher batting average than Jeter, but when we combine the data across all three years, Jeter's average is actually higher than Justice's!  This is an example of a phenomenon known as *Simpson's paradox*, in which a pattern that is present in a combined dataset may not be present in any of the subsets of the data.  This occurs when there is another variable that may be changing across the different subsets -- in this case, the number of at-bats varies across years, with Justice batting many more times in 1995 (when batting averages were low).  We refer to this as a *lurking variable*, and it's always important to be attentive to such variables whenever one examines categorical data. -->
-Si miras cuidadosamente, verás que algo raro está sucediendo: En cada año individual Justice tuvo un promedio de bateo mayor a Jeter, pero cuando combinamos los datos a lo largo de los tres años, ¡el promedio de Jeter es finalmente mayor que el de Justice! Esto es un ejemplo de un fenómeno conocido como la *paradoja de Simpson*, en el cual un patrón que está presente en un conjunto combinado de datos puede no estar presente en cualquier de los subconjuntos de los mismos datos. Esto ocurre cuando hay otra variable que puede estar cambiando a través de los diferentes subconjuntos -- en este caso, el número de turnos al bate varía en los diferentes años, donde Justice tuvo muchos más turnos al bate en 1995 (cuando el promedio de hits era bastante bajo). Nos referimos a esto como una *variable oculta* (*lurking variable*), y es siempre importante estar atentos a tales variables cada vez que examinemos datos categóricos.
+Si miras cuidadosamente, verás que algo raro está sucediendo: En cada año individual Justice tuvo un promedio de bateo mayor a Jeter, pero cuando combinamos los datos a lo largo de los tres años, ¡el promedio de Jeter es finalmente mayor que el de Justice! Esto es un ejemplo de un fenómeno conocido como la *paradoja de Simpson*, en el cual un patrón que está presente en un conjunto combinado de datos puede no estar presente en cualquier de los subconjuntos de los mismos datos. Esto ocurre cuando hay otra variable que puede estar cambiando a través de los diferentes subconjuntos -- en este caso, el número de turnos al bate varía en los diferentes años, donde Justice tuvo muchos más turnos al bate en 1995 (cuando el promedio de hits era bajo). Nos referimos a esto como una *variable oculta* (*lurking variable*), y es siempre importante estar atentos a tales variables cada vez que examinemos datos categóricos.
 
 <!-- ## Learning objectives -->
 ## Objetivos de aprendizaje
