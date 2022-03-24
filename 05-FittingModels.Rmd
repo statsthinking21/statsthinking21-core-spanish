@@ -311,7 +311,7 @@ rmse_age_gender <-
 Nuestro error es mucho más pequeño utilizando este modelo -- sólo `r I(rmse_age)` centímetros en promedio. ¿Puedes pensar en otras variables que también se relacionen con la estatura? ¿Qué hay del género? En el Panel D de la Figura \@ref(fig:childHeightLine) graficamos los datos con líneas distintas para género masculino y femenino. Observando sólo la gráfica, parece ser que existe una diferencia entre género masculino y femenino, pero es relativamente pequeño y solamente comienza después de la etapa de la pubertad. En la Figura \@ref(fig:msePlot) trazamos los valores de la raíz del error cuadrático medio a través de los diferentes modelos, incluyendo un modelo más que tiene un parámetro adicional que modela el efecto del género. Aquí podemos ver que el modelo mejoró un poco al pasar de moda a media, posteriormente mejora más al pasar de media a media + edad, y mejora sólo un poco más al incluir el género también. 
 
 <!-- fig.cap="Mean squared error plotted for each of the models tested above." -->
-```{r msePlot,echo=FALSE, fig.cap="Error cuadrático medio graficado para cada uno de los modelos probados arriba.",fig.width=4,fig.height=4,out.height='50%'}
+```{r msePlot,echo=FALSE, fig.cap="Raíz del error cuadrático medio graficado para cada uno de los modelos probados arriba.",fig.width=4,fig.height=4,out.height='50%'}
 error_df <- #build a dataframe using the function tribble()
   tribble(
     ~model, ~error,

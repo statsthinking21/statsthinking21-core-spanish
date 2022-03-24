@@ -208,7 +208,7 @@ data/ink\ ratio = \frac{amount\, of\, ink\, used\, on\, data}{total\, amount\, o
 $$
 
 <!--The point of this is to minimize visual clutter and let the data show through.  For example, take the two presentations of the dental health data in Figure \@ref(fig:dataInkExample). Both panels show the same data, but panel A is much easier to apprehend, because of its relatively higher data/ink ratio.-->
-El punto de esto es minimizar la contaminazión visual y permitir mostrar los datos. Por ejemplo, toma las dos presentaciones sobre la salud dental en la Figura \@ref(fig:dataInkExample). Ambos paneles muestran los mismos datos, pero el panel A es mucho más sencillo de comprender, porque es relativamente alta la proporción de datos/tinta.
+El punto de esto es minimizar la contaminación visual y permitir mostrar los datos. Por ejemplo, toma las dos presentaciones sobre la salud dental en la Figura \@ref(fig:dataInkExample). Ambos paneles muestran los mismos datos, pero el panel A es mucho más sencillo de comprender, porque es relativamente alta la proporción de datos/tinta.
 
 <!-- An example of the same data plotted with two different data/ink ratios. -->
 ```{r dataInkExample,echo=FALSE,fig.cap="Un ejemplo de los mismos datos graficados en dos porporciones datos/tinta diferentes.",fig.width=8,fig.height=4,out.height='50%'}
@@ -331,7 +331,7 @@ plot_grid(p1,p2,labels='AUTO')
 ## Ajustarse a las limitaciones humanas 
 
 <!--Humans have both perceptual and cognitive limitations that can make some visualizations very difficult to understand. It's always important to keep these in mind when building a visualization.-->
-Les humanes tienen limitaciones perceptuales y cognitivas que pueden hacer ciertas visializaciones difíciles de entender. Siempre es importante tener esto en cuenta cuando se construye una visualización. 
+Les humanes tienen limitaciones perceptuales y cognitivas que pueden hacer ciertas visualizaciones difíciles de entender. Siempre es importante tener esto en cuenta cuando se construye una visualización. 
 
 <!--### Perceptual limitations-->
 ### Limitaciones perceptuales 
