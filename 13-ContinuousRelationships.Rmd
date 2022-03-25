@@ -344,14 +344,14 @@ grViz(latent_graph) %>% export_svg %>% charToRaw %>% rsvg_png("images/dag_latent
 Sin embargo, en realidad, los efectos sobre el tiempo de finalización y las calificaciones no se deben directamente a la cantidad de tiempo dedicado al estudio, sino más bien a la cantidad de conocimientos que adquiere el alumno al estudiar. Por lo general, diríamos que el conocimiento es una variable *latente*, es decir, no podemos medirlo directamente, pero podemos verlo reflejado en variables que podemos medir (como calificaciones y tiempos de finalización). La Figura \@ref(fig:latentCausalGraph) muestra esto.
 
 <!-- fig.cap="A graph showing causal relationships between three variables: study time, exam grades, and exam finishing time.  A green arrow represents a positive relationship (i.e. more study time causes exam grades to increase), and a red arrow represents a negative relationship (i.e. more study time causes faster completion of the exam)." -->
-```{r simpleCausalGraph, echo=FALSE,fig.cap="Una gráfica mostrando las relaciones causales entre tres variables: tiempo de estudio, calificaciones de exámenes, y tiempos de finalización de exámenes.  Una flecha verde representa una relación positiva (esto es, más tiempo de estudio causa mayor calificación en exámenes), y una flecha roja representa una relación negativa (esto es, más tiempo de estudio causa menor tiempo para finalizar un examen).",fig.width=6,out.height='50%'}
+```{r simpleCausalGraph, echo=FALSE,fig.cap="Una gráfica mostrando las relaciones causales entre tres variables: tiempo de estudio, calificaciones de exámenes, y tiempos de finalización de exámenes.  Una flecha verde representa una relación positiva (esto es, más tiempo de estudio causa mayor calificación en exámenes), y una flecha roja representa una relación negativa (esto es, más tiempo de estudio causa menor tiempo para finalizar un examen).",fig.width=6,out.width='60%'}
 
 knitr::include_graphics("images/dag_example.png")
 
 ```
 
 <!-- fig.cap="A graph showing the same causal relationships as above, but now also showing the latent variable (knowledge) using a square box." -->
-```{r latentCausalGraph, echo=FALSE,fig.cap="Una gráfica mostrando las mismas relaciones causales que antes, pero ahora también mostrando la variable latente (conocimiento) en un cuadro.",fig.width=6,out.height='50%'}
+```{r latentCausalGraph, echo=FALSE,fig.cap="Una gráfica mostrando las mismas relaciones causales que antes, pero ahora también mostrando la variable latente (conocimiento) en un cuadro.",fig.width=6,out.width='60%'}
 
 knitr::include_graphics("images/dag_latent_example.png")
 
@@ -387,7 +387,7 @@ Después de leer este capítulo tú deberás ser capaz de:
 - [The Book of Why](http://bayes.cs.ucla.edu/WHY/) por Judea Pearl - una excelente introducción a las ideas detrás de la inferencia causal.
 
 <!--## Appendix:-->
-## Apéndice:
+## Apéndice
 
 <!--### Quantifying inequality: The Gini index-->
 ### Cuantificando la desigualdad: El índice Gini
@@ -421,7 +421,7 @@ lorenzCurve = function(df){
 ```
 
 
-<!.. fig.cap="Lorenz curves for A) perfect equality, B) normally distributed income, and C) high inequality (equal income except for one very wealthy individual)." -->
+<!-- fig.cap="Lorenz curves for A) perfect equality, B) normally distributed income, and C) high inequality (equal income except for one very wealthy individual)." -->
 ```{r gini0,echo=FALSE,fig.cap="Curvas de Lorenz para A) igualdad perfecta, B) ingreso distribuido normalmente, y C) alta desigualdad (ingreso igual a excepción de una sola persona con muy altos ingresos).",fig.width=8,fig.height=8,out.width='80%'}
 
 incomeDf <- data.frame(income=rep(40000,10))

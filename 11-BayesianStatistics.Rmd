@@ -49,7 +49,8 @@ Digamos que estás caminando por la calle y unx amigx tuyx camina a tu lado pero
 <!--The idea behind a generative model is that a *latent* (unseen) process generates the data we observe, usually with some amount of randomness in the process. When we take a sample of data from a population and estimate a parameter from the sample, what we are doing in essence is trying to learn the value of a latent variable (the population mean) that gives rise through sampling to the observed data (the sample mean).  Figure \@ref(fig:GenerativeModel) shows a schematic of this idea.-->
 La idea detrás de los modelos generativos es que un proceso *latente* (que no se ha visto) genera los datos que observamos, usualmente con una cantidad de aleatoridad en el proceso. Cuando tomamos una muestra de datos de una población y estimamos el parámetro a partir de la muestra, lo que estamos haciendo en esencia es tratar de conocer el valor de la variable latente (la media de la población), la cual da lugar a través del muestreo a los datos observados (la media de la muestra). La Figura \@ref(fig:GenerativeModel) muestra un esquema de esta idea. 
 
-```{r GenerativeModel, echo=FALSE,fig.cap="A schematic of the idea of a generative model.",fig.width=6, out.width="80%"}
+<!-- A schematic of the idea of a generative model. -->
+```{r GenerativeModel, echo=FALSE,fig.cap="Una representación esquematizada de la idea de un modelo generativo.",fig.width=6, out.width="80%"}
 knitr::include_graphics("images/BayesianInference.png")
 ```
 

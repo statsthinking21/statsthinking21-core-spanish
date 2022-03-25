@@ -84,7 +84,8 @@ df <-
   )
 ```
 
-```{r StudytimeGrades, echo=FALSE,fig.cap='Relation between study time and grades',fig.width=3,fig.height=3,out.height='50%'}
+<!-- Relation between study time and grades -->
+```{r StudytimeGrades, echo=FALSE,fig.cap='Relación entre tiempo de estudio y calificaciones.',fig.width=3,fig.height=3,out.height='50%'}
 p <- ggplot(df,aes(studyTime,grade)) +
   geom_point(size=3) +
   xlab('Study time (hours)') +
@@ -134,7 +135,7 @@ $$
 y = x * \beta_x + \beta_0 + \epsilon
 $$
 <!-- The $\beta_x$ value tells us how much we would expect y to change given a one-unit change in $x$.  The intercept $\beta_0$ is an overall offset, which tells us what value we would expect y to have when $x=0$; you may remember from our early modeling discussion that this is important to model the overall magnitude of the data, even if $x$ never actually attains a value of zero. The error term $\epsilon$ refers to whatever is left over once the model has been fit; we often refer to these as the *residuals* from the model. If we want to know how to predict y (which we call $\hat{y}$) after we estimate the $\beta$ values, then we can drop the error term: -->
-El valor $\beta_x$  nos dice cuánto esperaríamos que $y$ cambiara dado un cambio de una sola unidad en $x$. El intercepto $\beta_0$ es un offset general (una compensación general), que nos dice cuál valor esperaríamos de $y$ cuando $x=0$; recordarás de nuestra discusión previa sobre modelos que esto es importante para poder modelar la magnitud general de los datos, aún cuando $x$ nunca tenga realmente un valor de cero. El término del error $\epsilon$ se refiere al error que queda después de que el modelo ha sido ajustado a los datos; frecuentemente nos referimos a este error como los *residuales* del modelo. Si queremos saber cómo predecir $y$ (que llamamos $\hat{y}$) después de estimar los valores $\beta$, entonces podemos ignorar el término del error por el momento:
+El valor $\beta_x$  nos dice cuánto esperaríamos que $y$ cambiara dado un cambio de una sola unidad en $x$. La constante $\beta_0$ es un *offset* general (una compensación general), que nos dice cuál valor esperaríamos de $y$ cuando $x=0$; recordarás de nuestra discusión previa sobre modelos que esto es importante para poder modelar la magnitud general de los datos, aún cuando $x$ nunca tenga realmente un valor de cero. El término del error $\epsilon$ se refiere al error que queda después de que el modelo ha sido ajustado a los datos; frecuentemente nos referimos a este error como los *residuales* del modelo. Si queremos saber cómo predecir $y$ (que llamamos $\hat{y}$) después de estimar los valores $\beta$, entonces podemos ignorar el término del error por el momento:
 
 $$
 \hat{y} = x * \hat{\beta_x} + \hat{\beta_0} 
@@ -142,7 +143,8 @@ $$
 <!-- Note that this is simply the equation for a line, where $\hat{\beta_x}$ is our estimate of the slope and $\beta_0$ is the intercept. Figure  \@ref(fig:LinearRegression) shows an example of this model applied to the study time data. -->
 Nota que esto es simplemente la ecuación de una línea, donde $\hat{\beta_x}$ es nuestra estimación de la pendiente y $\hat{\beta_0}$ es la constante. La Figura \@ref(fig:LinearRegression) muestra un ejemplo de este modelo aplicado a los datos de tiempo de estudio.
 
-```{r LinearRegression,echo=FALSE,fig.cap="The linear regression solution for the study time data is shown in the solid line The value of the intercept is equivalent to the predicted value of the y variable when the x variable is equal to zero; this is shown with a dotted line.  The value of beta is equal to the slope of the line -- that is, how much y changes for a unit change in x.  This is shown schematically in the dashed lines, which show the degree of increase in grade for a single unit increase in study time.",fig.width=4,fig.height=4,out.height='50%'}
+<!-- The linear regression solution for the study time data is shown in the solid line The value of the intercept is equivalent to the predicted value of the y variable when the x variable is equal to zero; this is shown with a dotted line.  The value of beta is equal to the slope of the line -- that is, how much y changes for a unit change in x.  This is shown schematically in the dashed lines, which show the degree of increase in grade for a single unit increase in study time. -->
+```{r LinearRegression,echo=FALSE,fig.cap="La solución de la regresión lineal para los datos de tiempo de estudio se muestran con la línea continua azul. El valor de la constante es equivalente al valor predicho en la variable Y cuando la variable X es igual a cero; esto se muestra con la línea punteada. El valor de beta es igual a la pendiente de la línea -- esto es, cuánto cambia Y por cada unidad de cambio en X. Esto se muestra esquemáticamente con las líneas discontinuas (que forman un triángulo con la línea azul), las cuales muestran el nivel de incremento en calificación por cada unidad incrementada en tiempo de estudio.",fig.width=4,fig.height=4,out.height='50%'}
 
 lmResult <- lm(grade~studyTime,data=df)
 
@@ -165,13 +167,13 @@ print(p3)
 ```
 
 <!-- We will not go into the details of how the best fitting slope and intercept are actually estimated from the data; if you are interested, details are available in the Appendix. -->
-No entraremos en detalles sobre cómo se calcula la pendiente y el intercepto que mejor ajustan a los datos; si estás interesadx, los detalles están disponibles en el Apéndice.
+No entraremos en detalles sobre cómo se calcula la pendiente y la constante que mejor ajustan a los datos; si estás interesadx, los detalles están disponibles en el Apéndice.
 
 <!-- ### Regression to the mean {#regression-to-the-mean} -->
 ### Regresión a la media {#regression-to-the-mean}
 
 <!-- The concept of *regression to the mean* was one of Galton's essential contributions to science, and it remains a critical point to understand when we interpret the results of experimental data analyses.  Let's say that we want to study the effects of a reading intervention on the performance of poor readers.  To test our hypothesis, we might go into a school and recruit those individuals in the bottom 25% of the distribution on some reading test, administer the intervention, and then examine their performance on the test after the intervention.  Let's say that the intervention actually has no effect, such that reading scores for each individual are simply independent samples from a normal distribution.  Results from a computer simulation of this hypothetic experiment are presented in \@ref(tab:readingTable). -->
-El concepto de *regresión a la media* fue una de las contribuciones esenciales de Galton a la ciencia, y aún se mantiene como un punto crítico a entender cuando interpretamos los resultados de análisis de datos experimentales. Digamos que queremos estudiar los efectos de una intervención de lectura para el rendimiento de lectores de baja habilidad de lectura ("lectores pobres"). Para probar nuestra hipótesis, podríamos ir a una escuela y reclutar a aquellas personas en el 25% más bajo de la distribución en una prueba de lectura, administrar la intervención, y luego examinar su rendimiento en la prueba después de la intervención. Digamos que la intervención realmente no tiene efecto, de manera que los puntajes de lectura de cada persona son simplemente muestras independientes de una distribución normal. Los resultados de una simulación por computadora de este experimento hipotético se presentan en la Tabla \@ref(tab:readingTable).
+El concepto de *regresión a la media* fue una de las contribuciones esenciales de Galton a la ciencia, y aún se mantiene como un punto crítico a entender cuando interpretamos los resultados de análisis de datos experimentales. Digamos que queremos estudiar los efectos de una intervención de lectura sobre el rendimiento de lectores con baja habilidad de lectura ("malos lectores"). Para probar nuestra hipótesis, podríamos ir a una escuela y reclutar a aquellas personas en el 25% más bajo de la distribución en una prueba de lectura, administrar la intervención, y luego examinar su rendimiento en la prueba después de la intervención. Digamos que la intervención realmente no tiene efecto, de manera que los puntajes de lectura de cada persona son simplemente muestras independientes de una distribución normal. Los resultados de una simulación por computadora de este experimento hipotético se presentan en la Tabla \@ref(tab:readingTable).
 
 ```{r readingTable, echo=FALSE}
 # create simulated data for regression to the mean example
@@ -208,16 +210,16 @@ Si observamos la diferencia entre el rendimiento promedio en el primer y en el s
 ### La relación entre correlación y regresión
 
 <!-- There is a close relationship between correlation coefficients and regression coefficients.  Remember that Pearson's correlation coefficient is computed as the ratio of the covariance and the product of the standard deviations of x and y: -->
-Hay una relación cercana entre los coeficientes de correlación y los coeficientes de regresión. Recuerda que el coeficiente de correlación de Pearson es calculado como la división de la covarianza entre la multiplicación de las desviaciones estándar de $x$ y $y$:
+Hay una relación cercana entre los coeficientes de correlación y los coeficientes de regresión. Recuerda que el coeficiente de correlación de Pearson es calculado como la división de la covarianza entre el resultado de la multiplicación de las desviaciones estándar de $x$ y $y$:
 
 $$
-\hat{r} = \frac{covariance_{xy}}{s_x * s_y}
+\hat{r} = \frac{covarianza_{xy}}{s_x * s_y}
 $$
 <!-- whereas the regression beta for x is computed as: -->
 mientras que el coeficiente de regresión beta para x es calculado como:
 
 $$
-\hat{\beta_x} = \frac{covariance_{xy}}{s_x*s_x}
+\hat{\beta_x} = \frac{covarianza_{xy}}{s_x*s_x}
 $$
 
 <!-- Based on these two equations, we can derive the relationship between $\hat{r}$ and $\hat{beta}$: -->
@@ -231,13 +233,13 @@ $$
 \hat{\beta_x} =  \frac{\hat{r} * s_x * s_y}{s_x * s_x} = r * \frac{s_y}{s_x}
 $$
 <!-- That is, the regression slope is equal to the correlation value multiplied by the ratio of standard deviations of y and x.  One thing this tells us is that when the standard deviations of x and y are the same (e.g. when the data have been converted to Z scores), then the correlation estimate is equal to the regression slope estimate. -->
-Esto es, la pendiente de la regresión es igual al valor de la correlación multiplicado por la división/proporción entre las desviaciones estándar de $y$ y $x$. Una cosa que nos dice esto es que cuando las desviaciones estándar de $x$ y $y$ son iguales (e.g. cuando los datos han sido convertidos a puntajes Z), entonces la correlación estimada es igual a la pendiente estimada de la regresión.
+Esto es, la pendiente de la regresión es igual al valor de la correlación multiplicado por el resultado de la división de la desviación estándar de $y$ sobre la desviación estándar de $x$. Una cosa que nos dice esto es que cuando las desviaciones estándar de $x$ y $y$ son iguales (e.g. cuando los datos han sido convertidos a puntajes Z), entonces la correlación estimada es igual a la pendiente estimada de la regresión.
 
 <!-- ### Standard errors for regression models -->
 ### Errores estándar de los modelos de regresión
 
 <!-- If we want to make inferences about the regression parameter estimates, then we also need an estimate of their variability.  To compute this, we first need to compute the *residual variance* or *error variance* for the model -- that is, how much variability in the dependent variable is not explained by the model.  We can compute the model residuals as follows: -->
-Si queremos realizar inferencias acerca de los parámetros estimados de regresión, entonces también necesitamos un estimado de su variabilidad. Para calcular esto, primero necesitamos calcular la *varianza residual* o *varianza de error* para el modelo -- esto es, cuánta variabilidad en la variable dependiente no es explicada por el modelo. Podemos calcular los residuales del modelo de la manera siguiente:
+Si queremos realizar inferencias acerca de los parámetros estimados de regresión, entonces también necesitamos un estimado de su variabilidad. Para calcular esto, primero necesitamos calcular la *varianza residual* o *varianza de error* del modelo -- esto es, cuánta variabilidad en la variable dependiente no es explicada por el modelo. Podemos calcular los residuales del modelo de la manera siguiente:
 
 $$
 residual = y - \hat{y} = y - (x*\hat{\beta_x} + \hat{\beta_0})
@@ -255,14 +257,14 @@ $$
 MS_{error} = \frac{SS_{error}}{df} = \frac{\sum_{i=1}^n{(y_i - \hat{y_i})^2} }{N - p}
 $$
 <!-- where the degrees of freedom ($df$) are determined by subtracting the number of estimated parameters (2 in this case: $\hat{\beta_x}$ and $\hat{\beta_0}$) from the number of observations ($N$).  Once we have the mean squared error, we can compute the standard error for the model as: -->
-donde los grados de libertad ($gl$, *degrees of freedom*, $df$) se determinan al restar el número de parámetros estimados (2 en este caso: $\hat{\beta_x}$ y $\hat{\beta_0}$) del número de observaciones ($N$).  Una vez que tenemos la media del error cuadrático (MSE), podemos calcular el error estándar para el modelo de la siguiente manera:
+donde los grados de libertad ($gl$, *degrees of freedom*, $df$) se determinan al restar el número de parámetros estimados (2 en este caso: $\hat{\beta_x}$ y $\hat{\beta_0}$) del número de observaciones ($N$).  Una vez que tenemos la media del error cuadrático (MSE), podemos calcular el error estándar del modelo de la siguiente manera:
 
 $$
 SE_{model} = \sqrt{MS_{error}}
 $$
 
 <!-- In order to get the standard error for a specific regression parameter estimate, $SE_{\beta_x}$, we need to rescale the standard error of the model by the square root of the sum of squares of the X variable: -->
-Para poder obtener el error estándar para un parámetro estimado específico de la regresión, $SE_{\beta_x}$, necesitamos reescalar el error estándar para el modelo mediante la raíz cuadrada de la suma de los cuadrados de la variable X:
+Para poder obtener el error estándar para un parámetro estimado específico de la regresión, $SE_{\beta_x}$, necesitamos reescalar el error estándar del modelo mediante la raíz cuadrada de la suma de los cuadrados de la variable X:
 
 $$
 SE_{\hat{\beta}_x} = \frac{SE_{model}}{\sqrt{{\sum{(x_i - \bar{x})^2}}}}
@@ -290,13 +292,13 @@ summary(lmResult)
 ```
 
 <!-- In this case we see that the intercept is significantly different from zero (which is not very interesting) and that the effect of studyTime on grades is marginally significant (p = .09)  -- the same p-value as the correlation test that we performed earlier. -->
-En este caso podemos ver que la constante es significativamente diferente de cero (lo cual no es muy interesante) y que el efecto de studyTime sobre las calificaciones es marginalmente significativo (p = .09) -- el mismo valor p que el de la prueba de correlación que realizamos anteriormente.
+En este caso podemos ver que la constante es significativamente diferente de cero (lo cual no es muy interesante) y que el efecto de *studyTime* sobre las calificaciones es marginalmente significativo (p = .09) -- el mismo valor p que el de la prueba de correlación que realizamos anteriormente.
 
 <!-- ### Quantifying goodness of fit of the model -->
 ### Cuantificar la bondad de adjuste del modelo
 
 <!-- Sometimes it's useful to quantify how well the model fits the data overall, and one way to do this is to ask how much of the variability in the data is accounted for by the model.  This is quantified using a value called $R^2$ (also known as the *coefficient of determination*).  If there is only one x variable, then this is easy to compute by simply squaring the correlation coefficient: -->
-Algunas veces es útil cuantificar qué tan bien ajusta el modelo a los datos en general, y una manera de hacer esto es preguntar cuánta de la variabilidad en los datos es explicada por el modelo. Esto es cuantificado usando un valor llamado $R^2$ (también conocido como *coeficiente de determinación*, o *coefficiente of determination* en inglés). Si sólo hay una variable x, entonces este valor es fácil de calcular al simplemente elevar al cuadrado el coeficiente de correlación:
+Algunas veces es útil cuantificar qué tan bien ajusta el modelo a los datos en general, y una manera de hacer esto es preguntar cuánta de la variabilidad en los datos es explicada por el modelo. Esto es cuantificado usando un valor llamado $R^2$ (también conocido como *coeficiente de determinación*, o *coefficient of determination* en inglés). Si sólo hay una variable x, entonces este valor es fácil de calcular al simplemente elevar al cuadrado el coeficiente de correlación:
 
 $$
 R^2 = r^2
@@ -308,13 +310,13 @@ En el caso de nuestro ejemplo del tiempo de estudio, $R^2$ = `r I(cor(df$studyTi
 De manera más general, podemos pensar en $R^2$ como una medida de la fracción de la varianza en nuestros datos que es explicada por el modelo, lo que puede ser calculado fraccionando la varianza en múltiples componentes:
 
 $$
-SS_{total} = SS_{model} + SS_{error}
+SS_{total} = SS_{modelo} + SS_{error}
 $$
 <!-- where $SS_{total}$ is the variance of the data ($y$) and $SS_{model}$ and $SS_{error}$ are computed as shown earlier in this chapter.  Using this, we can then compute the coefficient of determination as: -->
 donde $SS_{total}$ es la varianza de los datos ($y$) y $SS_{model}$ y $SS_{error}$ son calculadas como se vio previamente en este capítulo. Usando esto, podemos calcular el coeficiente de determinación como:
 
 $$
-R^2 = \frac{SS_{model}}{SS_{total}} = 1 - \frac{SS_{error}}{SS_{total}}
+R^2 = \frac{SS_{modelo}}{SS_{total}} = 1 - \frac{SS_{error}}{SS_{total}}
 $$
 
 <!-- A small value of $R^2$ tells us that even if the model fit is statistically significant, it may only explain a small amount of information in the data. -->
@@ -324,13 +326,13 @@ Un valor pequeño de $R^2$ nos dice que aún cuando el ajuste del modelo sea est
 ## Ajustar modelos más complejos
 
 <!-- Often we would like to understand the effects of multiple variables on some particular outcome, and how they relate to one another.  In the context of our study time example, let's say that we discovered that some of the students had previously taken a course on the topic.  If we plot their grades (see Figure  \@ref(fig:LinearRegressionByPriorClass)), we can see that those who had a prior course perform much better than those who had not, given the same amount of study time. We would like to build a statistical model that takes this into account, which we can do by extending the model that we built above: -->
-Frecuentemente nos gustaría entender los efectos de múltiples variables sobre un resultado en particular, y cómo se relacionan unas con otras. En el contexto de nuestro ejemplo del tiempo de estudio, digamos que descubrimos que algunos de los estudiantes habían tomado un curso previo sobre el tema. Si graficamos sus calificaciones (ve la Figura \@ref(fig:LinearRegressionByPriorClass)), podemos ver que aquellos que han tomado un curso previo obtuvieron un rendimiento más alto que aquellos que no, dado un mismo tiempo de estudio. Nos gustaría armar un modelo estadístico que tome eso en cuenta, lo cual podemos hacer expandiendo el modelo que construimos arriba:
+Frecuentemente nos gustaría entender los efectos de múltiples variables sobre un resultado en particular, y cómo se relacionan unas con otras. En el contexto de nuestro ejemplo del tiempo de estudio, digamos que descubrimos que algunos de los estudiantes habían tomado un curso previo sobre el tema (*priorClass*). Si graficamos sus calificaciones (ve la Figura \@ref(fig:LinearRegressionByPriorClass)), podemos ver que aquellos que han tomado un curso previo obtuvieron un rendimiento más alto que aquellos que no, dado un mismo tiempo de estudio. Nos gustaría armar un modelo estadístico que tome eso en cuenta, lo cual podemos hacer expandiendo el modelo que construimos arriba:
 
 $$
 \hat{y} = \hat{\beta_1}*studyTime + \hat{\beta_2}*priorClass + \hat{\beta_0}
 $$
 <!-- To model whether each individual has had a previous class or not, we use what we call *dummy coding* in which we create a new variable that has a value of one to represent having had a class before, and zero otherwise.  This means that for people who have had the class before, we will simply add the value of $\hat{\beta_2}$ to our predicted value for them -- that is, using dummy coding $\hat{\beta_2}$ simply reflects the difference in means between the two groups. Our estimate of $\hat{\beta_1}$ reflects the regression slope over all of the data points --  we are assuming that regression slope is the same regardless of whether someone has had a class before (see Figure  \@ref(fig:LinearRegressionByPriorClass)). -->
-Para modelar si cada persona había tomado un curso previo o no, usamos lo que se conoce como *dummy coding* (o *codificación ficticia*) en donde creamos una nueva variable que tiene el valor de uno para representar que se ha tomado una clase previa, y cero si no. Esto significa que para las personas que han tomado una clase previa, simplemente añadiremos el valor $\hat{\beta_2}$ a nuestro valor predicho para ellos -- esto es, el usar *dummy coding* $\hat{\beta_2}$ simplemente refleja la diferencia en medias entre los dos grupos. Nuestra estimación de $\hat{\beta_1}$ refleja la pendiente de regresión a lo largo de todos los datos -- estamos asumiendo que la pendiente de regresión es la misma sin importar si las personas han tomado una clase previa o no (ve la Figura \@ref(fig:LinearRegressionByPriorClass)).
+Para modelar si cada persona había tomado un curso previo o no, usamos lo que se conoce como *dummy coding* (o *codificación ficticia*) en donde creamos una nueva variable que tiene el valor igual a uno para representar que se ha tomado una clase previa, y un valor de cero si no. Esto significa que para las personas que han tomado una clase previa, simplemente añadiremos el valor $\hat{\beta_2}$ a nuestro valor predicho para ellos -- esto es, el usar *dummy coding* $\hat{\beta_2}$ simplemente refleja la diferencia de las medias de los dos grupos. Nuestra estimación de $\hat{\beta_1}$ refleja la pendiente de regresión a lo largo de todos los datos -- por el momento estamos asumiendo que la pendiente de regresión es la misma sin importar si las personas han tomado una clase previa o no (ve la Figura \@ref(fig:LinearRegressionByPriorClass)).
 
 ```{r echo=FALSE}
 # perform linear regression for study time and prior class
@@ -343,7 +345,8 @@ summary(lmResultTwoVars)
 
 ```
 
-```{r LinearRegressionByPriorClass,echo=FALSE, fig.cap='The relation between study time and grade including prior experience as an additional component in the model.  The solid line relates study time to grades for students who have not had prior experience, and the dashed line relates grades to study time for students with prior experience. The dotted line corresponds to the difference in means between the two groups.',fig.width=6,fig.height=4,out.height='50%'}
+<!-- The relation between study time and grade including prior experience as an additional component in the model.  The solid line relates study time to grades for students who have not had prior experience, and the dashed line relates grades to study time for students with prior experience. The dotted line corresponds to the difference in means between the two groups. -->
+```{r LinearRegressionByPriorClass,echo=FALSE, fig.cap='La relación entre tiempo de estudio y calificación incluyendo la experiencia previa como un componente adicional en el modelo. La línea sólida relaciona el tiempo de estudio con las calificaciones para los estudiantes que no tienen experiencia previa, y la línea discontinua relaciona las calificaciones con el tiempo de estudio para los estudiantes con experiencia previa. La línea punteada corresponde a la diferencia de las medias de ambos grupos.',fig.width=6,fig.height=4,out.height='50%'}
 
 
 p <- ggplot(df,aes(studyTime,grade,shape=priorClass)) +
@@ -453,7 +456,8 @@ summary(lmResultInteraction)
 <!-- From these results we see that there are significant effects of both caffeine and anxiety (which we call *main effects*) and an interaction between caffeine and anxiety. Panel C in Figure \@ref(fig:CaffeineAnxietyInteraction) shows the separate regression lines for each group. -->
 De estos resultados podemos ver que hay efectos significativos tanto de la cafeína como de la ansiedad (lo que llamamos *efectos principales*, o *main effects*) y también una interacción entre cafeína y ansiedad. El Panel C de la Figura \@ref(fig:CaffeineAnxietyInteraction) muestra las líneas de regresión separadas para cada grupo.
 
-```{r CaffeineAnxietyInteraction, echo=FALSE,fig.cap='A: The relationship between caffeine and public speaking. B: The relationship between caffeine and public speaking, with anxiety represented by the shape of the data points. C: The relationship between public speaking and caffeine, including an interaction with anxiety.  This results in two lines that separately model the slope for each group (dashed for anxious, dotted for non-anxious).',fig.width=8,fig.height=8,out.width='80%'}
+<!-- A: The relationship between caffeine and public speaking. B: The relationship between caffeine and public speaking, with anxiety represented by the shape of the data points. C: The relationship between public speaking and caffeine, including an interaction with anxiety.  This results in two lines that separately model the slope for each group (dashed for anxious, dotted for non-anxious). -->
+```{r CaffeineAnxietyInteraction, echo=FALSE,fig.cap='A: La relación entre cafeína y hablar en público. B: La relación entre cafeína y hablar en público, con la ansiedad representada en la forma de los puntos de los datos. C: La relación entre hablar en público y cafeína, incluyendo una interacción con la ansiedad. Esto resulta en dos líneas que modelan de manera separada la pendiente de cada grupo (discontinua para personas ansiosas, y punteada para personas no-ansiosas).',fig.width=8,fig.height=8,out.width='80%'}
 
 p1 <- ggplot(df,aes(caffeine,speaking)) +
   geom_point()
@@ -507,18 +511,19 @@ Es importante hacer notar que a pesar del hecho de que se llame modelo *lineal* 
 ## Criticar nuestro modelo y revisar suposiciones {#model-criticism}
 
 <!-- The saying "garbage in, garbage out" is as true of statistics as anywhere else.  In the case of statistical models, we have to make sure that our model is properly specified and that our data are appropriate for the model. -->
-El dicho "si metes basura, sacas basura" ("garbage in, garbage out") es cierto para la estadística como en cualquier lugar. En el caso de modelos estadísticos, debemos asegurarnos de que nuestro modelo está especificado apropiadamente y que nuestros datos son apropiados para el modelo.
+El dicho "si metes basura, sacas basura" ("*garbage in, garbage out*") es cierto para la estadística como en cualquier lugar. En el caso de modelos estadísticos, debemos asegurarnos de que nuestro modelo está especificado apropiadamente y que nuestros datos son apropiados para el modelo.
 
 <!-- When we say that the model is "properly specified", we mean that we have included the appropriate set of independent variables in the model.  We have already seen examples of misspecified models, in Figure \@ref(fig:childHeightLine).  Remember that we saw several cases where the model failed to properly account for the data, such as failing to include an intercept. When building a model, we need to ensure that it includes all of the appropriate variables. -->
-Cuando decimos que el modelo está "especificado apropiadamente", queremos decir que hemos incluido el conjunto apropiado de variables independientes en el modelo. Ya hemos visto ejemplos de modelos mal especificados, en la Figura \@ref(fig:childHeightLine).  Recuerda que vimos varios casos donde el modelo falló en explicar apropiadamente los datos, como cuando no se incluyó el intercepto. Cuando construimos un modelo, debemos asegurarnos que incluye todas las variables apropiadas.
+Cuando decimos que el modelo está "especificado apropiadamente", queremos decir que hemos incluido el conjunto apropiado de variables independientes en el modelo. Ya hemos visto ejemplos de modelos mal especificados, en la Figura \@ref(fig:childHeightLine).  Recuerda que vimos varios casos donde el modelo falló en explicar apropiadamente los datos, como cuando no se incluyó la constante. Cuando construimos un modelo, debemos asegurarnos que incluye todas las variables apropiadas.
 
 <!-- We also need to worry about whether our model satisfies the assumptions of our statistical methods.  One of the most important assumptions that we make when using the general linear model is that the residuals (that is, the difference between the model's predictions and the actual data) are normally distributed. This can fail for many reasons, either because the model was not properly specified or because the data that we are modeling are inappropriate.  -->
-También debemos preocuparnos si nuestro modelo satisface las suposiciones de nuestros métodos estadísticos. Una de las suposiciones más importantes que hacemos cuando usamos el modelo lineal general es que los residuales (esto es, la diferencia entre las predicciones de nuestro modelo y los datos verdaderos) están normalmente distribuidas. Esto puede fallar en cumplirse por varias razones, puede ser porque el modelo no estaba apropiadamente especificado, o porque los datos que estamos modelando son inapropiados.
+También debemos preocuparnos si nuestro modelo satisface las suposiciones de nuestros métodos estadísticos. Una de las suposiciones más importantes que hacemos cuando usamos el modelo lineal general es que los residuales (esto es, la diferencia entre las predicciones de nuestro modelo y los datos verdaderos) están normalmente distribuidos. Esto puede no cumplirse por varias razones, puede ser porque el modelo no estaba apropiadamente especificado, o porque los datos que estamos modelando son inapropiados.
 
 <!-- We can use something called a *Q-Q* (quantile-quantile) plot to see whether our residuals are normally distributed.  You have already encountered *quantiles* --- they are the value that cuts off a particular proportion of a cumulative distribution. The Q-Q plot presents the quantiles of two distributions against one another; in this case, we will present the quantiles of the actual data against the quantiles of a normal distribution fit to the same data. Figure \@ref(fig:qqplots) shows examples of two such Q-Q plots.  The left panel shows a Q-Q plot for data from a normal distribution, while the right panel shows a Q-Q plot from non-normal data.  The data points in the right panel diverge substantially from the line, reflecting the fact that they are not normally distributed. -->
-Podemos usar algo conocido como una gráfica *Q-Q* (quantile-quantile, Q-Q plot) para ver si nuestros residuales están normalmente distribuidos. Ya te has encontrado con los *cuantiles* (*quantiles*) --- son los valores que establecen un punto de corte para una proporción particular de una distribución acumulada. La gráfica Q-Q presenta los cuantiles de dos distribuciones una contra la otra; en este caso, presentaremos los cuantiles de los datos reales contra los cuantiles de una distribución normal ajustada a los mismos datos. La Figura \@ref(fig:qqplots) muestra ejemplos de dos gráficas Q-Q. El panel izquierdo muestra una gráfica Q-Q para datos de una distribución normal, mientras que el panel derecho muestra una gráfica Q-Q de una distribución no normal. Los datos en el panel derecho se desvían sustancialmente de la línea diagonal, reflejando el hecho de que no están normalmente distribuidos.
+Podemos usar algo conocido como una gráfica *Q-Q* (*quantile-quantile*, *Q-Q plot*) para ver si nuestros residuales están distribuidos de manera normal. Ya te has encontrado con los *cuantiles* (*quantiles*) --- son los valores que establecen un punto de corte para una proporción particular de una distribución acumulada. La gráfica Q-Q presenta los cuantiles de dos distribuciones una contra la otra; en este caso, presentaremos los cuantiles de los datos reales contra los cuantiles de una distribución normal ajustada a los mismos datos. La Figura \@ref(fig:qqplots) muestra ejemplos de dos gráficas Q-Q. El panel izquierdo muestra una gráfica Q-Q para datos de una distribución normal, mientras que el panel derecho muestra una gráfica Q-Q de una distribución no normal. Los datos en el panel derecho se desvían sustancialmente de la línea diagonal, reflejando el hecho de que no están normalmente distribuidos.
 
-```{r qqplots, fig.width=8, fig.height=4, out.width="80%", fig.cap="Q-Q plotsof normal (left) and non-normal (right) data.  The line shows the point at which the x and y axes are equal."}
+<!-- Q-Q plotsof normal (left) and non-normal (right) data.  The line shows the point at which the x and y axes are equal. -->
+```{r qqplots, echo=FALSE, fig.width=8, fig.height=4, out.width="80%", fig.cap="Gráficas Q-Q de datos distribuidos de manera normal (izquierda) y no normal (derecha). La línea diagonal muestra el punto en el que los ejes X y Y serían iguales, es decir, donde deberían caer los datos si se distribuyeran de manera normal."}
 qq_df <- tibble(norm=rnorm(100),
                 unif=runif(100))
 
@@ -536,13 +541,13 @@ plot_grid(p1,p2)
 ```
 
 <!-- Model diagnostics will be explored in more detail in a later chapter. -->
-Herramientas para el diagnóstico de modelos serán exploradas en mayor detalle en el capítulo siguiente.
+Algunas herramientas para el diagnóstico de modelos serán exploradas en mayor detalle en el capítulo siguiente.
 
 <!-- ## What does "predict" really mean? -->
 ## ¿Qué significa realmente "predecir"?
 
 <!-- When we talk about "prediction" in daily life, we are generally referring to the ability to estimate the value of some variable in advance of seeing the data.  However, the term is often used in the context of linear regression to refer to the fitting of a model to the data; the estimated values ($\hat{y}$) are sometimes referred to as "predictions" and the independent variables are referred to as "predictors".  This has an unfortunate connotation, as it implies that our model should also be able to predict the values of new data points in the future. In reality, the fit of a model to the dataset used to obtain the parameters will nearly always be better than the fit of the model to a new dataset [@copa:1983]. -->
-Cuando hablamos de "predicción" en la vida diaria, generalmente nos referimos a la habilidad para estimar el valor de alguna variable antes de ver los datos. Sin embargo, el término frecuentemente es usado en el contexto de regresión lineal para referirse al ajuste de un modelo a los datos; los valores estimados ($\hat{y}$) en ocasiones son conocidos como "predicciones" y las variables independientes son conocidas como "preditores". Esto tiene una connotación desafortunada, porque parece implicar que nuestro modelo debería ser capaz de predecir los valores de nuevos datos en el futuro. En realidad, el ajuste de un modelo al conjunto de datos usado para obtener sus parámetros casi siempre será mejor que el ajuste del mismo modelo a un nuevo conjunto de datos [@copa:1983].
+Cuando hablamos de "predicción" en la vida diaria, generalmente nos referimos a la habilidad para estimar el valor de alguna variable antes de ver los datos. Sin embargo, el término frecuentemente es usado en el contexto de regresión lineal para referirse al ajuste de un modelo a los datos; los valores estimados ($\hat{y}$) en ocasiones son conocidos como "predicciones" y las variables independientes son conocidas como "predictores". Esto tiene una connotación desafortunada, porque parece implicar que nuestro modelo debería ser capaz de predecir los valores de nuevos datos en el futuro. En realidad, el ajuste de un modelo al conjunto de datos usado para obtener sus parámetros casi siempre será mejor que el ajuste del mismo modelo a un nuevo conjunto de datos [@copa:1983].
 
 <!-- As an example, let's take a sample of 48 children from NHANES and fit a regression model for weight that includes several regressors (age, height, hours spent watching TV and using the computer, and household income) along with their interactions.   -->
 Como ejemplo, tomemos una muestra de 48 niñxs de la base de datos NHANES y ajustemos un modelo de regresión para los datos de peso que incluya varios regresores (edad, altura, horas que pasan viendo TV y usando la computadora, e ingreso económico del hogar) junto con sus interacciones.
@@ -628,12 +633,14 @@ mean_rsquared_sim <-
 combined_rsquared = rbind(mean_rsquared, mean_rsquared_sim) %>%
   mutate(`Data type`=c('True data', 'Shuffled data')) %>%
   dplyr::select(`Data type`,`RMSE (original data)`,`RMSE (new data)`)
-kable(combined_rsquared, caption='Root mean squared error for model applied to original data and new data, and after shuffling the order of the y variable (in essence making the null hypothesis true)')
+
+# Root mean squared error for model applied to original data and new data, and after shuffling the order of the y variable (in essence making the null hypothesis true)
+kable(combined_rsquared, caption='Raíz del error cuadrático medio del modelo ajustado a los datos originales y luego ajustado a nuevos datos, y después de reordenar los valores de la variable Y (en esencia haciendo la hipótesis nula verdadera).')
 ```
 
 
 <!-- Here we see that whereas the model fit on the original data showed a very good fit (only off by a few kg per individual), the same model does a much worse job of predicting the weight values for new children sampled from the same population (off by more than 25 kg per individual).  This happens because the model that we specified is quite complex, since it includes not just each of the individual variables, but also all possible combinations of them (i.e. their *interactions*), resulting in a model with 32 parameters.  Since this is almost as many coefficients as there are data points (i.e., the heights of 48 children), the model *overfits* the data, just like the complex polynomial curve in our initial example of overfitting in Section \@ref(overfitting). -->
-Aquí podemos ver que mientras que el modelo mostró un ajuste muy bueno en los datos originales (sólo con error de algunos kg por persona), el mismo modelo hace un peor trabajo prediciendo los datos del peso de nuevos niñxs muestreados de la misma población (con error de más de 25 kg por persona). Esto sucede porque nuestro modelo especificado es bastante complejo, ya que incluye no sólo las variables individuales, sino también todas las posibles combinaciones entre ellas (i.e. sus *interacciones*), resultando en un modelo con 32 parámetros. Como esto significa tener casi tantos coeficientes como datos en la muestra (i.e., las alturas de 48 niñxs), el modelo se *sobreajusta* (*overfits*) a los datos, justo como sucedió con nuestra curva polinomial compleja en nuestro ejemplo inicial sobre el sobreajuste en la Sección \@ref(overfitting).
+Aquí podemos ver que mientras que el modelo mostró un ajuste muy bueno en los datos originales (sólo con error de algunos kg por persona), el mismo modelo hace un peor trabajo prediciendo los datos del peso de nuevos niñxs muestreados de la misma población (con un error de más de 25 kg por persona en promedio). Esto sucede porque nuestro modelo especificado es bastante complejo, ya que incluye no sólo las variables individuales, sino también todas las posibles combinaciones entre ellas (i.e. sus *interacciones*), resultando en un modelo con 32 parámetros. Como esto significa tener casi tantos coeficientes como datos en la muestra (i.e., las alturas de 48 niñxs), el modelo se *sobreajusta* (*overfits*) a los datos, justo como sucedió con nuestra curva polinomial compleja en nuestro ejemplo inicial sobre el sobreajuste en la Sección \@ref(overfitting).
 
 <!-- Another way to see the effects of overfitting is to look at what happens if we randomly shuffle the values of the weight variable (shown in the second row of the table). Randomly shuffling the value should make it impossible to predict weight from the other variables, because they should have no systematic relationship.  The results in the table show that even when there is no true relationship to be modeled (because shuffling should have obliterated the relationship), the complex model still shows a very low error in its predictions on the fitted data, because it fits the noise in the specific dataset.  However, when that model is applied to a new dataset, we see that the error is much larger, as it should be. -->
 Otra manera de ver los efectos del sobreajuste es el observar qué sucede si reordenamos aleatoriamente los valores de nuestra variable de peso (mostrada en la segunda fila de la tabla). El reordenar aleatoriamente los valores debería hacer imposible el predecir el peso a partir de otras variables, porque no tendrían ningún relación sistemática. Los resultados en la tabla muestran que incluso cuando no hay una verdadera relación a ser modelada (porque el reordenar aleatoriamente debería haber destruido cualquier relación), el modelo complejo aún muestra un error muy bajo en sus predicciones de los datos ajustados, porque termina ajustándose al error en nuestros datos específicos. Sin embargo, cuando el modelo es aplicado a nuevos datos, vemos que el error es mucho mayor, como debería suceder.
@@ -644,7 +651,8 @@ Otra manera de ver los efectos del sobreajuste es el observar qué sucede si reo
 <!-- One method that has been developed to help address the problem of overfitting is known as *cross-validation*.  This technique is commonly used within the field of machine learning, which is focused on building models that will generalize well to new data, even when we don't have a new dataset to test the model. The idea behind cross-validation is that we fit our model repeatedly, each time leaving out a subset of the data, and then test the ability of the model to predict the values in each held-out subset. -->
 Un método que ha sido desarrollado para ayudar a resolver el problema del sobreajuste es conocido como *validación cruzada* (*cross-validation*). Esta técnica es comúnmente usada en el campo del aprendizaje máquina (*machine learning*), que está enfocado en construir modelos que puedan generalizarse bien a nuevos datos, incluso cuando no tenemos un nuevo conjunto de datos con el cual probar el modelo. La idea detrás de la validación cruzada es que ajustemos nuestro modelo repetidamente, cada vez dejando fuera un subconjunto de los datos, y luego probar la habilidad de nuestro modelo de predecir los valores en cada subconjunto de datos que se dejó fuera.
 
-```{r crossvalidation,echo=FALSE,fig.cap="A schematic of the  cross-validation procedure.",fig.height=4,out.height='30%'}
+<!-- A schematic of the  cross-validation procedure. -->
+```{r crossvalidation,echo=FALSE,fig.cap="Un esquema del procedimiento de validación cruzada (cross-validation).",fig.height=4,out.height='30%'}
 knitr::include_graphics("images/crossvalidation.png")
 
 ```
@@ -725,11 +733,12 @@ mean_rsquared <-
 mean_rsquared_t = as.data.frame(t(mean_rsquared)) %>%
   rename(`R-squared`=V1)
 
-kable(mean_rsquared_t, caption="R-squared from cross-validation and new data, showing that cross-validation provides a reasonable estimate of the model's performance on new data.")
+# R-squared from cross-validation and new data, showing that cross-validation provides a reasonable estimate of the model's performance on new data.
+kable(mean_rsquared_t, caption="Coeficiente de determinación (R-squared) de la validación cruzada (cross-validation) y del ajuste a nuevos datos, mostrando que la validación cruzada provee una estimación razonable del rendimiento del modelo sobre nuevos datos.")
 ```
 
 <!-- Here we see that cross-validation gives us an estimate of predictive accuracy that is much closer to what we see with a completely new dataset than it is to the inflated accuracy that we see with the original dataset -- in fact, it's even slightly more pessimistic than the average for a new dataset, probably because only part of the data are being used to train each of the models.   -->
-Aquí vemos que la validación cruzada nos da una estimación de la precisión predictiva que está mucho más cercana a lo que vemos con un conjunto de datos completamente nuevo, en lugar de la precisión inflada que vemos con los datos originales -- de hecho, incluso es un poco más pesimista que el promedio para un nuevo conjunto de datos, probablemente porque sólo parte de los datos están siendo usados para entrenar cada uno de los modelos.
+Aquí vemos que la validación cruzada nos da una estimación de la precisión predictiva que está mucho más cercana a lo que obtenemos con un conjunto de datos completamente nuevo, en lugar de la precisión inflada que vemos con los datos originales -- de hecho, incluso en ocasiones puede ser un poco más pesimista que el promedio para un nuevo conjunto de datos, probablemente porque sólo una parte de los datos está siendo usada para entrenar cada uno de los modelos.
 
 <!-- Note that using cross-validation properly is tricky, and it is recommended that you consult with an expert before using it in practice.  However, this section has hopefully shown you three things: -->
 Nota que el usar la validación cruzada apropiadamente es complicado, y es recomendable que consultes con un experto antes de usarlo en la práctica. Sin embargo, esperemos que esta sección te haya mostrado tres cosas:
@@ -757,7 +766,8 @@ Habiendo leído este capítulo, deberías ser capaz de:
 <!-- ## Suggested readings -->
 ## Lecturas sugeridas
 
-- [The Elements of Statistical Learning: Data Mining, Inference, and Prediction (2nd Edition)](https://web.stanford.edu/~hastie/Papers/ESLII.pdf) - The "bible" of machine learning methods, available freely online.
+<!-- - [The Elements of Statistical Learning: Data Mining, Inference, and Prediction (2nd Edition)](https://web.stanford.edu/~hastie/Papers/ESLII.pdf) - The "bible" of machine learning methods, available freely online. -->
+[The Elements of Statistical Learning: Data Mining, Inference, and Prediction (2nd Edition)](https://web.stanford.edu/~hastie/Papers/ESLII.pdf) - La "biblia" de los métodos de aprendizaje máquina, disponible en línea de manera libre.
 
 <!-- ## Appendix -->
 ## Apéndice
@@ -769,7 +779,7 @@ Habiendo leído este capítulo, deberías ser capaz de:
 Generalmente estimamos los parámetros de un modelo lineal a partir de los datos usando *álgebra lineal*, que es el tipo de álgebra que se aplica a vectores y matrices. Si no estás familiarizadx con el álgebra lineal, no te preocupes -- pues realmente no la necesitaremos usar aquí, porque R (o el programa estadístico que uses) hará el trabajo por nosotrxs. Sin embargo, una breve excursión dentro del álgebra lineal nos puede proveer algún insight a cómo son estimados los parámetros de los modelos en la práctica.
 
 <!-- First, let's introduce the idea of vectors and matrices; you've already encountered them in the context of R, but we will review them here.  A matrix is a set of numbers that are arranged in a square or rectangle, such that there are one or more *dimensions* across which the matrix varies.  It is customary to place different observation units (such as people) in the rows, and different variables in the columns. Let's take our study time data from above. We could arrange these numbers in a matrix, which would have eight rows (one for each student) and two columns (one for study time, and one for grade).  If you are thinking "that sounds like a data frame in R" you are exactly right!  In fact, a data frame is a specialized version of a matrix, and we can convert a data frame to a matrix using the `as.matrix()` function. -->
-Primero, presentemos la idea de vectores y matrices; ya los has encontrando en el contexto de R, pero los revisaremos aquí. Una matriz es un conjunto de números que están organizados en un cuadro o rectángulo, de manera que haya una o más *dimensiones* a lo largo de las cuales la matriz varía. La costumbre es colocar las diferentes unidades de observación (como las personas que observamos) en las filas, y diferentes variables en las columnas. Tomemos nuestro ejemplo de tiempo de estudio anterior. Podríamos organizar nuestros números en una matriz, que tendría ocho renglones o filas (una por cada estudiante) y dos columnas (una para tiempo de estudio, y otra para calificación). Si estás pensando "eso suena como un *dataframe* de R" (o de JASP) ¡estás totalmente en lo correcto! De hecho, un *dataframe* es una versión especializada de una matriz, y podemos convertir un dataframe a una matriz usando la función `as.matrix()`.
+Primero, presentemos la idea de vectores y matrices; ya los has encontrando en el contexto de R, pero los revisaremos aquí. Una matriz es un conjunto de números que están organizados en un cuadro o rectángulo, de manera que haya una o más *dimensiones* a lo largo de las cuales la matriz varía. La costumbre es colocar las diferentes unidades de observación (como las personas que observamos) en las filas, y las diferentes variables en las columnas. Tomemos nuestro ejemplo anterior sobre el tiempo de estudio. Podríamos organizar nuestros números en una matriz, que tendría ocho renglones o filas (una por cada estudiante) y dos columnas (una para tiempo de estudio, y otra para calificación). Si estás pensando "eso suena como un *dataframe* de R" (o de JASP o Jamovi) ¡estás totalmente en lo correcto! De hecho, un *dataframe* es una versión especializada de una matriz, y podemos convertir un dataframe a una matriz usando la función `as.matrix()`.
 
 ```{r}
 df <-
@@ -796,13 +806,15 @@ Podemos escribir el modelo lineal general en álgebra lineal de la siguiente man
 $$
 Y = X*\beta + E
 $$
+
 <!-- This looks very much like the earlier equation that we used, except that the letters are all capitalized, which is meant to express the fact that they are vectors.   -->
-Esto se parece mucho a la ecuación que usamos anteriormente, a excepción de que las letras están todas en mayúsculas, lo que quiere expresar el hecho de que son vectores.
+Esto se parece mucho a la ecuación que usamos anteriormente, a excepción de que las letras están todas en mayúsculas, lo que quiere expresar el hecho de que son vectores o matrices.
 
 <!-- We know that the grade data go into the Y matrix, but what goes into the $X$ matrix?  Remember from our initial discussion of linear regression that we need to add a constant in addition to our independent variable of interest, so our $X$ matrix (which we call the *design matrix*) needs to include two columns:  one representing the study time variable, and one column with the same value for each individual (which we generally fill with all ones). We can view the resulting design matrix graphically (see Figure \@ref(fig:GLMmatrix)). -->
 Sabemos que los datos de las calificaciones van en la matriz $Y$, pero ¿qué va en la matriz $X$? Recuerda de nuestra discusión inicial sobre la regresión lineal que necesitamos añadir una constante además de nuestra variable independiente de interés, por lo que nuestra matriz $X$ (que llamamos *matriz de diseño*, o *design matrix*) necesita incluir dos columnas: una representando la variable tiempo de estudio, y una columna con el mismo valor para cada persona (que generalmente llenamos con números uno). Podemos ver la matriz de diseño resultante de manera gráfica (ve la Figura \@ref(fig:GLMmatrix)).
 
-```{r GLMmatrix, echo=FALSE,fig.cap="A depiction of the linear model for the study time data in terms of matrix algebra.",fig.width=4,fig.height=3.04}
+<!-- A depiction of the linear model for the study time data in terms of matrix algebra. -->
+```{r GLMmatrix, echo=FALSE,fig.cap="Una representación gráfica del modelo lineal del ejemplo de los datos del tiempo de estudio en términos de álgebra de matrices (o álgebra lineal).",fig.width=4,fig.height=3.04}
 knitr::include_graphics("images/glm_matrix.png")
 ```
 
